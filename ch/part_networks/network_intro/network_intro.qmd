@@ -1,0 +1,102 @@
+# Introducción a las Redes de Ordenadores
+
+La etimología de Internet es "Interconnected Networks" (Redes interconectadas), lo cual nos da una pista sobre qué es: una red global interconectada de redes más pequeñas que permite la comunicación entre los diferentes dispositivos conectados. Internet opera como un sistema descentralizado compuesto por varias capas de redes, desde las áreas de red locales (LAN), que son los nodos donde nos conectamos, hasta las áreas de red anchas (WAN) que abarcan continentes. 
+
+<!-- Faltaria algo de chicha aquí -->
+
+::: {#fig-ni-intro-network}
+```{mermaid}
+graph TD
+    PAN["📱 PAN (Personal Area Network)<br>Smartphone ↔ Smartwatch"]
+    LAN["🏠 LAN (Local Area Network)<br>Home/Office/Building Network"]
+    WLAN["📡 WLAN (Wireless LAN)<br>Wi-Fi Implementation of LAN"]
+    CAN["🏫 CAN (Campus Area Network)<br>Multiple LANs in Campus"]
+    MAN_ISP["🏙️ MAN (Metropolitan Area Network)<br>ISP Network"]
+    MAN_MOBILE["📶 MAN (Metropolitan Area Network)<br>5G/4G Mobile Network"]
+    WAN["🌍 WAN (Wide Area Network)<br>Between Cities or Countries"]
+    INTERNET["🌐 Internet<br>Global Interconnected WANs"]
+    VPN["🔐 VPN (Virtual Private Network)<br>Secure Tunnel over Internet"]
+    
+    %% Traditional wired path
+    PAN --> LAN
+    WLAN -.-> LAN
+    LAN -->|Multiple LANs| CAN
+    CAN --> MAN_ISP
+    LAN -->|Multiple LANs| MAN_ISP
+    
+    %% Mobile path
+    PAN --> MAN_MOBILE
+    
+    %% Both MANs connect to WAN
+    MAN_ISP -->|Multiple MANs| WAN
+    MAN_MOBILE -->|Multiple MANs| WAN
+    WAN -->|Multiple WANs| INTERNET
+    VPN --> INTERNET
+    
+    style WLAN fill:#e1f5fe
+    style VPN fill:#f3e5f5
+    style MAN_MOBILE fill:#fff3e0
+```
+Topología jerárquica de redes de computadores.
+:::
+
+
+En la @fig-ni-intro-network podemos ver una organización jerárquica de redes de computadores, donde múltiples redes del mismo nivel se agregan para formar el siguiente nivel superior. A medida que ascendemos en la jerarquía, el número de dispositivos que se pueden conectar se incrementa exponencialmente. Las PAN son redes que conectan dispositivos personales como smartphones y sirven para conectar con smartwatches y electrodomésticos, entre otros. Desde las PAN podemos tomar dos rutas principales hasta el Internet, a través de las LAN o directamente con las MAN (5g o 4g). Las LAN son redes que cubren hogares, oficinas u otras unidades donde el número de dispositivos es reducido. La conexión a las LAN puede ser cableada o inalámbrica, por ejemplo con WLAN (Wi-Fi). Una CAN es una agrupación de redes LAN, generalmente en campus universitarios o grandes empresas donde el número de dispositivos es elevado. Las redes CAN, LANs individuales y las redes de telefonía móvil (e.g, 4G/5G) se juntan para dar lugar a las MAN. Las MAN generalmente abarcan ciudades o grupos de ciudades, que interconectadas dan lugar a las WANs. Finalmente, múltiples WANs dan lugar al Internet global. Las VPN (Virtual Private Network) operan como túneles seguros sobre toda esta infraestructura, permitiendo que los dispositivos cambien dinámicamente entre rutas según la tecnología disponible en cada momento.
+
+
+Para ilustrar el funcionamiento de Internet vamos a utilizar un ejemplo simplificado. Supongamos que María quiere enviar un mensaje desde un Smartphone conectado a Internet a través del WiFi de su casa en Madrid a Takeshi, conectado a una LAN en la universidad de Tokio. Puede que algunos términos no os suenen, no os preocupéis, los iremos viendo a lo largo del tema. El proceso de envio sería el siguiente:
+
+- **1. Origen - LAN Madrid**: El smartphone de María crea el mensaje con la dirección IP de destino de Tokio y la dirección MAC del router WiFi como destino inmediato. El router WiFi recibe el frame Ethernet, examina la dirección IP de destino y se da cuenta de que no pertenece a su red local. Reemplaza la dirección MAC de destino por la de su gateway (ISP) y reenvía el paquete.
+
+- **2. Router local a MAN**: El router del ISP local recibe el frame con su propia dirección MAC como destino. Extrae el paquete IP, examina la dirección IP de destino y determina que debe enviarlo hacia la MAN de Madrid. Encapsula el paquete en un nuevo frame con la dirección MAC del siguiente router como destino.
+
+- **3. MAN a WAN nacional**: El router de la MAN de Madrid recibe el frame dirigido a su dirección MAC, extrae el paquete IP y analiza el destino. Al comprender que Tokio está fuera de España, encapsula el paquete en un nuevo frame con la dirección MAC del router de la WAN española como destino.
+
+- **4. WAN a Internet global**: El router de la WAN española recibe el frame con su dirección MAC, consulta sus tablas de rutas internacionales para Japón y encapsula el paquete con la dirección MAC del siguiente router en la ruta internacional. En cada salto a través del backbone de Internet, los routers intercambian las direcciones MAC (origen y destino) mientras preservan las direcciones IP originales.
+
+- **5. Llegada a Japón - WAN a MAN**: Un router de la WAN japonesa recibe el frame dirigido a su dirección MAC, reconoce que el destino IP está dentro de Japón y encapsula el paquete con la dirección MAC del router de la MAN de Tokio como nuevo destino.
+
+- **6. MAN a CAN**: El router de la MAN de Tokio recibe el frame con su dirección MAC como destino, examina la IP y determina que pertenece a la universidad de Tokio. Encapsula el paquete en un nuevo frame dirigido a la dirección MAC del router gateway de la CAN universitaria.
+
+- **7. CAN a LAN destino**: El router de la CAN universitaria recibe el frame dirigido a su dirección MAC, analiza la IP de destino para identificar qué LAN específica del campus corresponde, y encapsula el paquete con la dirección MAC del router de esa LAN como destino.
+
+- **8. Destino final - LAN universitaria**: El router de la LAN recibe el frame con su dirección MAC como destino, extrae el paquete IP y lo entrega al switch. El switch examina sus tablas ARP para encontrar la dirección MAC correspondiente a la IP de Takeshi, y finalmente envía el frame con la dirección MAC real de Takeshi como destino, completando el viaje desde Madrid.
+
+En este ejemplo simplificado de envío de un mensaje por Internet ya estamos dispuestos para comprender algunos de sus componentes y identificadores. Si os fijáis, hay dos componentes que están presentes a lo largo del ejemplo, los switches y routers. El router es un dispositivo que conecta diferentes redes entre sí usando direcciones IP. Es como un "director de tráfico" que conoce las rutas entre redes distantes. Su funcionamiento a grandes rasgos es el siguiente: Llega un paquete, se identifica a través de la IP destino el camino de salida obteniendo la MAC del siguiente salto (`hop`), y se envía el paquete. Este proceso se repite hasta llegar a la red destino, por eso estos algoritmos, y por ello se determinan `hop by hop`. El switch por otra parte es un dispositivo que conecta equipos dentro de una misma red local usando direcciones MAC. Funciona como un "repartidor inteligente" que conoce exactamente dónde está cada dispositivo en su red. Completando la analogía, Los switches manejan el tráfico local, mientras que cuando necesitan enviar datos fuera de su red, los entregan a los routers. Los routers, a su vez, se conectan a otros routers o switches según el destino. 
+
+El procedimiento de envío se realiza con dos identificadores que hemos mencionado durante el ejemplo, la MAC y la dirección IP. La dirección IP funciona como la dirección postal de una casa y permite localizar el dispositivo en las redes (como 192.168.1.100), y la dirección MAC, que es como el DNI del dispositivo: único, asignado por el fabricante y que no cambia nunca. Los routers usan direcciones IP para decidir hacia dónde enviar los paquetes, mientras que los switches usan direcciones MAC para entregar los datos al dispositivo correcto dentro de la red local. Por último, tenemos ARP, un protocolo que nos permite relacionarlas. El protocolo ARP es como un servicio de directorio telefónico: cuando un dispositivo conoce la "dirección postal" (IP) pero necesita el "DNI" (MAC) para hacer la entrega final, envía una consulta ARP preguntando "¿quién vive en esta dirección?". El dispositivo correspondiente responde con su MAC, permitiendo que la comunicación se complete. ARP traduce entre el mundo de las direcciones (IP) y el mundo de las identidades físicas (MAC).
+
+<!-- PONER UNA IMAGEN AQUÍ -->
+Una vez vistos los componentes principales de Internet, vamos a realizar unas observaciones. Primero, Internet es un sistema distribuido. Esto quiere decir que es una unión de dispositivos que operan juntos con el fin de ofrecer una funcionalidad. Segundo, Internet tiene una arquitectura descentralizada[^1]. Por lo tanto, la caída de alguna parte de Internet no tiene porque implicar la caída de Internet globalmente. Tercero, la ejecución de los procesos de enrutamiento es local. Cada nodo de la red sólo necesita saber cual va a ser el siguiente destino ("hop"). Es decir, no hay una planificación global para el envío de los paquetes. Debido a esto los algoritmos de enrutamiento normalmente se denominan "hop by hop" e incorporan información de tiempo real [^2], por lo que dos mensajes enviados al mismo destino no tienen por que seguir la misma ruta.  Todo esto facilita la escalabilidad del sistema, disminuye la congestión de la red y además proporciona resiliencia a fallos.
+
+[^1]: Algunos componentes de Internet tienen una arquitectura híbrida, cómo los ISPs grandes y DNS.
+[^2]: Los routers comparten y propagan información de congestión y destinos disponibles con los routers adyacentes.
+
+<!-- Ahora pasaremos a ver algunos de los componentes más importantes mencionados en los ejemplos. Los switch, los routers. Un switch es un dispositivo que conecta equipos dentro de una misma red local usando direcciones MAC. Funciona como un "repartidor inteligente" que conoce exactamente dónde está cada dispositivo en su red. En cambio, un router es un dispositivo que conecta diferentes redes entre sí usando direcciones IP. Es como un "director de tráfico" que conoce las rutas entre redes distantes. Los switches manejan el tráfico local, mientras que cuando necesitan enviar datos fuera de su red, los entregan a los routers. Los routers, a su vez, se conectan a otros routers o switches según el destino. 
+
+Por último, veremos dos identificadores utilizados en el ejemplo, IP y MAC, y un protocolo para relacionarlos, ARP. Cada dispositivo tiene dos identificadores: la dirección IP, que funciona como la dirección postal de una casa y permite localizar el dispositivo en las redes (como 192.168.1.100), y la dirección MAC, que es como el DNI del dispositivo: único, asignado por el fabricante y que no cambia nunca. Los routers usan direcciones IP para decidir hacia dónde enviar los paquetes, mientras que los switches usan direcciones MAC para entregar los datos al dispositivo correcto dentro de la red local. El protocolo ARP es como un servicio de directorio telefónico: cuando un dispositivo conoce la "dirección postal" (IP) pero necesita el "DNI" (MAC) para hacer la entrega final, envía una consulta ARP preguntando "¿quién vive en esta dirección?". El dispositivo correspondiente responde con su MAC, permitiendo que la comunicación se complete. ARP traduce entre el mundo de las direcciones (IP) y el mundo de las identidades físicas (MAC). -->
+
+Hasta ahora hemos visto un ejemplo simplificado de envío de mensaje, los principales componentes de internet y algunos conceptos técnicos. Pero aún falta algo. Hemos dicho que Internet es un sistema distribuido formado por redes interconectadas. Pero, ¿Cómo se entienden entre sí?. La respuesta son los protocolos. Un protocolo es una serie de pasos bien definidas que se realizan con un objetivo. En redes de computadores, es como un manual de instrucciones que especifica cómo dos dispositivos deben intercambiar información. Es un conjunto de reglas que define exactamente cómo deben estructurarse los mensajes, en qué orden enviarlos, que estructura y formato tienen los mensajes que recibimos, y cómo se debe actuar. Internet funciona gracias a una familia de protocolos organizados en capas, que veremos en el @intro-network-stacks.
+
+Por ejemplificarlo los protocolos de red con una analogía, son como las reglas de tráfico en una ciudad: así como los autos necesitan semáforos, señales y carriles para circular ordenadamente sin chocar, los datos en una red necesitan protocolos que definan cómo moverse, comunicarse y llegar a su destino correctamente. Sin estas reglas, tanto el tráfico vehicular como el flujo de datos serían un caos total, con "accidentes" y pérdida de información constante.
+
+<!-- Quizás mencionar algo de la escalabidad, o como ha crecido en los últimos años? o en la historia? -->
+
+<!-- Introducir el resto de puntos -->
+
+<!-- En los siguientes apartados veremos blablah.. -->
+<!-- Comentar algo de juegos -->
+<!-- Quizás decir que el aborde inicial es informático pero después entraremos a la parte más relacionada con los videojuegos -->
+
+En los siguientes apartados vamos a profundizar en los conceptos introducidos hasta ahora, obteniendo un mejor entendimiento de cómo funciona Internet, cuales son los principales actores involucrados, y cómo podemos realizar nuestras propias aplicaciones que funcionen sobre la red. Los puntos se abordarán de la siguiente manera. Primero, se verán desde un enfoque "informático", y después contextualizaremos como encaja cada uno de los puntos desde el punto de vista de desarrollo de videojuegos.
+
+
+<!-- ## La Historia de Internet
+{{< include history.qmd >}}
+
+## Network Infrastructure and Transmission Technologies
+{{< include infraestructure_tec.qmd >}}
+
+# Rendimiento
+{{< include performance.qmd >}} -->
+

@@ -1,0 +1,34 @@
+project:
+  type: book
+
+book:
+  title: "Apuntes de Juegos en Red"
+  author: "Rubén Rodríguez Fernández (&#64;rrunix)"
+  date: "7/20/2025"
+  chapters:
+    - index.qmd
+    - part: "Introducción a redes"
+      chapters:
+      - ch/part_networks/network_intro/network_intro.qmd
+      # - ch/part_networks/net_stacks/net_stacks.qmd
+      # - ch/part_networks/application_layer/application_layer.qmd
+      # - ch/part_networks/transport_layer/transport_layer.qmd
+      # - ch/part_networks/network_layer/network_layer.qmd
+      # - ch/part_networks/link_layer/link_layer.qmd
+
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    number-sections: true
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
+
+
+

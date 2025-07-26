@@ -1,0 +1,7 @@
+*_files
+.quarto
+.vscode
+.DS_Store
+.env
+_book
+aux
