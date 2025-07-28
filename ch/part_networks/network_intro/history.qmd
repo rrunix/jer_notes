@@ -1,0 +1,69 @@
+Internet, como otros muchos avances de la sociedad, nació como una necesidad de guerra. En concreto, en la Guerra Fría. En una guerra la información y poder comunicarla es poder. El objetivo inicial del germen de Internet, llamado ARPANET, era precisamente la comunicación de información y que estos medios fuesen capaces de sobrevivir a un ataque nuclear. En 1969 la red experimental contaba con 4 nodos: UCLA, Stanford, UC Santa Bárbara y la Universidad de Utah. Esta red utilizaba un mecanismo para la comunicación de información llamada conmutación de paquetes, donde los mensajes se dividían en paquetes más pequeños que podían tomar diferentes rutas hasta llegar a su destino. Así cumplieron los requisitos de tolerancia a fallos en el envío de información a través de la descentralización y duplicidad, y además sentaron la semilla que permitiría una escalabilidad natural. En 1971 ya contaba con 23 nodos, y en 1973 se realizó la primera conexión internacional con Noruega y Londres a través de tecnología satelital. En esa época la red se incrementaba a razón de 1 nodo cada aproximadamente 20 días.
+
+En la década de los 80 ocurrirían 4 eventos que darían forma al Internet que conocemos hoy en día. En primer lugar, en 1983 se adoptó oficialmente la pila de protocolos TCP/IP como estándar para ARPANET, que estableció las reglas de comunicación que aún seguimos hoy en día. Una de las grandes ventajas de TCP/IP fue que permitió que diferentes tipos de redes se pudiesen comunicar entre sí de manera estándar. Es decir, empezamos a tener redes formadas por redes interconectadas. En este momento fue cuando se empezó a hablar del término "Internet" para describir esta red de redes interconectadas. En segundo lugar, ARPANET se dividió en 1983, creándose MILNET como una red independiente para fines militares, mientras ARPANET continuó creciendo en su uso académico. En tercer lugar, el CERN empezó a interconectar sus ordenadores utilizando TCP/IP, sentando la base para el último evento. En cuarto y último lugar, Tim Berners-Lee, trabajando en el CERN, inventó la World Wide Web en 1989-1990. Propuso un sistema de intercambio de información basado en hipertexto así como las direcciones URL, el protocolo HTTP y el lenguaje HTML, que son omnipresentes hoy en día.
+
+Los años 90 fueron testigos de la transformación de Internet de un proyecto académico a una infraestructura comercial global. El tráfico de ARPANET fue absorbido por Internet y se desmanteló en 1990. En 1991, la World Wide Web fue anunciada públicamente cuando Tim Berners-Lee publicó el primer sitio web. Ese mismo año se creó el primer navegador web gráfico, Mosaic, desarrollado en la Universidad de Illinois en 1993, que revolucionó la experiencia de usuario al permitir la visualización de imágenes junto con texto. La eliminación de las restricciones comerciales sobre el uso de Internet por parte de la National Science Foundation en 1995 marcó un punto de inflexión crucial. Comenzaron a aparecer los primeros proveedores comerciales de servicios de Internet (ISP) como America Online (AOL), que llevó Internet a millones de hogares. Las empresas empezaron a ver el potencial no solo como un medio de comunicación, sino como una plataforma de negocio, surgiendo los primeros sitios de comercio electrónico como Amazon (1995) y eBay (1995). Yahoo! se estableció como uno de los primeros directorios web populares, mientras que motores de búsqueda como AltaVista comenzaron a indexar la creciente web. A finales de la década, Google fue fundado en 1998, revolucionando la búsqueda en Internet. Finalmente, se completó la transición de Internet de un proyecto gubernamental y académico a una infraestructura comercial global.
+
+El cambio de milenio trajo la adopción masiva de Internet, inicialmente centrada en la conectividad de banda ancha en hogares y oficinas. La llamada "burbuja de las punto-com" explotó en 2000-2001, pero esto no frenó la innovación. Surgió la Web 2.0 a mediados de la década, caracterizada por sitios interactivos y generados por usuarios. Plataformas como MySpace (2003), Facebook (2004), YouTube (2005) y Twitter (2006) transformaron Internet en un medio social y participativo. La revolución móvil comenzó realmente con el lanzamiento del iPhone en 2007, que democratizó el acceso a Internet desde dispositivos móviles. Esto fue seguido por el desarrollo del sistema operativo Android y la proliferación de smartphones. El concepto de "Internet de las Cosas" (IoT) comenzó a materializarse con dispositivos domésticos inteligentes, wearables y sensores conectados. La década de 2010 vio el surgimiento de la computación en la nube con servicios como Amazon Web Services, la popularización de las redes sociales móviles, el auge del comercio electrónico móvil, y el desarrollo de tecnologías como la realidad virtual y aumentada. Más recientemente, la inteligencia artificial, el machine learning, la tecnología blockchain y las criptomonedas han redefinido las posibilidades de Internet.
+
+El número de dispositivos conectados se ha incrementado exponencialmente, pasando de millones en los 90 a miles de millones en la actualidad, marcando el desarrollo de nuevas tecnologías como 5G para soportar el creciente número de dispositivos. En la @fig-ni-history-grow podéis apreciar cómo se han ido incrementando exponencialmente, y esta tendencia está lejos de revertirse. Las redes sociales, herramientas de teletrabajo, VoIP y videollamadas, inteligencia artificial, streaming de video, realidad virtual y aumentada, y otras muchas aplicaciones hacen que no solo se incremente el número de dispositivos conectados, sino también las necesidades de ancho de banda y tiempos de respuesta cada vez más exigentes.
+
+::: {#fig-ni-history-grow}
+```{mermaid}
+xychart-beta
+    title "Dispositivos Conectados a Internet por Década (Log₁₀)"
+    x-axis ["1970s", "1980s", "1990s", "2000s", "2010s", "2020s"]
+    y-axis "Log₁₀ (Número de dispositivos)" 0 --> 12
+    bar [0.6, 2.3, 4.5, 9.0, 10.1, 11.7]
+```
+Número de dispositivos conectados por década desde ARPANET hasta Internet en 2025 [@ourworldindata2023internet;@iotanalytics2020statista].
+:::
+
+
+En conclusión, la evolución de Internet (ver resumen en la @fig-ni-history-timeline) desde sus orígenes militares como ARPANET hasta convertirse en la infraestructura global actual ilustra una transformación extraordinaria que ha redefinido la sociedad moderna. Lo que comenzó en 1969 como una red experimental de 4 nodos diseñada para resistir ataques nucleares, se ha convertido en un ecosistema interconectado de miles de millones de dispositivos. En los siguientes apartados veremos en detalle en detalle la tecnología que sustenta Internet y obtendremos el conocimiento necesario para poder realizar aplicaciones y juegos en red.
+
+
+::: {#fig-ni-history-timeline}
+```{mermaid}
+timeline
+    title Evolución de Internet: De ARPANET a la Era Digital
+    
+    section Era ARPANET (1969-1983)
+        1969 : Nace ARPANET
+             : 4 nodos iniciales (UCLA, Stanford, UC Santa Bárbara, Utah)
+             : Implementación de conmutación de paquetes
+        
+        1973 : Primera conexión internacional
+        
+        1983 : Adopción oficial de TCP/IP
+             : División de ARPANET (creación de MILNET)
+             : Nace el término "Internet"
+
+    section Nacimiento de la Web (1989-1995)
+        1989-1990 : Tim Berners-Lee inventa la World Wide Web
+                  : Desarrollo de HTTP, HTML y URLs
+        
+        1991 : Primer sitio web público
+
+    section Era Comercial (1995-2000)
+        1995 : Eliminación de restricciones comerciales
+             : Primeros ISPs comerciales (AOL)
+             : Aparecen Amazon y eBay
+        
+        1998 : Fundación de Google
+        
+        2000-2001 : Explosión de la burbuja punto-com
+
+    section Web 2.0 y Redes Sociales (2003-2010)
+        2003-2006 : Redes sociales
+        2007 : Lanzamiento del iPhone
+
+    section Era Moderna (2010-2025)
+        2010s : Computación en la nube, Internet de las cosas
+        
+        2020s : Inteligencia Artificial
+              : Tecnología 5G
+
+```
+Esquema de tiempo de los eventos más significativos desde la creación de ARPANET hasta 2025.
+:::
