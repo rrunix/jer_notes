@@ -1,6 +1,8 @@
 project:
   type: book
 
+lang: es
+
 book:
   title: "Apuntes de Juegos en Red"
   author: "Rubén Rodríguez Fernández (&#64;rrunix)"
