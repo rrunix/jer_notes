@@ -1,5 +1,8 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+Apuntes de JER.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+Primera parte (Redes) basada en Computer Netoworks: A top down approach (8th edition)
+Segunda parte (HTML + CSS + JS)
+Tercera parte: Programación API
+Cuarta parte: Comunicación asíncrona
