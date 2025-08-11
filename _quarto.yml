@@ -32,5 +32,8 @@ format:
   pdf:
     documentclass: scrreprt
 
+filters:
+  - acronyms
+
 
 
