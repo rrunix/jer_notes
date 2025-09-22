@@ -1,7 +1,7 @@
 # Introducción a las Redes de Ordenadores
 ## Introducción
 
-La etimología de Internet es "Interconnected Networks" (Redes interconectadas), lo cual nos da una pista sobre qué es: una red global interconectada de redes más pequeñas que permite la comunicación entre los diferentes dispositivos conectados. Internet opera como un sistema descentralizado compuesto por varias capas de redes, desde las \acr{LAN}, que son los nodos donde nos conectamos, hasta las \acr{WAN} que abarcan continentes. 
+La etimología de Internet es "Interconnected Networks" (Redes interconectadas), lo cual nos da una pista sobre qué es: una red global interconectada de redes más pequeñas que permite la comunicación entre los diferentes dispositivos conectados. Internet opera como un sistema descentralizado compuesto por varias capas de redes, desde las LAN (Local Area Networks), que son los nodos donde nos conectamos, hasta las WAN (Wide Area Networks) que abarcan continentes. 
 
 ::: {#fig-ni-intro-network}
 ```{mermaid}
@@ -408,7 +408,7 @@ Cuando estamos diseñando aplicaciones en red tenemos que tener en cuenta estos 
 - Racing Games: Tolerancia baja o moderada (50-100ms) dependiendo del realismo.
 - MMORPGs: Tolerancia variable dependiendo de la actividad, por ejemplo combates vs social.
 
-Estos tiempos se miden en \acr{RTT}, que involucra el tiempo entre que se manda el mensaje, se procesa en el servidor, y obtenemos la respuesta de vuelta en el cliente.
+Estos tiempos se miden en RTT (Round Trip Time), que involucra el tiempo entre que se manda el mensaje, se procesa en el servidor, y obtenemos la respuesta de vuelta en el cliente.
 
 
 [^cosmic_radiation]:  La radiación cósmica produce cambios de bits en dispositivos electrónicos, que se denominan SEU (Single Event Upset). Estos cambios suelen afectar a las DRAM, SRAM y ASICs. Contrario a la intuición, es algo relativamente frecuente, y ocurre con una tasa aproximada de 1 error por cada 256MB por día a nivel del mar [6]. Cuanto más altitud (o dicho de otra forma, más cerca del espacio), esta tasa se incrementa considerablemente. A nivel de red esto suele ocurrir en los routers.
