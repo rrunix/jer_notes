@@ -1,0 +1,22 @@
+/* MERMAID */
+.mermaid {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+  }
+  
+  /* Style specific diagram types */
+  .mermaid .node rect {
+    fill: #e1f5fe;
+    stroke: #0277bd;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .edgePath .path {
+    stroke: #424242;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .cluster rect {
+    fill: #f3e5f5;
+    stroke: #7b1fa2;
+  }
