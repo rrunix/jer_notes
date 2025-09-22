@@ -11,7 +11,7 @@ Consideremos una red Ethernet típica con un switch central conectando cuatro co
 - C (Puerto 3): 00:3C:4D:5E:6F:70.
 - D (Puerto 4): 00:4D:5E:6F:70:81.
 
-Como ejemplo, vamos a ver los pasos para el envio de un mensaje desde A a C. Podéis ver la representación en un diagrama de secuencia en la @fig-example-access-layer. Los pasos serían los siguientes:
+Como ejemplo, vamos a ver los pasos para el envío de un mensaje desde A a C. Podéis ver la representación en un diagrama de secuencia en la @fig-example-access-layer. Los pasos serían los siguientes:
 
 1. Inicialización del switch. La tabla de direcciones MAC del switch que asocia MAC y puerto está vacia.
 2. A quiere enviar el paquete a C, pero no conoce su MAC. Por lo tanto envía una trama ARP broadcast por Ethernet para descubrir la dirección MAC de C.
@@ -61,7 +61,7 @@ sequenceDiagram
     S->>C: Datos (Solo puerto 3)
     
 ```
-Ejemplo de envio de paquetes en una red local donde no se conoce la MAC del destinatario.
+Ejemplo de envío de paquetes en una red local donde no se conoce la MAC del destinatario.
 :::
 
 ## Funciones principales de la Capa de Acceso a la Red

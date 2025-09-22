@@ -2,7 +2,7 @@
 
 Apuntes de JER.
 
-Primera parte (Redes) basada en Computer Netoworks: A top down approach (8th edition)
+Primera parte (Redes) basada en Computer Networks: A top down approach (8th edition)
 Segunda parte (HTML + CSS + JS)
 Tercera parte: Programación API
 Cuarta parte: Comunicación asíncrona

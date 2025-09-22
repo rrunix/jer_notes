@@ -254,7 +254,7 @@ const dgram = require('dgram');
 const client = dgram.createSocket('udp4');
 ```
 
-Para enviar el información utilizaremos el método send. Como no tenemos una conexión como en TCP, cada vez que enviemos información tenemos que indicarle cual es el puerto de destino (8888) y la IP de destino (localhost). El manejador se invocará indicándonos si ha habido un error durante el envio o no. Algunos errores pueden ser que el destino no se pueda alcanzar, que el buffer de UDP esté lleno, entre otros. Como hemos comentado, que el mensaje se haya enviado no quiere decir que el destinatario lo reciba.
+Para enviar el información utilizaremos el método send. Como no tenemos una conexión como en TCP, cada vez que enviemos información tenemos que indicarle cual es el puerto de destino (8888) y la IP de destino (localhost). El manejador se invocará indicándonos si ha habido un error durante el envío o no. Algunos errores pueden ser que el destino no se pueda alcanzar, que el buffer de UDP esté lleno, entre otros. Como hemos comentado, que el mensaje se haya enviado no quiere decir que el destinatario lo reciba.
 
 ```javascript
 client.send('Hola servidor UDP', 8888, 'localhost', (err) => {
@@ -635,11 +635,11 @@ Existe una variante de HTTP denominada HTTPS (Secure HyperText Transfer Protocol
 
 El protocolo opera generalmente sobre TCP pero a partir de HTTP/3 opera sobre **QUIC** que es un protocolo que implementa mecanismos de comununicación fiables sobre **UDP**. HTTP/3 está soportado por la gran mayoría de los navegadores actuales, y el soporte en los servidores está creciendo.
 
-En determinadas situaciones para disminuir el tiempo de las peticiones se utilizan **servidores proxy**. Los servidores proxy son unos intermediarios, que analizan las peticiones, si pueden resolverlas ellos contestan directamente, y sino contestan a través de la petición al servidor. Las ventajas es que se obtiene una navegación más rápida, se reduce el tráfico, y además ganamos seguridad y anonimato. Suelen estar localizados en los navegadores (cache local), ISP o CDNs. En concreto, los servidores proxy cachean las peticiones GET, ya que es una operación idempotente, y utilizan la herramienta del GET condicional donde en caso de que no haya actualización no devuelve nada, ahorrando el tiempo de envio del recurso.
+En determinadas situaciones para disminuir el tiempo de las peticiones se utilizan **servidores proxy**. Los servidores proxy son unos intermediarios, que analizan las peticiones, si pueden resolverlas ellos contestan directamente, y sino contestan a través de la petición al servidor. Las ventajas es que se obtiene una navegación más rápida, se reduce el tráfico, y además ganamos seguridad y anonimato. Suelen estar localizados en los navegadores (cache local), ISP o CDNs. En concreto, los servidores proxy cachean las peticiones GET, ya que es una operación idempotente, y utilizan la herramienta del GET condicional donde en caso de que no haya actualización no devuelve nada, ahorrando el tiempo de envío del recurso.
 
 ### DNS
 
-DNS (Domain Name System) es uno de los protocolos más importantes de internet. El objetivo de DNS es simple, traducir identificadores textuales que sean fácil de recordar por humanos a direcciones IP. Por ejemplo, traducir "www.google.es" a 142.250.200.67. El sistema de DNS está diseñado como un sistema distribuido sin servidores centrales, lo que le permite distribuir la carga entre diferentes nodos y ser tolerante a fallos.
+DNS (Domain Name System) es uno de los protocolos más importantes de Internet. El objetivo de DNS es simple, traducir identificadores textuales que sean fácil de recordar por humanos a direcciones IP. Por ejemplo, traducir "www.google.es" a 142.250.200.67. El sistema de DNS está diseñado como un sistema distribuido sin servidores centrales, lo que le permite distribuir la carga entre diferentes nodos y ser tolerante a fallos.
 
 El sistema distribuido de DNS está formado por una estructura jerárquica que tipo 4 tipos de nodos:
 
