@@ -325,7 +325,7 @@ Cuando la ventana de recepción se reduce a cero, el emisor detiene el envío pe
 
 #### Control de Congestión
 
-El control de congestión TCP es uno de los algoritmos más importantes de Internet. Utiliza la **ventana de congestion** para regular la velocidad de envío. La ventana de congestión es una variable del emisor que representa el número máximo de bytes que pueden estar en el "aire" en la red, es decir, el número máximo de bytes que pueden ser enviados sin que sean reconocidos (ack). Se combina con la ventana de recepción para determinar la tasa de envío actual, siendo la tasa efectiva el mínimo de ambas. La ventana da de congestión se regula en base a dos mecanismos:
+El control de congestión TCP es uno de los algoritmos más importantes de Internet. Utiliza la **ventana de congestion** para regular la velocidad de envío. La ventana de congestión es una variable del emisor que representa el número máximo de bytes que pueden estar en el "aire" en la red, es decir, el número máximo de bytes que pueden ser enviados sin que sean reconocidos (ack). Se combina con la ventana de recepción para determinar la tasa de envío actual, siendo la tasa efectiva el mínimo de ambas. La ventana de congestión se regula en base a dos mecanismos:
 
 - Slow start (arranque lento): Se inicia con una ventana de congestión igual a 1 MSS. Duplica la ventana cada RTT (ver ejemplo en @slow-start) hasta detectar pérdida o alcanzar un umbral. Es decir, el tamaño crece exponencialmente y es ideal para descubrir el ancho de banda. 
 - Congestion avoidance (evitación de congestión): Tiene un comportamiento más conservador. Incrementa 1 MSS por cada RTT (ver el ejemplo en @congestion-avoidance).
@@ -333,7 +333,7 @@ El control de congestión TCP es uno de los algoritmos más importantes de Inter
 y dos eventos que regulan el paso entre los dos mecanismos:
 
 - Salta un temporizador: Pérdida severa. Se reduce la ventana de congestión a 1 MSS y pasamos a modo slow start.
-- Tres ACK duplicados: Pérdida no tan several, se reduce la ventana de congestión a la mitad.
+- Tres ACK duplicados: Pérdida no tan severa, se reduce la ventana de congestión a la mitad.
 
 
 ::: {#tcp-congestion layout="[[50,50]]"}
