@@ -107,7 +107,7 @@ Esta función se encarga de descubrir y mantener información sobre la estructur
 
 ### Control de Calidad de Servicio (QoS)
 
-Esta función prioriza diferentes tipos de tráfico según su importancia y requisitos de rendimiento. Es fundamental para el funcionamiento adecuado de aplicaciones en tiempo real como voz y video. Esto se logra implementando mecanismos de gestión de buffers y scheduling para garantizar que aplicaciones críticas reciban el ancho de banda necesario, y se realiza bajo estándares de clasificación. Los mecanismos de gestión de buffers aseguran que diferentes tipos de tráfico reciban el tratamiento apropiado mediante Weighted Fair Queuing que asigna recursos proporcionalmente según la importancia de cada clase de tráfico, priority queuing que garantiza que el tráfico más crítico siempre tenga precedencia sobre tráfico menos importante, y Random Early Detection que previene congestión descartando proactivamente paquetes menos críticos antes de que los buffers se saturen completamente.
+Esta función prioriza diferentes tipos de tráfico según su importancia y requisitos de rendimiento. Es fundamental para el funcionamiento adecuado de aplicaciones en tiempo real como voz y vídeo. Esto se logra implementando mecanismos de gestión de buffers y scheduling para garantizar que aplicaciones críticas reciban el ancho de banda necesario, y se realiza bajo estándares de clasificación. Los mecanismos de gestión de buffers aseguran que diferentes tipos de tráfico reciban el tratamiento apropiado mediante Weighted Fair Queuing que asigna recursos proporcionalmente según la importancia de cada clase de tráfico, priority queuing que garantiza que el tráfico más crítico siempre tenga precedencia sobre tráfico menos importante, y Random Early Detection que previene congestión descartando proactivamente paquetes menos críticos antes de que los buffers se saturen completamente.
 
 ## Dispositivos de la Capa de Acceso a la Red
 
@@ -115,8 +115,8 @@ Los **switches** son dispositivos de red que operan en la Capa de Acceso a la Re
 
 Los switches se categorizan principalmente en dos tipos según sus capacidades de gestión: 
 
-- no gestionados: son plug-and-play y se utilizan generalmente en redes pequeás y domésticas.
-- gestionados: ofrecen un control mas granular y más capacidades, como seguridad, monitorización y medidas QoS.
+- no gestionados: son plug-and-play y se utilizan generalmente en redes pequeñas y domésticas.
+- gestionados: ofrecen un control más granular y más capacidades, como seguridad, monitorización y medidas QoS.
 
 Los **puntos de acceso** son dispositivos fundamentales para la conectividad inalámbrica en la Capa de Acceso a la Red que actúan como traductores entre medios cableados e inalámbricos, manejan la asociación y autenticación de dispositivos inalámbricos, e implementan CSMA/CA para coordinar el acceso al medio y evitar colisiones en el espectro radioeléctrico compartido. 
 
@@ -139,7 +139,7 @@ Tabla de resumen:
 ## Protocolos
 ### Ethernet (IEEE 802.3)
 
-Ethernet es el protocolo dominante en redes cableadas locales. Define tanto el formato de las tramas como los métodos de acceso al medio. Su éxito radica en la simplicidad de implementación, la robustez del diseño, y la capacidad de evolucionar continuamente para satisfacer las demandas crecientes de ancho de banda en entornos empresariales y domésticos. Al principio en Ethernet se tenía una arquitectura de medio compartida, y por ello, se tenían que utilizar técnicas como CSMA/CD para minimizar colisiones. Esto hacía que eficiencia de la red disminuyese. Con la llegaba de los bridges y switches, se introdujo una topología de estrella, donde todos están conectados al switch y este crea dominios de colisión independientes, volviendo innecesario el CSMA/CD y mejorando considerablemente la eficiencia de la red.
+Ethernet es el protocolo dominante en redes cableadas locales. Define tanto el formato de las tramas como los métodos de acceso al medio. Su éxito radica en la simplicidad de implementación, la robustez del diseño, y la capacidad de evolucionar continuamente para satisfacer las demandas crecientes de ancho de banda en entornos empresariales y domésticos. Al principio en Ethernet se tenía una arquitectura de medio compartida, y por ello, se tenían que utilizar técnicas como CSMA/CD para minimizar colisiones. Esto hacía que eficiencia de la red disminuyese. Con la llegada de los bridges y switches, se introdujo una topología de estrella, donde todos están conectados al switch y este crea dominios de colisión independientes, volviendo innecesario el CSMA/CD y mejorando considerablemente la eficiencia de la red.
 
 La estructura de las tramas Ethernet sigue un formato estandardizado que garantiza la interoperabilidad entre dispositivos de diferentes fabricantes. Cada trama comienza con un **preámbulo** de 8 bytes que proporciona sincronización entre el transmisor y receptor, estableciendo el timing necesario para la correcta interpretación de los bits que siguen. Las **direcciones MAC** de destino y origen, de 6 bytes cada una, identifican inequívocamente los dispositivos involucrados en la comunicación, mientras que el campo **Tipo/Longitud** de 2 bytes especifica qué protocolo de capa superior procesa los datos o la longitud de la carga útil cuando es menor a 1536 bytes. El contenido útil reside en el campo de **data/payload** que puede contener entre 46 y 1500 bytes de información útil, con padding automático cuando los datos son menores al mínimo requerido, y finalmente el **Frame Check Sequence** de 4 bytes implementa detección de errores CRC permitiendo al receptor verificar la integridad de toda la trama recibida.
 
@@ -191,7 +191,7 @@ packet-beta
 Cabeceras de un paquete Wi-Fi
 :::
 
-Al igual que en Ethernet, la evolución de Wi-Fi ha sido enorme. Los primeros estándares, 802.11n (Wi-Fi 4), contaban con velocidades de hasta 600 Mbps hasta Wi-Fi 7 (802.11be) promete hasta 46 Gbps. Las mejoras se han enfocado en técnicas para reducir interferencias entre redes y colisiones entre dispositivos, y la inclusión de más bandas:
+Al igual que en Ethernet, la evolución de Wi-Fi ha sido enorme. Los primeros estándares, 802.11n (Wi-Fi 4), contaban con velocidades de hasta 600 Mbps, mientras que Wi-Fi 7 (802.11be) promete hasta 46 Gbps. Las mejoras se han enfocado en técnicas para reducir interferencias entre redes y colisiones entre dispositivos, y la inclusión de más bandas:
 
 - 2.4 GHz: mayor alcance y penetración, pero menor velocidad.
 - 5 GHz: mayor velocidad pero menor alcance.
