@@ -103,7 +103,7 @@ Esta función coordina el timing entre dispositivos para asegurar la correcta in
 
 ### Gestión de Topología
 
-Esta función se encarga de descubrir y mantener información sobre la estructura física de la red. Implementa protocolos para detectar enlaces, prevenir bucles y optimizar rutas de comunicación. Permite que la red se adapte automáticamente a cambios en la topología como fallos de enlaces o adición de nuevos dispositivos. El mantenimiento continuo de enlaces se logra mediante keepalive messages que detectan proactivamente fallos de enlace antes de que afecten el tráfico de usuarios. Los protocolos de detección de topología como CDP (Cisco Discovery Protocol) y LLDP (Link Layer Discovery Protocol) permiten que los dispositivos se identifiquen mutuamente y compartan información sobre sus capacidades, mientras que Spanning Tree Protocol previene bucles peligrosos en topologías redundantes que podrían causar tormentas de broadcast.
+Esta función se encarga de descubrir y mantener información sobre la estructura física de la red. Implementa protocolos para detectar enlaces, prevenir bucles y optimizar rutas de comunicación. Permite que la red se adapte automáticamente a cambios en la topología como fallos de enlaces o adición de nuevos dispositivos. El mantenimiento continuo de enlaces se logra mediante mensajes  de tipo keepalive que detectan proactivamente fallos de enlace antes de que afecten el tráfico de usuarios. Los protocolos de detección de topología como CDP (Cisco Discovery Protocol) y LLDP (Link Layer Discovery Protocol) permiten que los dispositivos se identifiquen mutuamente y compartan información sobre sus capacidades, mientras que Spanning Tree Protocol previene bucles peligrosos en topologías redundantes que podrían causar tormentas de broadcast.
 
 ### Control de Calidad de Servicio (QoS)
 
@@ -122,7 +122,7 @@ Los **puntos de acceso** son dispositivos fundamentales para la conectividad ina
 
 Los **repetidores** extienden el alcance de las redes regenerando señales digitales sin filtrar tráfico ni reducir colisiones, simplemente reciben, amplifican y retransmiten las señales para superar las limitaciones de distancia de los medios físicos. Los amplificadores incluyen RF amplifiers que aumentan la potencia de señales inalámbricas y optical amplifiers que amplifican señales en fibra óptica sin conversión eléctrica, todos debiendo cumplir estrictas regulaciones de potencia de transmisión para evitar interferencia con otros sistemas.
 
-Los **media converters** facilitan la interoperabilidad convirtiendo entre diferentes medios físicos como fibra óptica y cobre, adaptando automáticamente velocidades, y permitiendo extensión de redes existentes o migración gradual a tecnologías más avanzadas. 
+Los **conversores de medio** facilitan la interoperabilidad convirtiendo entre diferentes medios físicos como fibra óptica y cobre, adaptando automáticamente velocidades, y permitiendo extensión de redes existentes o migración gradual a tecnologías más avanzadas. 
 
 Tabla de resumen:
 
@@ -130,11 +130,11 @@ Tabla de resumen:
 |-------------|-------------------|----------------------|-------------------|
 | **Switches No Gestionados** | Conectividad básica LAN | Plug-and-play, aprendizaje MAC automático, full-duplex | Redes pequeñas y domésticas |
 | **Switches Gestionados** | Conectividad LAN avanzada | VLANs, QoS, SNMP, seguridad 802.1X, port mirroring | Redes empresariales |
-| **Access Points** | Conectividad inalámbrica | CSMA/CA, traducción cableado-wireless, beamforming | Redes Wi-Fi empresariales |
+| **Puntos de acceso** | Conectividad inalámbrica | CSMA/CA, traducción cableado-wireless, beamforming | Redes Wi-Fi empresariales |
 | **Repetidores** | Extensión de alcance | Regeneración de señal, sin filtrado | Superación de límites de distancia |
 | **Amplificadores** | Amplificación de señal | Aumento de potencia RF/óptica | Enlaces de larga distancia |
-| **Media Converters** | Conversión de medios | Fibra ↔ cobre, adaptación de velocidades | Migración gradual, extensión |
-| **Transceivers** | Conectividad modular | SFP/SFP+/QSFP, intercambiables | Flexibilidad en tipos de conexión |
+| **Conversores de medio** | Conversión de medios | Fibra ↔ cobre, adaptación de velocidades | Migración gradual, extensión |
+| **Modulador** | Conectividad modular | SFP/SFP+/QSFP, intercambiables | Flexibilidad en tipos de conexión |
 
 ## Protocolos
 ### Ethernet (IEEE 802.3)

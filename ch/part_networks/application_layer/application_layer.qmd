@@ -78,7 +78,7 @@ def echo_client():
 
 En este caso el código está hecho con Python, no es un requisito necesario y podría estar en JavaScript, pero quería remarcar que la definición de protocolos en red permite permite la comunicación entre dos procesos que están en la misma u otra máquina, independientemente de su lenguage de programación [^diffmach]. En este cliente de Python tenemos una única función que representa al ciente, "echo_client", donde en las primeras líneas establecemos una conexión con el servidor de JavaScript. Fijaros en el ``('localhost', 8888)``, con esta combinación de identificador de máquina, "localhost", podemos identificar el host donde está el servidor, y con el puerto, 8888, podemos identificar el proceso que corresponde al servidor. Como en el anterior ejemplo, tenemos un "socket" que permite una interacción bidireccional con la capa de transporte. No os preocupéis por estos detalles, los veremos en el siguiente capítulo.
 
-[^diffmach]: Endiannesss, diff representations for things
+[^diffmach]: Dos máquinas pueden tener diferente **endianness** (orden de bytes): *big-endian* almacena el byte más significativo primero, mientras que *little-endian* lo guarda al final. Los protocolos de red usan **network byte order** (big-endian) para garantizar que ambas máquinas interpreten los datos correctamente, independientemente de su arquitectura interna.
 
 Con este ejemplo hemos ilustrado los tres conceptos clave de este capítulo, los protocolos de la capa de aplicación, la arquitectura de las aplicaciones de red [^arquitecdist], y los sockets que permiten la interacción entre la capa de aplicación y la capa de transporte. En los siguientes apartados profundizaremos en estos temas. Primero, veremos en detalle los sockets. Después, indagaremos en las arquitecturas de aplicaciones en red. Posteriormente veremos protocolos utilizados en la actual como HTTP que utilizamos cuando navegamos por la web, SMTP, IMAP y POP que utilizamos en las aplicaciones de correo, entre otros.
 
@@ -552,7 +552,7 @@ Cada recurso en el servidor se identifica a través de una URL (Uniform Resource
 Las acciones en HTTP están asociadas a un verbo que indica el objeto de las mismas. Los principales son los siguientes:
 
 - GET: Pedir el objeto de la URL al servidor. Es una operación idenpotente, si la repetimos varias veces el resultado debería de ser siempre el mismo. No cambia el estado del servidor. El cuerpo del mensaje está vacio. Cuando descargamos imágenes en Instagram o similares, los comentarios, etc lo hacemos a través de GET.
-- POST: Se utiliza para pedir un objeto asociado a una URL cuando este depende de los datos de un formulario. Puede cambiar el estado del servidor. Por ejemplo, cuando nos registamos en una página estaríamos haciendo un POST.
+- POST: Se utiliza para pedir/enviar un objeto asociado a una URL cuando este depende de los datos de un formulario. Puede cambiar el estado del servidor. Por ejemplo, cuando nos registamos en una página estaríamos haciendo un POST.
 - HEAD: Es igual que el GET pero no devuelve nada. Se utiliza para debuguear.
 - PUT: Nos permite cargar un objeto en la URL. Es una operación idempotente, si la repetimos varias veces el resultado será siempre el mismo.
 - DELETE: Borra el recurso asociado a la URL.

@@ -8,3 +8,4 @@ aux
 TODO.md
 /.quarto/
 *-files/
+**/*.quarto_ipynb
