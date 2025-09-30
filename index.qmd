@@ -1,8 +1,11 @@
 # Preface {.unnumbered}
 
-Apuntes de JER.
+Apuntes de la asignatura Juegos en Red. Se organizan en 4 partes:
 
-Primera parte (Redes) basada en Computer Netoworks: A top down approach (8th edition)
-Segunda parte (HTML + CSS + JS)
-Tercera parte: Programación API
-Cuarta parte: Comunicación asíncrona
+- Introducción a las redes de computadores. Ofrece una visión general de cómo funcionan las redes de computadores, tanto la parte hardware como software, utilizando la categorización de la pila de protocolos TCP/IP.
+
+- Breve introducción a HTML, CSS, JS y Phaser con el que crearemos un juego web que al que se le añadirán funcionalidades de red en los próximas partes.
+
+- Comunicación entre clientes y servidores a través de APIs REST.
+
+- Comunicación asíncrona entre clientes y servidores.
