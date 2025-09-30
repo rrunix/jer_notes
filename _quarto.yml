@@ -34,15 +34,15 @@ format:
       - cerulean
     mermaid:
       theme: default
-  pdf:
-    documentclass: scrreprt
-    lof: true
-    mermaid:
-      theme: base
-      format: svg
-    css: |
-      .mermaid {
-        page-break-inside: avoid;
-        width: 100%;
-        height: auto;
-      }
+  # pdf:
+  #   documentclass: scrreprt
+  #   lof: true
+  #   mermaid:
+  #     theme: base
+  #     format: svg
+  #   css: |
+  #     .mermaid {
+  #       page-break-inside: avoid;
+  #       width: 100%;
+  #       height: auto;
+  #     }
