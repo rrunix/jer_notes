@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Introducción a las Redes de Ordenadores – Apuntes de Juegos en Red</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../ch/part_networks/access_layer/access_layer.html" rel="next">
+<link href="../../../index.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-49c62e5b8c3163634b294513a7851f6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<meta name="mermaid-theme" content="default">
+<script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../../">Apuntes de Juegos en Red</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introducción a redes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1.1</span> Introducción</a></li>
+  <li><a href="#la-historia-de-internet" id="toc-la-historia-de-internet" class="nav-link" data-scroll-target="#la-historia-de-internet"><span class="header-section-number">1.2</span> La Historia de Internet</a></li>
+  <li><a href="#infraestructura-de-la-red-y-tecnologías-de-transmisión" id="toc-infraestructura-de-la-red-y-tecnologías-de-transmisión" class="nav-link" data-scroll-target="#infraestructura-de-la-red-y-tecnologías-de-transmisión"><span class="header-section-number">1.3</span> Infraestructura de la red y tecnologías de transmisión</a></li>
+  <li><a href="#intro-network-stacks" id="toc-intro-network-stacks" class="nav-link" data-scroll-target="#intro-network-stacks"><span class="header-section-number">1.4</span> Modelos de Referencia de Redes</a></li>
+  <li><a href="#rendimiento" id="toc-rendimiento" class="nav-link" data-scroll-target="#rendimiento"><span class="header-section-number">1.5</span> Rendimiento</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducción" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">1.1</span> Introducción</h2>
+<p>La etimología de Internet es “Interconnected Networks” (Redes interconectadas), lo cual nos da una pista sobre qué es: una red global interconectada de redes más pequeñas que permite la comunicación entre los diferentes dispositivos conectados. Internet opera como un sistema descentralizado compuesto por varias capas de redes, desde las LAN (Local Area Networks), que son los nodos donde nos conectamos, hasta las WAN (Wide Area Networks) que abarcan continentes.</p>
+<div id="fig-ni-intro-network" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ni-intro-network-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-fig-width="5s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    PAN["📱 PAN (Personal Area Network)&lt;br&gt;Smartphone ↔ Smartwatch"]
+    LAN["🏠 LAN (Local Area Network)&lt;br&gt;Home/Office/Building Network"]
+    WLAN["📡 WLAN (Wireless LAN)&lt;br&gt;Wi-Fi Implementation of LAN"]
+    CAN["🏫 CAN (Campus Area Network)&lt;br&gt;Multiple LANs in Campus"]
+    MAN_ISP["🏙️ MAN (Metropolitan Area Network)&lt;br&gt;ISP Network"]
+    MAN_MOBILE["📶 MAN (Metropolitan Area Network)&lt;br&gt;5G/4G Mobile Network"]
+    WAN["🌍 WAN (Wide Area Network)&lt;br&gt;Between Cities or Countries"]
+    INTERNET["🌐 Internet&lt;br&gt;Global Interconnected WANs"]
+    VPN["🔐 VPN (Virtual Private Network)&lt;br&gt;Secure Tunnel over Internet"]
+    
+    %% Traditional wired path
+    PAN --&gt; LAN
+    WLAN -.-&gt; LAN
+    LAN --&gt;|Multiple LANs| CAN
+    CAN --&gt; MAN_ISP
+    LAN --&gt;|Multiple LANs| MAN_ISP
+    
+    %% Mobile path
+    PAN --&gt; MAN_MOBILE
+    
+    %% Both MANs connect to WAN
+    MAN_ISP --&gt;|Multiple MANs| WAN
+    MAN_MOBILE --&gt;|Multiple MANs| WAN
+    WAN --&gt;|Multiple WANs| INTERNET
+    VPN --&gt; INTERNET
+    
+    style WLAN fill:#e1f5fe
+    style VPN fill:#f3e5f5
+    style MAN_MOBILE fill:#fff3e0
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ni-intro-network-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.1: Topología jerárquica de Internet.
+</figcaption>
+</figure>
+</div>
+<p>En la <a href="#fig-ni-intro-network" class="quarto-xref">Figura&nbsp;<span>1.1</span></a> podemos ver una organización jerárquica de Internet, donde múltiples redes del mismo nivel se agregan para formar el siguiente nivel superior. A medida que ascendemos en la jerarquía, el número de dispositivos que se pueden conectar se incrementa exponencialmente. Las PAN son redes que conectan dispositivos personales como smartphones y sirven para conectar con smartwatches y electrodomésticos, entre otros. Desde las PAN podemos tomar dos rutas principales hasta el Internet, a través de las LAN o directamente con las MAN (5g o 4g). Las LAN son redes que cubren hogares, oficinas u otras unidades donde el número de dispositivos es reducido. La conexión a las LAN puede ser cableada o inalámbrica, por ejemplo con WLAN (Wi-Fi). Una CAN es una agrupación de redes LAN, generalmente en campus universitarios o grandes empresas donde el número de dispositivos es elevado. Las redes CAN, LANs individuales y las redes de telefonía móvil (e.g, 4G/5G) se juntan para dar lugar a las MAN. Las MAN generalmente abarcan ciudades o grupos de ciudades, que interconectadas dan lugar a las WANs. Finalmente, múltiples WANs dan lugar al Internet global. Las VPN (Virtual Private Network) operan como túneles seguros sobre toda esta infraestructura, permitiendo que los dispositivos cambien dinámicamente entre rutas según la tecnología disponible en cada momento.</p>
+<p>Para ilustrar el funcionamiento de Internet vamos a utilizar un ejemplo simplificado. Supongamos que María quiere enviar un mensaje desde un Smartphone conectado a Internet a través del WiFi de su casa en Madrid a Takeshi, conectado a una LAN en la universidad de Tokio (dentro de una CAN). Puede que algunos términos no os suenen, no os preocupéis, los iremos viendo a lo largo de la asignatura. El proceso de envío sería el siguiente:</p>
+<ul>
+<li><p><strong>1. Origen - LAN Madrid</strong>: El smartphone de María crea el paquete (podéis pensar en el como un mensaje) con la dirección IP de destino de Tokio y la dirección MAC del router WiFi como destino inmediato. El router WiFi recibe el frame Ethernet, examina la dirección IP de destino y se da cuenta de que no pertenece a su red local. Reemplaza la dirección MAC de destino por la de su gateway (ISP) y reenvía el paquete.</p></li>
+<li><p><strong>2. Router local a MAN</strong>: El router del ISP local recibe el frame con su propia dirección MAC como destino. Extrae el paquete IP, examina la dirección IP de destino y determina que debe enviarlo hacia la MAN de Madrid. Encapsula el paquete en un nuevo frame con la dirección MAC del siguiente router como destino.</p></li>
+<li><p><strong>3. MAN a WAN nacional</strong>: El router de la MAN de Madrid recibe el frame dirigido a su dirección MAC, extrae el paquete IP y analiza el destino. Al comprender que Tokio está fuera de España, encapsula el paquete en un nuevo frame con la dirección MAC del router de la WAN española como destino.</p></li>
+<li><p><strong>4. WAN a Internet global</strong>: El router de la WAN española recibe el frame con su dirección MAC, consulta sus tablas de rutas internacionales para Japón y encapsula el paquete con la dirección MAC del siguiente router en la ruta internacional. En cada salto a través del backbone de Internet, los routers intercambian las direcciones MAC (origen y destino) mientras preservan las direcciones IP originales.</p></li>
+<li><p><strong>5. Llegada a Japón - WAN a MAN</strong>: Un router de la WAN japonesa recibe el frame dirigido a su dirección MAC, reconoce que el destino IP está dentro de Japón y encapsula el paquete con la dirección MAC del router de la MAN de Tokio como nuevo destino.</p></li>
+<li><p><strong>6. MAN a CAN</strong>: El router de la MAN de Tokio recibe el frame con su dirección MAC como destino, examina la IP y determina que pertenece a la universidad de Tokio. Encapsula el paquete en un nuevo frame dirigido a la dirección MAC del router gateway de la CAN universitaria.</p></li>
+<li><p><strong>7. CAN a LAN destino</strong>: El router de la CAN universitaria recibe el frame dirigido a su dirección MAC, analiza la IP de destino para identificar qué LAN específica del campus corresponde, y encapsula el paquete con la dirección MAC del router de esa LAN como destino.</p></li>
+<li><p><strong>8. Destino final - LAN universitaria</strong>: El router de la LAN recibe el frame con su dirección MAC como destino, extrae el paquete IP y lo entrega al switch. El switch examina sus tablas ARP para encontrar la dirección MAC correspondiente a la IP de Takeshi, y finalmente envía el frame con la dirección MAC real de Takeshi como destino, completando el viaje desde Madrid.</p></li>
+</ul>
+<p>En este ejemplo simplificado de envío de un mensaje por Internet ya estamos dispuestos para comprender algunos de sus componentes y identificadores. Si os fijáis, hay dos componentes que están presentes a lo largo del ejemplo, los switches y routers. El router es un dispositivo que conecta diferentes redes entre sí usando direcciones IP. Es como un “director de tráfico” que conoce las rutas entre redes distantes. Su funcionamiento a grandes rasgos es el siguiente: Llega un paquete, se identifica a través de la IP destino el camino de salida obteniendo la MAC del siguiente salto (<code>hop</code>), y se envía el paquete. Este proceso, denominado enrutamiento <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, se repite hasta llegar a la red destino, por eso estos algoritmos, y por ello se determinan <code>hop by hop</code>. El switch por otra parte es un dispositivo que conecta equipos dentro de una misma red local usando direcciones MAC. Funciona como un “repartidor inteligente” que conoce exactamente dónde está cada dispositivo en su red. Completando la analogía, Los switches manejan el tráfico local, mientras que cuando necesitan enviar datos fuera de su red, los entregan a los routers. Los routers, a su vez, se conectan a otros routers o switches según el destino.</p>
+<p>El procedimiento de envío se realiza con dos identificadores que hemos mencionado durante el ejemplo, la MAC y la dirección IP. La dirección IP funciona como la dirección postal de una casa y permite localizar el dispositivo en las redes (como 192.168.1.100), y la dirección MAC, que es como el DNI del dispositivo: único, asignado por el fabricante y que no cambia nunca. Los routers usan direcciones IP para decidir hacia dónde enviar los paquetes, mientras que los switches usan direcciones MAC para entregar los datos al dispositivo correcto dentro de la red local. Por último, tenemos ARP, un protocolo que nos permite relacionarlas. El protocolo ARP es como un servicio de directorio telefónico: cuando un dispositivo conoce la “dirección postal” (IP) pero necesita el “DNI” (MAC) para hacer la entrega final, envía una consulta ARP preguntando “¿quién vive en esta dirección?”. El dispositivo correspondiente responde con su MAC, permitiendo que la comunicación se complete. ARP traduce entre el mundo de las direcciones (IP) y el mundo de las identidades físicas (MAC).</p>
+<!-- PONER UNA IMAGEN AQUÍ -->
+<p>Una vez vistos los componentes principales de Internet, vamos a realizar unas observaciones. Primero, Internet es un sistema distribuido. Esto quiere decir que es una unión de dispositivos que operan juntos con el fin de ofrecer una funcionalidad. Segundo, Internet tiene una arquitectura descentralizada<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Por lo tanto, la caída de alguna parte de Internet no tiene porque implicar la caída de Internet globalmente. Tercero, la ejecución de los procesos de enrutamiento es local. Cada nodo de la red sólo necesita saber cual va a ser el siguiente destino (“hop”). Es decir, no hay una planificación global para el envío de los paquetes. Debido a esto los algoritmos de enrutamiento normalmente se denominan “hop by hop” e incorporan información de tiempo real <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, por lo que dos mensajes enviados al mismo destino no tienen por que seguir la misma ruta. Todo esto facilita la escalabilidad del sistema, disminuye la congestión de la red y además proporciona resiliencia a fallos.</p>
+<p>Hasta ahora hemos visto un ejemplo simplificado de envío de mensaje, los principales componentes de internet y algunos conceptos técnicos. Pero aún falta algo. Hemos dicho que Internet es un sistema distribuido formado por redes interconectadas. Pero, ¿Cómo se entienden entre sí?. La respuesta son los protocolos. Un protocolo es una serie de pasos bien definidas que se realizan con un objetivo. En redes de computadores, es como un manual de instrucciones que especifica cómo dos dispositivos deben intercambiar información. Es un conjunto de reglas que define exactamente cómo deben estructurarse los mensajes, en qué orden enviarlos, que estructura y formato tienen los mensajes que recibimos, y cómo se debe actuar. Internet funciona gracias a una familia de protocolos organizados en capas, que veremos en el <span class="citation" data-cites="intro-network-stacks">(<a href="../../../references.html#ref-intro-network-stacks" role="doc-biblioref"><strong>intro-network-stacks?</strong></a>)</span>.</p>
+<p>Por ejemplificarlo los protocolos de red con una analogía, son como las reglas de tráfico en una ciudad: así como los autos necesitan semáforos, señales y carriles para circular ordenadamente sin chocar, los datos en una red necesitan protocolos que definan cómo moverse, comunicarse y llegar a su destino correctamente. Sin estas reglas, tanto el tráfico vehicular como el flujo de datos serían un caos total, con “accidentes” y pérdida de información constante. Desde un punto de vista más formal, podríamos definir un protocolo como:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Protocolo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un protocolo define una serie de tipos de mensaje, su sintáxis y su semántica, así como las reglas de cuándo y cómo enviar/responder los mensajes.</p>
+</div>
+</div>
+<p>En los siguientes apartados vamos a profundizar en los conceptos introducidos hasta ahora, obteniendo un mejor entendimiento de cómo funciona Internet, cuales son los principales actores involucrados, y cómo podemos realizar nuestras propias aplicaciones que funcionen sobre la red. Los puntos se abordarán de la siguiente manera. Primero, se verán desde un enfoque “informático”, y después contextualizaremos como encaja cada uno de los puntos desde el punto de vista de desarrollo de videojuegos.</p>
+</section>
+<section id="la-historia-de-internet" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="la-historia-de-internet"><span class="header-section-number">1.2</span> La Historia de Internet</h2>
+<p>Internet, como otros muchos avances de la sociedad, nació como una necesidad de guerra. En concreto, en la Guerra Fría. En una guerra la información y poder comunicarla es poder. El objetivo inicial del germen de Internet, llamado ARPANET, era precisamente la comunicación de información y que estos medios fuesen capaces de sobrevivir a un ataque nuclear. En 1969 la red experimental contaba con 4 host: UCLA, Stanford, UC Santa Bárbara y la Universidad de Utah. Esta red utilizaba un mecanismo para la comunicación de información llamada conmutación de paquetes, donde los mensajes se dividían en paquetes más pequeños que podían tomar diferentes rutas hasta llegar a su destino. Así cumplieron los requisitos de tolerancia a fallos en el envío de información a través de la descentralización y duplicidad, y además sentaron la semilla que permitiría una escalabilidad natural. En 1971 ya contaba con 23 host (ver <a href="#fig-ni-history-1971" class="quarto-xref">Figura&nbsp;<span>1.2</span></a>), y en 1973 se realizó la primera conexión internacional con Noruega y Londres a través de tecnología satelital. En esa época la red se incrementaba a razón de 1 host cada aproximadamente 20 días.</p>
+<div id="fig-ni-history-1971" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ni-history-1971-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="resources/1971_nodes.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ni-history-1971-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.2: Distribución geográfica de los nodos de ARPANET en 1971&nbsp;<span class="citation" data-cites="bbc_ethernet1971">(<a href="../../../references.html#ref-bbc_ethernet1971" role="doc-biblioref">BBC Brasil 2019</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<p>En la década de los 80 ocurrirían 4 eventos que darían forma al Internet que conocemos hoy en día. En primer lugar, en 1983 se adoptó oficialmente la pila de protocolos TCP/IP como estándar para ARPANET, que estableció las reglas de comunicación que aún seguimos hoy en día. Una de las grandes ventajas de TCP/IP fue que permitió que diferentes tipos de redes se pudiesen comunicar entre sí de manera estándar. Es decir, empezamos a tener redes formadas por redes interconectadas. En este momento fue cuando se empezó a hablar del término “Internet” para describir esta red de redes interconectadas. En segundo lugar, ARPANET se dividió en 1983, creándose MILNET como una red independiente para fines militares, mientras ARPANET continuó creciendo en su uso académico. En tercer lugar, el CERN empezó a interconectar sus ordenadores utilizando TCP/IP, sentando la base para el último evento. En cuarto y último lugar, Tim Berners-Lee, trabajando en el CERN, inventó la World Wide Web en 1989-1990. Propuso un sistema de intercambio de información basado en hipertexto así como las direcciones URL, el protocolo HTTP y el lenguaje HTML, que son omnipresentes hoy en día.</p>
+<p>Los años 90 fueron testigos de la transformación de Internet de un proyecto académico a una infraestructura comercial global. El tráfico de ARPANET fue absorbido por Internet y se desmanteló en 1990. En 1991, la World Wide Web fue anunciada públicamente cuando Tim Berners-Lee publicó el primer sitio web. Ese mismo año se creó el primer navegador web gráfico, Mosaic, desarrollado en la Universidad de Illinois en 1993, que revolucionó la experiencia de usuario al permitir la visualización de imágenes junto con texto. La eliminación de las restricciones comerciales sobre el uso de Internet por parte de la National Science Foundation en 1995 marcó un punto de inflexión crucial. Comenzaron a aparecer los primeros proveedores comerciales de servicios de Internet (ISP) como America Online (AOL), que llevó Internet a millones de hogares. Las empresas empezaron a ver el potencial no solo como un medio de comunicación, sino como una plataforma de negocio, surgiendo los primeros sitios de comercio electrónico como Amazon (1995) y eBay (1995). Yahoo! se estableció como uno de los primeros directorios web populares, mientras que motores de búsqueda como AltaVista comenzaron a indexar la creciente web. A finales de la década, Google fue fundado en 1998, revolucionando la búsqueda en Internet. Finalmente, se completó la transición de Internet de un proyecto gubernamental y académico a una infraestructura comercial global.</p>
+<p>El cambio de milenio trajo la adopción masiva de Internet, inicialmente centrada en la conectividad de banda ancha en hogares y oficinas. La llamada “burbuja de las punto-com” explotó en 2000-2001, pero esto no frenó la innovación. Surgió la Web 2.0 a mediados de la década, caracterizada por sitios interactivos y generados por usuarios. Plataformas como MySpace (2003), Facebook (2004), YouTube (2005) y Twitter (2006) transformaron Internet en un medio social y participativo. La revolución móvil comenzó realmente con el lanzamiento del iPhone en 2007, que democratizó el acceso a Internet desde dispositivos móviles. Esto fue seguido por el desarrollo del sistema operativo Android y la proliferación de smartphones. El concepto de “Internet de las Cosas” (IoT) comenzó a materializarse con dispositivos domésticos inteligentes, wearables y sensores conectados. La década de 2010 vio el surgimiento de la computación en la nube con servicios como Amazon Web Services, la popularización de las redes sociales móviles, el auge del comercio electrónico móvil, y el desarrollo de tecnologías como la realidad virtual y aumentada. Más recientemente, la inteligencia artificial, el machine learning, la tecnología blockchain y las criptomonedas han redefinido las posibilidades de Internet.</p>
+<p>El número de dispositivos conectados se ha incrementado exponencialmente, pasando de millones en los 90 a miles de millones en la actualidad, marcando el desarrollo de nuevas tecnologías como 5G para soportar el creciente número de dispositivos. En la <a href="#fig-ni-history-grow" class="quarto-xref">Figura&nbsp;<span>1.3</span></a> podéis apreciar cómo se han ido incrementando exponencialmente, y esta tendencia está lejos de revertirse. Las redes sociales, herramientas de teletrabajo, VoIP y videollamadas, inteligencia artificial, streaming de video, realidad virtual y aumentada, y otras muchas aplicaciones hacen que no solo se incremente el número de dispositivos conectados, sino también las necesidades de ancho de banda y tiempos de respuesta cada vez más exigentes.</p>
+<div id="fig-ni-history-grow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ni-history-grow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-fig-height="3s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">xychart-beta
+    title "Dispositivos Conectados a Internet por Década (Log₁₀)"
+    x-axis ["1970s", "1980s", "1990s", "2000s", "2010s", "2020s"]
+    y-axis "Log₁₀ (Número de dispositivos)" 0 --&gt; 12
+    bar [0.6, 2.3, 4.5, 9.0, 10.1, 11.7]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ni-history-grow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.3: Número de dispositivos conectados por década desde ARPANET hasta Internet en 2025 <span class="citation" data-cites="ourworldindata2023internet iotanalytics2020statista">(<a href="../../../references.html#ref-ourworldindata2023internet" role="doc-biblioref">Ritchie et&nbsp;al. 2023</a>; <a href="../../../references.html#ref-iotanalytics2020statista" role="doc-biblioref">Analytics 2020</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<p>En conclusión, la evolución de Internet (ver resumen en la <a href="#fig-ni-history-timeline" class="quarto-xref">Figura&nbsp;<span>1.4</span></a>) desde sus orígenes militares como ARPANET hasta convertirse en la infraestructura global actual ilustra una transformación extraordinaria que ha redefinido la sociedad moderna. Lo que comenzó en 1969 como una red experimental de 4 hosts diseñada para resistir ataques nucleares, se ha convertido en un ecosistema interconectado de miles de millones de dispositivos. En los siguientes apartados veremos en detalle en detalle la tecnología que sustenta Internet y obtendremos el conocimiento necesario para poder realizar aplicaciones y juegos en red.</p>
+<div id="fig-ni-history-timeline" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ni-history-timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-fig-width="6s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">timeline
+    title Evolución de Internet: De ARPANET a la Era Digital
+    
+    section Era ARPANET (1969-1983)
+        1969 : Nace ARPANET
+             : 4 nodos iniciales (UCLA, Stanford, UC Santa Bárbara, Utah)
+             : Implementación de conmutación de paquetes
+        
+        1973 : Primera conexión internacional
+        
+        1983 : Adopción oficial de TCP/IP
+             : División de ARPANET (creación de MILNET)
+             : Nace el término "Internet"
+
+    section Nacimiento de la Web (1989-1995)
+        1989-1990 : Tim Berners-Lee inventa la World Wide Web
+                  : Desarrollo de HTTP, HTML y URLs
+        
+        1991 : Primer sitio web público
+
+    section Era Comercial (1995-2000)
+        1995 : Eliminación de restricciones comerciales
+             : Primeros ISPs comerciales (AOL)
+             : Aparecen Amazon y eBay
+        
+        1998 : Fundación de Google
+        
+        2000-2001 : Explosión de la burbuja punto-com
+
+    section Web 2.0 y Redes Sociales (2003-2010)
+        2003-2006 : Redes sociales
+        2007 : Lanzamiento del iPhone
+
+    section Era Moderna (2010-2025)
+        2010s : Computación en la nube, Internet de las cosas
+        
+        2020s : Inteligencia Artificial
+              : Tecnología 5G
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ni-history-timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.4: Esquema de tiempo de los eventos más significativos desde la creación de ARPANET hasta 2025.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="infraestructura-de-la-red-y-tecnologías-de-transmisión" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="infraestructura-de-la-red-y-tecnologías-de-transmisión"><span class="header-section-number">1.3</span> Infraestructura de la red y tecnologías de transmisión</h2>
+<p>En los capítulos anteriores hemos visto una pequeña introducción a Internet y sus componentes. Ahora pasaremos a ver brevemente la parte física (Hardware) de la Internet antes de ver la parte Software en los siguientes capítulos. En la <a href="#fig-ni-infra-net" class="quarto-xref">Figura&nbsp;<span>1.5</span></a> tenemos un ejemplo de diagrama donde se muestran los componentes de la red y parte de la taxonomía que veremos en este capítulo.</p>
+<div id="fig-ni-infra-net" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ni-infra-net-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="resources/network_image.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ni-infra-net-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.5: Red simplificada&nbsp;<span class="citation" data-cites="kurose2017computer">(<a href="../../../references.html#ref-kurose2017computer" role="doc-biblioref">Kurose y Ross 2017</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Empezando por la parte más externa, vamos a hablar de los sistemas terminales (“end systems”). De forma simplificada, podríamos decir que estos son los sistemas que utilizan la Internet, y que el resto de componentes son los que sustentan la red. En esta categoría tendríamos los ordenadores, smartphones, dispositivos inteligentes.. es decir, los componentes conectados. En la jerga de Internet estos componentes se conocen como “host”, por que son los que tienen aplicaciones que funcionan sobre internet. Estos dispositivos se pueden conectar a la red a través de diferentes tecnologías que veremos posteriormente en este capítulo como WiFi o 5g. Los hosts, dependiendo de su uso, también se pueden clasificar como clientes y servidores. Los servidores generalmente ofrecen un servicio que los clientes utilizan. Por ejemplo, cuando hablamos por Whatsapp, nuestro teléfono y el teléfono destino son clientes, y los “ordenadores” de Whatsapp que ofrecen el servidor son servidores. Esto no es clasificación estática y fija, y un cliente puede actuar de servidor también. Este tipo de clasificación la veremos en más detalle en el <a href="../application_layer/application_layer.html" class="quarto-xref"><span>Capítulo 5</span></a>.</p>
+<p>Moviéndonos a la capa más interna tenemos las redes de acceso (“access network”). Las redes de acceso es la red en la cual se conecta un host con el router (también conocido router de borde, o inglés “edge router”) en el camino hacia el núcleo de la red (core network). El router de borde junto a los hosts también forman parte de lo que se denomina el borde de la red (“edge of the network”). Siguiendo con los ejemplos anteriores, cuando nos conectados a Internet por WiFi/Ethernet en nuestra casa, universidad, etc, nos conectamos al “router”, que sería el router de borde.</p>
+<p>Aquí merece la pena hacer una aclaración técnica sobre el “router” doméstico del ejemplo anterior. En realidad, estos dispositivos son equipos multifunción que integran varias tecnologías: un switch para la red local, un router para el enrutamiento entre redes, y típicamente un punto de acceso WiFi. Cuando nos conectamos por cable o WiFi, técnicamente nos conectamos primero al switch integrado, y cuando la comunicación debe salir hacia Internet, el componente router se encarga del enrutamiento hacia otras redes. Aunque en el uso cotidiano llamamos “router” a todo el dispositivo, es importante entender que internamente realiza múltiples funciones de red.</p>
+<p>En el router doméstico, o router de borde, tenemos dos tipos de conexiones principales: la conexión con los hosts y la conexión con el siguiente router. Vamos a ver brevemente los tipos de tecnología para cada caso. Empezando por la conexión host-router, tenemos dos tipos principalmente: conexión cableada tipo Ethernet y conexión inalámbrica WiFi. En la <span class="citation" data-cites="tab-ni-infra-host-edge">(<a href="../../../references.html#ref-tab-ni-infra-host-edge" role="doc-biblioref"><strong>tab-ni-infra-host-edge?</strong></a>)</span> podéis ver una comparativa de sus principales características.</p>
+<div id="tab-ni-infra-host-edge">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 10%">
+<col style="width: 19%">
+<col style="width: 9%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tecnología</th>
+<th>Medio Físico</th>
+<th>Tipo Conexión</th>
+<th>Simetría</th>
+<th>Velocidad Típica</th>
+<th>Alcance</th>
+<th>Estado 2025</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>WiFi 6</strong></td>
+<td>Radio 2.4/5/6 GHz</td>
+<td>Compartida</td>
+<td>Simétrica*</td>
+<td>200-400 Mb/s</td>
+<td>30-50 m</td>
+<td>Estándar</td>
+</tr>
+<tr class="even">
+<td><strong>Ethernet</strong></td>
+<td>Par trenzado</td>
+<td>Dedicada</td>
+<td>Simétrica</td>
+<td>1000/1000 Mb/s</td>
+<td>&lt;100 m</td>
+<td>Estándar</td>
+</tr>
+<tr class="odd">
+<td><strong>4G LTE</strong></td>
+<td>Radio móvil</td>
+<td>Compartida</td>
+<td>Asimétrica</td>
+<td>50/15 Mb/s</td>
+<td>Varios km</td>
+<td>Estable</td>
+</tr>
+<tr class="even">
+<td><strong>5G</strong></td>
+<td>Radio móvil</td>
+<td>Compartida</td>
+<td>Asimétrica</td>
+<td>300/50 Mb/s</td>
+<td>1-5 km</td>
+<td>En despliegue</td>
+</tr>
+</tbody>
+</table>
+<p>Tabla comparativa de tecnologías de acceso host-router. *Simétrica en teoría, asimétrica en la práctica.</p>
+</div>
+<p>WiFi 6 es una tecnología de acceso inalámbrico, es decir, no requiere una conexión física entre los dispositivos. Como contrapartida a la flexibilidad de no tener el vínculo físico, el alcance se ve reducido. La máxima distancia entre el router y el dispositivo es típicamente de 30-50 metros, pero puede verse reducida por obstáculos entre ambos. Los estándares WiFi van desde el original 802.11 hasta el más moderno 802.11ax (WiFi 6E), que es capaz de alcanzar velocidades teóricas de hasta 9.6 Gb/s mediante múltiples antenas y técnicas avanzadas. Además, en las últimas versiones se ha incrementado el ancho de banda disponible, incluyendo la banda de 6 GHz, proporcionando espectro adicional para reducir la congestión. La conexión mediante WiFi es simétrica en teoría, aunque en la práctica las velocidades pueden variar según las condiciones del entorno, y del hardware del router y del host. Una de las principales desventajas de los medios inalámbricos es que el medio de transmisión es compartido entre todos los dispositivos, lo que puede causar problemas de congestión cuando hay muchos dispositivos conectados simultáneamente.</p>
+<p>Por otra parte, tenemos el acceso tipo Ethernet, que se realiza mediante un cable físico de par trenzado (que explicaremos más adelante). En este caso, el alcance se extiende hasta algo menos de 100 metros. Al ser una conexión física, generalmente no importa qué obstáculos haya entre ambos puntos<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Algunas personas han intentado empalmar cables para lograr longitudes superiores a 100 metros, pero esto no funciona adecuadamente. Las causas principales son la degradación de la señal y que los protocolos Ethernet están diseñados asumiendo tiempos específicos de propagación en el cable<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Al ser un tipo de conexión dedicada, cuando nos conectamos por cable no tenemos problemas de congestión del medio de transmisión. Las velocidades estándar actuales suelen ser de 1000 Mb/s (Gigabit Ethernet), aunque existen estándares más rápidos como 10 Gigabit Ethernet.</p>
+<p>Finalmente, tenemos las tecnologías de acceso móvil como alternativa de conectividad. Tanto <strong>4G LTE</strong> como <strong>5G</strong> utilizan ondas de radio en el espectro móvil licenciado para conectar dispositivos con las torres de telefonía, que actúan como puntos de acceso a la red del operador. Su principal ventaja es el amplio alcance (varios kilómetros para 4G, 1-5 km para 5G según la banda), lo que las hace ideales para ubicaciones sin infraestructura fija o como backup de conectividad. Ambas tecnologías son asimétricas y utilizan un medio compartido, con 4G LTE ofreciendo velocidades típicas de 50/15 Mb/s y 5G alcanzando hasta 300/50 Mb/s en condiciones reales. El 5G representa una evolución significativa al usar un espectro más amplio, incluyendo frecuencias milimétricas, aunque presenta un compromiso entre velocidad y alcance: las frecuencias más altas proporcionan mayor velocidad pero menor penetración. Mientras 4G LTE está completamente desplegado, 5G se encuentra en fase de despliegue activo con cobertura variable según ubicación y operador<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
+<p>Ahora pasaremos a la conexión del router de borde con el siguiente router. Las tecnologías disponibles</p>
+<div id="tab-ni-infra-edge-core">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 10%">
+<col style="width: 19%">
+<col style="width: 9%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tecnología</th>
+<th>Medio Físico</th>
+<th>Tipo Conexión</th>
+<th>Simetría</th>
+<th>Velocidad Típica</th>
+<th>Alcance</th>
+<th>Estado 2025</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Dial-up</strong></td>
+<td>Par trenzado</td>
+<td>Dedicada</td>
+<td>Simétrica</td>
+<td>56 kb/s</td>
+<td>Ilimitado*</td>
+<td>Obsoleta</td>
+</tr>
+<tr class="even">
+<td><strong>DSL/VDSL</strong></td>
+<td>Par trenzado</td>
+<td>Dedicada</td>
+<td>Asimétrica</td>
+<td>50/15 Mb/s</td>
+<td>&lt;3 km de central</td>
+<td>En declive</td>
+</tr>
+<tr class="odd">
+<td><strong>Cable HFC</strong></td>
+<td>Coaxial/Fibra</td>
+<td>Compartida</td>
+<td>Asimétrica</td>
+<td>300/30 Mb/s</td>
+<td>Red local</td>
+<td>Estable</td>
+</tr>
+<tr class="even">
+<td><strong>FTTH PON</strong></td>
+<td>Fibra óptica</td>
+<td>Compartida</td>
+<td>Simétrica</td>
+<td>1000/1000 Mb/s</td>
+<td>&lt;20 km</td>
+<td>En expansión</td>
+</tr>
+<tr class="odd">
+<td><strong>FTTH P2P</strong></td>
+<td>Fibra óptica</td>
+<td>Dedicada</td>
+<td>Simétrica</td>
+<td>10000/10000 Mb/s</td>
+<td>&lt;40 km</td>
+<td>Premium</td>
+</tr>
+<tr class="even">
+<td><strong>Satelital</strong></td>
+<td>Microondas</td>
+<td>Compartida</td>
+<td>Asimétrica</td>
+<td>100/20 Mb/s</td>
+<td>Global</td>
+<td>Nicho</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Para la conexión entre el router de borde y el siguiente router en la jerarquía de red, disponemos de diversas <strong>tecnologías WAN</strong> (Wide Area Network) que han evolucionado significativamente. Las tecnologías más tradicionales como <strong>Dial-up</strong> (56 kb/s) están obsoletas, mientras que <strong>DSL/VDSL</strong> (50/15 Mb/s típicas) se encuentran en declive debido a sus limitaciones de distancia (&lt;3 km de la central telefónica) y asimetría inherente del par trenzado. El <strong>Cable HFC</strong> (Hybrid Fiber-Coaxial) ofrece velocidades superiores (300/30 Mb/s) mediante una combinación de fibra óptica hasta el vecindario y cable coaxial hasta el hogar, aunque mantiene asimetría y medio compartido. Las tecnologías de <strong>fibra óptica</strong> representan el estado del arte: <strong>FTTH PON</strong> (Fiber-to-the-Home Passive Optical Network) proporciona 1000/1000 Mb/s simétricos con medio compartido y está en expansión activa, mientras que <strong>FTTH P2P</strong> (Point-to-Point) ofrece conexiones dedicadas de hasta 10000/10000 Mb/s para aplicaciones premium. Como alternativa para ubicaciones remotas, la <strong>conectividad satelital</strong> proporciona cobertura global con velocidades de 100/20 Mb/s, aunque con mayor latencia y asimetría, ocupando un nicho específico donde otras tecnologías no son viables.</p>
+<p>Finalmente, llegamos a la última capa, denominada el núcleo de la red. El núcleo de la red es una compleja jerarquía de redes interconectadas que trabajan conjuntamente para proporcionar conectividad global. Por contextualizar las tres partes de la red mencionadas hasta ahora vamos a ver un ejemplo. Supón que una persona A (host) envía un mensaje (carta) a otra persona B (otro host). La persona A deposita la carta en correos, que sería el router de frontera. Todo el proceso del envio de la carta desde correos (router de frontera de A) hasta llegar al buzón de B (router de frontera de B) sería el núcleo de la red.</p>
+<p>Después de haber ejemplificado su estructura, vamos a indagar en cómo está estructurado el núcleo de la red. Primeramente hablaremos de su estructura, que comentamos en la introducción tiene una estructura descentralizada, lo que permite que el sistema sea mas robusto y escalable. Los componentes de esta red que nos proporcionan interconexión con otras redes se denominan ISP (provedores de seervicio de Internet, del inglés “Internet Service Providers”). Los ISPs se organiza en tres niveles, cada uno con características y roles específicos en el ecosistema global de conectividad.</p>
+<p>Los proveedores de Nivel 1 forman la elite de Internet, operando las redes troncales globales de más alta capacidad. Estas organizaciones incluyen empresas como cogent, AT&amp;T, Verizo, TeliaSonera y Telefónica. Los provedores TIER 1 mantienne infraestructuras que abarcan continentes enteros con enlaces de 10-100 Gb/s y routers de rendimiento extremo capaces de procesar millones de paquetes por segundo. Entre los provedores ISP Tier 1 se pueden mandar mensaje sin costo alguno mediante acuerdos de “peering” gratuito. Esto mantiene la exclusividad del estatus Tier 1, ya que se deben alcanzar acuerdos con todos los Tier 1 existentes antes de ser considerado Tier 1.</p>
+<p>Los ISP de Nivel 2 operan redes regionales o nacionales más pequeñas que se conectan a Internet a través de uno o más proveedores Tier 1. Pagan a los Tier 1 por “tránsito” - el servicio de llevar su tráfico a destinos que no pueden alcanzar directamente. Sin embargo, los Tier 2 también establecen conexiones directas entre sí cuando es mutuamente beneficioso, reduciendo los costos de tránsito y mejorando el rendimiento para rutas comunes. Estos proveedores sirven como el tejido conectivo esencial de Internet, agregando tráfico de numerosos proveedores más pequeños y proporcionando redundancia y rutas alternativas. Su posición intermedia les permite ofrecer servicios especializados y soporte más personalizado que los grandes Tier 1, mientras mantienen conexiones globales a través de sus relaciones de tránsito.</p>
+<p>Los ISP de Nivel 3 son los proveedores de acceso que conectan directamente a usuarios finales - hogares, pequeñas empresas, y organizaciones locales. Estos proveedores compran conectividad a Internet de ISP de niveles superiores y generalmente no mantienen conexiones directas entre sí. Su valor radica en el conocimiento local, servicio personalizado, y la infraestructura de “última milla” que lleva Internet directamente a los usuarios finales.</p>
+<div class="cell" data-fig-width="6s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph "Tier 1 ISPs"
+        T1A["Tier 1 ISP A&lt;br/&gt;Global Backbone"]
+        T1B["Tier 1 ISP B&lt;br/&gt;Global Backbone"]
+        T1C["Tier 1 ISP C&lt;br/&gt;Global Backbone"]
+    end
+    
+    subgraph "Tier 2 ISPs"
+        T2A["Tier 2 ISP A&lt;br/&gt;Regional Provider"]
+        T2B["Tier 2 ISP B&lt;br/&gt;Regional Provider"]
+        T2C["Tier 2 ISP C&lt;br/&gt;Regional Provider"]
+        T2D["Tier 2 ISP D&lt;br/&gt;Regional Provider"]
+    end
+    
+    subgraph "Tier 3 ISPs"
+        T3A["Tier 3 ISP A&lt;br/&gt;Local Provider"]
+        T3B["Tier 3 ISP B&lt;br/&gt;Local Provider"]
+        T3C["Tier 3 ISP C&lt;br/&gt;Local Provider"]
+        T3D["Tier 3 ISP D&lt;br/&gt;Local Provider"]
+        T3E["Tier 3 ISP E&lt;br/&gt;Local Provider"]
+        T3F["Tier 3 ISP F&lt;br/&gt;Local Provider"]
+    end
+    
+    %% Tier 1 peering relationships (free exchange)
+    T1A -.-&gt;|"Free Peering"| T1B
+    T1B -.-&gt;|"Free Peering"| T1C
+    T1A -.-&gt;|"Free Peering"| T1C
+    
+    %% Tier 2 purchasing transit from Tier 1
+    T1A --&gt;|"Transit (Paid)"| T2A
+    T1A --&gt;|"Transit (Paid)"| T2B
+    T1B --&gt;|"Transit (Paid)"| T2C
+    T1C --&gt;|"Transit (Paid)"| T2D
+    
+    %% Tier 2 peering with other Tier 2
+    T2A -.-&gt;|"Peering"| T2C
+    T2B -.-&gt;|"Peering"| T2D
+    
+    %% Tier 3 purchasing transit from Tier 2
+    T2A --&gt;|"Transit (Paid)"| T3A
+    T2A --&gt;|"Transit (Paid)"| T3B
+    T2B --&gt;|"Transit (Paid)"| T3C
+    T2C --&gt;|"Transit (Paid)"| T3D
+    T2D --&gt;|"Transit (Paid)"| T3E
+    T2D --&gt;|"Transit (Paid)"| T3F
+    
+    %% Styling
+    classDef tier1 fill:#ff6b6b,stroke:#d63031,stroke-width:3px,color:#fff
+    classDef tier2 fill:#4ecdc4,stroke:#00b894,stroke-width:2px,color:#fff
+    classDef tier3 fill:#fdcb6e,stroke:#e17055,stroke-width:2px,color:#2d3436
+    
+    class T1A,T1B,T1C tier1
+    class T2A,T2B,T2C,T2D tier2
+    class T3A,T3B,T3C,T3D,T3E,T3F tier3
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="intro-network-stacks" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="intro-network-stacks"><span class="header-section-number">1.4</span> Modelos de Referencia de Redes</h2>
+<p>Una vez visto la parte más hardware de Internet, vamos a pasar a introducir la parte software. En concreto, vamos a hablar de como se estructura la parte software de la comunicación en red. Primero, vamos a introducir dos conceptos software muy importantes: Las arquitecturas por capas (“Layered architectures”) y la encapsulación.</p>
+<p>Las arquitecturas por capas es una forma de estructurar una aplicación software en capas (componentes) donde cada capa tiene una responsabilidad específica y bien definida. Cada capa proporciona servicios a la capa superior y utiliza los servicios de la capa inferior, creando una jerarquía organizada. Esta organización permite que cada capa se pueda desarrollar, modificar y mantener de forma independiente, siempre que mantenga la misma interfaz con las capas adyacentes.</p>
+<p>En el contexto de las redes de comunicación, esta aproximación arquitectónica es fundamental porque permite dividir la complejidad de la comunicación en red en problemas más pequeños y manejables. Por ejemplo, una capa puede encargarse únicamente del enrutamiento de datos, mientras que otra se ocupa exclusivamente de la detección y corrección de errores. Esta separación de responsabilidades hace que el sistema sea más modular, escalable y fácil de debuggear.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Encapsulación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La encapsulación, por su parte, es el proceso mediante el cual cada capa añade su propia información de control (headers) a los datos que recibe de la capa superior, creando una nueva unidad de datos que pasa a la capa inferior. De esta manera, cada capa trata los datos de las capas superiores como una carga útil (payload) a la que simplemente añade su propia información de control, sin necesidad de entender o modificar el contenido interno de esos datos.</p>
+</div>
+</div>
+<p>Bajo estos dos conceptos se definen los dos modelos más importantes: el modelo OSI y el modelo TCP/IP. En la <a href="#fig-ni-stacks-tcposi" class="quarto-xref">Figura&nbsp;<span>1.6</span></a> podemos ver los modelos OSI y TCP/IP divididos en sus diferentes capas y cuál es la equivalencia entre ambos.</p>
+<div id="fig-ni-stacks-tcposi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ni-stacks-tcposi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="resources/tcp_osi.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ni-stacks-tcposi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.6: Modelos OSI y TCP/IP.
+</figcaption>
+</figure>
+</div>
+<p>El modelo OSI, desarrollado por la Organización Internacional de Normalización (ISO) en 1984, es un modelo conceptual de siete capas que describe cómo diferentes sistemas de red pueden comunicarse entre sí. El modelo TCP/IP, también conocido como modelo de Internet, es el modelo práctico utilizado en Internet, desarrollado por DARPA con cuatro capas que corresponden aproximadamente a las capas OSI, pero con una estructura más simple y práctica. Aunque en la práctica se usa más el modelo TCP/IP, OSI sigue siendo fundamental para entender los principios de las comunicaciones de red. A continuación, explicamos cada nivel de funcionalidad, mostrando cómo se mapean entre ambos modelos:</p>
+<p><strong>Nivel de Aplicación</strong> OSI: Capas 7, 6 y 5 (Aplicación, Presentación y Sesión) TCP/IP: Capa de Aplicación</p>
+<p>En el modelo OSI, este nivel se divide en tres capas separadas, mientras que TCP/IP las agrupa en una sola capa más práctica:</p>
+<ul>
+<li>Funcionalidad de Aplicación (OSI Capa 7): Es la capa más cercana al usuario final. Aquí residen las aplicaciones de red como navegadores web (HTTP/HTTPS), clientes de correo electrónico (SMTP, POP3, IMAP), transferencia de archivos (FTP) y servicios de nombres de dominio (DNS). Esta capa proporciona servicios directamente a las aplicaciones del usuario.</li>
+<li>Funcionalidad de Presentación (OSI Capa 6): Se encarga de la traducción, cifrado y compresión de datos. Convierte los datos del formato de aplicación al formato de red y viceversa. Maneja diferentes representaciones de datos (ASCII, EBCDIC), cifrado/descifrado y compresión/descompresión.</li>
+<li>Funcionalidad de Sesión (OSI Capa 5): Establece, mantiene y termina las sesiones de comunicación entre aplicaciones. Controla los diálogos/conexiones entre ordenadores, implementa checkpoints para recuperación en caso de fallo y gestiona el control de acceso.</li>
+</ul>
+<p>En TCP/IP, todas estas funcionalidades están integradas en la Capa de Aplicación, que incluye protocolos como HTTP/HTTPS para web, SMTP para correo electrónico, FTP para transferencia de archivos, DNS para resolución de nombres, y muchos otros que proporcionan servicios directos a los usuarios. Esta aproximación más práctica evita la complejidad de separar artificialmente funciones que a menudo están estrechamente relacionadas.</p>
+<p><strong>Nivel de Transporte</strong> OSI: Capa 4 (Transporte) TCP/IP: Capa de Transporte Este nivel es prácticamente idéntico en ambos modelos. Proporciona transferencia de datos confiable entre sistemas finales, maneja el control de flujo, la corrección de errores y la segmentación/reensamblado de datos.</p>
+<p>Los protocolos principales son: - TCP (Transmission Control Protocol): Ofrece comunicación confiable con control de flujo, corrección de errores y garantía de entrega ordenada - UDP (User Datagram Protocol): Ofrece comunicación rápida pero sin garantías de entrega, ideal para aplicaciones en tiempo real</p>
+<p><strong>Nivel de Red/Internet</strong> OSI: Capa 3 (Red) TCP/IP: Capa de Internet</p>
+<p>Ambos modelos manejan esta funcionalidad de manera muy similar. Se encarga del enrutamiento de paquetes a través de múltiples redes, determinando la mejor ruta para enviar datos desde el origen hasta el destino. El protocolo principal es IP (Internet Protocol), junto con protocolos auxiliares como: - ICMP: Para mensajes de control y error - ARP: Para resolución de direcciones (en TCP/IP) - Protocolos de enrutamiento: Como OSPF y BGP</p>
+<p><strong>Nivel de Acceso Físico</strong> OSI: Capas 2 y 1 (Enlace de Datos y Física) TCP/IP: Capa de Acceso a la Red</p>
+<p>El modelo OSI separa estas funciones en dos capas distintas, mientras que TCP/IP las combina por practicidad: - Funcionalidad de Enlace de Datos (OSI Capa 2): Proporciona transferencia de datos libre de errores entre nodos adyacentes. Se divide en dos subcapas: LLC (Logical Link Control) y MAC (Media Access Control). Maneja la detección y corrección de errores a nivel de enlace y controla el acceso al medio físico. - Funcionalidad Física (OSI Capa 1): Define las características eléctricas, mecánicas y funcionales para activar, mantener y desactivar el enlace físico. Especifica voltajes, velocidades de datos, conectores y otros aspectos del medio de transmisión (cable, fibra óptica, radio).</p>
+<p>En TCP/IP, la Capa de Acceso a la Red combina ambas funcionalidades, encargándose de la transmisión de datos en la red local específica, incluyendo tecnologias como Ethernet, WiFi, y otros protocolos de acceso al medio.</p>
+<p><strong>Diferencias Clave Entre los Modelos</strong></p>
+<ul>
+<li>Complejidad: OSI tiene 7 capas vs 4 en TCP/IP, siendo OSI más detallado teóricamente pero TCP/IP más práctico.</li>
+<li>Uso real: TCP/IP es el modelo usado en Internet, mientras que OSI es principalmente un modelo de referencia educativo.</li>
+<li>Flexibilidad: TCP/IP agrupa funcionalidades relacionadas, evitando separaciones artificiales que raramente se implementan por separado en la práctica.</li>
+<li>Evolución: TCP/IP evolucionó con Internet, mientras que OSI fue diseñado como estándar teórico antes de su implementación masiva.</li>
+</ul>
+</section>
+<section id="rendimiento" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="rendimiento"><span class="header-section-number">1.5</span> Rendimiento</h2>
+<p>Por último, vamos a cerrar esta introducción a las redes de telecomunicaciones describiendo brevemente los factores presentes en su rendimiento. Primero, vamos a conceptualizarlo con un ejemplo simplificado. Supongamos que la red de telecomunicación es una carretera entre dos puntos y los paquetes son los vehículos. ¿Cómo podríamos medir el rendimiento de este sistema? Las dos métricas más sencillas serían el tiempo en recorrer la carretera y la cantidad de vehículos que pueden circular a la vez. La primera métrica se conoce como latencia, y está influenciada en nuestro ejemplo por la velocidad del medio, y la segunda se conoce como el tasa de transferencia efectiva (throughput), que sería el número de carriles de las carreteras. El objetivo, bajo estas dos métricas, sería que los vehículos fueran lo más rápido posible aprovechando todos los carriles, consiguiendo que el número de vehículos que llega sea lo más alto posible.</p>
+<p>El ejemplo es muy simple, pero nos ha ayudado a introducir dos conceptos clave, la latencia y el throughput. En este capítulo veremos cuáles son los principales factores que influyen en estos dos conceptos cuando en lugar de tener una carretera, tenemos varias carreteras con conexiones entre ellas y no todos los vehículos van al mismo sitio. Las conexiones entre las carreteras, es decir, las redes, se realiza a través de routers como hemos comentado en los capítulos anteriores.</p>
+<p>Primero, nos vamos a centrar en el throughput, que es la cantidad de datos real que podemos transmitir por unidad de tiempo. Generalmente se mide en Mb/s o Gb/s. El throughput a veces se mide de manera instantánea pero también se puede considerar como media de un periodo de tiempo. El throughput está limitado por el componente más “lento” en el camino entre dos puntos. Por ejemplo, si estamos descargando información y el medio tiene un throughput de 1Gb/s pero el servidor solo es capaz de proporcionar 100Mb/s, el throughput resultante será 100Mb/s.</p>
+<p>Un término asociado al throughput es el ancho de banda (bandwidth). El bandwidth es la capacidad máxima teórica del canal de comunicación, es decir, la cantidad máxima de datos que puede transmitir por unidad de tiempo en condiciones ideales. Es decir, es el límite físico. Por otra parte, el throughput como dijimos es la cantidad real que obtenemos condiciones reales.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es importante no confundir MB/s con Mb/s (u otros pares como GB/s con Gb/s). En informática se suele hablar en MB/s, es decir, MegaBytes por segundo, mientras que en telecomunicaciones se suele hablar en Mb/s. Es una diferencia importante ya que un MB/s es 8 veces más velocidad que un Mb/s.</p>
+</div>
+</div>
+<p>Ahora pasaremos a la latencia de red, y los factores que la definen. La latencia es el tiempo total que tarda un paquete en viajar desde el origen hasta el destino. Esta latencia no se mide únicamente con el tiempo teórico de propagación por el medio, sino que es la suma de varios factores. Primero nos enfocaremos en los factores que afectan a un único paquete:</p>
+<ul>
+<li><p><strong>Retardo de procesamiento</strong> (<span class="math inline">\(d_{proc}\)</span>): El retardo de procesamiento es el tiempo que tarda un router en procesar el paquete. Esto incluye, comprobar la integridad del paquete (checksum), determinar cuál es el siguiente salto y otros procesos adicionales del protocolo. En los routers modernos este proceso normalmente es de microsegundos en condiciones normales, pero puede incrementarse en caso de congestión o políticas adicionales. Este procesamiento se lleva a cabo en hardware especializado (ASICs), pero en determinadas circunstancias es posible que sea necesario inspeccionar el paquete mediante software, como por ejemplo en Deep Packet Inspection, que se suele utilizar para monitorizar la red por seguridad o para forzar políticas <span class="citation" data-cites="kurose2017computer">Kurose y Ross (<a href="../../../references.html#ref-kurose2017computer" role="doc-biblioref">2017</a>)</span>.</p></li>
+<li><p><strong>Retardo de cola</strong> (<span class="math inline">\(d_{queue}\)</span>): El retardo de cola ocurre una vez se ha procesado el paquete con su correspondiente retardo de procesamiento. En este momento, el paquete es colocado en un buffer con la información necesaria para determinar el siguiente salto. El retardo de cola es el tiempo que tarda el paquete en ser enviado al siguiente salto. Si hay poco tráfico, el retardo de cola será casi nulo, en cambio, si hay mucho tráfico este retardo crecerá considerablemente.</p></li>
+<li><p><strong>Retardo de propagación</strong> (<span class="math inline">\(d_{prop}\)</span>): El retardo de propagación es el tiempo que tarda en viajar un paquete por el medio, como puede ser la fibra óptica o 5G, o generalmente, una combinación de varias, ya que de un punto a otro puede haber diferentes medios. El retardo, por lo tanto, es la suma de los retardos de cada uno de los medios. El retardo de un medio, se calcula como <span class="math inline">\(d/s\)</span>, donde d es la longitud del medio y s es la velocidad del medio. Por contextualizar con datos las velocidades de los medios, la fibra óptica y el cable coaxial tienen una velocidad (en promedio) de aproximadamente el 67% de la velocidad de la luz y en el 5G la velocidad de la luz <span class="citation" data-cites="kurose2017computer">Kurose y Ross (<a href="../../../references.html#ref-kurose2017computer" role="doc-biblioref">2017</a>)</span>. Este retardo está limitado por las leyes de la física.</p></li>
+</ul>
+<p>Estos factores afectan a un único paquete, pero generalmente cuando enviamos algo es demasiado grande como para entrar en un paquete y se divide en varios paquetes, que posteriormente se recomponen en el destino. Por lo tanto, tenemos otro tipo de retardo, que tiene en cuenta la cantidad de información que queremos enviar:</p>
+<ul>
+<li><strong>Retardo de transmisión</strong> (<span class="math inline">\(d_{trans}\)</span>): Este retardo está determinado por el tamaño de la información que queremos enviar (L) y la velocidad del enlace (R), es decir, <span class="math inline">\(L/R\)</span>. Generalmente este retardo es predecible y constante, pero puede variar significativamente entre tecnologías de red. La velocidad del enlace es el throughput.</li>
+</ul>
+<p>Una vez definidos todos los factores, podemos expresar el retardo total como:</p>
+<p><span class="math inline">\(d_{total} = d_{proc} + d_{queue} + d_{prop} + d_{trans}\)</span></p>
+<p>Vamos a ver un ejemplo “real” de retardo comparando dos enlaces, uno con fibra y otro con 5G. Haremos la comparación hasta el primer router (router de borde) incluido:</p>
+<ul>
+<li><p><strong>Retardo de propagación</strong>: Como comentamos previamente, el 5G se propaga a la velocidad de la luz y la fibra aproximadamente al 67% de la velocidad de la luz. Por lo tanto, el 5G es más rápido.</p></li>
+<li><p><strong>Retardo de procesamiento</strong>: En 5G tenemos retardo debido a la estación de radio, la decodificación y la gestión de los recursos de radio (aproximadamente unos 4ms). En cambio, en la fibra este proceso es mucho más rápido, necesitando aproximadamente unos 0.1ms por salto. La fibra suele ser mucho más rápida.</p></li>
+<li><p><strong>Retardo de cola</strong>: A una estación suele haber conectados cientos de dispositivos, puede haber interferencias y además también suelen ser dependientes del clima. Un ejemplo de esto lo podréis haber vivido cuando estáis en un concierto con miles de personas y no funciona bien la conexión debido a la congestión. En el caso de la fibra óptica suele haber menos congestión, el número de usuarios es predecible y los sistemas cuentan con buffers más grandes y eficientes.</p></li>
+<li><p><strong>Retardo de transmisión</strong>: El throughput en 5G es inferior a 1Gb/s, mientras que en fibra pueden llegar actualmente a 10 Gb/s.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Latencia vs Throughput">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Latencia vs Throughput
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La latencia mide cuánto tiempo tarda en llegar la información y el throughput mide cuánta información puede viajar simultáneamente por el canal de comunicación. Volviendo al ejemplo de la carretera: la latencia sería el tiempo que tarda un vehículo en recorrer toda la carretera de extremo a extremo, mientras que el throughput sería la cantidad total de vehículos que pueden pasar por la carretera en un periodo determinado (relacionado con el número de carriles y la densidad de tráfico).</p>
+</div>
+</div>
+<p>Un concepto asociado a la latencia de suma importancia en las aplicaciones en red, especialmente los juegos interactivos es el jitter. Cuando enviamos varios paquetes podemos calcular una latencia promedio, ya que no todos los paquetes tardarán lo mismo debido a las condiciones de red y diferentes rutas. En aplicaciones altamente interactivas tener una latencia promedio baja es indispensable. Sin embargo, considera este pequeño ejemplo donde se envian 4 paquetes.</p>
+<ul>
+<li>Escenario 1: Los paquetes tardan 50ms, 52ms, 48ms, 51ms</li>
+<li>Escenario 2: Los paquetes tardan 28ms, 68ms, 43ms, 62ms.</li>
+</ul>
+<p>En ambos escenarios los paquetes tienen una latencia promedio de 50.25ms. Sin embargo, la variación entre los paquetes es elevada. En el primer caso, la variación es de 1.48ms mientras que en el segundo es de 15.82ms. Esta variabilidad se conoce como jitter. Un jitter alto puede ocasionar voz entrecortada o saltos en videoconferencias o degradación de la calidad en videojuegos. En el caso de los videojuegos, se suelen utilizar buffers para realizar interpolaciones de los elementos de red y así tener un juego más fluido.</p>
+<p>Finalmente, vamos a ver un último factor que no se ajusta a los anteriores. Hasta ahora hemos asumido que todos los paquetes que enviamos llegan correctamente a su destinatario. Pero esto no es siempre cierto. Por ejemplo, si un router está congestionado y tiene su buffer lleno, descartará los paquetes. Si un paquete se corrompe debido a alteraciones (e.g., campos electromagnéticos, radiación solar<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>) un router de tránsito lo podrá descartar. Esto forma parte del protocolo de internet. Otros protocolos, en capas superiores como por ejemplo TCP, tienen en cuenta estas situaciones y reenvían el paquete cuando determinan que no ha llegado a su destino.</p>
+<p><strong>Aplicaciones Prácticas: Videojuegos</strong> Cuando estamos diseñando aplicaciones en red tenemos que tener en cuenta estos retardos, pues pueden hacer nuestra aplicación inutilizable. En el caso de los videojuegos, los requisitos de retardo máximo vendrán dados dependiendo del tipo de juego, por ejemplo <span class="citation" data-cites="claypool2006latency">Claypool y Claypool (<a href="../../../references.html#ref-claypool2006latency" role="doc-biblioref">2006</a>)</span>:</p>
+<ul>
+<li>Real-Time Strategy (RTS): Tolerancia media (100-200ms) debido a su naturaleza estratégica.</li>
+<li>Turn-Based Games: Tolerancia alta (500ms+) debido a que los turnos son discretos.</li>
+<li>First-Person Shooters (FPS): Baja tolerancia (20-50ms) para juegos competitivos.</li>
+<li>Fighting Games: Tolerancia muy baja (1-3 frames, ~16-50ms).</li>
+<li>Racing Games: Tolerancia baja o moderada (50-100ms) dependiendo del realismo.</li>
+<li>MMORPGs: Tolerancia variable dependiendo de la actividad, por ejemplo combates vs social.</li>
+</ul>
+<p>Estos tiempos se miden en RTT (Round Trip Time), que involucra el tiempo entre que se manda el mensaje, se procesa en el servidor, y obtenemos la respuesta de vuelta en el cliente.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-iotanalytics2020statista" class="csl-entry" role="listitem">
+Analytics, IoT. 2020. <span>«Internet of Things (IoT) and non-IoT active device connections worldwide from 2010 to 2025 (in billions)»</span>. Statista. <a href="https://www.statista.com/statistics/1101442/iot-number-of-connected-devices-worldwide/">https://www.statista.com/statistics/1101442/iot-number-of-connected-devices-worldwide/</a>.
+</div>
+<div id="ref-bbc_ethernet1971" class="csl-entry" role="listitem">
+BBC Brasil. 2019. <span>«[Image from: Article Title]»</span>. <a href="https://www.bbc.com/portuguese/geral-50162526">https://www.bbc.com/portuguese/geral-50162526</a>.
+</div>
+<div id="ref-claypool2006latency" class="csl-entry" role="listitem">
+Claypool, Mark, y Kajal Claypool. 2006. <span>«Latency and player actions in online games»</span>. <em>Commun. ACM</em> 49 (11): 40-45. <a href="https://doi.org/10.1145/1167838.1167860">https://doi.org/10.1145/1167838.1167860</a>.
+</div>
+<div id="ref-kurose2017computer" class="csl-entry" role="listitem">
+Kurose, James F., y Keith W. Ross. 2017. <em>Computer Networks: A Top-Down Approach</em>. 7.ª ed. Boston, MA: Pearson.
+</div>
+<div id="ref-ourworldindata2023internet" class="csl-entry" role="listitem">
+Ritchie, Hannah, Edouard Mathieu, Max Roser, y Esteban Ortiz-Ospina. 2023. <span>«Internet»</span>. Our World in Data. <a href="https://ourworldindata.org/internet">https://ourworldindata.org/internet</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><em>Enrutamiento</em> es una adaptación al español del término inglés <em>routing</em>. Aunque no está reconocida oficialmente por la RAE (2025) y el término normativo sería <em>encaminamiento</em>, en estos apuntes se utilizará <em>enrutamiento</em> por ser la forma más habitual en el ámbito de las redes y telecomunicaciones.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Algunos componentes de Internet tienen una arquitectura híbrida, cómo los ISPs grandes y DNS.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Los routers comparten y propagan información de congestión y destinos disponibles con los routers adyacentes.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Técnicamente sí pueden afectar ciertos factores, por ejemplo, campos magnéticos intensos o interferencias electromagnéticas sobre el cable Ethernet.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>La resistencia del cable se incrementa linealmente con la distancia, aumenta la probabilidad de interferencias electromagnéticas, y se degrada la relación señal-ruido, entre otros factores.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>El rendimiento de ambas tecnologías puede degradarse significativamente en áreas de alta densidad poblacional o durante horas pico debido a la congestión del medio compartido.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>La radiación cósmica produce cambios de bits en dispositivos electrónicos, que se denominan SEU (Single Event Upset). Estos cambios suelen afectar a las DRAM, SRAM y ASICs. Contrario a la intuición, es algo relativamente frecuente, y ocurre con una tasa aproximada de 1 error por cada 256MB por día a nivel del mar. Cuanto más altitud (o dicho de otra forma, más cerca del espacio), esta tasa se incrementa considerablemente. A nivel de red esto suele ocurrir en los routers.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../ch/part_networks/access_layer/access_layer.html" class="pagination-link" aria-label="Capa de Acceso a la Red">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

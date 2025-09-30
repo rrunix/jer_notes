@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Capa de aplicación – Apuntes de Juegos en Red</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../references.html" rel="next">
+<link href="../../../ch/part_networks/transport_layer/transport_layer.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-49c62e5b8c3163634b294513a7851f6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<meta name="mermaid-theme" content="default">
+<script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/application_layer/application_layer.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../../">Apuntes de Juegos en Red</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introducción a redes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#socket" id="toc-socket" class="nav-link active" data-scroll-target="#socket"><span class="header-section-number">5.1</span> Socket</a>
+  <ul class="collapse">
+  <li><a href="#sockets-tcp" id="toc-sockets-tcp" class="nav-link" data-scroll-target="#sockets-tcp"><span class="header-section-number">5.1.1</span> Sockets TCP</a></li>
+  <li><a href="#sockets-udp" id="toc-sockets-udp" class="nav-link" data-scroll-target="#sockets-udp"><span class="header-section-number">5.1.2</span> Sockets UDP</a></li>
+  <li><a href="#servicios-requeridos-y-elección-de-capa-de-transporte" id="toc-servicios-requeridos-y-elección-de-capa-de-transporte" class="nav-link" data-scroll-target="#servicios-requeridos-y-elección-de-capa-de-transporte"><span class="header-section-number">5.1.3</span> Servicios Requeridos y elección de capa de transporte</a></li>
+  </ul></li>
+  <li><a href="#arquitecturas-de-aplicaciones-distribuidas" id="toc-arquitecturas-de-aplicaciones-distribuidas" class="nav-link" data-scroll-target="#arquitecturas-de-aplicaciones-distribuidas"><span class="header-section-number">5.2</span> Arquitecturas de Aplicaciones Distribuidas</a>
+  <ul class="collapse">
+  <li><a href="#arquitectura-clienteservidor" id="toc-arquitectura-clienteservidor" class="nav-link" data-scroll-target="#arquitectura-clienteservidor"><span class="header-section-number">5.2.1</span> Arquitectura Cliente/Servidor</a></li>
+  <li><a href="#arquitectura-peer-to-peer-p2p" id="toc-arquitectura-peer-to-peer-p2p" class="nav-link" data-scroll-target="#arquitectura-peer-to-peer-p2p"><span class="header-section-number">5.2.2</span> Arquitectura Peer-to-Peer (P2P)</a></li>
+  </ul></li>
+  <li><a href="#protocolos" id="toc-protocolos" class="nav-link" data-scroll-target="#protocolos"><span class="header-section-number">5.3</span> Protocolos</a>
+  <ul class="collapse">
+  <li><a href="#http" id="toc-http" class="nav-link" data-scroll-target="#http"><span class="header-section-number">5.3.1</span> HTTP</a></li>
+  <li><a href="#dns" id="toc-dns" class="nav-link" data-scroll-target="#dns"><span class="header-section-number">5.3.2</span> DNS</a></li>
+  <li><a href="#smtp-imap-y-pop" id="toc-smtp-imap-y-pop" class="nav-link" data-scroll-target="#smtp-imap-y-pop"><span class="header-section-number">5.3.3</span> SMTP, IMAP y POP</a></li>
+  <li><a href="#quic" id="toc-quic" class="nav-link" data-scroll-target="#quic"><span class="header-section-number">5.3.4</span> QUIC</a></li>
+  </ul></li>
+  <li><a href="#servicios" id="toc-servicios" class="nav-link" data-scroll-target="#servicios"><span class="header-section-number">5.4</span> Servicios</a>
+  <ul class="collapse">
+  <li><a href="#cdns" id="toc-cdns" class="nav-link" data-scroll-target="#cdns"><span class="header-section-number">5.4.1</span> CDNs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/application_layer/application_layer.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-application-layer" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>La capa de aplicación define los protocolos que utilizarán las aplicaciones para intercambiar datos. Las aplicaciones generalmente se representan con procesos, y por lo tanto, la capa de aplicación se centra en la comunicación entre procesos. Este nivel de ejecución nos va a quedar más claro si tenemos en cuenta que podemos crear nuestros propios protocolos que se ejecuten a nivel de capa de aplicación.</p>
+<p>A continuación veremos un ejemplo de protocolo definido en la capa de aplicación, que realiza una función de “echo”, es decir, repite la información que recibe. Además, este pequeño ejemplo nos servirá para introducir de los tipos de arquitecturas que pueden tener una aplicación de red. En concreto, este ejemplo utilizará una arquitectura cliente - servidor. En este tipo de arquitectura, tenemos un host (servidor) que está siempre activo con una dirección IP conocida y que ofrece servidor a otros hosts (clientes). Estos clientes podrán estar activos o no, y no se comunican entre ellos, sólo con el servidor. En este ejemplo tendremos un servidor, cuya funcionalidad será devolver la información recibida, con el formato “Echo: {message}”, donde {message} es el contenido recibido. El servidor continuará contestando la petición de los clientes hasta que reciba el mensaje “quit”, mediante el cual se cerrará la conexión entre ambos.</p>
+<p>A continuación se muestra el servidor. Está programado en JavaScript, que veremos en la siguiente parte del libro. No os preocupéis si no entendéis todo, es simplemente a modo de ilustración.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> net <span class="op">=</span> <span class="pp">require</span>(<span class="st">'net'</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">echoServer</span>() {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> server <span class="op">=</span> net<span class="op">.</span><span class="fu">createServer</span>()<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    server<span class="op">.</span><span class="fu">on</span>(<span class="st">'connection'</span><span class="op">,</span> (socket) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> clientAddress <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>socket<span class="op">.</span><span class="at">remoteAddress</span><span class="sc">}</span><span class="vs">:</span><span class="sc">${</span>socket<span class="op">.</span><span class="at">remotePort</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Client connected: </span><span class="sc">${</span>clientAddress<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">handleClient</span>(socket<span class="op">,</span> clientAddress)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    server<span class="op">.</span><span class="fu">listen</span>(<span class="dv">8888</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Echo server listening on localhost:8888'</span>)<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">handleClient</span>(socket<span class="op">,</span> clientAddress) {</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    socket<span class="op">.</span><span class="fu">on</span>(<span class="st">'data'</span><span class="op">,</span> (data) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> message <span class="op">=</span> data<span class="op">.</span><span class="fu">toString</span>(<span class="st">'utf-8'</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`[</span><span class="sc">${</span>clientAddress<span class="sc">}</span><span class="vs">] </span><span class="sc">${</span>message<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (message<span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">===</span> <span class="st">'quit'</span>) {</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            socket<span class="op">.</span><span class="fu">end</span>()<span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Echo back</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> echoResponse <span class="op">=</span> <span class="vs">`Echo: </span><span class="sc">${</span>message<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        socket<span class="op">.</span><span class="fu">write</span>(echoResponse)<span class="op">;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    socket<span class="op">.</span><span class="fu">on</span>(<span class="st">'close'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`[</span><span class="sc">${</span>clientAddress<span class="sc">}</span><span class="vs">] Disconnected`</span>)<span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    socket<span class="op">.</span><span class="fu">on</span>(<span class="st">'error'</span><span class="op">,</span> (err) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`[</span><span class="sc">${</span>clientAddress<span class="sc">}</span><span class="vs">] Error: </span><span class="sc">${</span>err<span class="op">.</span><span class="at">message</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este servidor está formado por dos funciones, la función “handleClient” y la función “echoServer”. Empezando por “echoServer”, en las primeras líneas se crea un servidor TCP usando el módulo ‘net’ de Node.js. El servidor utiliza el modelo basado en eventos de JavaScript - cuando se conecta un cliente, se dispara automáticamente el evento ‘connection’, que delega el procesamiento del cliente a “handleClient”. La función “handleClient” define el “protocolo” mediante eventos: escucha el evento ‘data’ de forma indefinida hasta que se reciba un mensaje con la palabra “quit”, procesa los datos recibidos y los devuelve al cliente con el formato “Echo: {message}”. Esta ejecución también puede terminar cuando se disparan los eventos ‘close’ (cliente desconecta) o ‘error’ (error en la conexión), que son manejados automáticamente por el sistema de eventos de Node.js. Si os fijáis en esta función trabajamos con la variable “socket”, que es la interfaz entre la capa de aplicación y la capa de transporte. Dicho de otra forma, es la interfaz que tenemos de interactuar con la capa inferior, y la capa inferior con nosotros. El servidor queda escuchando en localhost:8888 y puede manejar múltiples clientes simultáneamente gracias al bucle de eventos asíncrono de Node.js.</p>
+<p>Ahora pasaremos a la parte del cliente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> socket</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> echo_client():</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Interactive echo client"""</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    client_socket <span class="op">=</span> socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    client_socket.<span class="ex">connect</span>((<span class="st">'localhost'</span>, <span class="dv">8888</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        message <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Enter message: "</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> message.lower() <span class="op">==</span> <span class="st">'quit'</span>:</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            client_socket.send(message.encode(<span class="st">'utf-8'</span>))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        client_socket.send(message.encode(<span class="st">'utf-8'</span>))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> client_socket.recv(<span class="dv">1024</span>).decode(<span class="st">'utf-8'</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Server response: </span><span class="sc">{</span>response<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    client_socket.close()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En este caso el código está hecho con Python, no es un requisito necesario y podría estar en JavaScript, pero quería remarcar que la definición de protocolos en red permite permite la comunicación entre dos procesos que están en la misma u otra máquina, independientemente de su lenguage de programación <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. En este cliente de Python tenemos una única función que representa al ciente, “echo_client”, donde en las primeras líneas establecemos una conexión con el servidor de JavaScript. Fijaros en el <code>('localhost', 8888)</code>, con esta combinación de identificador de máquina, “localhost”, podemos identificar el host donde está el servidor, y con el puerto, 8888, podemos identificar el proceso que corresponde al servidor. Como en el anterior ejemplo, tenemos un “socket” que permite una interacción bidireccional con la capa de transporte. No os preocupéis por estos detalles, los veremos en el siguiente capítulo.</p>
+<p>Con este ejemplo hemos ilustrado los tres conceptos clave de este capítulo, los protocolos de la capa de aplicación, la arquitectura de las aplicaciones de red <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, y los sockets que permiten la interacción entre la capa de aplicación y la capa de transporte. En los siguientes apartados profundizaremos en estos temas. Primero, veremos en detalle los sockets. Después, indagaremos en las arquitecturas de aplicaciones en red. Posteriormente veremos protocolos utilizados en la actual como HTTP que utilizamos cuando navegamos por la web, SMTP, IMAP y POP que utilizamos en las aplicaciones de correo, entre otros.</p>
+<section id="socket" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="socket"><span class="header-section-number">5.1</span> Socket</h2>
+<p>Los sockets son la interfaz de programación que permite a las aplicaciones comunicarse con la capa de transporte. Actúan como un punto de conexión bidireccional entre la capa de aplicación y la capa de transporte, proporcionando una abstracción que oculta los detalles de bajo nivel de la comunicación en red. En esencia, un socket es un endpoint de comunicación que permite que los procesos intercambien datos, ya sea en la misma máquina o a través de una red. El API de Sockets fue introducida en BSD4.1 UNIX en 1981. Fue explícitamente creada, usada y lanzada por las aplicaciones de red. Está basada en el paradigma cliente/servidor.</p>
+<p>Cuando una aplicación necesita comunicarse a través de la red, crea un socket que especifica el protocolo de transporte a utilizar (TCP o UDP), la dirección IP del host de destino, y el número de puerto del proceso receptor. El socket encapsula toda la información necesaria para establecer y mantener una conexión de red, proporcionando una interfaz uniforme independientemente del protocolo de transporte subyacente. Los sockets se pueden clasificar según el protocolo de transporte que utilizan, siendo los más comunes los sockets TCP y UDP, cada uno con características y casos de uso específicos. Los detalles del funcionamiento interno de TCP y UDP los veremos en el capítulo de la capa de transporte.</p>
+<p>Para identificar un proceso se necesita:</p>
+<ul>
+<li><strong>IP del host</strong>: Dirección única de 32 bits (IPv4)</li>
+<li><strong>Número de puerto</strong>: Asociado con el proceso en el host</li>
+<li>Ejemplos: HTTP (puerto 80), HTTPS (puerto 443), DNS (puerto 53)</li>
+</ul>
+<section id="sockets-tcp" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="sockets-tcp"><span class="header-section-number">5.1.1</span> Sockets TCP</h3>
+<p>Los sockets TCP (Transmission Control Protocol) proporcionan una comunicación confiable y orientada a conexión entre procesos. Antes de que los datos puedan ser intercambiados, se debe establecer una conexión explícita entre el cliente y el servidor, lo que garantiza que ambos extremos estén listos para la comunicación. Las características principales del socket TCP son las siguientes:</p>
+<ul>
+<li><strong>Orientado a conexión</strong>: Requiere establecer una conexión antes del intercambio de datos.</li>
+<li><strong>Confiabilidad</strong>: Garantiza que todos los datos enviados lleguen al destino sin errores y en orden.</li>
+<li><strong>Control de flujo</strong>: Evita que el emisor sature al receptor.</li>
+<li><strong>Control de congestión</strong>: Adapta la velocidad de envío según las condiciones de la red.</li>
+<li><strong>Full-duplex</strong>: Permite comunicación bidireccional simultánea.</li>
+</ul>
+<p>Para crear un socket TCP de tipo servidor, es decir, que siempre está activo y está esperando las conexiones de los clientes (arquitectura cliente-servidor), utilizaremos el módulo net de javascript. Dentro de este módulo, utilizaremos la función “createServer” para crear un socket de tipo servidor de TCP. Posteriormente, utilizaremos el método “listen” para escuchar en un puerto en concreto. En este caso, el 8888. El segundo parámetro, que en este caso es “localhost”, es opcional, y quiere decir que las clientes tienen que estar en esa red. Si obviamos el parámetro, los clientes podrán conectarse desde cualquier otra máquina. Finalmente, el último parámetro es un “callback” que se ejecutará una vez el servidor socket esté escuchando en el puerto correctamente.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> net <span class="op">=</span> <span class="pp">require</span>(<span class="st">'net'</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Crear servidor TCP</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> server <span class="op">=</span> net<span class="op">.</span><span class="fu">createServer</span>()<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Configurar el servidor para escuchar en puerto 8888</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">listen</span>(<span class="dv">8888</span><span class="op">,</span> <span class="st">'localhost'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Servidor TCP escuchando en localhost:8888'</span>)<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Por ahora hemos bloqueado un puerto dentro de nuestra máquina y estamos esperando a que se conecten los clientes. Ahora, tenemos que gestionar los eventos de conexión. Para ello, utilizaremos el método “server.on”, especificándole que el evento que queremos escuchar es la conexión “connection” (primer parámetro). El segundo parámetro es un manejador de conexión (una función), que recibe un “socket”, y que será invocada por el servidor socket por cada cliente que se conecte. Recordemos que TCP está orientado a conexión. En nuestro código esa conexión con el cliente se realizará a través del “socket” que recibe el manejador.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Manejar nuevas conexiones</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">on</span>(<span class="st">'connection'</span><span class="op">,</span> (socket) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Cliente conectado:'</span><span class="op">,</span> socket<span class="op">.</span><span class="at">remoteAddress</span>)<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// El socket está listo para intercambiar datos</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sobre este socket que hemos recibido en el manejador podemos escuchar diferentes eventos. El primer evento que veremos es “data”. Este evento se invocará cada vez que el socket reciba información desde el otro socket. Estos datos se procesan a través de un manejador que le pasaremos cuando escuchamos el evento “data”. El manejador recibirá un parámetro, que en el siguiente código se denomina “data”, y contendrá los datos enviados por el otro integrante de la conexión.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="fu">on</span>(<span class="st">'data'</span><span class="op">,</span> (data) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Por contextualizar, supongamos que tenemos un juego con dos jugadores que están en diferentes máquinas y estos se comunican con un servidor central. En este método recibiríamos por ejemplo las actualizaciones de estado de cada uno de los jugadores, y tendríamos que actualizar el estado del servidor y notificar al otro jugador.</p>
+<p>El siguiente evento es “close”. Este evento se invocará cuando la conexión se haya cerrado. En el manejador que le pasamos como parámetro tendremos que realizar las operaciones oportunas en base al protocolo que estemos definiendo.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="fu">on</span>(<span class="st">'close'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`[</span><span class="sc">${</span>socket<span class="op">.</span><span class="at">remoteAddress</span><span class="sc">}</span><span class="vs">] Disconnected`</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Siguiendo con el ejemplo, este evento podría invocarse si uno de los jugadores se desconecta. En ese caso, se invocaría ese método, el servidor debería actualizar a finalizado el estado del juego, y notificar al otro jugador de que la partida ha terminado.</p>
+<p>Por último, tenemos el evento “error”. Este puede ocurrir cuando se cierra la conexión de forma inesperada, por ejemplo, te desconectas de la red. En este caso también se ejcutará el manejador de “close”, así que es recomendable poner la lógica de limpieza allí. Ya que el “close” se ejecutará si la conexión se cierra de tanto de forma natural como inesperada. Mientras que el “error” solo cuando es de forma inesperada. Otro posible caso en el que se ejecuta el “error” es si estamos tratando de escribir en un socket que está cerrado. También puede ocurrir si salta un evento de “timeout” durante el envío de datos.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="fu">on</span>(<span class="st">'error'</span><span class="op">,</span> (err) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`[</span><span class="sc">${</span>socket<span class="op">.</span><span class="at">remoteAddress</span><span class="sc">}</span><span class="vs">] Error: </span><span class="sc">${</span>err<span class="op">.</span><span class="at">message</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ahora que sabemos como manejar los eventos, sólo nos falta ver como enviar información a través de un socket. Para ello, utilizaremos el método “write”. El segundo parámetro es un manejador que utilizaremos para capturar los errores durante el envió de información.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="fu">write</span>(<span class="st">'Hello'</span><span class="op">,</span> (err) <span class="kw">=&gt;</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este método lo utilizaríamos para enviar por ejemplo las actualizaciones de estado.</p>
+<p>Una vez vista la parte del servidor veremos la del cliente. Para ello necesitaremos también el módulo “net” y crearemos un socket con “new net.Socket()”. Una vez creado el socket, lo conectaremos mediante la instrucción “socket.connect”. El primer parámetro es el puerto donde está escuchando el servidor socket en la máquina identificada por el segundo parámetro. En este caso, la conexión es a “localhost” y el puerto 8888. El tercer parámetro es un callback que se ejecutará una vez la conexión se haya establecido.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> net <span class="op">=</span> <span class="pp">require</span>(<span class="st">'net'</span>)<span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Crear socket TCP</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> socket <span class="op">=</span> <span class="kw">new</span> net<span class="op">.</span><span class="fu">Socket</span>()<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Conectar al servidor (establece la conexión TCP)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="fu">connect</span>(<span class="dv">8888</span><span class="op">,</span> <span class="st">'localhost'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Conectado al servidor TCP'</span>)<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// El socket está listo para intercambiar datos</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Respecto a los métodos por la parte del cliente, son los mismos que explicamos con el socket del servidor (es decir, una vez establecida la conexión). Una vez es se establece la conexión, no hay diferencia entre ambos. Como matiz, en el manejador de error del cliente tenemos algunos errores a mayores, como por ejemplo sino se puede establecer la conexión.</p>
+<p>Ambos socket tienen que ser cerrados para liberar recursos una vez hayamos terminado. Para ello utilizaremos el método “close”:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="fu">close</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En el caso del servidor también:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">close</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sino lo hacemos el bucle de eventos seguirá activo y la aplicación no terminará.</p>
+</section>
+<section id="sockets-udp" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="sockets-udp"><span class="header-section-number">5.1.2</span> Sockets UDP</h3>
+<p>Los sockets UDP (User Datagram Protocol) proporcionan una comunicación sin conexión y de mejor esfuerzo. El mejor esfuerzo se refiere a que va a intentar lo mejor que pueda enviar la información al destinatario, pero en caso de que falle, no va a volver a intentarlo ni te notificará. Esto contrasta con TCP que si lo reintenta y en caso de no poder te notifica. Sus características principales son las siguientes:</p>
+<ul>
+<li><strong>Sin conexión</strong>: No requiere establecer conexión previa</li>
+<li><strong>Mejor esfuerzo</strong>: No garantiza entrega, orden ni integridad de datos</li>
+<li><strong>Baja latencia</strong>: Menor overhead que TCP</li>
+<li><strong>Simplicidad</strong>: Protocolo más simple y directo</li>
+<li><strong>Broadcast/Multicast</strong>: Soporte nativo para envío a múltiples destinatarios</li>
+</ul>
+<p>Para recibir paquetes de UDP, crearemos un servidor de UDP utilizando el paquete “dgram”. El socket se crea mediante la expresión “dgram.createSocket(‘udp4’)”. En este caso se utiliza “udp4” ya que utilizamos IPv4, pero si queremos utilizar IPv6 sería “udp6”. Veremos las diferencias en el capítulo de capa de red. Una vez creado el socket, nos mantenemos a la escucha con la instrucción “bind”. En este caso, el puerto 8888. El segundo parámetro, en este caso “localhost”, indica que solo aceptaremos peticiones de la red “localhost”. Como en TCP, si lo dejamos vacio será cualquier red. También podremos especificar otras redes. Finalmente tenemos un manejador que se invocará si el socket empieza a escuchar en el puerto 8888 correctamente.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> dgram <span class="op">=</span> <span class="pp">require</span>(<span class="st">'dgram'</span>)<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Crear socket UDP</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> server <span class="op">=</span> dgram<span class="op">.</span><span class="fu">createSocket</span>(<span class="st">'udp4'</span>)<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Vincular el socket al puerto 8888</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">bind</span>(<span class="dv">8888</span><span class="op">,</span> <span class="st">'localhost'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Servidor UDP escuchando en localhost:8888'</span>)<span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para recibir mensajes, añadimos un manejador al evento “message”. Este manejador recibe dos parámetros. El mensaje, que es lo que nos han enviado desde el socket UDP cliente y el parámetro rinfo, que contiene la información necesaria para identificar el socket que nos envía información.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Escuchar mensajes entrantes</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">on</span>(<span class="st">'message'</span><span class="op">,</span> (msg<span class="op">,</span> rinfo) <span class="kw">=&gt;</span> {</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Mensaje recibido de </span><span class="sc">${</span>rinfo<span class="op">.</span><span class="at">address</span><span class="sc">}</span><span class="vs">:</span><span class="sc">${</span>rinfo<span class="op">.</span><span class="at">port</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// No hay conexión establecida, cada mensaje es independiente</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>También podremos añadir un manejador de errores con el evento “error”. Los errores podrían ser que no se puede hacer el bind al puerto. Esto puede ocurrir si el puerto ya está en uso o es un puerto reservado y no tenemos los permisos necesarios.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="fu">on</span>(<span class="st">'error'</span><span class="op">,</span> (err) <span class="kw">=&gt;</span> {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Socket error:'</span><span class="op">,</span> err<span class="op">.</span><span class="at">message</span>)<span class="op">;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para enviar los mensajes, tendremos que crear un socket con el módulo “dgram”. Posteriormente, utilizaremos “createSocket” para crear el socket cliente que nos permitirá enviar información.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> dgram <span class="op">=</span> <span class="pp">require</span>(<span class="st">'dgram'</span>)<span class="op">;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Crear socket UDP</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> client <span class="op">=</span> dgram<span class="op">.</span><span class="fu">createSocket</span>(<span class="st">'udp4'</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para enviar el información utilizaremos el método send. Como no tenemos una conexión como en TCP, cada vez que enviemos información tenemos que indicarle cual es el puerto de destino (8888) y la IP de destino (localhost). El manejador se invocará indicándonos si ha habido un error durante el envio o no. Algunos errores pueden ser que el destino no se pueda alcanzar, que el buffer de UDP esté lleno, entre otros. Como hemos comentado, que el mensaje se haya enviado no quiere decir que el destinatario lo reciba.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">send</span>(<span class="st">'Hola servidor UDP'</span><span class="op">,</span> <span class="dv">8888</span><span class="op">,</span> <span class="st">'localhost'</span><span class="op">,</span> (err) <span class="kw">=&gt;</span> {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (err) <span class="cf">throw</span> err<span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Mensaje enviado al servidor UDP'</span>)<span class="op">;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Una pregunta que os puede surgir con UDP es, ¿Cómo le escribe de vuelta el actual “servidor” al “cliente”? La respuesta es simple, invirtiendo los roles. Cuando creamos nuestro “socket cliente” sin decirle que haga un bind a un puerto determinado, cuando enviamos un mensaje se hace un bind a un puerto aleatorio que esté libre. A través del “rinfo” anterior tenemos tanto “rinfo.address” como “rinfo.port” que son la IP y el puerto. Por lo tanto, podemos escribir al cliente utilizando esa información.</p>
+<p>Para recepcionar ese mensaje, en el cliente tendríamos que escuchar el evento de “message”:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">on</span>(<span class="st">'message'</span><span class="op">,</span> (msg<span class="op">,</span> rinfo) <span class="kw">=&gt;</span> {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Mensaje recibido de </span><span class="sc">${</span>rinfo<span class="op">.</span><span class="at">address</span><span class="sc">}</span><span class="vs">:</span><span class="sc">${</span>rinfo<span class="op">.</span><span class="at">port</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// No hay conexión establecida, cada mensaje es independiente</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>y también podríamos como hicimos antes capturar el evento de errores. Con esto podemos llegar a una interesante conclusión. Tanto el socket del cliente como el del servidor son iguales. La única diferencia es que en el servidor, le indicamos especificamente en que puerto queremos escuchar. Esto lo hacemos para facilitar que los demás sepan donde está ubicado. En el caso del cliente no tenemos esa necesidad. Podemos escoger un puerto aleatorio. Cuando enviemos un mensaje al servidor el sabrá el puerto del cliente y podrá escribirle también.</p>
+<p>Finalmente, es necesario cerrar el tanto el cliente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">close</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>como el servidor</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">close</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sino el bucle de eventos seguirá activo y la ejecución no terminará. También se liberarán los recursos.</p>
+</section>
+<section id="servicios-requeridos-y-elección-de-capa-de-transporte" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="servicios-requeridos-y-elección-de-capa-de-transporte"><span class="header-section-number">5.1.3</span> Servicios Requeridos y elección de capa de transporte</h3>
+<p>Las aplicaciones de red tienen diferentes requisitos en cuanto a los servicios que necesitan de la capa de transporte. Estos requisitos determinan qué protocolo de transporte es más apropiado para cada aplicación específica.</p>
+<p><strong>Transferencia Confiable</strong>: Algunas aplicaciones requieren que todos los datos enviados lleguen al destino sin errores ni pérdidas. Esta característica es fundamental para aplicaciones donde la integridad de la información es crítica. Ejemplos de aplicaciones que requiren una confiabilidad total son la transferencia de archivos, correo electrónico, navegación web, banca online, comercio electrónico. En estos casos, la pérdida de datos podría resultar en archivos corruptos, mensajes incompletos o transacciones fallidas. Por otra parte, algunas aplicaciones son tolerantes a la pérdida de información, como el streaming de audio/video, videoconferencias, juegos en tiempo real. Estas aplicaciones pueden funcionar adecuadamente incluso si se pierden algunos paquetes ocasionalmente, ya que el contenido perdido puede ser interpolado o simplemente ignorado sin afectar significativamente la experiencia del usuario.</p>
+<p><strong>Temporización (Timing)</strong>: El tiempo de respuesta es crucial para aplicaciones interactivas y en tiempo real. Algunas aplicaciones son sensibles a la latencia, como los juegos multijugador online, trading de alta frecuencia, aplicaciones de realidad virtual, control remoto de dispositivos. Estas aplicaciones requieren tiempos de respuesta muy bajos (típicamente menos de 50-100ms) para proporcionar una experiencia fluida. En otros casos no es tan importante, como en el correo electrónico, transferencia de archivos en segundo plano, respaldos automáticos. Estas aplicaciones pueden funcionar correctamente con latencias más altas sin afectar significativamente la experiencia del usuario.</p>
+<p><strong>Ancho de Banda</strong>: Las necesidades de ancho de banda varían enormemente entre aplicaciones. Ejemplos de aplicaciones sensibles al ancho de banda son el streaming de video 4K/8K, videoconferencias de alta calidad, transferencia de archivos grandes, respaldos de bases de datos. Estas aplicaciones requieren una tasa mínima garantizada de transferencia para funcionar correctamente. Cuando una aplicación no es sensible, a veces se denominan elásticas, es decir, estas aplicaciones pueden adaptarse al ancho de banda disponible, funcionando más lento con conexiones limitadas pero manteniéndose operativas. Algunos ejemplos son: Navegación web, correo electrónico, mensajería instantánea.</p>
+<p><strong>Seguridad</strong>: Los requisitos de seguridad incluyen varios aspectos:</p>
+<ul>
+<li><strong>Confidencialidad</strong>: Garantizar que solo los destinatarios autorizados puedan leer los datos (mediante cifrado).</li>
+<li><strong>Integridad</strong>: Asegurar que los datos no han sido modificados durante la transmisión.</li>
+<li><strong>Autenticación</strong>: Verificar la identidad de las partes que se comunican.</li>
+<li><strong>No repudio</strong>: Garantizar que el emisor no pueda negar haber enviado los datos.</li>
+</ul>
+<p>Aplicaciones como banca online, comercio electrónico, mensajería privada y transferencia de documentos confidenciales requieren múltiples aspectos de seguridad, mientras que aplicaciones como streaming público o noticias pueden tener requisitos de seguridad más relajados.</p>
+<p>La elección entre sockets TCP y UDP depende de los requisitos específicos de la aplicación:</p>
+<p><strong>Usar TCP cuando:</strong></p>
+<ul>
+<li>La integridad de datos es crítica</li>
+<li>Se necesita garantizar el orden de los mensajes</li>
+<li>La aplicación puede tolerar mayor latencia</li>
+<li>Se transfieren archivos o datos importantes</li>
+</ul>
+<p><strong>Usar UDP cuando:</strong></p>
+<ul>
+<li>La velocidad y baja latencia son prioritarias</li>
+<li>La aplicación puede manejar pérdida ocasional de datos</li>
+<li>Se implementan aplicaciones en tiempo real</li>
+<li>Se necesita comunicación multicast o broadcast</li>
+</ul>
+<p>Algunos ejemplos de elección son los siguientes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 18%">
+<col style="width: 12%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aplicación</th>
+<th>Confiabilidad</th>
+<th>Temporización</th>
+<th>Ancho de Banda</th>
+<th>Seguridad</th>
+<th>Protocolo Típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Transferencia de archivos</td>
+<td>Sí</td>
+<td>No crítica</td>
+<td>Elástica</td>
+<td>Según contenido</td>
+<td>TCP</td>
+</tr>
+<tr class="even">
+<td>Correo electrónico</td>
+<td>Sí</td>
+<td>No crítica</td>
+<td>Elástica</td>
+<td>Sí</td>
+<td>TCP</td>
+</tr>
+<tr class="odd">
+<td>Navegación web</td>
+<td>Sí</td>
+<td>Moderada</td>
+<td>Elástica</td>
+<td>Sí (HTTPS)</td>
+<td>UDP (HTTP/3) / TCP (HTTP/1.1-2)</td>
+</tr>
+<tr class="even">
+<td>Streaming de video</td>
+<td>Tolerante</td>
+<td>Crítica</td>
+<td>Mínima garantizada</td>
+<td>Según contenido</td>
+<td>UDP/TCP</td>
+</tr>
+<tr class="odd">
+<td>Juegos en tiempo real</td>
+<td>Tolerante</td>
+<td>Muy crítica</td>
+<td>Moderada</td>
+<td>Sí</td>
+<td>UDP</td>
+</tr>
+<tr class="even">
+<td>Videoconferencia</td>
+<td>Tolerante</td>
+<td>Crítica</td>
+<td>Mínima garantizada</td>
+<td>Sí</td>
+<td>UDP/TCP</td>
+</tr>
+<tr class="odd">
+<td>DNS</td>
+<td>Tolerante</td>
+<td>Crítica</td>
+<td>Elástica</td>
+<td>Creciente (DoH/DoT)</td>
+<td>UDP/TCP</td>
+</tr>
+</tbody>
+</table>
+<p>En esta tabla igual hay un detalle que os llama la atención. Hemos dicho que UDP no es confiable. Se puede perder información o incluso llegar en distinto orden. Sin embargo, en la navegación web que requiere de confiabilidad, se indica que se utiliza UDP cuando el protocolo es HTTP/3. ¿Cómo es esto posible?. La respuesta es QUIC, que veremos posteriormente en este capítulo. Lo interesante en este caso es darnos cuenta de que podemos tener una comunicación confiable (QUIC) a través de un medio no confiable (UDP). Para ello, el protocolo QUIC añade una nueva capa (encapsular) con la información y lógica necesaria para garantizar la confiabilidad en ambos extremos. Otra forma de verlo es que a veces podemos movernos entre TCP y UDP añadiendo los requisitos que necesitemos a UDP, que es el protocolo más básico, y evitar algunas de las desventajas de TCP.</p>
+</section>
+</section>
+<section id="arquitecturas-de-aplicaciones-distribuidas" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="arquitecturas-de-aplicaciones-distribuidas"><span class="header-section-number">5.2</span> Arquitecturas de Aplicaciones Distribuidas</h2>
+<p>Las arquitecturas en las aplicaciones distribuidas, es decir, con más de un nodo, indican cómo se conectan entre sí los nodos y cual será el rol de cada uno de los nodos. A grandes rasgos, distinguimos tres tipos de arquitecturas: cliente - servidor, peer-to-peer y híbrida. La arquitectura cliente - servidor la mencionamos en el ejemplo anterior. En el caso de peer-to-peer, tenemos un conjunto de nodos que se conectan entre sí. La topología de las conexiones no tiene por que ser un grafo completo, y puede variar a lo largo del tiempo. En este caso la funcionalidad está distribuida por los nodos. Un ejemplo de peer-to-peer es BitTorrent. Finalmente, las arquitecturas son una mezcla entre ambas, teniendo generalmente autoridades centrales que permiten mantener la red en funcionamiento, o determinadas funcionalidades. Las arquitecturas híbridas son más comúnes que las puramente peer-to-peer.</p>
+<p>En los siguientes apartados exploraremos estas tres arquitucturas, así como las aplicaciones populares y juegos para cada una de ellas.</p>
+<section id="arquitectura-clienteservidor" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="arquitectura-clienteservidor"><span class="header-section-number">5.2.1</span> Arquitectura Cliente/Servidor</h3>
+<p>La arquitectura cliente-servidor es un modelo fundamental de computación distribuida donde múltiples clientes solicitan servicios, recursos o datos de un servidor centralizado. En este paradigma, el servidor actúa como el punto central de control y coordinación, mientras que los clientes consumen los servicios proporcionados. Esta arquitectura se caracteriza por tener un host siempre activo (el servidor) que atiende las peticiones de numerosos hosts clientes, los cuales pueden conectarse y desconectarse dinámicamente sin afectar el funcionamiento del sistema. Los clientes poseen direcciones IP dinámicas y no se comunican directamente entre sí, sino que toda la comunicación se canaliza a través del servidor.</p>
+<p>En el funcionamiento típico de esta arquitectura, el cliente inicia la comunicación enviando una solicitud al servidor, especificando qué servicio o recurso necesita. El servidor procesa esta petición, accede a los datos o recursos necesarios, y envía una respuesta de vuelta al cliente. Este modelo permite la centralización de recursos, datos y lógica de negocio, facilitando el mantenimiento, la seguridad y la consistencia del sistema. El servidor debe tener una dirección IP fija y conocida para que los clientes puedan localizarlo, y típicamente opera de forma continua para estar disponible cuando los clientes lo necesiten.</p>
+<p>Los requerimientos de infraestructura para sistemas cliente-servidor populares son considerables. Los servidores deben ser capaces de manejar múltiples conexiones simultáneas, procesar grandes volúmenes de datos y mantener alta disponibilidad. Esto frecuentemente requiere centros de datos con clusters de servidores, sistemas de balanceamiento de carga, redundancia y respaldo, así como conexiones de red de alto ancho de banda. Para aplicaciones con millones de usuarios, como las redes sociales o servicios de streaming, la infraestructura puede incluir múltiples centros de datos distribuidos geográficamente para optimizar la latencia y garantizar la disponibilidad del servicio.</p>
+<p>Ejemplos cotidianos de arquitectura cliente-servidor incluyen aplicaciones web como Netflix, donde el cliente (navegador web o aplicación móvil) solicita contenido de video al servidor, que almacena y transmite las películas y series. Spotify funciona de manera similar, donde los clientes solicitan canciones y playlists que están almacenadas en los servidores de la plataforma. Instagram representa otro caso típico donde los clientes suben fotos y videos a los servidores, y otros usuarios pueden solicitar y visualizar este contenido. Los servicios de correo electrónico como Gmail operan bajo este modelo, donde los servidores almacenan y gestionan los mensajes mientras los clientes acceden a ellos a través de aplicaciones web o móviles.</p>
+<p>En el contexto de los videojuegos, la arquitectura cliente-servidor se ha convertido en el estándar para juegos multijugador masivos y competitivos. El servidor mantiene el estado autoritativo del juego, procesando todas las acciones de los jugadores y distribuyendo las actualizaciones correspondientes. Los clientes se encargan principalmente de la presentación visual, la captura de entrada del usuario y la comunicación con el servidor. Esta separación permite que el servidor tenga control total sobre la lógica del juego, previniendo trampas y garantizando la coherencia del estado del juego entre todos los participantes.</p>
+<p>Ejemplos típicos de esta arquitectura incluyen juegos como World of Warcraft, donde miles de jugadores se conectan a servidores dedicados que mantienen mundos persistentes. Counter-Strike: Global Offensive utiliza servidores dedicados para partidas competitivas, asegurando que todas las acciones sean validadas centralmente. League of Legends emplea esta arquitectura para sus partidas clasificatorias, donde el servidor procesa todos los movimientos, ataques y habilidades de los campeones. Fortnite Battle Royale también implementa servidores dedicados para mantener la sincronización entre los 100 jugadores en cada partida.</p>
+<p>Los juegos de estrategia en tiempo real como StarCraft II y Age of Empires IV también adoptan esta arquitectura para sus modos multijugador competitivos. En estos casos, el servidor procesa todas las órdenes de construcción, movimiento de unidades y combates, garantizando que ambos jugadores vean exactamente el mismo estado del juego. Los MMORPGs como Final Fantasy XIV y Guild Wars 2 son ejemplos perfectos donde el servidor no solo mantiene el estado del juego sino también la persistencia de los personajes, inventarios y progreso de los jugadores.</p>
+<p>Uno de los principales problemas en juegos cliente-servidor es la latencia o “lag”, que se refiere al tiempo que tarda una acción del jugador en ser procesada por el servidor y reflejada de vuelta al cliente. Esta latencia puede causar una experiencia de juego frustrante, especialmente en juegos de acción rápida como shooters en primera persona. Para mitigar este problema, muchos juegos implementan técnicas como la predicción del lado del cliente, donde el cliente asume temporalmente el resultado de una acción antes de recibir la confirmación del servidor.</p>
+<p>El problema de la sincronización es otro desafío crítico en los juegos cliente-servidor. Cuando múltiples jugadores interactúan simultáneamente, el servidor debe procesar las acciones en un orden específico y comunicar los resultados a todos los clientes de manera coherente. Los juegos como Rocket League han tenido que implementar sistemas sofisticados de interpolación y extrapolación para mantener la fluidez del juego mientras se sincronizan las posiciones de la pelota y los vehículos entre todos los jugadores.</p>
+<p>Los servidores sobrecargados representan un problema significativo, especialmente durante los lanzamientos de juegos populares o eventos especiales. Diablo III experimentó problemas masivos en su lanzamiento debido a que sus servidores no podían manejar la cantidad de jugadores conectados simultáneamente. World of Warcraft ha enfrentado desafíos similares durante las expansiones, donde millones de jugadores intentan conectarse al mismo tiempo, causando colas de conexión y caídas del servidor.</p>
+<p>La pérdida de conexión con el servidor es otro problema común que puede arruinar la experiencia de juego. En juegos competitivos como Dota 2 o Overwatch, una desconexión del servidor puede resultar en penalizaciones para el jugador, incluso si la falta no fue suya. Los desarrolladores han implementado sistemas de reconexión automática y buffers de tolerancia para minimizar el impacto de desconexiones temporales, pero el problema persiste como una limitación inherente del modelo cliente-servidor.</p>
+<p>Los costos de infraestructura representan un desafío económico significativo para los desarrolladores de juegos que adoptan esta arquitectura. Mantener granjas de servidores, centros de datos distribuidos globalmente y el ancho de banda necesario para soportar millones de jugadores concurrentes requiere inversiones masivas. Epic Games, por ejemplo, ha invertido cientos de millones de dólares en infraestructura para soportar Fortnite, incluyendo partnerships con proveedores de servicios en la nube como Amazon Web Services para escalar dinámicamente según la demanda.</p>
+<p>A pesar de estos desafíos, la arquitectura cliente-servidor sigue siendo la opción preferida para juegos multijugador serios debido a sus ventajas en términos de seguridad, control y escalabilidad. Los avances en tecnologías de red, computación en la nube y técnicas de optimización continúan mejorando la viabilidad de esta arquitectura. Los desarrolladores modernos implementan soluciones híbridas que combinan servidores dedicados con técnicas de peer-to-peer para diferentes aspectos del juego, optimizando tanto la experiencia del jugador como los costos operativos.</p>
+</section>
+<section id="arquitectura-peer-to-peer-p2p" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="arquitectura-peer-to-peer-p2p"><span class="header-section-number">5.2.2</span> Arquitectura Peer-to-Peer (P2P)</h3>
+<p>La arquitectura peer-to-peer (P2P) es un modelo de computación distribuida donde los participantes (pares o peers) comparten recursos directamente entre sí sin depender de servidores centralizados. A diferencia del modelo cliente-servidor, en P2P no existe una entidad central que controle o coordine las comunicaciones; en su lugar, cada participante actúa simultáneamente como cliente y servidor, compartiendo y consumiendo recursos de manera equitativa. Esta arquitectura se caracteriza por la ausencia de dependencia de servidores siempre activos, permitiendo que los pares se conecten de forma intermitente y estableciendo comunicación directa entre ellos.</p>
+<p>El funcionamiento de las redes P2P se basa en la colaboración voluntaria de los participantes, donde cada peer contribuye con recursos computacionales, de almacenamiento o ancho de banda al conjunto de la red. Los peers pueden unirse o abandonar la red libremente sin comprometer significativamente su funcionamiento, ya que la arquitectura es inherentemente autoescalable: cuantos más participantes se unen, más recursos totales están disponibles. Esta característica contrasta marcadamente con los sistemas centralizados, donde el servidor puede convertirse en un cuello de botella cuando aumenta el número de usuarios.</p>
+<p>Existen diferentes clasificaciones de arquitecturas P2P según su nivel de pureza y estructura:</p>
+<ul>
+<li><p>Por pureza, encontramos sistemas centralizados como Napster (que dependía de un servidor central para indexar archivos) y BitTorrent (que utiliza trackers centrales para coordinar descargas), versus sistemas completamente descentralizados como Freenet y Gnutella, que no dependen de ningún equipo específico para su funcionamiento.</p></li>
+<li><p>Por paridad, las redes pueden ser estructuradas, donde existen categorías específicas de nodos con control sobre la estructura de la red, o desestructuradas, donde las conexiones y la topología emergen de manera arbitraria según las decisiones individuales de cada peer.</p></li>
+</ul>
+<p>También existen diferentes tipos de topologías:</p>
+<ul>
+<li><p>La topología <em>Full Mesh</em> es la más robusta pero también la más demandante en términos de recursos, ya que cada peer se conecta directamente con todos los demás participantes de la red. Esta configuración ofrece la máxima redundancia y la latencia más baja posible entre cualquier par de nodos, pero el número de conexiones crece exponencialmente con cada nuevo participante, haciendo que sea práctica solo para grupos muy pequeños de peers.</p></li>
+<li><p>La topología <em>Ring</em> organiza los peers en una estructura circular donde cada nodo se conecta únicamente con sus vecinos inmediatos, formando un anillo cerrado. Los datos viajan alrededor del anillo hasta llegar a su destino, lo que puede introducir latencia variable dependiendo de la distancia entre peers en la estructura circular. Esta topología es más eficiente en términos de conexiones que el full mesh, pero presenta vulnerabilidades ya que la falla de un solo peer puede interrumpir la comunicación en todo el anillo, aunque existen implementaciones bidireccionales que mitigan este riesgo.</p></li>
+<li><p>La topología <em>Star</em> representa un enfoque pseudo-P2P donde un peer central actúa como hub para todos los demás participantes. Aunque técnicamente sigue siendo P2P porque no requiere un servidor dedicado, esta configuración introduce un punto único de falla en el peer central. Sin embargo, es la más eficiente en términos de gestión de conexiones y sincronización, ya que reduce significativamente la complejidad de coordinación. Es común en juegos cooperativos donde el host del juego actúa como el nodo central, gestionando el estado del juego y redistribuyendo información a los otros jugadores.</p></li>
+<li><p>Las topologías <em>Híbridas</em> combinan elementos de diferentes enfoques según los requerimientos específicos del juego o aplicación. Por ejemplo, un juego podría usar una topología de star para la lógica principal del juego mientras implementa conexiones mesh directas para comunicación de voz entre jugadores. Estas implementaciones permiten optimizar diferentes aspectos del rendimiento, balanceando latencia, confiabilidad y eficiencia de recursos según las necesidades particulares de cada función dentro del sistema P2P.</p></li>
+</ul>
+<div id="tcp-congestion" class="quarto-layout-panel" data-layout="[[33, 33, 33], [100]]">
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" data-fig-height="4" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TB
+    P1((Peer 1))
+    P2((Peer 2))
+    P3((Peer 3))
+    P4((Peer 4))
+    P5((Peer 5))
+    
+    P1 --- P2
+    P1 --- P3
+    P1 --- P4
+    P1 --- P5
+    P2 --- P3
+    P2 --- P4
+    P2 --- P5
+    P3 --- P4
+    P3 --- P5
+    P4 --- P5
+
+    classDef peerNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef hubNode fill:#fff3e0,stroke:#e65100,stroke-width:3px
+
+    class P1,P2,P3,P4,P5,R1,R2,R3,R4,R5,S2,S3,S4,S5,H2,H3,H4,H5,H6 peerNode
+    class S1,H1 hubNode
+</pre>
+</div>
+<p></p><figcaption> A) Full Mesh Topology</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" data-fig-height="4" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TB   
+    R1((Peer 1))
+    R2((Peer 2))
+    R3((Peer 3))
+    R4((Peer 4))
+    R5((Peer 5))
+    
+    R1 --- R2
+    R2 --- R3
+    R3 --- R4
+    R4 --- R5
+    R5 --- R1
+
+    classDef peerNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef hubNode fill:#fff3e0,stroke:#e65100,stroke-width:3px
+
+    class P1,P2,P3,P4,P5,R1,R2,R3,R4,R5,S2,S3,S4,S5,H2,H3,H4,H5,H6 peerNode
+    class S1,H1 hubNode
+</pre>
+</div>
+<p></p><figcaption> B) Ring Topology</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" data-fig-height="4" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div id="hybrid-topology">
+<div>
+<pre class="mermaid mermaid-js" data-label="hybrid-topology">graph TB
+    H1((Hub))
+    H2((Peer 2))
+    H3((Peer 3))
+    H4((Peer 4))
+    H5((Peer 5))
+    H6((Peer 6))
+    
+    H1 --- H2
+    H1 --- H3
+    H2 --- H3
+    H4 --- H5
+    H4 --- H6
+    H5 --- H6
+    H3 --- H4
+    
+    classDef peerNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef hubNode fill:#fff3e0,stroke:#e65100,stroke-width:3px
+    
+    class P1,P2,P3,P4,P5,R1,R2,R3,R4,R5,S2,S3,S4,S5,H2,H3,H4,H5,H6 peerNode
+    class S1,H1 hubNode
+</pre>
+</div>
+<ol start="4" type="A">
+<li>Hybrid Topology</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" data-fig-height="4" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TB
+    S1((Host/Hub))
+    S2((Peer 2))
+    S3((Peer 3))
+    S4((Peer 4))
+    S5((Peer 5))
+    
+    S1 --- S2
+    S1 --- S3
+    S1 --- S4
+    S1 --- S5
+
+    classDef peerNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef hubNode fill:#fff3e0,stroke:#e65100,stroke-width:3px
+
+    class P1,P2,P3,P4,P5,R1,R2,R3,R4,R5,S2,S3,S4,S5,H2,H3,H4,H5,H6 peerNode
+    class S1,H1 hubNode
+</pre>
+</div>
+<p></p><figcaption> B) Star Topology (Pseudo-P2P)</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Las aplicaciones cotidianas de P2P incluyen sistemas de compartición de archivos como BitTorrent, donde los usuarios descargan fragmentos de archivos desde múltiples peers simultáneamente, distribuyendo la carga y mejorando la velocidad de descarga. Skype utilizó originalmente arquitectura P2P (similar a la arquitectura híbrida en <span class="citation" data-cites="hybrid-topology">(<a href="../../../references.html#ref-hybrid-topology" role="doc-biblioref"><strong>hybrid-topology?</strong></a>)</span>) para enrutar llamadas de voz a través de la red de usuarios, aprovechando el ancho de banda y poder computacional distribuido. Las criptomonedas como Bitcoin operan sobre redes P2P completamente descentralizadas, donde cada nodo mantiene una copia del blockchain y participa en la validación de transacciones. Los sistemas de mensajería como Tox y Briar implementan comunicación P2P directa para garantizar privacidad y resistencia a la censura.</p>
+<p>Las redes de distribución de contenido P2P como IPFS (InterPlanetary File System) permiten almacenar y distribuir información de manera descentralizada, donde cada participante contribuye espacio de almacenamiento y ancho de banda. Los juegos masivos como algunos servidores privados de World of Warcraft han experimentado con arquitecturas P2P para distribuir actualizaciones y contenido. Las aplicaciones de videoconferencia como Jitsi Meet pueden operar en modo P2P para llamadas pequeñas, estableciendo conexiones directas entre participantes para reducir latencia y eliminar la dependencia de servidores centrales.</p>
+<p>En el contexto de los videojuegos, la arquitectura P2P ofrece ventajas únicas pero también presenta desafíos específicos. Los juegos P2P eliminan la necesidad de servidores dedicados, reduciendo costos operativos y permitiendo que los jugadores continúen partidas incluso si los servidores oficiales están fuera de línea. Esta arquitectura es especialmente efectiva en juegos con pocos participantes donde la latencia directa entre jugadores puede ser menor que la latencia a un servidor centralizado. Cada peer mantiene su propia copia del estado del juego y sincroniza cambios con otros participantes.</p>
+<p>Los juegos de lucha como Street Fighter 6, Tekken 8 y Guilty Gear Strive utilizan arquitecturas P2P sofisticadas con tecnología de rollback netcode. En estos juegos, ambos jugadores mantienen una simulación completa del combate y sincronizan entradas periódicamente. Cuando hay discrepancias debido a latencia, el sistema “retrocede” el estado del juego y lo recalcula con la información correcta, creando una experiencia fluida incluso con conexiones imperfectas. Esta implementación es ideal para juegos 1v1 donde la latencia directa entre jugadores suele ser menor que la latencia a un servidor dedicado.</p>
+<p>Los juegos cooperativos como Portal 2, It Takes Two y A Way Out aprovechan las ventajas de P2P para ofrecer experiencias de baja latencia entre un pequeño grupo de jugadores. En estos casos, uno de los peers actúa como “host” manteniendo el estado autoritativo del juego mientras otros se conectan directamente. Esta configuración elimina la necesidad de servidores dedicados para experiencias cooperativas, permitiendo que los desarrolladores ofrezcan funcionalidad multijugador sin costos adicionales de infraestructura. Los juegos de estrategia en tiempo real como Age of Empires II y StarCraft: Brood War originalmente utilizaban P2P, donde todos los jugadores ejecutaban la misma simulación y compartían comandos.</p>
+<p>Sin embargo, los juegos P2P enfrentan desafíos significativos en términos de seguridad y prevención de trampas. Dado que cada peer tiene acceso completo al estado del juego, es relativamente fácil para usuarios malintencionados modificar datos o implementar cheats. Los juegos como Dark Souls han experimentado problemas con hackers que pueden modificar estadísticas de personajes o comportamientos del juego. La validación distribuida es compleja y requiere que múltiples peers acuerden sobre la validez de las acciones, lo que puede ser problemático cuando uno de los participantes está haciendo trampa.</p>
+<p>La sincronización representa otro desafío mayor en juegos P2P, especialmente cuando el número de participantes aumenta. En juegos con muchos jugadores, cada peer debe comunicarse con todos los demás, creando un crecimiento cuadrático en el tráfico de red. Minecraft multijugador en modo LAN ejemplifica este problema: funciona bien para grupos pequeños pero se vuelve inmanejable con muchos jugadores. Los problemas de conectividad NAT también complican las conexiones P2P, ya que muchos jugadores están detrás de routers y firewalls que impiden conexiones directas, requiriendo técnicas como hole punching o servidores de relay para establecer comunicación entre peers.</p>
+<!-- #### Hybrid Models
+
+Hybrid architectures combine elements of both client-server and peer-to-peer models to leverage the advantages of each approach while mitigating their respective disadvantages.
+
+**Common Hybrid Patterns**:
+
+**Dedicated Server with P2P Communication**:
+- Central server manages game logic and state
+- Peers communicate directly for specific features (voice chat, file sharing)
+- Combines server authority with P2P efficiency for appropriate use cases
+
+**Master Peer Architecture**:
+- One peer acts as authoritative server (master)
+- Other peers connect in client-server fashion to master
+- Master role can migrate to different peers for fault tolerance
+
+**Hierarchical P2P**:
+- Peers organized into clusters or regions
+- Regional coordination through designated super-peers
+- Reduces overall network complexity while maintaining P2P benefits
+
+**Service-Specific Architecture**:
+- Different game services use appropriate architectures
+- Game state via client-server
+- Voice chat via P2P
+- File distribution via P2P with server coordination -->
+</section>
+</section>
+<section id="protocolos" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="protocolos"><span class="header-section-number">5.3</span> Protocolos</h2>
+<section id="http" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="http"><span class="header-section-number">5.3.1</span> HTTP</h3>
+<p>HTTP (HyperText Transfer Protocol) es un protocolo público definido en un RFC que sirve para la transferencia de información en la World Wide Web. Es un protocolo de comunicación que permite la transferencia de recursos (como páginas web, imágenes, documentos, etc.) entre clientes (navegadores web) y servidores web a través de Internet. El protocolo utiliza texto legible tanto para los comandos como para las respuestas. El protocolo opera típicamente sobre TCP/IP, utilizando el puerto 80 para conexiones HTTP estándar y el puerto 443 para conexiones HTTPS seguras.</p>
+<p>HTTP opera bajo el modelo <strong>cliente-servidor</strong>, donde los navegadores web (u oprogramas) actúan como clientes que solicitan recursos, y los servidores web responden proporcionando el contenido solicitado. Esta arquitectura descentralizada permite que la web sea escalable y resiliente, distribuyendo la carga de trabajo entre diferentes servidores. Además, al ser un protocolo <strong>sin estado</strong>, se facilita su escalabilidad. Que no tenga estado implica que cada vez que se realiza una petición es completamente independiente de las anteriores.</p>
+<p>Cada recurso en el servidor se identifica a través de una URL (Uniform Resource Locator), que especifica no solo la ubicación del recurso sino también el protocolo necesario para acceder a él. Una URL típica como “https://www.ejemplo.com/pagina.html” contiene el protocolo (https), el nombre del host (www.ejemplo.com), y la ruta específica del recurso (/pagina.html). Esta estructura jerárquica permite organizar y localizar millones de recursos de manera eficiente. Las URL pueden referenciar archivos HTML, hojas de estilo CSS, código, binarios, etc.</p>
+<p>Las acciones en HTTP están asociadas a un verbo que indica el objeto de las mismas. Los principales son los siguientes:</p>
+<ul>
+<li>GET: Pedir el objeto de la URL al servidor. Es una operación idenpotente, si la repetimos varias veces el resultado debería de ser siempre el mismo. No cambia el estado del servidor. El cuerpo del mensaje está vacio. Cuando descargamos imágenes en Instagram o similares, los comentarios, etc lo hacemos a través de GET.</li>
+<li>POST: Se utiliza para pedir/enviar un objeto asociado a una URL cuando este depende de los datos de un formulario. Puede cambiar el estado del servidor. Por ejemplo, cuando nos registamos en una página estaríamos haciendo un POST.</li>
+<li>HEAD: Es igual que el GET pero no devuelve nada. Se utiliza para debuguear.</li>
+<li>PUT: Nos permite cargar un objeto en la URL. Es una operación idempotente, si la repetimos varias veces el resultado será siempre el mismo.</li>
+<li>DELETE: Borra el recurso asociado a la URL.</li>
+</ul>
+<p>Cabe destacar que este uso esperado de los verbos lo tenemos que implementar nosotros. Nada nos quita de hacer que un GET borre cosa, o se utilice para acciones para las que no estaba diseñado. Sin embargo, seguir la especificación nos va a permiter que otras usuarios de nuestra API la pueda utilizar correctamente de una forma más sencilla.</p>
+<p>Todas estas acciones, que en la jerga de HTML se llaman peticiones, tienen asociada una respuesta. Esta respuesta está formada por un <strong>código de respuesta</strong>, <strong>el cuerpo</strong>, y <strong>cookies</strong>. Los códigos respuesta es un identificador númerico de 3 cifras que indica el resultado de la petición y asociada a un identificador textual. Se dividen en 5 grupos:</p>
+<ul>
+<li>1XX: Respuesta informativa, señalan que la solicitud está siendo procesada.</li>
+<li>2XX: Respuesta satisfactoria, la solicitud se recibió, entendió y se completó con éxito. Por ejemplo, 200 OK</li>
+<li>3XX: Redirecciones, informan que se necesita tomar una acción adicional para completar la solicitud. Por ejemplo, 301 Moved Permanently: Indica que el recurso se ha movido de forma permanente a una nueva URL.</li>
+<li>4XX: Error en los clientes, indican un error en la solicitud del cliente, como solicitar un recurso inexistente. Por ejemplo, 400 Bad Request, 403 Forbidden o 404 Not Found.</li>
+<li>5XX: Error en los servidores, señalan que el servidor no pudo completar una solicitud debido a un error interno. Por ejemplo, 500 Internal Server Error o 503 Service Unavailable.</li>
+</ul>
+<p>Dependiendo de la versión de HTTP se utilizarán diferentes tipos de conexión para enviar las peticiones. En HTTP/1.0, se utilizaban conexiones <strong>no persistentes</strong>, y para cada recurso se creaba una nueva conexión, incurriendo en un retardo de 2 RTT por objeto y la sobrecarga de abrir y cerrar conexiones. A partir de HTTP/1.1, se utilizan conexiones persistentes, donde varios objetos pueden ser enviados en la misma conexión, y por lo tanto, teniendo un retardod e 1 RTT por objeto. La limitación que tenía HTTP/1.1, es que si uno de los recursos tardaba mucho, releantizaba a los que iban detrás. Para solucionar este problema se utilizan múltiples streams independientes sobre una conexión, solucionando el problema de que un recurso bloquee a los posteriores.</p>
+<div id="tcp-congestion" class="quarto-layout-panel" data-layout="[[50,50]]">
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" data-fig-height="4" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div id="no-persistent-http">
+<div>
+<pre class="mermaid mermaid-js" data-label="no-persistent-http">sequenceDiagram
+    participant C as Cliente (Navegador)
+    participant S as Servidor Web
+    Note over C,S: Solicitud del primer recurso
+    C-&gt;&gt;S: 1. SYN - Establecer conexión TCP
+    S-&gt;&gt;C: 2. SYN-ACK - Confirmar conexión
+    C-&gt;&gt;S: 3. ACK - Conexión establecida
+    
+    C-&gt;&gt;S: 4. GET /index.html HTTP/1.0
+    S-&gt;&gt;C: 5. HTTP/1.0 200 OK + contenido HTML
+    
+    C-&gt;&gt;S: 6. FIN - Cerrar conexión TCP
+    S-&gt;&gt;C: 7. FIN-ACK - Confirmar cierre
+    C-&gt;&gt;S: 8. ACK - Conexión cerrada
+
+    Note over C,S: Solicitud del segundo recurso
+    C-&gt;&gt;S: 9. SYN - Nueva conexión TCP
+    S-&gt;&gt;C: 10. SYN-ACK - Confirmar nueva conexión
+    C-&gt;&gt;S: 11. ACK - Nueva conexión establecida
+    
+    C-&gt;&gt;S: 12. GET /imagen.jpg HTTP/1.0
+    S-&gt;&gt;C: 13. HTTP/1.0 200 OK + imagen
+    
+    C-&gt;&gt;S: 14. FIN - Cerrar conexión TCP
+    S-&gt;&gt;C: 15. FIN-ACK - Confirmar cierre
+    C-&gt;&gt;S: 16. ACK - Conexión cerrada
+    Note over C,S: Tiempo total: 4 RTT + tiempo de transferencia
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" data-fig-height="4" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div id="persistent-http">
+<div>
+<pre class="mermaid mermaid-js" data-label="persistent-http">sequenceDiagram
+    participant C as Cliente (Navegador)
+    participant S as Servidor Web
+    
+    C-&gt;&gt;S: 1. SYN - Establecer conexión TCP
+    S-&gt;&gt;C: 2. SYN-ACK - Confirmar conexión
+    C-&gt;&gt;S: 3. ACK - Conexión establecida
+    
+    C-&gt;&gt;S: 4. GET /index.html HTTP/1.1&lt;br/&gt;Host: ejemplo.com&lt;br/&gt;Connection: keep-alive
+    S-&gt;&gt;C: 5. HTTP/1.1 200 OK&lt;br/&gt;Connection: keep-alive&lt;br/&gt;+ contenido HTML
+        
+    C-&gt;&gt;S: 6. GET /imagen.jpg HTTP/1.1&lt;br/&gt;Host: ejemplo.com&lt;br/&gt;Connection: keep-alive
+    S-&gt;&gt;C: 7. HTTP/1.1 200 OK&lt;br/&gt;Connection: keep-alive&lt;br/&gt;+ imagen
+    
+    Note over C,S: Más recursos pueden solicitarse...
+    
+    C-&gt;&gt;S: 8. Connection: close (cuando termine)    
+    Note over C,S: Tiempo total: 1 RTT + tiempo de transferencia
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Por último, tiene un mecanismo adicional, las cookies que permiten guardar información en forma de pares de clave valor en el cliente. Las cookies se pueden configurar utilizando el campo de respuesta de la petición. En general se utilizan para mantener sesiones, personalización, análisis o con fines publicitarios. Estas cookies pueden ser propias, cuando es de la web que estamos navegando, o de terceros, cuando es un servicio que utiliza la web. Además del par de clave valor, también incluyen una fecha de expiración y del dominio del servidor. Las cookies expiran cuando pase la fecha de expiración, aunque también pueden ser permantentes. El dominio es por seguridad, ya que determinadas cookies sólo queremos que sean accedidas por su dominio, con el fin de evitar suplantaciones de identidad.</p>
+<p>Existe una variante de HTTP denominada HTTPS (Secure HyperText Transfer Protocol) en el cual las peticiones y sus respuestas no van en texto plano y se ha convertido en el estándar de la Web. De hecho algunos navegadores ya no dejan acceder a sitios a través de HTTP.</p>
+<p>El protocolo opera generalmente sobre TCP pero a partir de HTTP/3 opera sobre <strong>QUIC</strong> que es un protocolo que implementa mecanismos de comununicación fiables sobre <strong>UDP</strong>. HTTP/3 está soportado por la gran mayoría de los navegadores actuales, y el soporte en los servidores está creciendo.</p>
+<p>En determinadas situaciones para disminuir el tiempo de las peticiones se utilizan <strong>servidores proxy</strong>. Los servidores proxy son unos intermediarios, que analizan las peticiones, si pueden resolverlas ellos contestan directamente, y sino contestan a través de la petición al servidor. Las ventajas es que se obtiene una navegación más rápida, se reduce el tráfico, y además ganamos seguridad y anonimato. Suelen estar localizados en los navegadores (cache local), ISP o CDNs. En concreto, los servidores proxy cachean las peticiones GET, ya que es una operación idempotente, y utilizan la herramienta del GET condicional donde en caso de que no haya actualización no devuelve nada, ahorrando el tiempo de envio del recurso.</p>
+</section>
+<section id="dns" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="dns"><span class="header-section-number">5.3.2</span> DNS</h3>
+<p>DNS (Domain Name System) es uno de los protocolos más importantes de internet. El objetivo de DNS es simple, traducir identificadores textuales que sean fácil de recordar por humanos a direcciones IP. Por ejemplo, traducir “www.google.es” a 142.250.200.67. El sistema de DNS está diseñado como un sistema distribuido sin servidores centrales, lo que le permite distribuir la carga entre diferentes nodos y ser tolerante a fallos.</p>
+<p>El sistema distribuido de DNS está formado por una estructura jerárquica que tipo 4 tipos de nodos:</p>
+<ul>
+<li>Servidores raíz: Son las raíces de la jerarquía DNS y representan el nivel más alto del sistema. Existen 13 servidores raíz lógicos identificados con letras de la A a la M (a.root-servers.net hasta m.root-servers.net), aunque físicamente hay cientos de servidores distribuidos. Estos servidores conocen la ubicación de todos los servidores TLD y responden a consultas sobre dónde encontrar información de dominios de nivel superior.</li>
+<li>Servidores TLD (Top Domain Level): Son responsables de los dominios de nivel superior como .com, .org, .net, .edu, y los dominios de país como .es, .mx, .ar. Mantienen información sobre qué servidores autoritativos son responsables de cada dominio específico dentro de su TLD.</li>
+<li>Servidores autoritativos: Contienen la información definitiva y oficial sobre un dominio específico. Son los que tienen la autoridad final sobre las zonas DNS que administran y proporcionan las respuestas definitivas sobre las direcciones IP de los hosts dentro de su dominio.</li>
+<li>Servidores locales: También llamados servidores recursivos o resolvers, son los que reciben las consultas directamente de los clientes (como tu computadora). Se encargan de realizar todo el proceso de resolución consultando a los diferentes niveles de la jerarquía DNS hasta obtener la respuesta final, que luego envían de vuelta al cliente. Suelen mantener una caché para mejorar la eficiencia.</li>
+</ul>
+<p>Para entender el proceso vamos a realizar un ejemplo de cómo sería la consulta para resolver la URL www.google.es a una IP con DNS. El diagrama de secuencia lo podéis ver en la <span class="citation" data-cites="DNS-GOOGLE">(<a href="../../../references.html#ref-DNS-GOOGLE" role="doc-biblioref"><strong>DNS-GOOGLE?</strong></a>)</span>. Los pasos para la resolución del DNS son los siguientes:</p>
+<ol type="1">
+<li>Verificación de caché local del sistema operativo. Cuando escribes una URL en tu navegador, el sistema operativo primero verifica su caché local para ver si ya tiene almacenada la dirección IP correspondiente. Si la encuentra y no ha expirado, la utiliza inmediatamente sin necesidad de hacer consultas externas.</li>
+<li>Consulta al servidor DNS local. Si la información no está en caché o ha expirado, el cliente envía una consulta al servidor DNS configurado (generalmente proporcionado por tu ISP o servicios como 8.8.8.8 de Google). Esta consulta es recursiva, lo que significa que el cliente espera una respuesta completa.</li>
+<li>El servidor DNS local consulta al servidor raíz. El servidor DNS local, al no tener la información solicitada, inicia el proceso de resolución consultando a uno de los 13 servidores raíz. Le pregunta: “¿Quién maneja el dominio de nivel superior de este nombre?”</li>
+<li>Respuesta del servidor raíz. El servidor raíz no conoce la dirección IP específica, pero sí sabe qué servidor TLD maneja ese tipo de dominio (.com, .org, .es, etc.). Responde con la dirección del servidor TLD apropiado.</li>
+<li>Consulta al servidor TLD. El servidor DNS local ahora consulta al servidor TLD correspondiente preguntando: “¿Qué servidor autoritativo maneja este dominio específico?”</li>
+<li>Respuesta del servidor TLD. El servidor TLD responde con la información del servidor autoritativo responsable del dominio consultado. Por ejemplo, si buscas www.ejemplo.com, te dirá cuál es el servidor autoritativo para ejemplo.com.</li>
+<li>Consulta al servidor autoritativo. Finalmente, el servidor DNS local consulta al servidor autoritativo del dominio, que tiene la información definitiva sobre todos los registros de ese dominio.</li>
+<li>Respuesta del servidor autoritativo. El servidor autoritativo responde con la dirección IP correspondiente al nombre solicitado (registro A) o la información solicitada según el tipo de consulta.</li>
+<li>Respuesta final al cliente. El servidor DNS local almacena la respuesta en su caché (con un tiempo de vida o TTL específico) y envía la dirección IP al cliente que originó la consulta.</li>
+</ol>
+<div id="DNS-GOOGLE">
+<div class="cell" data-fig-height="4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant Cliente as Cliente/SO
+    participant Local as Servidor DNS Local&lt;br/&gt;(Recursivo)
+    participant Raiz as Servidor Raíz
+    participant TLD as Servidor TLD&lt;br/&gt;(.com, .org, etc.)
+    participant Auth as Servidor Autoritativo
+
+    Note over Cliente: Ejemplo: www.google.es
+    
+    Cliente-&gt;&gt;Cliente: 1. Verifica caché local del SO.
+    alt No está en caché local
+        Cliente-&gt;&gt;Local: 2. Consulta DNS: ¿IP de www.google.es?
+        
+        Local-&gt;&gt;Local: Verifica caché DNS local
+        alt No está en caché DNS
+            Local-&gt;&gt;Raiz: 3. ¿Quién maneja .es?
+            Raiz-&gt;&gt;Local: 4. Servidor TLD para .es: [IP_TLD]
+            
+            Local-&gt;&gt;TLD: 5. ¿Quién maneja www.google.es?
+            TLD-&gt;&gt;Local: 6. Servidor autoritativo: [IP_AUTH]
+            
+            Local-&gt;&gt;Auth: 7. ¿IP de www.google.es?
+            Auth-&gt;&gt;Local: 8. IP: 173.194.202.94
+        end
+        
+        Local-&gt;&gt;Cliente: 9. Respuesta: 173.194.202.94
+    end
+    
+    Note over Cliente,Auth: El cliente ahora puede conectarse&lt;br/&gt;directamente a 173.194.202.94
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="smtp-imap-y-pop" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="smtp-imap-y-pop"><span class="header-section-number">5.3.3</span> SMTP, IMAP y POP</h3>
+<p>Los protocolos SMTP, IMAP y POP son protocolos que definen el funcionamiento del correo electrónico tal y como lo conocemos hoy en día. Cada uno tiene un propósito específico en el proceso de envío, almacenamiento y recuperación de mensajes.</p>
+<p><strong>SMTP</strong> es el protocolo estándar para el <strong>envío</strong> de correos electrónicos a través de Internet. Funciona como un servicio de entrega que transporta mensajes desde el cliente de correo del remitente hasta el servidor de correo del destinatario. Es un protocolo “push”, empuja los mensajes desde el origen hacia el destino, y no maneja la recepción de los correos.</p>
+<p><strong>POP</strong>, especialmente POP3 (la versión más actual), es un protocolo para <strong>descargar</strong> correos electrónicos desde el servidor al dispositivo local. POP descarga los mensajes completos al dispositivo local, y por defecto, los elimina los mensajes del servidor tras la descarga. Es ideal para usuarios que acceden al correo desde un único dispositivo, pero presenta limitaciones para sincronización entre múltiples dispositivos</p>
+<p><strong>IMAP</strong> es un protocolo más moderno que permite <strong>acceder</strong> a los correos electrónicos manteniendo la sincronización entre el servidor y múltiples clientes. Los mensajes permanecen en el servidor y permite sincronización en tiempo real entre dispositivos. Soporta carpetas, etiquetas y búsquedas en el servidor. Es ideal para usuarios que acceden al correo desde múltiples dispositivos</p>
+</section>
+<section id="quic" class="level3" data-number="5.3.4">
+<h3 data-number="5.3.4" class="anchored" data-anchor-id="quic"><span class="header-section-number">5.3.4</span> QUIC</h3>
+<p>QUIC representa una evolución revolucionaria en los protocolos de transporte de Internet, desarrollado inicialmente por Google en 2012 y estandarizado por la IETF en 2021 como RFC 9000. Este protocolo moderno construido sobre UDP combina las mejores características de TCP con la seguridad integrada de TLS 1.3, eliminando muchas de las limitaciones históricas de los protocolos tradicionales. Sus principales ventajas incluyen el multiplexado nativo de streams sin el problema de head-of-line blocking que afecta a HTTP/2 sobre TCP, el establecimiento de conexiones con latencia cero (0-RTT) para reconexiones, y la capacidad única de migración de conexión que permite a los dispositivos cambiar transparentemente entre redes WiFi y móviles sin interrumpir las sesiones activas. Además, QUIC incorpora algoritmos de control de congestión más sofisticados y mecanismos de corrección de errores (Forward Error Correction) que mejoran significativamente el rendimiento en condiciones de red inestables o con alta pérdida de paquetes.</p>
+<p>Los casos de uso de QUIC son especialmente relevantes en aplicaciones que requieren baja latencia y alta confiabilidad, siendo adoptado masivamente por servicios de streaming, aplicaciones de videoconferencia, juegos en línea, y plataformas de contenido como YouTube, donde Google reporta reducciones de hasta 30% en tiempo de carga. Su adopción en 2025 ha alcanzado cifras impresionantes: el 8.2% de todos los sitios web globalmente utilizan QUIC, mientras que HTTP/3 (que funciona exclusivamente sobre QUIC) es empleado por el 31.1% de los sitios web.</p>
+</section>
+</section>
+<section id="servicios" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="servicios"><span class="header-section-number">5.4</span> Servicios</h2>
+<section id="cdns" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="cdns"><span class="header-section-number">5.4.1</span> CDNs</h3>
+<p>Las CDN funcionan mediante una red distribuida de servidores edge ubicados estratégicamente en diferentes regiones geográficas, que almacenan copias del contenido desde los servidores origen para reducir la distancia física que deben recorrer los datos hasta llegar al usuario final. El sistema utiliza enrutamiento inteligente que automáticamente dirige cada solicitud al servidor más cercano disponible, típicamente reduciendo la latencia de carga de 200-500ms a menos de 50ms. La estrategia de cache varía según el tipo de contenido: archivos estáticos como imágenes, videos y assets de aplicaciones se almacenan por períodos prolongados (días o semanas), mientras que contenido dinámico como respuestas de APIs se cachea por minutos u horas con validación frecuente. Para contenido personalizado, las CDN implementan técnicas de cache parcial donde elementos comunes se reutilizan entre usuarios, y para streaming en tiempo real dividen el contenido en pequeños segmentos que pueden cachearse individualmente.</p>
+<p>Más allá de la simple entrega de contenido, las CDN modernas actúan como una capa de protección y optimización que incluye compresión automática de archivos, conversión de formatos de imagen según el dispositivo del usuario, y balanceado de carga inteligente que redistribuye el tráfico cuando algún servidor se sobrecarga. En aplicaciones como videojuegos, las CDN aceleran la descarga de actualizaciones y assets mediante técnicas de pre-carga predictiva, mientras que para aplicaciones web ejecutan código simple directamente en los servidores edge para personalización básica sin necesidad de consultar el servidor origen. La arquitectura distribuida proporciona resistencia natural contra caídas de servicio y ataques DDoS, ya que el tráfico malicioso se dispersa automáticamente entre múltiples ubicaciones, y sistemas de monitoreo en tiempo real pueden redirigir usuarios desde servidores con problemas hacia alternativas saludables, manteniendo la disponibilidad del servicio incluso durante fallas regionales o ataques coordinados</p>
+
+
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Dos máquinas pueden tener diferente <strong>endianness</strong> (orden de bytes): <em>big-endian</em> almacena el byte más significativo primero, mientras que <em>little-endian</em> lo guarda al final. Los protocolos de red usan <strong>network byte order</strong> (big-endian) para garantizar que ambas máquinas interpreten los datos correctamente, independientemente de su arquitectura interna.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>En realidad son para sistemas distribuidos. Pero las aplicaciones de red son inherentemente sistemas distribuidos.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="pagination-link" aria-label="Capa de transporte">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

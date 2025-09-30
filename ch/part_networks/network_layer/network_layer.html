@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Capa de red – Apuntes de Juegos en Red</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../ch/part_networks/transport_layer/transport_layer.html" rel="next">
+<link href="../../../ch/part_networks/access_layer/access_layer.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-49c62e5b8c3163634b294513a7851f6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<meta name="mermaid-theme" content="default">
+<script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_layer/network_layer.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../../">Apuntes de Juegos en Red</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introducción a redes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#funciones-fundamentales-de-la-capa-de-red" id="toc-funciones-fundamentales-de-la-capa-de-red" class="nav-link active" data-scroll-target="#funciones-fundamentales-de-la-capa-de-red"><span class="header-section-number">3.1</span> Funciones Fundamentales de la Capa de Red</a></li>
+  <li><a href="#modelos-de-servicio" id="toc-modelos-de-servicio" class="nav-link" data-scroll-target="#modelos-de-servicio"><span class="header-section-number">3.2</span> Modelos de servicio</a></li>
+  <li><a href="#dispositivos-físicos-de-la-capa-de-red" id="toc-dispositivos-físicos-de-la-capa-de-red" class="nav-link" data-scroll-target="#dispositivos-físicos-de-la-capa-de-red"><span class="header-section-number">3.3</span> Dispositivos físicos de la Capa de Red</a>
+  <ul class="collapse">
+  <li><a href="#routers-enrutadores" id="toc-routers-enrutadores" class="nav-link" data-scroll-target="#routers-enrutadores"><span class="header-section-number">3.3.1</span> Routers (Enrutadores)</a></li>
+  <li><a href="#switches-de-capa-3" id="toc-switches-de-capa-3" class="nav-link" data-scroll-target="#switches-de-capa-3"><span class="header-section-number">3.3.2</span> Switches de Capa 3</a></li>
+  </ul></li>
+  <li><a href="#protocolos" id="toc-protocolos" class="nav-link" data-scroll-target="#protocolos"><span class="header-section-number">3.4</span> Protocolos</a>
+  <ul class="collapse">
+  <li><a href="#protocolo-ip" id="toc-protocolo-ip" class="nav-link" data-scroll-target="#protocolo-ip"><span class="header-section-number">3.4.1</span> Protocolo IP</a></li>
+  <li><a href="#protocolo-icmp-internet-control-message-protocol" id="toc-protocolo-icmp-internet-control-message-protocol" class="nav-link" data-scroll-target="#protocolo-icmp-internet-control-message-protocol"><span class="header-section-number">3.4.2</span> Protocolo ICMP (Internet Control Message Protocol)</a></li>
+  <li><a href="#nat-network-address-translation" id="toc-nat-network-address-translation" class="nav-link" data-scroll-target="#nat-network-address-translation"><span class="header-section-number">3.4.3</span> NAT (Network Address Translation)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_layer/network_layer.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-network-layer" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>La capa de red es el segundo nivel del modelo de capas TCP/IP y forma el núcleo del sistema de comunicaciones de Internet. Su principal función es proporcionar una comunicación end-to-end entre dispositivos, potencialmente separados por múltiples redes intermedias, independientemente de la tecnología de subyacente. Es decir, la comunicación funciona de igual forma si estamos conectados a través de WiFi, Ethernet o 5G, a pesar de que sean diferentes medios. Esta clara delimitación de capas permite combinar de forma más sencilla diferentes tecnologías y dispositivo hardware.</p>
+<p>Como es habitual, vamos a ver un ejemplo simplificado donde un dispositivo quiere mandarle un mensaje a otro dispositivo que no está en la misma red. Este ejemplo simula una situación real como acceder desde casa a un servidor web de Google. Habrá conceptos que no os suenen pero los veremos a lo largo del capítulo. El dispositivo A (tu ordenador en casa), con IP (192.168.1.10) quiere enviarle un mensaje al dispositivo B (servidor web de Google), con IP (142.250.184.3). Durante el ejemplo vamos a realizar una simplificación y utilizaremos siempre la IP del emisor como 192.168.1.10, pero esto no es válido como veremos posteriormente ya que se trata de una IP privada y el Router-A utilizaría NAT. La estructura de la red es la siguiente:</p>
+<div id="fig-example-network-layer-net" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-example-network-layer-net-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<pre><code>Red A (Privada)                    Internet                    Red B (Google DC)
+192.168.1.0/24                                                142.250.184.0/24
+┌────────────┐     ┌────────────────┐   ┌──────────┐   ┌─────────────────┐      ┌──────────────┐
+│   Host A   │─────│   Router-A     │───│          │───│    Router-B     │──────│ Servidor Web │
+│            │     │    (Casa)      │   │ Internet │   │   (Google DC)   │      │   (Google)   │
+│192.168.1.10│     │LAN:192.168.1.1 │   │          │   │WAN:74.125.24.1  │      │              │
+│            │     │WAN:203.0.113.2 │   └──────────┘   │LAN:142.250.184.1│      │142.250.184.3 │
+└────────────┘     └────────────────┘                  └─────────────────┘      └──────────────┘</code></pre>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-network-layer-net-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.1: Ejemplo simplificado de la estructura de red.
+</figcaption>
+</figure>
+</div>
+<p>Los pasos de los que constaría este ejemplo simplificado están recogidos en la <a href="#fig-example-network-layer-diagram" class="quarto-xref">Figura&nbsp;<span>3.2</span></a> y serían los siguientes:</p>
+<ol type="1">
+<li><p>El dispositivo A (192.168.1.10) examina la IP de destino (142.250.184.3). La IP 142.250.184.3 no está en mi red 192.168.1.0/24, por lo tanto enviará el paquete al gateway (192.168.1.1), es decir, el Router-A. Para ello obtiene la MAC del Router-A y le envía la trama.</p></li>
+<li><p>El Router-A recibe la trama. Ve que la MAC de destino coincide con la suya y extrae el datagrama IP. Lee la IP de destino (142.250.184.3), y como no está en su red local, consulta su tabla de enrutamiento. Determina que debe enviar el paquete a su router del ISP (203.0.113.1). Este router del ISP tendrá en su tabla de enrutamiento una entrada que indica que para llegar a la red 142.250.184.0/24 debe enviar los paquetes al router 74.125.24.1. Router-A actualiza los campos necesarios del datagrama IP y lo encapsula en una nueva trama.</p></li>
+<li><p>El Router-B (74.125.24.1) recibe la trama después de múltiples saltos a través de Internet, extrae el datagrama IP y lee la IP de destino (142.250.184.3). Consulta su tabla de enrutamiento y determina que la red 142.250.184.0/24 está directamente conectada a través de su interfaz 142.250.184.1. Router-B obtiene la MAC del servidor web y le envía el paquete.</p></li>
+<li><p>Finalmente, el servidor web recibe la trama, ve que la MAC de destino es suya, extrae el datagrama IP, comprueba que la IP de destino (142.250.184.3) coincide con la suya, y entrega los datos al protocolo de la capa superior.</p></li>
+</ol>
+<div id="fig-example-network-layer-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-example-network-layer-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant A as Dispositivo A&lt;br/&gt;(192.168.1.10)
+    participant RA as Router-A&lt;br/&gt;(Casa)&lt;br/&gt;192.168.1.1
+    participant RB as Router-B&lt;br/&gt;(Google DC)&lt;br/&gt;142.250.184.1
+    participant B as Servidor Web&lt;br/&gt;(142.250.184.3)
+
+    Note over A: 1) Analiza IP destino (142.250.184.3) &lt;br/&gt; 2) No está en mi red local &lt;br/&gt; 3) Decidir enviar al gateway (192.168.1.1)
+
+    A-&gt;&gt;RA: Trama Ethernet&lt;br/&gt;MAC: A → Router-A&lt;br/&gt;IP: 192.168.1.10 → 142.250.184.3
+
+    Note over RA: 1) Recibe trama, extrae datagrama IP. &lt;br/&gt; 2) Consulta tabla de enrutamiento. &lt;br/&gt; 3) Envía al router ISP → Router-B
+
+    RA-&gt;&gt;RB: Nueva trama Ethernet&lt;br/&gt;MAC: Router-A → Router-B&lt;br/&gt;IP: 192.168.1.10 → 142.250.184.3&lt;br/&gt;(múltiples saltos por Internet)
+
+    Note over RB: 1) Recibe trama, extrae datagrama IP. &lt;br/&gt; 2) IP 142.250.184.3 está en red local
+
+    RB-&gt;&gt;B: Trama Ethernet&lt;br/&gt;MAC: Router-B → B&lt;br/&gt;IP: 192.168.1.10 → 142.250.184.3
+
+    Note over B: 1) Recepción final comprueba IP. &lt;br/&gt; 2) Entrega datos a capa superior
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-network-layer-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.2: Ejemplo de envío de datagrama IP entre dos ordenadores en diferentes redes.
+</figcaption>
+</figure>
+</div>
+<p>Aunque este ejemplo sea una simplicación, nos ayuda a introducir la funcionalidad de la capa de red, en concreto, de los routers y del protocolo IP. Generalmente, entre el Router-A y Router-B habría múltiples routers intermedios, pero proceso seguiría siendo el mismo. El los siguientes apartados profundizaremos en las funcionalidades de la capa de red a través de los routers y el protolo IP.</p>
+<section id="funciones-fundamentales-de-la-capa-de-red" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="funciones-fundamentales-de-la-capa-de-red"><span class="header-section-number">3.1</span> Funciones Fundamentales de la Capa de Red</h2>
+<p>La Capa de Red tiene dos funciones clave: el enrutamiento y el reenvío. El <strong>enrutamiento</strong> representa el proceso global mediante el cual la red determina las rutas óptimas que seguirán los paquetes de datos desde su origen hasta su destino final. Este proceso considera toda la topología de la red y puede tomar desde segundos hasta minutos para converger completamente. Los algoritmos de enrutamiento más comúnes son RIP, OSPF y BGP.</p>
+<p>En contraste, el <strong>reenvío</strong> constituye un proceso local y extremadamente rápido que se encarga de mover los paquetes desde el puerto de entrada hasta el puerto de salida específico dentro del mismo router. Esta operación debe completarse en microsegundos para mantener el rendimiento de la red, por lo que se implementa directamente en hardware. El proceso se basa exclusivamente en la dirección IP de destino y utiliza únicamente la tabla de reenvío local del router para tomar decisiones inmediatas.</p>
+<p>La interacción entre ambos procesos forma un sistema integrado donde los algoritmos de enrutamiento como RIP, OSPF y BGP generan la tabla de enrutamiento con rutas completas, la cual se traduce en una tabla de reenvío optimizada que contiene únicamente la información del siguiente salto (next-hop). Esta tabla de reenvío es la que finalmente permite tomar las decisiones de reenvío paquete por paquete de manera eficiente, creando un flujo continuo desde la planificación estratégica de rutas hasta la ejecución táctica del movimiento de datos.</p>
+<p>Las responsabilidades de la capa de red varían según el tipo de dispositivo y su posición en el flujo de comunicación. En el host emisor, la capa de red recibe segmentos de TCP o UDP y los encapsula en datagramas IP añadiendo las cabeceras correspondientes. Durante este proceso, debe fragmentar los datagramas si exceden el MTU del enlace de salida y determinar si el destino es local (dentro de la misma red) o remoto para enviarlo. En el extremo opuesto, el host receptor debe reensamblar los fragmentos cuando sea necesario, verificar la integridad de los datos mediante el checksum de cabecera, extraer los segmentos y entregarlos a la capa de transporte apropiada, además de procesar las opciones de cabecera IP cuando estén presentes.</p>
+<p>Los routers intermedios desempeñan un papel diferente pero crucial en este ecosistema. Su función principal consiste en examinar los campos de la cabecera IP, especialmente la dirección de destino, consultar sus tablas de enrutamiento para determinar el siguiente salto apropiado, y reenviar los paquetes por la interfaz de salida correspondiente.</p>
+</section>
+<section id="modelos-de-servicio" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="modelos-de-servicio"><span class="header-section-number">3.2</span> Modelos de servicio</h2>
+<p>Existen dos paradigmas fundamentales para implementar servicios de capa de red, cada uno con filosofías y mecanismos completamente diferentes. La elección entre estos modelos determina aspectos cruciales como performance, confiabilidad, complejidad y escalabilidad de la red.</p>
+<p><strong>Las redes de circuitos virtuales (VC)</strong> emulan el comportamiento de los circuitos telefónicos tradicionales estableciendo “caminos virtuales” dedicados entre origen y destino. Su funcionamiento se desarrolla en tres fases claramente definidas: primero, el establecimiento de conexión mediante el envío de un mensaje SETUP desde el host origen, donde cada router intermedio reserva recursos como ancho de banda y buffers, crea una entrada en su tabla VC con un identificador único local, y reenvía la solicitud hasta que el host destino confirma con un mensaje ACK. Durante la fase de transferencia de datos, los paquetes solo necesitan llevar el VC ID asignado en lugar de la dirección de destino completa, permitiendo un reenvío rápido mediante consulta a la tabla VC, garantizando calidad de servicio (QoS) y manteniendo una ruta fija para todos los paquetes del flujo. Finalmente, la terminación se realiza mediante un mensaje TEARDOWN que libera los recursos previamente reservados y elimina las entradas de las tablas VC.</p>
+<p>Esta arquitectura ofrece ventajas significativas como QoS predecible con garantías de rendimiento, overhead reducido en las cabeceras al usar solo el VC ID, control de flujo extremo a extremo y orden garantizado de los paquetes. Sin embargo, presenta desventajas importantes incluyendo la complejidad en el establecimiento y mantenimiento de conexiones, la necesidad de mantener estado por cada conexión en todos los routers, rigidez ante cambios en la topología de red y overhead adicional por la señalización requerida. Tecnologías como ATM, Frame Relay, X.25 y MPLS implementan este modelo de circuitos virtuales para aplicaciones que requieren garantías específicas de rendimiento.</p>
+<p><strong>Las redes de datagramas</strong> adoptan un enfoque completamente diferente al tratar cada paquete de manera independiente sin establecer conexiones previas entre origen y destino. Este modelo se caracteriza por la ausencia de estado de conexión en los routers, eliminando la necesidad de un proceso de setup inicial, y basa el reenvío en la dirección de destino completa contenida en cada paquete. Cada router procesa los paquetes independientemente. Como resultado, diferentes paquetes del mismo flujo puedan seguir rutas distintas a través de la red.</p>
+<p>El modelo de datagramas presenta ventajas sustanciales en términos de simplicidad de diseño e implementación, robustez excepcional ante fallos de red ya que no depende de estados de conexión preestablecidos, flexibilidad para implementar balanceo dinámico de carga, escalabilidad superior al no requerir mantener estado por cada flujo, y adaptabilidad inmediata a cambios en la topología de red. Estas características hacen que las redes de datagramas sean especialmente adecuadas para entornos dinámicos y de gran escala como Internet.</p>
+<p>No obstante, el modelo de datagramas también presenta limitaciones significativas que incluyen la ausencia de garantías de calidad de servicio (QoS), la posibilidad de que los paquetes lleguen fuera de orden al destino debido a las diferentes rutas que pueden tomar, el overhead adicional generado por incluir la dirección de destino completa en cada paquete, y la prestación únicamente de un servicio de mejor esfuerzo (best-effort) sin compromisos específicos de rendimiento. A pesar de estas limitaciones, el modelo de datagramas se ha convertido en el fundamento de Internet debido a su simplicidad, robustez y capacidad de adaptación a las condiciones cambiantes de la red.</p>
+<p>Resumen comparativo:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Circuitos Virtuales</th>
+<th>Datagramas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Establecimiento</strong></td>
+<td>Requerido</td>
+<td>No requerido</td>
+</tr>
+<tr class="even">
+<td><strong>Estado en routers</strong></td>
+<td>Sí, por conexión</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td><strong>Direccionamiento</strong></td>
+<td>VC ID</td>
+<td>Dirección IP completa</td>
+</tr>
+<tr class="even">
+<td><strong>Enrutamiento</strong></td>
+<td>Ruta fija</td>
+<td>Ruta por paquete</td>
+</tr>
+<tr class="odd">
+<td><strong>QoS</strong></td>
+<td>Garantías posibles</td>
+<td>Best effort</td>
+</tr>
+<tr class="even">
+<td><strong>Recuperación fallos</strong></td>
+<td>Difícil</td>
+<td>Automática</td>
+</tr>
+<tr class="odd">
+<td><strong>Escalabilidad</strong></td>
+<td>Limitada</td>
+<td>Alta</td>
+</tr>
+<tr class="even">
+<td><strong>Overhead</strong></td>
+<td>Setup/teardown</td>
+<td>Por paquete</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dispositivos-físicos-de-la-capa-de-red" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="dispositivos-físicos-de-la-capa-de-red"><span class="header-section-number">3.3</span> Dispositivos físicos de la Capa de Red</h2>
+<p>Los dispositivos de capa de red son los componentes hardware que hacen posible la interconexión de redes y la implementación de las funciones de enrutamiento y reenvío. Estos dispositivos varían considerablemente en complejidad, desde simples switches Layer 3 hasta routers core de alta capacidad.</p>
+<section id="routers-enrutadores" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="routers-enrutadores"><span class="header-section-number">3.3.1</span> Routers (Enrutadores)</h3>
+<p>Los routers constituyen la columna vertebral de Internet y las redes empresariales modernas. Su función principal es interconectar diferentes redes y determinar la ruta óptima para el reenvío de paquetes de datos. A diferencia de los switches que operan en la Capa de Acceso a la Red, los routers trabajan en la Capa de Red, tomando decisiones basadas en direcciones IP y manteniendo una visión global de la topología de red.</p>
+<p>La arquitectura básica consta de cuatro componentes principales:</p>
+<pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│                 │    │                 │    │                 │
+│  Puertos de     │    │   Procesador    │    │  Puertos de     │
+│   Entrada       │◄──►│      de         │◄──►│   Salida        │
+│                 │    │  Enrutamiento   │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         ▲                        │                        ▲
+         │              ┌─────────▼─────────┐              │
+         │              │                   │              │
+         └──────────────│ Fabric de         │──────────────┘
+                        │ Conmutación       │
+                        │                   │
+                        └───────────────────┘</code></pre>
+<p>En los routers diferenciamos dos planos claramente separados:</p>
+<ul>
+<li><p><strong>plano de control</strong>: ejecuta el proceso de enrutamiento mediante software especializado y generan tablas de enrutamiento que contienen rutas completas hacia todos los destinos conocidos.</p></li>
+<li><p><strong>plano de datos</strong>: ejecuta el proceso de reenvio mediante hardware especializado para máxima eficiencia. Utiliza la tabla de enrutamiento generado en el plano de control.</p></li>
+</ul>
+<p>Los puertos de entrada constituyen las puertas de recepción del router y realizan tres funciones críticas organizadas en secuencia. La terminación física proporciona la interfaz con medios de transmisión como cables de cobre o fibra óptica, convirtiendo las señales eléctricas u ópticas en datos digitales. El procesamiento de la capa de enlace maneja protocolos específicos como Ethernet, PPP o Frame Relay, extrayendo el datagrama IP de la trama correspondiente. La función de búsqueda IP consulta la tabla de reenvío usando el algoritmo de coincidencia de prefijo más largo para determinar hacia dónde dirigir cada paquete. Esta función debe ejecutarse a la velocidad del enlace para evitar crear cuellos de botella en el sistema.</p>
+<p>Los puertos de salida gestionan el tráfico que abandona el router mediante un proceso inverso al de entrada. La bufferización y scheduling implementa sistemas de colas sofisticados que aplican políticas de calidad de servicio, decidiendo qué paquetes enviar primero según sus prioridades. El procesamiento de la capa de enlace encapsula el datagrama IP en la trama apropiada para el protocolo del enlace de salida. Finalmente, la terminación física convierte los datos digitales en señales eléctricas u ópticas para su transmisión.</p>
+<p>El procesador de enrutamiento funciona como el cerebro del sistema, ejecutando los protocolos de enrutamiento que intercambian información con otros routers para mantener actualizado el conocimiento de la topología de red. También gestiona funciones administrativas como SNMP para monitoreo remoto, procesamiento ICMP para herramientas de diagnóstico como ping y traceroute, y la computación de las tablas de reenvío optimizadas a partir de las tablas de enrutamiento.</p>
+<p>Por último, NAT es un protocolo que opera entre ambas capas (lo veremos después). Al principio operaba sólo en el plano de control, tomando un tiempo significativo. En la actualidad, opera en el plano de control para manejar las sesiones y el resto en hardware especializado en el plano de datos.</p>
+<section id="proceso-de-reenvío-de-paquetes" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="proceso-de-reenvío-de-paquetes"><span class="header-section-number">3.3.1.1</span> Proceso de Reenvío de Paquetes</h4>
+<p>El proceso de reenvío sigue una secuencia precisa y optimizada que se ejecuta para cada paquete:</p>
+<ol type="1">
+<li><p><strong>Recepción y procesamiento inicial</strong>: El paquete llega al puerto de entrada desde el enlace físico, se procesa la cabecera de la capa de enlace correspondiente y se extrae el datagrama IP.</p></li>
+<li><p><strong>Verificación de integridad</strong>: Se verifica el checksum de la cabecera IP para detectar posibles errores de transmisión y se comprueba que el valor TTL sea mayor que cero.</p></li>
+<li><p><strong>Extracción de información de destino</strong>: Se extrae la dirección IP de destino de la cabecera del datagrama para utilizarla en la decisión de reenvío.</p></li>
+<li><p><strong>Consulta de tabla de reenvío</strong>: Se aplica el algoritmo de coincidencia de prefijo más largo en la tabla de reenvío para determinar la interfaz de salida apropiada y obtener la dirección del siguiente salto.</p></li>
+<li><p><strong>Modificación del paquete</strong>: Se decrementa el campo TTL en una unidad y se recalcula el checksum de la cabecera IP para mantener la integridad de los datos. Si el TTL llega a cero después del decremento, el router descarta el paquete y envía un mensaje ICMP “Time Exceeded” al host origen, evitando así loops infinitos en la red.</p></li>
+<li><p><strong>Resolución de direcciones</strong>: Si es necesario, se resuelve la dirección MAC del dispositivo del siguiente salto mediante el protocolo ARP.</p></li>
+<li><p><strong>Encapsulación y envío</strong>: Se encapsula el datagrama IP en una nueva trama según el protocolo de la capa de enlace del puerto de salida y se transmite por la interfaz física correspondiente.</p></li>
+</ol>
+</section>
+</section>
+<section id="switches-de-capa-3" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="switches-de-capa-3"><span class="header-section-number">3.3.2</span> Switches de Capa 3</h3>
+<p>A medida que las redes locales crecieron en complejidad, surgió la necesidad de dispositivos que combinaran la velocidad del switching con las capacidades del routing. Los switches Layer 3 llenan este nicho específico. La principal diferencia es la implementación a nivel de hardware del procesamiento, haciéndolo mucho más rápido. A modo de comparativa tenéis la siguiente tabla:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Router Tradicional</th>
+<th>Switch L3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reenvío</strong></td>
+<td>Software/ASIC</td>
+<td>Hardware puro</td>
+</tr>
+<tr class="even">
+<td><strong>Latencia</strong></td>
+<td>Microsegundos</td>
+<td>Nanosegundos</td>
+</tr>
+<tr class="odd">
+<td><strong>Throughput</strong></td>
+<td>Limitado por CPU</td>
+<td>Wire-speed</td>
+</tr>
+<tr class="even">
+<td><strong>Costo</strong></td>
+<td>Mayor</td>
+<td>Menor</td>
+</tr>
+<tr class="odd">
+<td><strong>Flexibilidad</strong></td>
+<td>Alta</td>
+<td>Limitada</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="protocolos" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="protocolos"><span class="header-section-number">3.4</span> Protocolos</h2>
+<section id="protocolo-ip" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="protocolo-ip"><span class="header-section-number">3.4.1</span> Protocolo IP</h3>
+<p>IP es el protocolo principal de la capa de red en la arquitectura TCP/IP. Define la estructura de datagramas, direccionamiento y mecanismos básicos de entrega. Las características principales de IP son:</p>
+<ul>
+<li><strong>Sin conexión</strong>: No requiere establecimiento previo.</li>
+<li><strong>No confiable</strong>: No garantiza entrega, orden, o integridad.</li>
+<li><strong>Best effort</strong>: Hace el “mejor esfuerzo” por entregar paquetes.</li>
+<li><strong>Independiente del medio</strong>: Funciona sobre cualquier tecnología de enlace.</li>
+</ul>
+<p>Dentro de IP hay dos versiones. IPv4 diseñado en los años 70 y IPv6, como evolución de IPv4 enfocado a solventar las limitaciones de IPv4, en especial el número de IPs disponibles. Empezaremos por IPv4.</p>
+<div id="fig-packet-ipv4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-packet-ipv4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-fig-width="4s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">---
+config:
+  packet:
+    showBits: true
+---
+packet-beta
+
+title IPv4 Header Format
+0-3: "Version (4)"
+4-7: "IHL (4)"
+8-15: "Type of Service (8)"
+16-31: "Total Length (16)"
+32-47: "Identification (16)"
+48-50: "Flags (3)"
+51-63: "Fragment Offset (13)"
+64-71: "Time to Live (8)"
+72-79: "Protocol (8)"
+80-95: "Header Checksum (16)"
+96-127: "Source Address (32)"
+128-159: "Destination Address (32)"
+160-191: "Options (variable)"
+192-223: "Padding"
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-packet-ipv4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.3: Formato de cabeceras de IPv4.
+</figcaption>
+</figure>
+</div>
+<p>El datagrama IPv4 es la unidad básica de información que viaja por Internet (Ver estructura en <a href="#fig-packet-ipv4" class="quarto-xref">Figura&nbsp;<span>3.3</span></a>). Utiliza una cabecera de longitud variable (mínimo 20 bytes) que contiene la información esencial para el enrutamiento y entrega de paquetes a través de Internet. Los campos más críticos incluyen las direcciones IP de origen y destino que determinan los puntos de comunicación, el campo TTL que previene loops infinitos al decrementarse en cada router, el campo Protocol que identifica el protocolo de capa superior (TCP, UDP, ICMP), y los campos de fragmentación (Identification, Flags, Fragment Offset) que permiten dividir y reensamblar datagramas que exceden el MTU del enlace. El checksum protege únicamente la cabecera, delegando la protección de los datos a las capas superiores, mientras que el campo Total Length especifica el tamaño completo del datagrama para su procesamiento correcto.</p>
+<p>El sistema de direccionamiento IPv4, llamadas IP, es un identificador único de un dispositivo dentro de una red. En IPv4 tienen un formato de 32 bits que se organiza en 4 octetos separados por puntos. Por ejemplo, 192.168.1.1 o 10.0.1.50. Debido a la longitud de 32 bits, el número de direcciones IP posibles son <span class="math inline">\(2^{32}\)</span>, aproximadamente 4.3 miles de millones. Estas direcciones se organizan en dos partes, la parte de red y la parte de host, además tenemos la máscara de red que nos ayuda a distinguir ambas partes. Por ejemplo, <span style="color:blue">192.168.1.</span><span style="color:red">1</span> con máscara de red 255.255.255.0 o <span style="color:blue">10.0.</span><span style="color:red">1.50</span> con máscara de red 255.255.0.0, siendo la parte azul la parte de red y la roja la parte del host. Para obtener la dirección de red utilizamos el operador binario AND: 192.168.1.1 &amp; 255.255.255.0 = 192.168.1.0. En CIDR, que veremos más adelante, esta máscara 255.255.255.0 se representa como /24.</p>
+<p>Esta división entre parte de red y parte de host permite representar jerárquicamente la estructura de direccionamiento, como se muestra en la <a href="#fig-example-network" class="quarto-xref">Figura&nbsp;<span>3.4</span></a>. Los routers pueden tomar decisiones de reenvío basándose únicamente en la parte de red de la dirección destino, consultando sus tablas locales para determinar la interfaz de salida. Gracias a esta organización, es posible la agregación de rutas, donde varias redes pequeñas se resumen en una sola entrada de mayor alcance. Por ejemplo, dos subredes /28 contiguas (192.168.1.0/28 y 192.168.1.16/28) pueden representarse como un único bloque /27 (192.168.1.0/27), reduciendo de dos entradas a una. Este mecanismo permite que los routers mantengan información consolidada sobre redes remotas sin necesidad de conocer cada host o subred en detalle, lo que disminuye drásticamente el tamaño de las tablas de reenvío y hace escalable la infraestructura global de Internet.</p>
+<div id="fig-example-network" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-example-network-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-fig-width="7s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Internet Global] --&gt; B[Red 192.168.0.0/16]
+    A --&gt; C[Red 10.0.0.0/8]
+    A --&gt; D[Red 172.16.0.0/12]
+    
+    B --&gt; B1[Subred 192.168.1.0/24]
+    B --&gt; B2[Subred 192.168.2.0/24]
+    B --&gt; B3[Subred 192.168.3.0/24]
+    
+    C --&gt; C1[Subred 10.0.1.0/24]
+    C --&gt; C2[Subred 10.0.2.0/24]
+    
+    B1 --&gt; B1A[Host 192.168.1.1]
+    B1 --&gt; B1B[Host 192.168.1.2]
+    B1 --&gt; B1C[Host 192.168.1.10]
+    
+    B2 --&gt; B2A[Host 192.168.2.5]
+    B2 --&gt; B2B[Host 192.168.2.100]
+    
+    C1 --&gt; C1A[Host 10.0.1.50]
+    C1 --&gt; C1B[Host 10.0.1.75]
+
+    classDef network fill:#e1f5fe
+    classDef subnet fill:#f3e5f5
+    classDef host fill:#fff3e0
+    
+    class A,B,C,D network
+    class B1,B2,B3,C1,C2 subnet
+    class B1A,B1B,B1C,B2A,B2B,C1B,C1A host
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-network-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.4: Ejemplo de estructuras de subredes.
+</figcaption>
+</figure>
+</div>
+<p>La estructura de direccionamiento IPv4, que permite distinguir entre red y host para generar una arquitectura jerárquica de redes, inicialmente utilizaba un sistema de clases. En este sistema de clases, las direcciones IPv4 se categorizaban en tres grupos principales según los bits iniciales del primer octeto, determinando la división entre bits de red y host. La Clase A comenzaba con bit 0, la Clase B con bits “10”, y la Clase C con bits “110”, creando saltos enormes entre las capacidades de cada categoría que generaban ineficiencias significativas en la asignación.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 18%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 12%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Clase</th>
+<th>Rango de Direcciones</th>
+<th>Primer Bit(s)</th>
+<th>Bits de Red</th>
+<th>Bits de Host</th>
+<th>Redes Disponibles</th>
+<th>Hosts por Red</th>
+<th>Uso Típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A</strong></td>
+<td>0.0.0.0 - 127.255.255.255</td>
+<td>0</td>
+<td>7</td>
+<td>24</td>
+<td>126<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+<td>16,777,214</td>
+<td>ISPs, gobiernos, organizaciones masivas</td>
+</tr>
+<tr class="even">
+<td><strong>B</strong></td>
+<td>128.0.0.0 - 191.255.255.255</td>
+<td>10</td>
+<td>14</td>
+<td>16</td>
+<td>16,384</td>
+<td>65,534</td>
+<td>Universidades, empresas medianas</td>
+</tr>
+<tr class="odd">
+<td><strong>C</strong></td>
+<td>192.0.0.0 - 223.255.255.255</td>
+<td>110</td>
+<td>21</td>
+<td>8</td>
+<td>2,097,152</td>
+<td>254</td>
+<td>Empresas pequeñas, oficinas locales</td>
+</tr>
+</tbody>
+</table>
+<p>Sin embargo, la rigidez del sistema de clases generaba problemas críticos. Una organización con 1,000 hosts enfrentaba un dilema: elegir una red Clase B desperdiciando 64,534 direcciones (99.5% de ineficiencia) o gestionar múltiples redes Clase C con mayor complejidad administrativa. Esta inflexibilidad aceleró el agotamiento del espacio IPv4 y motivó el desarrollo de alternativas más eficientes.</p>
+<p>Para solventar este problema se introdujo CIDR. La innovación fundamental consistió en la notación /x que indica exactamente cuántos bits destinan a la parte de red. Por ejemplo, 192.168.1.0/24 significa que los primeros 24 bits identifican la red, dejando 8 bits para hosts (254 hosts utilizables). CIDR permite asignar direcciones en bloques de cualquier tamaño potencia de 2, eliminando el desperdicio masivo del sistema anterior. Una organización que necesite 500 hosts puede recibir un /23 (510 hosts) en lugar de desperdiciar una Clase B completa. Esta flexibilidad aumentó la utilización del espacio IPv4 del 20-30% tradicional al 95-98% actual y la simplificación de las tablas de enrutamiento globales mediante la agregación de rutas.</p>
+<p>Para funcionar, CIDR requiere el algoritmo de longest prefix matching para búsquedas en tablas de enrutamiento. Cuando un router recibe un paquete, evalúa todas las rutas que coinciden con la dirección destino y selecciona aquella con el prefijo más específico. En una tabla con rutas 192.168.0.0/16, 192.168.1.0/24 y 192.168.1.128/25, el destino 192.168.1.200 coincide con las dos primeras pero selecciona 192.168.1.0/24 por tener el prefijo más largo (24 bits vs 16 bits). Este mecanismo garantiza que el tráfico tome siempre la ruta más específica disponible.</p>
+<p>Independientemente del sistema de direccionamiento utilizado (clases o CIDR), IPv4 mantiene direcciones especiales con propósitos específicos:</p>
+<ul>
+<li>0.0.0.0/32: This host on this network. Referencia un host sin IP configurada. Se utiliza en el proceso de configuración (DHCP).</li>
+<li>127.0.0.0/8: Loopback. Los paquetes no salen del host local y se utiliza para servicios y pruebas. Un ejemplo común es localhost, con IP 127.0.0.1.</li>
+<li>255.255.255.255/32: Limited broadcast. Broadcast a todos los hosts en red local. No atraviesa routers.</li>
+<li>x.x.x.0: Dirección de red. Todos los bits del host a 0 (con la máscara de red). Identifica a la red misma.</li>
+<li>x.x.x.255: Directed broadcast. Todos los bits de host a 1. Broadcast dirigido a una red específica.</li>
+</ul>
+<p>En el sistema de clases, las direcciones de red y broadcast seguían patrones fijos según la clase, pero con CIDR se adaptan dinámicamente a la máscara de subred específica utilizada.</p>
+<p>Ambos sistemas establecen una serie de rangos, determinadas privadas, que son exclusivas para redes internas. Estas direcciones no son enrutables en Internet público, ya que los routers globales están configurados para descartarlas, evitando conflictos de direccionamiento. La principal ventaja radica en que múltiples organizaciones pueden reutilizar los mismos rangos internamente sin interferir entre sí, conservando el escaso espacio IPv4 público. Para acceder a Internet, estas redes requieren NAT, que traduce direcciones privadas a públicas. Los rangos delimitados son: 10.0.0.0/8 (16.7 millones de hosts, para grandes organizaciones), 172.16.0.0/12 (1 millón de hosts, para empresas medianas) y 192.168.0.0/16 (65,000 hosts, para hogares y oficinas pequeñas).</p>
+<p>Por último, en el protocolo IP hay una tamaño máximo para el datagrama. Este tamaño se conoce como MTU (del inglés, Maximum Transmission Unit), y puede variar dependiendo de la tecnología subyacente, por ejemplo, en Ethernet es 1500 bytes y en Token Ring es 4464 bytes. Cuando el tamaño del datagrama es superior al MTU, el datagrama se fragmenta en trozos más pequeños y se desfragmentará posteriormente en el destino. Una consideración importante es que el protocolo IP si mantiene el orden de la información del datagrama. Es decir, si yo envio un datagrama que se tiene que fragmentar, IP garantiza que al desfragmentarlo la integridad de los datos estará preservada. Cuando decimos que no garantiza el orden es que si primero envio el datagrama A y después otro datagrama B (independientes), puede que la aplicación reciba primero el datagrama B y después el A, y no tendré forma de saber si uno va antes que el otro.</p>
+<section id="ipv6" class="level4" data-number="3.4.1.1">
+<h4 data-number="3.4.1.1" class="anchored" data-anchor-id="ipv6"><span class="header-section-number">3.4.1.1</span> IPv6</h4>
+<p>IPv6 surge como respuesta a las limitaciones críticas de IPv4, principalmente el agotamiento de su espacio de direcciones de 32 bits que solo proporciona 4.3 × 10^{9} direcciones únicas. Además, IPv4 presenta problemas de fragmentación ineficiente que requiere procesamiento en routers intermedios, configuración manual compleja sin capacidades de autoconfiguración, implementación de seguridad como complemento opcional (IPSec), y limitaciones en calidad de servicio con campos TOS poco efectivos. Estos desafíos hacen insostenible IPv4 para el crecimiento exponencial de dispositivos conectados a Internet.</p>
+<p>IPv6 revoluciona el protocolo con un espacio de direcciones masivo de 128 bits que proporciona 2^{128} = 3.4 × 10^{38} direcciones, utilizando notación hexadecimal con reglas de compresión para simplificar su representación. La cabecera, ver <a href="#fig-headers-ipv6" class="quarto-xref">Figura&nbsp;<span>3.5</span></a>, se simplifica a un formato fijo de 40 bytes eliminando el checksum para reducir el procesamiento en routers, e integra características avanzadas como autoconfiguración SLAAC, seguridad IPSec obligatoria, y mejor calidad de servicio mediante campos Traffic Class y Flow Label. Debido a la cantidad de dispositivos en la red, la migración de IPv4 a IPv6 se realiza de forma gradual mediante estrategias que permiten la interoperabilidad entre ambos protocolos.</p>
+<div id="fig-headers-ipv6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-headers-ipv6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-fig-width="7s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">---
+config:
+  packet:
+    showBits: true
+---
+packet-beta
+
+0-3: "Version (4)"
+4-11: "Traffic Class (8)"
+12-31: "Flow Label (20)"
+32-47: "Payload Length (16)"
+48-55: "Next Header (8)"
+56-63: "Hop Limit (8)"
+64-127: "Source Address (64 bits - first half)"
+128-191: "Source Address (64 bits - second half)"
+192-255: "Destination Address (64 bits - first half)"
+256-319: "Destination Address (64 bits - second half)"
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-headers-ipv6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.5: Formato de cabeceras de IPv6.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="protocolo-icmp-internet-control-message-protocol" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="protocolo-icmp-internet-control-message-protocol"><span class="header-section-number">3.4.2</span> Protocolo ICMP (Internet Control Message Protocol)</h3>
+<p>ICMP es un protocolo complementario a IP que proporciona mecanismos de control, diagnóstico y reporte de errores en redes. Utiliza IP para su transporte (protocolo número 1) pero opera como herramienta de gestión de red. Es no orientado a conexión, no garantiza entrega, y está implementado obligatoriamente en todos los dispositivos IP. Su formato básico incluye campos Type, Code, Checksum y datos adicionales según el tipo de mensaje.</p>
+<p>Los mensajes ICMP se clasifican en dos categorías principales: mensajes de error y mensajes de consulta. Los mensajes de error incluyen “Destination Unreachable” (Type 3) que indica problemas de alcance como red, host o puerto inaccesible; “Time Exceeded” (Type 11) usado cuando el TTL expira en tránsito; “Parameter Problem” (Type 12) para errores de configuración; o “Packet Too Big” en el mecanismo de MTU Discovery de IPv6. Los mensajes de consulta incluyen “Echo Request/Reply” (Type 8/0) utilizados por ping para verificar conectividad y medir latencia, y “Timestamp Request/Reply” (Type 13/14) para sincronización temporal.</p>
+<p><strong>Ping - Verificación de conectividad:</strong></p>
+<pre><code>$ ping 8.8.8.8
+PING 8.8.8.8 (8.8.8.8): 56 data bytes
+64 bytes from 8.8.8.8: icmp_seq=0 ttl=55 time=15.1 ms
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=55 time=14.9 ms</code></pre>
+<p>Este ejemplo muestra ping enviando Echo Request (Type 8) al servidor DNS de Google y recibiendo Echo Reply (Type 0) exitosamente. Las respuestas muestran latencias de ~15ms, TTL=55, y confirman conectividad funcional.</p>
+<p><strong>Traceroute - Descubrimiento de ruta:</strong></p>
+<pre><code>$ traceroute google.com
+ 1  192.168.1.1 (192.168.1.1)  3.414 ms  3.863 ms  1.752 ms
+ 2  100.70.0.1 (100.70.0.1)  5.245 ms  4.996 ms  4.405 ms
+ 3  10.14.0.53 (10.14.0.53)  7.091 ms  4.812 ms  4.892 ms
+ 4  10.14.246.6 (10.14.246.6)  4.209 ms  4.406 ms  4.230 ms
+ 5  * * *
+ 6  72.14.195.182 (72.14.195.182)  4.665 ms
+    72.14.194.132 (72.14.194.132)  3.950 ms
+    72.14.195.182 (72.14.195.182)  4.968 ms
+ 7  74.125.245.171 (74.125.245.171)  5.109 ms  5.751 ms  5.791 ms
+ 8  142.251.49.55 (142.251.49.55)  4.185 ms
+    142.251.49.53 (142.251.49.53)  5.317 ms
+    142.251.49.55 (142.251.49.55)  3.791 ms
+ 9  mad41s11-in-f14.1e100.net (142.250.185.14)  4.722 ms  6.253 ms  4.893 ms</code></pre>
+<p>Este ejemplo revela la ruta completa hacia google.com incrementando TTL progresivamente. Cada router responde “Time Exceeded” (Type 11, Code 0) mostrando su IP. El salto 5 muestra timeouts (*), el salto 6 y 8 muestra balanceadores de carga, y finalmente alcanza el servidor de Google en el salto 9.</p>
+</section>
+<section id="nat-network-address-translation" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="nat-network-address-translation"><span class="header-section-number">3.4.3</span> NAT (Network Address Translation)</h3>
+<p>NAT surgió como una solución al problema del agotamiento de direcciones IPv4, permitiendo que múltiples dispositivos en una red privada compartan una sola dirección IP pública. Esta técnica se basa en el uso de direcciones privadas que pueden reutilizarse sin conflictos. El dispositivo NAT, típicamente integrado en routers de acceso doméstico o empresarial, actúa como intermediario entre la red interna y externa, traduciendo direcciones y puertos en tiempo real.</p>
+<p>El funcionamiento de NAT se basa en mantener una tabla de traducción que mapea combinaciones de dirección IP privada y puerto interno con la dirección IP pública y un puerto externo único. Cuando un dispositivo interno inicia una conexión hacia Internet, el router NAT reemplaza la dirección IP de origen privada y el puerto por su dirección IP pública y un puerto disponible de su pool, registrando esta asociación en su tabla. Cuando llega la respuesta desde Internet, el router consulta su tabla de traducción para determinar a qué dispositivo interno debe entregar el paquete, revirtiendo la traducción antes de reenviarlo a la red local.</p>
+<p>En la <a href="#fig-nat" class="quarto-xref">Figura&nbsp;<span>3.6</span></a> podemos ver dos ejemplos de NAT. El Host A envía un paquete desde 192.168.1.10:12345 hacia 8.8.8.8:80. El router NAT lo intercepta, reemplaza el origen por 203.0.113.100:5001 y crea una entrada en su tabla: 192.168.1.10:12345 ↔︎ 5001. Cuando el servidor responde a 203.0.113.100:5001, el router consulta su tabla NAT, encuentra la correspondencia y reenvía el paquete a 192.168.1.10:12345. El proceso en el Host B sería idéntico, y gracias a NAT habríamos podido comunicarnos con dos dispositivos a través de una única IP.</p>
+<div id="fig-nat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<pre><code>Red Interna (192.168.1.0/24)          NAT Router          Internet
+                                    (203.0.113.100)
+                                                           
+┌─────────────┐                    ┌─────────────┐     ┌─────────────┐
+│Host A       │ ────────────────── │             │ ─── │Servidor Web │
+│192.168.1.10 │ Src: 192.168.1.10  │             │     │8.8.8.8:80   │
+│Port: 12345  │ Dst: 8.8.8.8:80    │   Tabla     │     └─────────────┘
+└─────────────┘                    │     NAT     │            ▲
+                                   │             │            │
+┌─────────────┐                    │192.168.1.10:│ Src: 203.0.113.100
+│Host B       │ ────────────────── │12345 → 5001 │ Dst: 8.8.8.8:80
+│192.168.1.20 │ Src: 192.168.1.20  │             │            │
+│Port: 54321  │ Dst: 8.8.8.8:80    │192.168.1.20:│            │
+└─────────────┘                    │54321 → 5002 │◄───────────┘
+                                   └─────────────┘
+
+                Traducción Salida              Traducción Entrada
+    192.168.1.10:12345 → 203.0.113.100:5001    203.0.113.100:5001 → 192.168.1.10:12345
+    192.168.1.20:54321 → 203.0.113.100:5002    203.0.113.100:5002 → 192.168.1.20:54321</code></pre>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.6: Ejemplo de NAT con dos Host que se comunican con un servidor web utilizándo una única IP pública.
+</figcaption>
+</figure>
+</div>
+<p>Sin embargo, NAT presenta limitaciones significativas como la imposibilidad de establecer conexiones entrantes sin configuración manual de port forwarding, complicaciones con aplicaciones que embeben direcciones IP en sus datos (como algunos protocolos VoIP), y la pérdida del principio end-to-end de Internet. A pesar de estas limitaciones, NAT se ha convertido en ubicuo en redes domésticas y empresariales, siendo una pieza fundamental que ha permitido que Internet continúe funcionando mientras se desarrolla la transición hacia IPv6.</p>
+<p>La limitación de conexiones entrantes impide que otros dispositivos sean capaces de concerse a nosotros directamente. Esto impide, por ejemplo, que dos personas puedan conectarse entre si desde sus casas. Por otra parte, también hace más seguro estar conectado a la red. En determinados casos, conectarse entre sí puede mejorar la experiencia, mejorar la privacidad, o reducir la necesidad de servidores intermedios y sus consecuentes recursos. Para ello, se pueden utilizar diferentes técnicas que permiten saltarse las limitaciones del NAT:</p>
+<ul>
+<li>Hole punching: Técnica donde ambos dispositivos intentan conectarse simultáneamente al otro a través de sus respectivos NATs. El NAT crea temporalmente “agujeros” en su tabla de traducción cuando detecta tráfico saliente, permitiendo que la respuesta del otro extremo pase. Funciona peor (es más difícil) con NAT simétrico y requiere coordinación temporal precisa.</li>
+<li>STUN (Session Traversal Utilities for NAT): Protocolo que permite a un dispositivo descubrir su dirección IP pública y el tipo de NAT que tiene. Un servidor STUN externo ayuda al cliente a determinar cómo el NAT modifica sus paquetes, información crucial para establecer conexiones directas. Es especialmente útil para aplicaciones de tiempo real como VoIP.</li>
+<li>TURN (Traversal Using Relays around NAT): Cuando el hole punching falla, TURN proporciona un servidor relay que actúa como intermediario. Aunque no elimina completamente la necesidad de servidores, centraliza el tráfico en un punto controlado. Es más confiable pero consume más ancho de banda y recursos del servidor.</li>
+<li>UPnP (Universal Plug and Play): Permite que las aplicaciones configuren automáticamente el router para abrir puertos específicos. El dispositivo solicita al router que cree reglas de port forwarding temporales o permanentes. Es conveniente pero requiere que el router soporte UPnP y puede presentar riesgos de seguridad si no se gestiona adecuadamente.</li>
+</ul>
+
+
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Las direcciones 0.0.0.0/8 y 127.0.0.0/8 están reservadas para funciones especiales.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../ch/part_networks/access_layer/access_layer.html" class="pagination-link" aria-label="Capa de Acceso a la Red">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="pagination-link" aria-label="Capa de transporte">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

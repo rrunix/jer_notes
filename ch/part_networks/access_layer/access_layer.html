@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Capa de Acceso a la Red – Apuntes de Juegos en Red</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../ch/part_networks/network_layer/network_layer.html" rel="next">
+<link href="../../../ch/part_networks/network_intro/network_intro.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-49c62e5b8c3163634b294513a7851f6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<meta name="mermaid-theme" content="default">
+<script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/access_layer/access_layer.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../../">Apuntes de Juegos en Red</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introducción a redes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#funciones-principales-de-la-capa-de-acceso-a-la-red" id="toc-funciones-principales-de-la-capa-de-acceso-a-la-red" class="nav-link active" data-scroll-target="#funciones-principales-de-la-capa-de-acceso-a-la-red"><span class="header-section-number">2.1</span> Funciones principales de la Capa de Acceso a la Red</a>
+  <ul class="collapse">
+  <li><a href="#control-de-acceso-al-medio-mac" id="toc-control-de-acceso-al-medio-mac" class="nav-link" data-scroll-target="#control-de-acceso-al-medio-mac"><span class="header-section-number">2.1.1</span> Control de Acceso al Medio (MAC)</a></li>
+  <li><a href="#direccionamiento-físico" id="toc-direccionamiento-físico" class="nav-link" data-scroll-target="#direccionamiento-físico"><span class="header-section-number">2.1.2</span> Direccionamiento Físico</a></li>
+  <li><a href="#detección-y-corrección-de-errores" id="toc-detección-y-corrección-de-errores" class="nav-link" data-scroll-target="#detección-y-corrección-de-errores"><span class="header-section-number">2.1.3</span> Detección y Corrección de Errores</a></li>
+  <li><a href="#control-de-tamaño" id="toc-control-de-tamaño" class="nav-link" data-scroll-target="#control-de-tamaño"><span class="header-section-number">2.1.4</span> Control de tamaño</a></li>
+  <li><a href="#sincronización-y-temporización" id="toc-sincronización-y-temporización" class="nav-link" data-scroll-target="#sincronización-y-temporización"><span class="header-section-number">2.1.5</span> Sincronización y Temporización</a></li>
+  <li><a href="#gestión-de-topología" id="toc-gestión-de-topología" class="nav-link" data-scroll-target="#gestión-de-topología"><span class="header-section-number">2.1.6</span> Gestión de Topología</a></li>
+  <li><a href="#control-de-calidad-de-servicio-qos" id="toc-control-de-calidad-de-servicio-qos" class="nav-link" data-scroll-target="#control-de-calidad-de-servicio-qos"><span class="header-section-number">2.1.7</span> Control de Calidad de Servicio (QoS)</a></li>
+  </ul></li>
+  <li><a href="#dispositivos-de-la-capa-de-acceso-a-la-red" id="toc-dispositivos-de-la-capa-de-acceso-a-la-red" class="nav-link" data-scroll-target="#dispositivos-de-la-capa-de-acceso-a-la-red"><span class="header-section-number">2.2</span> Dispositivos de la Capa de Acceso a la Red</a></li>
+  <li><a href="#protocolos" id="toc-protocolos" class="nav-link" data-scroll-target="#protocolos"><span class="header-section-number">2.3</span> Protocolos</a>
+  <ul class="collapse">
+  <li><a href="#ethernet-ieee-802.3" id="toc-ethernet-ieee-802.3" class="nav-link" data-scroll-target="#ethernet-ieee-802.3"><span class="header-section-number">2.3.1</span> Ethernet (IEEE 802.3)</a></li>
+  <li><a href="#wi-fi-ieee-802.11" id="toc-wi-fi-ieee-802.11" class="nav-link" data-scroll-target="#wi-fi-ieee-802.11"><span class="header-section-number">2.3.2</span> Wi-Fi (IEEE 802.11)</a></li>
+  <li><a href="#point-to-point-protocol-ppp" id="toc-point-to-point-protocol-ppp" class="nav-link" data-scroll-target="#point-to-point-protocol-ppp"><span class="header-section-number">2.3.3</span> Point-to-Point Protocol (PPP)</a></li>
+  <li><a href="#frame-relay" id="toc-frame-relay" class="nav-link" data-scroll-target="#frame-relay"><span class="header-section-number">2.3.4</span> Frame Relay</a></li>
+  <li><a href="#address-resolution-protocol-arp" id="toc-address-resolution-protocol-arp" class="nav-link" data-scroll-target="#address-resolution-protocol-arp"><span class="header-section-number">2.3.5</span> Address Resolution Protocol (ARP)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/access_layer/access_layer.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-access-layer" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>La Capa de Acceso a la Red se encarga de la transmisión física de datos entre dispositivos directamente conectados en una red local, manejando tanto los aspectos físicos de la transmisión como el control de acceso al medio compartido. Esta capa combina las funciones de las capas física y de enlace de datos del modelo OSI, proporcionando una interfaz entre los protocolos de red de nivel superior y el hardware de red específico. Su principal responsabilidad es garantizar que los datos puedan transmitirse de manera confiable entre nodos adyacentes en la red.</p>
+<p>El capítulo se divide en un apartado donde veremos las principales funciones de la red y después veremos los protocolos definidos en esta capa. Para guiar el aprendizaje, antes veremos un ejemplo del funcionamiento de la Capa de Acceso a Red. No os preocupéis si no entendéis por ahora todos los conceptos, las conceptos los iremos viendo a lo largo de este capítulo.</p>
+<p>Consideremos una red Ethernet típica con un switch central conectando cuatro computadoras (A, B, C, D) con las siguientes direcciones MAC:</p>
+<ul>
+<li>A (Puerto 1): 00:1A:2B:3C:4D:5E.</li>
+<li>B (Puerto 2): 00:2B:3C:4D:5E:6F.</li>
+<li>C (Puerto 3): 00:3C:4D:5E:6F:70.</li>
+<li>D (Puerto 4): 00:4D:5E:6F:70:81.</li>
+</ul>
+<p>Como ejemplo, vamos a ver los pasos para el envio de un mensaje desde A a C. Podéis ver la representación en un diagrama de secuencia en la <a href="#fig-example-access-layer" class="quarto-xref">Figura&nbsp;<span>2.1</span></a>. Los pasos serían los siguientes:</p>
+<ol type="1">
+<li>Inicialización del switch. La tabla de direcciones MAC del switch que asocia MAC y puerto está vacia.</li>
+<li>A quiere enviar el paquete a C, pero no conoce su MAC. Por lo tanto envía una trama ARP broadcast por Ethernet para descubrir la dirección MAC de C.</li>
+<li>El switch lo recibe en el puerto 1, aprende que la MAC de A está en el puerto 1, y reenvía el paquete a los demás puertos.</li>
+<li>El switch recibe la respuesta de C desde el puerto 3. Asocia la dirección MAC de C al puerto 3. Reenvia la respuesta a A, que ya sabe que está en el 1.</li>
+<li>A envía el mensaje con destinatario la dirección MAC de C.</li>
+<li>El switch recibe el mensaje, busca en su tabla y comprueba que la dirección MAC coincide con el puerto 3 y lo reenvia.</li>
+</ol>
+<div id="fig-example-access-layer" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-example-access-layer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-fig-width="6s" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant A as Computadora A&lt;br/&gt;(00:1A:2B:3C:4D:5E)
+    participant S as Switch&lt;br/&gt;(Tabla MAC)
+    participant B as Computadora B&lt;br/&gt;(00:2B:3C:4D:5E:6F)
+    participant C as Computadora C&lt;br/&gt;(00:3C:4D:5E:6F:70)
+    participant D as Computadora D&lt;br/&gt;(00:4D:5E:6F:70:81)
+
+    Note over S: Tabla MAC vacía
+
+    Note over A,D: FASE 1: ARP Request (Broadcast)
+    
+    A-&gt;&gt;S: ARP Request&lt;br/&gt;Origen: A (00:1A:2B:3C:4D:5E)&lt;br/&gt;Destino: Broadcast (FF:FF:FF:FF:FF:FF)
+    
+    Note over S: Aprende: Puerto 1 → MAC de A
+    
+    S-&gt;&gt;B: ARP Request (Flooding)
+    S-&gt;&gt;C: ARP Request (Flooding)
+    S-&gt;&gt;D: ARP Request (Flooding)
+    
+    Note over B,D: Solo C responde al ARP
+
+    Note over A,D: FASE 2: ARP Response
+    
+    C-&gt;&gt;S: ARP Response&lt;br/&gt;Origen: C (00:3C:4D:5E:6F:70)&lt;br/&gt;Destino: A (00:1A:2B:3C:4D:5E)
+    
+    Note over S: Aprende: Puerto 3 → MAC de C
+    
+    S-&gt;&gt;A: ARP Response (Unicast)
+
+    Note over A,D: FASE 3: Comunicación Directa
+    
+    A-&gt;&gt;S: Datos para C&lt;br/&gt;Origen: A (00:1A:2B:3C:4D:5E)&lt;br/&gt;Destino: C (00:3C:4D:5E:6F:70)
+    
+    Note over S: Consulta tabla MAC&lt;br/&gt;Encuentra C en puerto 3
+    
+    S-&gt;&gt;C: Datos (Solo puerto 3)
+    
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-access-layer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.1: Ejemplo de envio de paquetes en una red local donde no se conoce la MAC del destinatario.
+</figcaption>
+</figure>
+</div>
+<section id="funciones-principales-de-la-capa-de-acceso-a-la-red" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="funciones-principales-de-la-capa-de-acceso-a-la-red"><span class="header-section-number">2.1</span> Funciones principales de la Capa de Acceso a la Red</h2>
+<p>La Capa de Acceso a la Red desempeña múltiples funciones críticas que trabajan en conjunto para garantizar una comunicación eficiente y confiable entre dispositivos en la red local.</p>
+<section id="control-de-acceso-al-medio-mac" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="control-de-acceso-al-medio-mac"><span class="header-section-number">2.1.1</span> Control de Acceso al Medio (MAC)</h3>
+<p>La función de control de acceso al medio (MAC) es fundamental para coordinar cómo múltiples dispositivos comparten un medio de transmisión común. Esta función implementa diversos algoritmos y protocolos según la tecnología de red utilizada. Su eficiencia determina directamente el rendimiento y la escalabilidad de toda la red local. En redes Ethernet tradicionales de half-duplex (sólo pueden transmitir en una dirección a la vez), los dispositivos emplean el método CSMA/CD (Carrier Sense Multiple Access with Collision Detection), donde primero escuchan el medio antes de transmitir para verificar que esté libre, permiten que múltiples dispositivos accedan al mismo medio compartido, y detectan colisiones durante la transmisión implementando algoritmos de backoff exponencial para programar retransmisiones inteligentes.</p>
+<p>Las redes inalámbricas, por el contrario, utilizan CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) debido a que la detección de colisiones es impráctica en el medio radioeléctrico. En este esquema, los dispositivos esperan un tiempo aleatorio antes de transmitir para reducir la probabilidad de colisiones, utilizan mecanismos de acknowledgment para confirmar que la transmisión fue recibida correctamente, e implementan el protocolo RTS/CTS (Request to Send/Clear to Send) para resolver el problema del nodo oculto donde algunos dispositivos no pueden detectar las transmisiones de otros.</p>
+<p>Complementariamente, los mecanismos de control de flujo evitan que transmisores rápidos saturen receptores más lentos mediante técnicas como Pause Frames en Ethernet full-duplex (se puede transmitir en ambas direcciones a la vez) que permiten al receptor solicitar pausas temporales, buffer management en switches para absorber ráfagas de tráfico sin pérdida de datos, y rate limiting para controlar dinámicamente la velocidad de transmisión según las condiciones de la red.</p>
+</section>
+<section id="direccionamiento-físico" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="direccionamiento-físico"><span class="header-section-number">2.1.2</span> Direccionamiento Físico</h3>
+<p>El direccionamiento físico opera a nivel de hardware y es independiente de los protocolos de capa superior. Utiliza direcciones MAC únicas para identificar cada interfaz de red en el segmento local. Este sistema de direccionamiento es esencial para la entrega precisa de tramas entre dispositivos directamente conectados. Las direcciones MAC son como el DNI del dispositivo, son únicas, estáticas y cada dispositivo tiene una. Están formadas por 48 bits siguen una estructura específica donde los primeros 24 bits constituyen el OUI (Organizationally Unique Identifier) asignado por IEEE a cada fabricante, los últimos 24 bits forman el identificador único del dispositivo asignado por el fabricante, y bits especiales indican si la dirección es individual o grupal y si está administrada universalmente o localmente. Las MAC se representan mediante octetos 6 octetos separados por dos “:”, como por ejemplo “00:1A:2B:3C:4D:5E”.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Dirección MAC
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una dirección MAC es un identificador único asignado a cada tarjeta de red. Están formados por 48 bits donde la primera parte identifica al fabricante, después el dispositivo dentro del fabricante, y por último tiene unos bits especiales.</p>
+</div>
+</div>
+<p>El sistema soporta tres tipos principales de direccionamiento: unicast para comunicación dirigida a un único dispositivo específico, broadcast utilizando la dirección especial FF:FF:FF:FF:FF:FF para alcanzar todos los dispositivos del segmento simultáneamente, y multicast para dirigir tráfico a grupos específicos de dispositivos identificados por el primer bit configurado en 1.</p>
+</section>
+<section id="detección-y-corrección-de-errores" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="detección-y-corrección-de-errores"><span class="header-section-number">2.1.3</span> Detección y Corrección de Errores</h3>
+<p>Esta función garantiza la integridad de los datos transmitidos a través del medio físico. Implementa algoritmos como Códigos de Redundancia Cíclica (CRC) para detectar errores de transmisión y mecanismos de retransmisión cuando es necesario. Sin esta función, los datos corruptos podrían propagarse por la red causando problemas de comunicación. Los códigos de CRC son ampliamente utilizados y generan un polinomio matemático basado en los datos originales, agregan el resultado como Frame Check Sequence (FCS) al final de cada trama, y permiten al receptor recalcular el CRC para compararlo con el recibido, detectando efectivamente errores de un solo bit y muchos errores de múltiples bits. Para aplicaciones menos críticas existen checksums simples que realizan una suma aritmética de todos los bytes de datos, son menos robustos que CRC pero requieren menos procesamiento computacional.</p>
+<p>Las técnicas más avanzadas incluyen Forward Error Correction (FEC) que no solo detecta sino que corrige errores automáticamente, utiliza códigos como Hamming para corrección de errores de un solo bit y Reed-Solomon para errores en ráfagas, y es especialmente importante en medios inalámbricos donde la interferencia y las condiciones ambientales pueden causar errores frecuentes.</p>
+</section>
+<section id="control-de-tamaño" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="control-de-tamaño"><span class="header-section-number">2.1.4</span> Control de tamaño</h3>
+<p>Esta función maneja las limitaciones de tamaño impuestas por diferentes tecnologías de red. Cada tecnología de red define un Maximum Transmission Unit (MTU) específico que determina el tamaño máximo de datos que puede transportar una sola trama, donde Ethernet maneja 1500 bytes de datos, Token Ring típicamente 4464 bytes, FDDI 4352 bytes, y PPP sobre enlaces seriales utiliza valores variables aunque comúnmente 1500 bytes para mantener compatibilidad. Cuando los datos de capas superiores exceden el MTU disponible, la Capa de Acceso a la Red descarta automáticamente el paquete.</p>
+</section>
+<section id="sincronización-y-temporización" class="level3" data-number="2.1.5">
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="sincronización-y-temporización"><span class="header-section-number">2.1.5</span> Sincronización y Temporización</h3>
+<p>Esta función coordina el timing entre dispositivos para asegurar la correcta interpretación de las señales digitales. Establece marcos de tiempo comunes para la transmisión y recepción de datos. Es especialmente crítica en redes de alta velocidad donde pequeñas diferencias de timing pueden causar errores de comunicación. La sincronización de reloj es esencial para el funcionamiento correcto de cualquier comunicación digital, abarcando la sincronización de bit para determinar precisamente los límites temporales de cada bit transmitido, la sincronización de trama para identificar inequívocamente el inicio y fin de cada trama de datos, y la sincronización de símbolo necesaria en modulaciones complejas como QAM donde múltiples bits se codifican en un solo símbolo.</p>
+</section>
+<section id="gestión-de-topología" class="level3" data-number="2.1.6">
+<h3 data-number="2.1.6" class="anchored" data-anchor-id="gestión-de-topología"><span class="header-section-number">2.1.6</span> Gestión de Topología</h3>
+<p>Esta función se encarga de descubrir y mantener información sobre la estructura física de la red. Implementa protocolos para detectar enlaces, prevenir bucles y optimizar rutas de comunicación. Permite que la red se adapte automáticamente a cambios en la topología como fallos de enlaces o adición de nuevos dispositivos. El mantenimiento continuo de enlaces se logra mediante mensajes de tipo keepalive que detectan proactivamente fallos de enlace antes de que afecten el tráfico de usuarios. Los protocolos de detección de topología como CDP (Cisco Discovery Protocol) y LLDP (Link Layer Discovery Protocol) permiten que los dispositivos se identifiquen mutuamente y compartan información sobre sus capacidades, mientras que Spanning Tree Protocol previene bucles peligrosos en topologías redundantes que podrían causar tormentas de broadcast.</p>
+</section>
+<section id="control-de-calidad-de-servicio-qos" class="level3" data-number="2.1.7">
+<h3 data-number="2.1.7" class="anchored" data-anchor-id="control-de-calidad-de-servicio-qos"><span class="header-section-number">2.1.7</span> Control de Calidad de Servicio (QoS)</h3>
+<p>Esta función prioriza diferentes tipos de tráfico según su importancia y requisitos de rendimiento. Es fundamental para el funcionamiento adecuado de aplicaciones en tiempo real como voz y video. Esto se logra implementando mecanismos de gestión de buffers y scheduling para garantizar que aplicaciones críticas reciban el ancho de banda necesario, y se realiza bajo estándares de clasificación. Los mecanismos de gestión de buffers aseguran que diferentes tipos de tráfico reciban el tratamiento apropiado mediante Weighted Fair Queuing que asigna recursos proporcionalmente según la importancia de cada clase de tráfico, priority queuing que garantiza que el tráfico más crítico siempre tenga precedencia sobre tráfico menos importante, y Random Early Detection que previene congestión descartando proactivamente paquetes menos críticos antes de que los buffers se saturen completamente.</p>
+</section>
+</section>
+<section id="dispositivos-de-la-capa-de-acceso-a-la-red" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="dispositivos-de-la-capa-de-acceso-a-la-red"><span class="header-section-number">2.2</span> Dispositivos de la Capa de Acceso a la Red</h2>
+<p>Los <strong>switches</strong> son dispositivos de red que operan en la Capa de Acceso a la Red, específicamente en la subcapa de enlace de datos. Funcionan como elementos centrales que conectan múltiples dispositivos en una red local, creando dominios de colisión separados para cada puerto. Es decir, que la información de dispositivos conectados por diferentes puertos no colisiona entre si, ya que no están en el mismo medio. Estos dispositivos evolucionaron desde los <strong>bridges</strong> tradicionales (que conectaban solo 2-4 segmentos) hasta reemplazar los <strong>hubs</strong> tradicionales, donde todos los puertos operaban igual con colisiones frecuentes a un sistema donde cada puerto opera independientemente con capacidades full-duplex que permiten transmisión y recepción simultánea, duplicando efectivamente el ancho de banda disponible. Su importancia radica en funcionalidades clave como el aprendizaje automático de direcciones MAC donde construyen dinámicamente tablas que asocian cada dirección con su puerto específico, el reenvío selectivo que envía tramas únicamente al puerto de destino reduciendo tráfico innecesario.</p>
+<p>Los switches se categorizan principalmente en dos tipos según sus capacidades de gestión:</p>
+<ul>
+<li>no gestionados: son plug-and-play y se utilizan generalmente en redes pequeás y domésticas.</li>
+<li>gestionados: ofrecen un control mas granular y más capacidades, como seguridad, monitorización y medidas QoS.</li>
+</ul>
+<p>Los <strong>puntos de acceso</strong> son dispositivos fundamentales para la conectividad inalámbrica en la Capa de Acceso a la Red que actúan como traductores entre medios cableados e inalámbricos, manejan la asociación y autenticación de dispositivos inalámbricos, e implementan CSMA/CA para coordinar el acceso al medio y evitar colisiones en el espectro radioeléctrico compartido.</p>
+<p>Los <strong>repetidores</strong> extienden el alcance de las redes regenerando señales digitales sin filtrar tráfico ni reducir colisiones, simplemente reciben, amplifican y retransmiten las señales para superar las limitaciones de distancia de los medios físicos. Los amplificadores incluyen RF amplifiers que aumentan la potencia de señales inalámbricas y optical amplifiers que amplifican señales en fibra óptica sin conversión eléctrica, todos debiendo cumplir estrictas regulaciones de potencia de transmisión para evitar interferencia con otros sistemas.</p>
+<p>Los <strong>conversores de medio</strong> facilitan la interoperabilidad convirtiendo entre diferentes medios físicos como fibra óptica y cobre, adaptando automáticamente velocidades, y permitiendo extensión de redes existentes o migración gradual a tecnologías más avanzadas.</p>
+<p>Tabla de resumen:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 26%">
+<col style="width: 30%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dispositivo</th>
+<th>Función Principal</th>
+<th>Características Clave</th>
+<th>Aplicación Típica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Switches No Gestionados</strong></td>
+<td>Conectividad básica LAN</td>
+<td>Plug-and-play, aprendizaje MAC automático, full-duplex</td>
+<td>Redes pequeñas y domésticas</td>
+</tr>
+<tr class="even">
+<td><strong>Switches Gestionados</strong></td>
+<td>Conectividad LAN avanzada</td>
+<td>VLANs, QoS, SNMP, seguridad 802.1X, port mirroring</td>
+<td>Redes empresariales</td>
+</tr>
+<tr class="odd">
+<td><strong>Puntos de acceso</strong></td>
+<td>Conectividad inalámbrica</td>
+<td>CSMA/CA, traducción cableado-wireless, beamforming</td>
+<td>Redes Wi-Fi empresariales</td>
+</tr>
+<tr class="even">
+<td><strong>Repetidores</strong></td>
+<td>Extensión de alcance</td>
+<td>Regeneración de señal, sin filtrado</td>
+<td>Superación de límites de distancia</td>
+</tr>
+<tr class="odd">
+<td><strong>Amplificadores</strong></td>
+<td>Amplificación de señal</td>
+<td>Aumento de potencia RF/óptica</td>
+<td>Enlaces de larga distancia</td>
+</tr>
+<tr class="even">
+<td><strong>Conversores de medio</strong></td>
+<td>Conversión de medios</td>
+<td>Fibra ↔︎ cobre, adaptación de velocidades</td>
+<td>Migración gradual, extensión</td>
+</tr>
+<tr class="odd">
+<td><strong>Modulador</strong></td>
+<td>Conectividad modular</td>
+<td>SFP/SFP+/QSFP, intercambiables</td>
+<td>Flexibilidad en tipos de conexión</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="protocolos" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="protocolos"><span class="header-section-number">2.3</span> Protocolos</h2>
+<section id="ethernet-ieee-802.3" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="ethernet-ieee-802.3"><span class="header-section-number">2.3.1</span> Ethernet (IEEE 802.3)</h3>
+<p>Ethernet es el protocolo dominante en redes cableadas locales. Define tanto el formato de las tramas como los métodos de acceso al medio. Su éxito radica en la simplicidad de implementación, la robustez del diseño, y la capacidad de evolucionar continuamente para satisfacer las demandas crecientes de ancho de banda en entornos empresariales y domésticos. Al principio en Ethernet se tenía una arquitectura de medio compartida, y por ello, se tenían que utilizar técnicas como CSMA/CD para minimizar colisiones. Esto hacía que eficiencia de la red disminuyese. Con la llegaba de los bridges y switches, se introdujo una topología de estrella, donde todos están conectados al switch y este crea dominios de colisión independientes, volviendo innecesario el CSMA/CD y mejorando considerablemente la eficiencia de la red.</p>
+<p>La estructura de las tramas Ethernet sigue un formato estandardizado que garantiza la interoperabilidad entre dispositivos de diferentes fabricantes. Cada trama comienza con un <strong>preámbulo</strong> de 8 bytes que proporciona sincronización entre el transmisor y receptor, estableciendo el timing necesario para la correcta interpretación de los bits que siguen. Las <strong>direcciones MAC</strong> de destino y origen, de 6 bytes cada una, identifican inequívocamente los dispositivos involucrados en la comunicación, mientras que el campo <strong>Tipo/Longitud</strong> de 2 bytes especifica qué protocolo de capa superior procesa los datos o la longitud de la carga útil cuando es menor a 1536 bytes. El contenido útil reside en el campo de <strong>data/payload</strong> que puede contener entre 46 y 1500 bytes de información útil, con padding automático cuando los datos son menores al mínimo requerido, y finalmente el <strong>Frame Check Sequence</strong> de 4 bytes implementa detección de errores CRC permitiendo al receptor verificar la integridad de toda la trama recibida.</p>
+<div id="fig-packet-ethernet" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-packet-ethernet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">packet-beta
+    0-63: "Preámbulo (8 bytes) - Sincronización"
+    64-111: "Dirección MAC Destino (6 bytes)"
+    112-159: "Dirección MAC Origen (6 bytes)"
+    160-175: "Tipo/Longitud (2 bytes)"
+    176-191: "Data/Payload"
+    192-207: "(46-1500 bytes)"
+    208-223: "Frame Check Sequence"
+    224-255: "FCS - CRC (4 bytes)"
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-packet-ethernet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.2: Cabeceras de un paquete de Ethernet.
+</figcaption>
+</figure>
+</div>
+<p>La evolución de Ethernet ha sido extraordinaria, comenzando con 10Base-T que maneja 10 Mbps sobre cable trenzado CAT3/5, evolucionando hasta 10GBase-T con 10 Gbps sobre CAT6A/7. En contextos intensivas, o en nodos centrales, se cuenta con implementaciones de mayor velocidad. Todo esto se ha conseguido a través de diferentes estandares de modelos físicos y la mejora de rendimiento en el hardware. También se ha vuelto posible combinar la transmisión de datos y energía eléctrica por un mismo cable, simplificando los dispositivos de red.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Limite de longitud">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Limite de longitud
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En los cables de pares trenzados hechos de cobre el límite máximo de trasmisión es de 100 metros. Es decir, que cada 100 metros hay que añadir un dispositivo de red que regenere la señal, como switches o repetidores, para evitar la degradación y pérdida de datos. Esta limitación se debe a la atenuación de la señal y la interferencia electromagnética que se acumulan con la distancia. Para superar esta restricción se utilizan alternativas como fibra óptica (alcanza kilómetros sin regeneración), extensores Ethernet (hasta 300m), o tecnologías inalámbricas. En entornos empresariales, esto determina la ubicación estratégica de closets de telecomunicaciones en la arquitectura de red.</p>
+</div>
+</div>
+</section>
+<section id="wi-fi-ieee-802.11" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="wi-fi-ieee-802.11"><span class="header-section-number">2.3.2</span> Wi-Fi (IEEE 802.11)</h3>
+<p>El protocolo Wi-Fi maneja la comunicación inalámbrica y debe lidiar con desafíos únicos como la interferencia y la movilidad de dispositivos. A diferencia de las redes cableadas donde el medio físico está claramente definido y controlado, las redes inalámbricas operan en un espectro electromagnético compartido donde múltiples factores pueden afectar la calidad de la transmisión. Esta complejidad ha llevado al desarrollo de sofisticados mecanismos de control y técnicas avanzadas de modulación que permiten comunicaciones confiables incluso en entornos con alta densidad de dispositivos. Uno de los métodos principales es la utilización de CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance).</p>
+<p>La trama Wi-Fi (802.11) es considerablemente más compleja que Ethernet debido a los desafíos únicos del medio inalámbrico. El <strong>Frame Control</strong> contiene información crítica sobre el tipo de trama, versión del protocolo, y flags especiales para funciones como gestión de energía y fragmentación. El campo <strong>Duration/ID</strong> implementa el mecanismo de reserva virtual del medio, permitiendo que otros dispositivos sepan cuánto tiempo estará ocupado el canal. La característica más distintiva son las <strong>múltiples direcciones MAC</strong> (hasta 4) que manejan la complejidad de las redes inalámbricas. Address 1 identifica al receptor inmediato, Address 2 al transmisor inmediato, Address 3 proporciona filtrado adicional (a menudo el BSSID del punto de acceso), y Address 4 se utiliza únicamente en sistemas de distribución inalámbrica cuando los access points se comunican entre sí. Los <strong>campos opcionales</strong> reflejan la evolución del estándar: QoS Control permite priorización de tráfico para aplicaciones sensibles al tiempo, HT Control habilita características de alto rendimiento como MIMO y beamforming, y el <strong>Sequence Control</strong> maneja la ordenación de tramas y detección de duplicados, crítico en un medio donde las transmisiones pueden perderse o duplicarse debido a interferencia.</p>
+<div id="fig-packet-wifi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-packet-wifi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">packet-beta
+    0-15: "Frame Control (2 bytes)"
+    16-31: "Duration/ID (2 bytes)"
+    32-79: "Address 1 - Receiver (6 bytes)"
+    80-127: "Address 2 - Transmitter (6 bytes)"
+    128-175: "Address 3 - BSSID/Filter (6 bytes)"
+    176-191: "Sequence Control (2 bytes)"
+    192-239: "Address 4 (6 bytes) - Optional"
+    240-255: "QoS Control (2 bytes) - Optional"
+    256-287: "HT Control (4 bytes) - Optional"
+    288-319: "Data Payload"
+    320-335: "(0-2304 bytes)"
+    336-367: "Frame Check Sequence"
+    368-383: "FCS - CRC (4 bytes)"
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-packet-wifi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.3: Cabeceras de un paquete Wi-Fi
+</figcaption>
+</figure>
+</div>
+<p>Al igual que en Ethernet, la evolución de Wi-Fi ha sido enorme. Los primeros estándares, 802.11n (Wi-Fi 4), contaban con velocidades de hasta 600 Mbps hasta Wi-Fi 7 (802.11be) promete hasta 46 Gbps. Las mejoras se han enfocado en técnicas para reducir interferencias entre redes y colisiones entre dispositivos, y la inclusión de más bandas:</p>
+<ul>
+<li>2.4 GHz: mayor alcance y penetración, pero menor velocidad.</li>
+<li>5 GHz: mayor velocidad pero menor alcance.</li>
+<li>6 GHz: mejor rendimiento, aunque requiere de hardware específico y tiene el mejor alcance.</li>
+</ul>
+</section>
+<section id="point-to-point-protocol-ppp" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="point-to-point-protocol-ppp"><span class="header-section-number">2.3.3</span> Point-to-Point Protocol (PPP)</h3>
+<p>PPP se utiliza para conexiones directas entre dos dispositivos, comúnmente en enlaces seriales y conexiones de acceso telefónico. Este protocolo fue diseñado específicamente para superar las limitaciones de protocolos más antiguos como SLIP (Serial Line Internet Protocol), proporcionando un marco robusto y flexible para comunicaciones punto a punto. Aunque su uso ha disminuido con la proliferación de tecnologías de banda ancha, PPP sigue siendo relevante en conexiones de respaldo, enlaces satelitales, y ciertas implementaciones de VPN donde se requiere control granular sobre la conexión. PPP utiliza un formato de trama mucho más simple que Ethernet o Wi-Fi, reflejando su naturaleza punto a punto donde no hay necesidad de direccionamiento complejo, permitiendo un procesamiento eficiente en enlaces de baja velocidad y dispositivos con recursos limitados.</p>
+<p>Las características avanzadas de PPP lo distinguen de protocolos más simples al integrar detección y corrección de errores que garantizan la integridad de los datos transmitidos incluso en enlaces propensos a interferencia, capacidades de autenticación mediante PAP (Password Authentication Protocol) o el más seguro CHAP (Challenge Handshake Authentication Protocol), y configuración automática de direcciones IP que negocia dinámicamente parámetros de red eliminando la necesidad de configuración manual en ambos extremos.</p>
+</section>
+<section id="frame-relay" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="frame-relay"><span class="header-section-number">2.3.4</span> Frame Relay</h3>
+<p>Frame Relay es un protocolo de capa de enlace utilizado en redes WAN que proporciona conexiones virtuales entre sitios remotos. Frame Relay fue desarrollado como una evolución más eficiente de X.25, eliminando muchas de las verificaciones y controles redundantes que hacían lento al protocolo anterior. Aunque ha sido en gran medida reemplazado por tecnologías más modernas como MPLS y VPN sobre Internet, Frame Relay estableció conceptos fundamentales de redes WAN que siguen siendo relevantes en tecnologías contemporáneas.</p>
+<p>La arquitectura de Frame Relay se basa en conmutación de tramas utilizando identificadores de circuito virtual que permiten múltiples conexiones lógicas sobre una sola interfaz física, simplificando la gestión de conectividad entre múltiples sitios remotos. El protocolo implementa un control de congestión sofisticado.</p>
+</section>
+<section id="address-resolution-protocol-arp" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="address-resolution-protocol-arp"><span class="header-section-number">2.3.5</span> Address Resolution Protocol (ARP)</h3>
+<p>ARP es fundamental para la operación de redes IP sobre Ethernet, proporcionando la traducción entre direcciones IP (Capa de Red) y direcciones MAC (Capa de Acceso a la Red). Este protocolo resuelve uno de los problemas más básicos pero críticos en redes: cómo traducir direcciones lógicas que los humanos y aplicaciones entienden fácilmente a direcciones físicas que el hardware de red requiere para la transmisión real.</p>
+<p>El proceso ARP opera mediante un mecanismo de solicitud y respuesta que minimiza el tráfico de red mientras proporciona la información necesaria. Cuando un dispositivo necesita comunicarse con otro pero solo conoce su dirección IP, envía un ARP Request como broadcast preguntando “¿Quién tiene la IP X.X.X.X?” a todos los dispositivos del segmento local. El dispositivo que posee esa dirección IP específica responde con un ARP Reply unicast que incluye su dirección MAC, permitiendo al solicitante establecer la asociación necesaria. Para optimizar el rendimiento, estas asociaciones IP-MAC se almacenan en una caché ARP local con temporizadores que eliminan automáticamente entradas obsoletas, evitando repetir el proceso de resolución para comunicaciones frecuentes.</p>
+<p>ARP soporta múltiples modalidades de operación que se adaptan a diferentes necesidades de red y escenarios operativos. ARP Estático permite crear entradas manuales permanentes que nunca expiran, útil para dispositivos críticos como gateways y servidores donde se requiere máxima predictibilidad. ARP Dinámico constituye el modo normal de operación donde las entradas se aprenden automáticamente con tiempo de vida configurable, balanceando eficiencia con actualización automática cuando los dispositivos cambian.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../ch/part_networks/network_intro/network_intro.html" class="pagination-link" aria-label="Introducción a las Redes de Ordenadores">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../ch/part_networks/network_layer/network_layer.html" class="pagination-link" aria-label="Capa de red">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
