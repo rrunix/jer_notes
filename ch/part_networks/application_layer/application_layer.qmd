@@ -396,7 +396,7 @@ También existen diferentes tipos de topologías:
 
 ::: {#tcp-congestion layout="[[33, 33, 33], [100]]"}
 ```{mermaid}
-%%| fig-cap: "A) Full Mesh Topology"
+%%| fig-cap: "Full Mesh Topology"
 %%| fig-height: 4
 graph TB
     P1((Peer 1))
@@ -423,7 +423,7 @@ graph TB
     class S1,H1 hubNode
 ```
 ```{mermaid}
-%%| fig-cap: "B) Ring Topology"
+%%| fig-cap: "Ring Topology"
 %%| fig-height: 4 
 graph TB   
     R1((Peer 1))
@@ -447,7 +447,7 @@ graph TB
 
 ```{mermaid}
 %%| label: hybrid-topology
-%%| fig-cap: "D) Hybrid Topology"  
+%%| fig-cap: "Hybrid Topology"  
 %%| fig-height: 4  
 graph TB
     H1((Hub))
@@ -473,7 +473,7 @@ graph TB
 ```
 
 ```{mermaid}
-%%| fig-cap: "B) Star Topology (Pseudo-P2P)"
+%%| fig-cap: "Star Topology (Pseudo-P2P)"
 %%| fig-height: 4 
 graph TB
     S1((Host/Hub))
