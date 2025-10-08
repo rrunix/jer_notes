@@ -20,7 +20,7 @@ book:
     - part: "Desarrollo en el cliente"
       chapters:
       - ch/part_client/js/js.qmd
-      - ch/part_client/js/phaser.qmd
+      - ch/part_client/phaser/phaser.qmd
 
     - part: "Desarrollo en el servidor y comunicación"
 
