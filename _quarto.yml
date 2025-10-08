@@ -17,9 +17,10 @@ book:
       - ch/part_networks/transport_layer/transport_layer.qmd
       - ch/part_networks/application_layer/application_layer.qmd
 
-    # - part: "Desarrollo en el cliente"
-    #   chapters:
-    #   - ch/part_client/js/js.qmd
+    - part: "Desarrollo en el cliente"
+      chapters:
+      - ch/part_client/js/js.qmd
+      - ch/part_client/js/phaser.qmd
 
     - part: "Desarrollo en el servidor y comunicación"
 
@@ -34,15 +35,15 @@ format:
       - cerulean
     mermaid:
       theme: default
-  # pdf:
-  #   documentclass: scrreprt
-  #   lof: true
-  #   mermaid:
-  #     theme: base
-  #     format: svg
-  #   css: |
-  #     .mermaid {
-  #       page-break-inside: avoid;
-  #       width: 100%;
-  #       height: auto;
-  #     }
+  pdf:
+    documentclass: scrreprt
+    lof: true
+    mermaid:
+      theme: base
+      format: svg
+    css: |
+      .mermaid {
+        page-break-inside: avoid;
+        width: 100%;
+        height: auto;
+      }
