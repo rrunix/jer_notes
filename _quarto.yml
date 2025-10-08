@@ -23,6 +23,10 @@ book:
       - ch/part_client/phaser/phaser.qmd
 
     - part: "Desarrollo en el servidor y comunicación"
+      chapters:
+      - ch/part_servercoms/rest/rest_intro.qmd
+      - ch/part_servercoms/rest/rest_client.qmd
+      - ch/part_servercoms/rest/rest_server.qmd
 
     - references.qmd
 
