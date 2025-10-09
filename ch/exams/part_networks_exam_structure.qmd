@@ -68,7 +68,7 @@ En el enunciado de la pregunta se os especificará si tiene una única opción o
     - Calcula la tabla de reenvío.
     - Selecciona los puertos de salida.
 
-5. [UNICA] Cuál de las siguiente es **NO** correcta respecto al protocolo IP:
+5. [MULTIPLE] Cuáles de las siguientes **NO** son correctas respecto al protocolo IP:
     - Necesita establecer una conexión previamente
     - Tiene control de flujo
     - Es un protocolo de mejor esfuerzo
