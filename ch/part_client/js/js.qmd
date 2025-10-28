@@ -35,9 +35,46 @@ Aunque algunos elementos de la sintaxis recuerden a Java, son lenguajes completa
 
 ### DOM y BOM
 
-**DOM (Document Object Model)**: Biblioteca (API) para manipular el documento HTML cargado en el navegador. Permite la gestión de eventos, insertar y eliminar elementos, etc.
+El navegador web proporciona al JavaScript dos APIs fundamentales para interactuar con la página y el entorno del navegador. Entender la diferencia entre estas dos es crucial para el desarrollo de videojuegos web.
 
-**BOM (Browser Object Model)**: Acceso a otros elementos del browser: historial, peticiones de red AJAX, etc. El BOM incluye al DOM como uno de sus elementos.
+**DOM (Document Object Model)**: Es una representación en forma de árbol del documento HTML cargado en el navegador. Cada elemento HTML (divs, canvas, botones, etc.) se convierte en un objeto que JavaScript puede manipular. Para videojuegos, el DOM es esencial para:
+
+- Acceder al elemento `<canvas>` donde se renderiza el juego
+- Crear y manipular elementos de la interfaz de usuario (menús, HUD, puntuaciones)
+- Gestionar eventos de entrada del usuario (clicks, teclas presionadas, movimientos del ratón)
+- Modificar estilos CSS dinámicamente (pantallas de carga, efectos visuales)
+- Insertar y eliminar elementos HTML en tiempo real (mensajes, notificaciones)
+
+**BOM (Browser Object Model)**: Proporciona acceso a funcionalidades del navegador más allá del documento HTML. El BOM incluye al DOM como uno de sus componentes, pero añade capacidades adicionales críticas para videojuegos:
+
+- **window**: El objeto global que representa la ventana del navegador
+  - Control del tamaño de la ventana
+  - Detección de cambio de tamaño (responsive design)
+  - Gestión del foco de la ventana (pausar el juego cuando se cambia de pestaña)
+
+- **navigator**: Información sobre el navegador y el dispositivo
+  - Detección de características soportadas (WebGL, audio, gamepad)
+  - Información del sistema operativo y navegador
+  - Acceso a la geolocalización y otros sensores
+
+- **location**: Control de la URL actual
+  - Navegación entre diferentes pantallas del juego
+  - Gestión del historial del navegador
+
+- **localStorage/sessionStorage**: Almacenamiento persistente de datos
+  - Guardar progreso del jugador
+  - Almacenar configuraciones y preferencias
+
+- **fetch/XMLHttpRequest**: Comunicación con servidores
+  - Cargar recursos del juego dinámicamente
+  - Enviar y recibir datos de partidas multijugador
+  - Comunicación con APIs REST
+
+- **console**: Herramienta de debugging
+  - Logging de errores y mensajes de debug
+  - Medición de rendimiento del juego
+
+En resumen: el **DOM** se centra en el contenido de la página HTML, mientras que el **BOM** proporciona acceso a todas las capacidades del navegador. Para videojuegos web, ambos son fundamentales y trabajan juntos para crear experiencias interactivas completas.
 
 <!-- ![Estructura BOM](diagrama-bom.png) -->
 
@@ -94,6 +131,8 @@ npm help
 
 #### Inicializar un proyecto
 
+Todo proyecto de JavaScript moderno comienza con la inicialización de npm, que crea el archivo de configuración principal del proyecto. Este archivo, llamado `package.json`, actúa como el "documento de identidad" del proyecto, describiendo sus características, dependencias y comandos de ejecución.
+
 ```bash
 # Crear directorio del proyecto
 mkdir mi-juego-web
@@ -103,7 +142,9 @@ cd mi-juego-web
 npm init -y
 ```
 
-Esto crea un archivo `package.json` que describe el proyecto:
+El comando `npm init -y` crea automáticamente el archivo `package.json` con valores por defecto. La opción `-y` (yes) acepta todas las opciones por defecto sin preguntar, acelerando el proceso. Si omitimos `-y`, npm nos hará preguntas interactivas sobre cada campo.
+
+Esto crea un archivo `package.json` que podemos personalizar para nuestro videojuego:
 
 ```json
 {
@@ -122,6 +163,29 @@ Esto crea un archivo `package.json` que describe el proyecto:
 }
 ```
 
+**Explicación de cada campo del package.json:**
+
+- **`name`**: Identificador único del proyecto. Debe ser en minúsculas, sin espacios (usar guiones). Este nombre se usa si publicamos el proyecto en npm. Para nuestro videojuego, elegimos un nombre descriptivo como "mi-juego-web".
+
+- **`version`**: Número de versión siguiendo el formato semántico (semantic versioning): MAJOR.MINOR.PATCH. Comenzamos en "1.0.0" y actualizamos según los cambios: cambios mayores incrementan el primer número, nuevas características el segundo, y correcciones de bugs el tercero.
+
+- **`description`**: Texto breve que explica qué es el proyecto. Útil cuando otros desarrolladores encuentren nuestro código o cuando busquemos proyectos en npm. Para videojuegos, describimos el género o concepto del juego.
+
+- **`main`**: Punto de entrada principal del proyecto. Indica qué archivo JavaScript se ejecuta cuando alguien importa nuestro proyecto. Para videojuegos web, típicamente apunta al archivo principal del juego en `src/index.js` o `src/main.js`.
+
+- **`scripts`**: Objeto que define comandos personalizados que podemos ejecutar con `npm run <nombre>`. Estos scripts automatizan tareas comunes:
+  - `"start"`: Comando para ejecutar el proyecto en producción
+  - `"dev"`: Inicia el servidor de desarrollo con recarga automática
+  - `"build"`: Genera los archivos optimizados para producción
+
+  Ejecutamos estos scripts con `npm start`, `npm run dev`, o `npm run build`.
+
+- **`keywords`**: Array de palabras clave que describen el proyecto. Útil para que otros encuentren el proyecto si lo publicamos en npm. Para videojuegos, incluimos términos como el género, tecnologías usadas, etc.
+
+- **`author`**: Nombre del creador o equipo de desarrollo. Puede incluir email: `"Tu Nombre <email@ejemplo.com>"`.
+
+- **`license`**: Tipo de licencia del código. "MIT" es una licencia permisiva común para proyectos open source. Otras opciones populares son "GPL-3.0", "Apache-2.0", o "UNLICENSED" para proyectos privados.
+
 #### Estructura de carpetas recomendada
 
 ```
@@ -129,17 +193,6 @@ mi-juego-web/
 ├── package.json
 ├── webpack.config.js
 ├── src/
-│   ├── index.js
-│   ├── game/
-│   │   ├── Game.js
-│   │   ├── Player.js
-│   │   └── Enemy.js
-│   ├── assets/
-│   │   ├── images/
-│   │   ├── sounds/
-│   │   └── fonts/
-│   └── styles/
-│       └── main.css
 ├── dist/
 └── public/
     └── index.html
@@ -183,46 +236,128 @@ npm install --save-dev eslint prettier
 
 ### Configuración de Webpack
 
-Webpack es una herramienta fundamental en el desarrollo moderno de JavaScript que actúa como empaquetador de módulos. Su función principal es tomar todos los archivos JavaScript, CSS, imágenes y otros recursos de nuestro proyecto y crear uno o varios archivos optimizados para el navegador. 
+Webpack es una herramienta fundamental en el desarrollo moderno de JavaScript que actúa como empaquetador de módulos (bundler). Su función principal es tomar todos los archivos JavaScript, CSS, imágenes y otros recursos de nuestro proyecto y crear uno o varios archivos optimizados para el navegador.
 
-En el contexto del desarrollo de videojuegos, Webpack nos permite organizar nuestro código en múltiples archivos (clases para jugadores, enemigos, sistemas de audio, etc.) y luego combinarlos en un solo paquete eficiente. También puede optimizar imágenes, procesar archivos de audio y gestionar otros recursos del juego.
+En el contexto del desarrollo de videojuegos, Webpack nos permite organizar nuestro código en múltiples archivos (clases para jugadores, enemigos, sistemas de audio, etc.) y luego combinarlos en un solo paquete eficiente. También puede optimizar imágenes, procesar archivos de audio y gestionar otros recursos del juego. Además, Webpack incluye un servidor de desarrollo con recarga automática que facilita enormemente el proceso de desarrollo.
 
-Para configurar Webpack en nuestro proyecto de videojuego, creamos un archivo `webpack.config.js`:
+Para configurar Webpack en nuestro proyecto de videojuego, creamos un archivo `webpack.config.js` en la raíz del proyecto:
 
 ```javascript
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        clean: true
-    },
-    module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.(png|svg|jpg|jpeg|gif|ogg|mp3|wav)$/i,
-                type: 'asset/resource'
-            }
-        ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html'
-        })
-    ],
-    devServer: {
-        static: './dist',
-        hot: true
-    }
+  entry: './src/main.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true
+  },
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    static: './dist',
+    hot: true,
+    port: 8080
+  },
+  externals: {
+    phaser: 'Phaser'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      inject: false
+    })
+  ],
+  resolve: {
+    extensions: ['.js']
+  }
 };
 ```
+
+**Explicación detallada de cada sección del webpack.config.js:**
+
+**Importaciones iniciales:**
+```javascript
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+```
+- **`path`**: Módulo de Node.js para trabajar con rutas de archivos de forma independiente del sistema operativo. Garantiza que las rutas funcionen tanto en Windows como en Mac/Linux.
+- **`HtmlWebpackPlugin`**: Plugin que genera automáticamente el archivo HTML final incluyendo las referencias a los archivos JavaScript generados.
+
+**Punto de entrada (entry):**
+```javascript
+entry: './src/main.js',
+```
+Especifica el archivo JavaScript principal desde donde Webpack comienza a construir el grafo de dependencias del proyecto. Webpack analiza este archivo, encuentra todos los imports/requires, y recursivamente incluye todos los módulos necesarios. Para videojuegos, este suele ser el archivo que inicializa el motor de juego y carga la primera escena.
+
+**Configuración de salida (output):**
+```javascript
+output: {
+  filename: 'bundle.js',              // Nombre del archivo JavaScript generado
+  path: path.resolve(__dirname, 'dist'),  // Directorio donde se guardan los archivos generados
+  clean: true                          // Limpia el directorio dist antes de cada build
+}
+```
+- **`filename`**: Nombre del archivo JavaScript final que contendrá todo nuestro código empaquetado y optimizado.
+- **`path`**: Directorio de salida. `__dirname` es el directorio actual, `'dist'` es donde se guardarán los archivos de producción.
+- **`clean: true`**: Elimina archivos antiguos antes de generar nuevos, evitando acumulación de builds anteriores.
+
+**Modo de desarrollo (mode):**
+```javascript
+mode: 'development',
+```
+Define el entorno de ejecución. Puede ser:
+- `'development'`: Código sin minificar, con nombres de variables legibles, útil para debugging.
+- `'production'`: Código minificado y optimizado, menor tamaño, más rápido, pero difícil de debuggear.
+
+**Herramientas de debugging (devtool):**
+```javascript
+devtool: 'inline-source-map',
+```
+Genera source maps que permiten debuggear el código original (antes de empaquetarlo) en las DevTools del navegador. Cuando hay un error, el navegador muestra la línea del archivo fuente original en lugar del código empaquetado, facilitando enormemente el debugging.
+
+**Servidor de desarrollo (devServer):**
+```javascript
+devServer: {
+  static: './dist',    // Directorio desde donde servir archivos estáticos
+  hot: true,           // Hot Module Replacement - actualiza módulos sin recargar la página
+  port: 8080          // Puerto donde se ejecuta el servidor de desarrollo
+}
+```
+Configura el servidor web integrado de Webpack:
+- **`static`**: Directorio con archivos estáticos (HTML, imágenes, etc.) que el servidor debe servir.
+- **`hot: true`**: Habilita Hot Module Replacement (HMR), que permite actualizar módulos JavaScript en tiempo real sin recargar toda la página. Muy útil durante desarrollo para mantener el estado del juego.
+- **`port`**: Puerto donde se ejecutará el servidor (http://localhost:8080).
+
+**Librerías externas (externals):**
+```javascript
+externals: {
+  phaser: 'Phaser'
+}
+```
+Indica a Webpack que ciertas dependencias se cargarán desde fuera del bundle (típicamente desde un CDN). En este caso, Phaser se carga desde un `<script>` en el HTML en lugar de incluirse en el bundle, reduciendo el tamaño del archivo final. La clave es el nombre del módulo en el código (`import Phaser from 'phaser'`) y el valor es la variable global que expone (`window.Phaser`).
+
+**Plugins:**
+```javascript
+plugins: [
+  new HtmlWebpackPlugin({
+    template: './public/index.html',  // Archivo HTML plantilla
+    inject: false                      // No inyecta automáticamente los scripts
+  })
+]
+```
+- **`HtmlWebpackPlugin`**: Genera el archivo HTML final a partir de una plantilla.
+- **`template`**: Ruta al archivo HTML base que usará como plantilla.
+- **`inject: false`**: Desactiva la inyección automática de scripts. Útil cuando queremos control manual sobre dónde y cómo se cargan los scripts en el HTML (por ejemplo, cuando usamos librerías externas como Phaser desde CDN).
+
+**Resolución de módulos (resolve):**
+```javascript
+resolve: {
+  extensions: ['.js']
+}
+```
+Define qué extensiones de archivo Webpack intentará resolver automáticamente cuando importamos módulos sin especificar extensión. Esto permite escribir `import Player from './player'` en lugar de `import Player from './player.js'`. Útil para proyectos grandes donde escribir las extensiones constantemente es tedioso.
 
 ### Scripts de Desarrollo
 
@@ -359,6 +494,37 @@ console.warn('Advertencia');
 - Bloques: `{}`
 - Sentencias: `;` (opcionales pero recomendados)
 
+### Variables
+
+En JavaScript moderno, tenemos tres formas de declarar variables, cada una con características específicas que las hacen adecuadas para diferentes situaciones. Esta evolución del lenguaje ha mejorado significativamente la robustez y mantenibilidad del código.
+
+**Declaraciones modernas** (ES2015+):
+
+```javascript
+// const - valor inmutable, block scope
+const MAX_LIVES = 3;
+const GAME_CONFIG = {
+    width: 800,
+    height: 600
+};
+
+// let - valor mutable, block scope
+let currentLives = MAX_LIVES;
+let playerPosition = { x: 0, y: 0 };
+
+// var - evitar en código nuevo (function scope)
+var oldStyle = "no recomendado";
+```
+
+**Ámbito de variables**:
+
+El concepto de ámbito (scope) es fundamental para entender cómo JavaScript maneja las variables. El ámbito determina desde qué partes del código podemos acceder a una variable:
+
+- `let` y `const` tienen ámbito de bloque - solo existen dentro del bloque `{}` donde se declaran
+- `var` tiene ámbito de función - existe en toda la función donde se declara (puede causar problemas)
+- Variables no declaradas se convierten en globales - esto es un error en modo estricto
+
+
 ### Tipos de Datos
 
 JavaScript maneja diferentes tipos de datos que nos permiten representar toda la información necesaria para un videojuego. A diferencia de lenguajes como Java o C++, JavaScript es de tipado dinámico, lo que significa que una variable puede cambiar de tipo durante la ejecución del programa.
@@ -402,35 +568,6 @@ Puntuación: ${score}
 `;
 ```
 
-### Variables
-
-En JavaScript moderno, tenemos tres formas de declarar variables, cada una con características específicas que las hacen adecuadas para diferentes situaciones. Esta evolución del lenguaje ha mejorado significativamente la robustez y mantenibilidad del código.
-
-**Declaraciones modernas** (ES2015+):
-
-```javascript
-// const - valor inmutable, block scope
-const MAX_LIVES = 3;
-const GAME_CONFIG = {
-    width: 800,
-    height: 600
-};
-
-// let - valor mutable, block scope
-let currentLives = MAX_LIVES;
-let playerPosition = { x: 0, y: 0 };
-
-// var - evitar en código nuevo (function scope)
-var oldStyle = "no recomendado";
-```
-
-**Ámbito de variables**:
-
-El concepto de ámbito (scope) es fundamental para entender cómo JavaScript maneja las variables. El ámbito determina desde qué partes del código podemos acceder a una variable:
-
-- `let` y `const` tienen ámbito de bloque - solo existen dentro del bloque `{}` donde se declaran
-- `var` tiene ámbito de función - existe en toda la función donde se declara (puede causar problemas)
-- Variables no declaradas se convierten en globales - esto es un error en modo estricto
 
 ### Operadores
 
@@ -1427,63 +1564,3 @@ enemigos.forEach(enemigo => {
 5. **Mejor soporte de herramientas**: Los IDEs y linters comprenden mejor las clases modernas.
 
 La sintaxis de clases es la recomendada para proyectos nuevos de videojuegos, especialmente cuando trabajáis en equipo o cuando el proyecto va a crecer en complejidad. Sin embargo, entender el sistema de prototipos subyacente os ayudará a comprender mejor cómo funciona JavaScript internamente y a debuggear problemas más efectivamente.
-
-## Ejercicios Prácticos
-
-### Ejercicio 1: Separación de Arrays
-Crear una función que reciba un array como parámetro y devuelva un array de dos elementos: el primer elemento contendrá los números pares y el segundo los números impares.
-
-```javascript
-function separarParesImpares(numeros) {
-    const pares = [];
-    const impares = [];
-    
-    for (let numero of numeros) {
-        if (numero % 2 === 0) {
-            pares.push(numero);
-        } else {
-            impares.push(numero);
-        }
-    }
-    
-    return [pares, impares];
-}
-
-// Versión con métodos modernos
-const separarParesImparesModerno = (numeros) => [
-    numeros.filter(n => n % 2 === 0),
-    numeros.filter(n => n % 2 !== 0)
-];
-
-// Pruebas
-console.log(separarParesImpares([1, 2, 3, 4, 5, 6]));
-// [[2, 4, 6], [1, 3, 5]]
-```
-
-### Ejercicio 2: Procesamiento de Array Bidimensional
-Crear una función que reciba un array bidimensional, elimine los ceros y ordene las filas por longitud.
-
-```javascript
-function procesarArrayBidimensional(matriz) {
-    // Eliminar ceros de cada fila
-    const sinCeros = matriz.map(fila => 
-        fila.filter(elemento => elemento !== 0)
-    );
-    
-    // Ordenar por longitud de fila
-    return sinCeros.sort((a, b) => a.length - b.length);
-}
-
-// Prueba
-const matriz = [
-    [7, 0, 2, 1, 0, 1],
-    [3, 0, 0, 2],
-    [7, 9, 0],
-    [6, 5, 0, 1, 0, 2, 0]
-];
-
-console.log(procesarArrayBidimensional(matriz));
-// [[3, 2], [7, 9], [7, 2, 1, 1], [6, 5, 1, 2]]
-```
-
-Este capítulo proporciona una base sólida de JavaScript moderno para el desarrollo de videojuegos, cubriendo desde la configuración del entorno de desarrollo hasta las características avanzadas del lenguaje que son esenciales para crear juegos web interactivos y eficientes.
