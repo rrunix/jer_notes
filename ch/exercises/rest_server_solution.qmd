@@ -1,0 +1,83 @@
+---
+title: "Solución: REST Servidor"
+---
+
+## Solución: Servidor REST con Express
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+// Datos en memoria
+let players = [
+    { id: 1, username: "player1", score: 1000 },
+    { id: 2, username: "player2", score: 2000 }
+];
+let nextId = 3;
+
+// Closure approach: funciones que retornan handlers
+function createPlayerController() {
+    // Métodos privados (closures)
+    function findById(id) {
+        return players.find(p => p.id === parseInt(id));
+    }
+
+    // Retornar handlers públicos
+    return {
+        getAll: (req, res) => {
+            res.json({ data: players });
+        },
+
+        getById: (req, res) => {
+            const player = findById(req.params.id);
+            if (!player) {
+                return res.status(404).json({ error: 'Player not found' });
+            }
+            res.json(player);
+        },
+
+        create: (req, res) => {
+            const { username } = req.body;
+            if (!username) {
+                return res.status(400).json({ error: 'Username required' });
+            }
+
+            const newPlayer = {
+                id: nextId++,
+                username,
+                score: 0
+            };
+            players.push(newPlayer);
+            res.status(201).json(newPlayer);
+        }
+    };
+}
+
+// Crear controller
+const playerController = createPlayerController();
+
+// Rutas
+app.get('/api/players', playerController.getAll);
+app.get('/api/players/:id', playerController.getById);
+app.post('/api/players', playerController.create);
+
+// Iniciar servidor
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
+```
+
+### Características de la solución
+
+**Closure approach para controllers:**
+- `createPlayerController()` retorna un objeto con handlers
+- Métodos privados (`findById`) encapsulados mediante closures
+- Separa lógica de negocio de las rutas Express
+
+**Ventajas:**
+- Más funcional y modular
+- Encapsulación natural
+- Fácil de testear cada handler

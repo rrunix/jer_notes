@@ -1,0 +1,99 @@
+# Diapositivas de la asignatura {#sec-slides}
+
+
+```{python}
+#| echo: false
+import glob
+
+def include_slides(path):
+    images = sorted(glob.glob(path))
+    for img in images:
+        print(f"![]({img})\n\n")
+```
+
+## Introducción a la asignatura {#sec-slides-subject-intro}
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/intro/slide-*.png")
+```
+
+## Introducción a las Redes de Ordenadores {#sec-slides-network-intro}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/intro_cn/slide-*.png")
+```
+
+## Capa de Acceso {#sec-slides-access-layer}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/net_access_layer/slide-*.png")
+```
+
+## Capa de Red {#sec-slides-network-layer}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/net_layer/slide-*.png")
+```
+
+## Capa de Transporte {#sec-slides-transport-layer}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/transport_layer/slide-*.png")
+```
+
+## Capa de Aplicación {#sec-slides-application-layer}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/app_layer/slide-*.png")
+```
+
+## JavaScript {#sec-slides-javascript}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/desarrollo_cliente/slide-*.png")
+```
+
+## JavaScript OOP {#sec-slides-javascript-oop}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/desarrollo_cliente_oop/slide-*.png")
+```
+
+## Phaser {#sec-slides-phaser}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/phaser_intro/slide-*.png")
+```
+
+## APIs REST {#sec-slides-rest}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/rest_api/slide-*.png")
+```
+
+## WebSockets {#sec-slides-websockets}
+
+```{python}
+#| echo: false
+#| output: asis
+include_slides("../../slides/websockets/slide-*.png")
+```

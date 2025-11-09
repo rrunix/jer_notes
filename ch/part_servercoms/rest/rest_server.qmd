@@ -1,0 +1,252 @@
+# Servidor API REST con Javascript {#sec-rest-server}
+
+Express.js es un framework web minimalista y flexible para Node.js que se ha convertido en el estándar para crear APIs REST. Proporciona un sistema de enrutamiento robusto, soporte para middlewares que procesan peticiones, manejo de errores integrado y compatibilidad completa con todos los métodos HTTP y códigos de estado. Su popularidad se debe a su simplicidad y a que permite construir servidores HTTP de manera rápida y eficiente.
+
+Para comenzar a trabajar con Express, primero necesitamos inicializar un proyecto Node.js y luego instalar el framework. El comando `npm init -y` crea automáticamente un archivo `package.json` con la configuración por defecto, y posteriormente instalamos Express como dependencia del proyecto:
+
+```bash
+npm init -y
+npm install express
+```
+
+Para usar la sintaxis de módulos ES6 (`import/export`) en lugar de CommonJS (`require/module.exports`), debemos añadir `"type": "module"` en el `package.json`:
+
+```json
+{
+  "name": "mi-api-juego",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
+```
+
+Con esta configuración, podremos usar `import` y `export` en nuestro código.
+
+Un proyecto Express típico organiza el código en varias carpetas. La carpeta `node_modules` contiene todas las dependencias instaladas y no debe subirse al repositorio. El código fuente se ubica en `src`, donde creamos subcarpetas para los controladores y las rutas. El archivo `package.json` define las dependencias y scripts del proyecto, mientras que `package-lock.json` asegura que las versiones de las dependencias sean consistentes.
+
+```
+mi-api-juego/
+├── node_modules/
+├── src/
+│   ├── controllers/
+│   ├── routes/
+│   └── app.js
+├── package.json
+└── package-lock.json
+```
+
+Para crear un servidor básico con Express, importamos el módulo y creamos una instancia de la aplicación. El middleware `express.json()` es fundamental porque permite que Express pueda leer y parsear automáticamente el cuerpo de las peticiones que vienen en formato JSON. Sin este middleware, no podríamos acceder a los datos que el cliente envía en las peticiones POST o PUT. Finalmente, el método `listen()` inicia el servidor en el puerto especificado:
+
+```javascript
+import express from 'express';
+
+const app = express();
+
+app.use(express.json());
+
+app.listen(8080, () => {
+  console.log('Servidor ejecutándose en http://localhost:8080');
+});
+```
+
+Para ejecutar el servidor simplemente usamos `node src/app.js` desde la terminal.
+
+## Controladores
+
+Los controladores son las funciones que contienen la lógica de negocio de cada endpoint. Son las responsables de procesar las peticiones HTTP, manipular los datos recibidos, realizar operaciones sobre ellos y devolver las respuestas apropiadas al cliente. Mantener esta lógica separada en controladores hace que el código sea más organizado, reutilizable y fácil de mantener.
+
+Una forma elegante de mantener estado privado en los controladores es mediante closures. Creamos una función factory que inicializa el estado y devuelve las funciones del controlador. Estas funciones tienen acceso al estado compartido pero éste no es accesible desde fuera:
+
+```javascript
+// src/controllers/anunciosController.js
+const createAnunciosController = () => {
+  // Estado privado compartido
+  const anuncios = [];
+  let nextId = 1;
+  
+  const getAll = (req, res) => {
+    res.json(anuncios);
+  };
+  
+  const create = (req, res) => {
+    const { nombre, asunto, comentario } = req.body;
+    
+    const nuevoAnuncio = {
+      id: nextId++,
+      nombre,
+      asunto,
+      comentario
+    };
+    
+    anuncios.push(nuevoAnuncio);
+    res.status(201).json(nuevoAnuncio);
+  };
+  
+  return { getAll, create };
+};
+
+export default createAnunciosController;
+```
+
+Este patrón permite que múltiples funciones del controlador compartan el mismo estado (`anuncios` y `nextId`) sin exponerlo globalmente. El estado está encapsulado dentro del closure y solo las funciones retornadas pueden acceder a él.
+
+## Rutas
+
+Las rutas son la capa que conecta las URLs de nuestra API con los controladores correspondientes. Definen qué controlador se ejecutará cuando llegue una petición a una URL específica con un método HTTP determinado. Express proporciona un objeto Router que permite agrupar rutas relacionadas y aplicarles prefijos comunes.
+
+Para definir rutas, creamos un archivo que importa el Router de Express. Como nuestro controlador es una función factory, la invocamos para obtener las funciones del controlador y luego las asociamos con las rutas:
+
+```javascript
+// src/routes/anunciosRoutes.js
+import express from 'express';
+import createAnunciosController from '../controllers/anunciosController.js';
+
+const router = express.Router();
+const controller = createAnunciosController();
+
+router.get('/', controller.getAll);
+router.post('/', controller.create);
+
+export default router;
+```
+
+Para integrar estas rutas en nuestra aplicación, las importamos y las registramos con un prefijo usando `app.use()`. Esto significa que todas las rutas definidas en el router tendrán ese prefijo automáticamente:
+
+```javascript
+// src/app.js
+import express from 'express';
+import anunciosRoutes from './routes/anunciosRoutes.js';
+
+const app = express();
+app.use(express.json());
+
+app.use('/anuncios', anunciosRoutes);
+
+app.listen(8080);
+```
+
+Con esta configuración, la ruta `router.get('/')` se convierte en `GET /anuncios` y la ruta `router.post('/')` se convierte en `POST /anuncios`.
+
+## Operaciones CRUD
+
+La operación GET se utiliza para recuperar información del servidor sin modificarla. Express proporciona el objeto `req.params` para acceder a los parámetros de la URL. Por ejemplo, en la ruta `/anuncios/:id`, el `:id` es un parámetro dinámico cuyo valor estará disponible en `req.params.id`. El método `res.json()` convierte automáticamente un objeto JavaScript a formato JSON y lo envía como respuesta con las cabeceras correctas:
+
+```javascript
+app.get('/anuncios/:id', (req, res) => {
+  const { id } = req.params;
+  const anuncio = anuncios.find(a => a.id === parseInt(id));
+  
+  if (!anuncio) {
+    return res.status(404).json({ error: 'No encontrado' });
+  }
+  
+  res.json(anuncio);
+});
+```
+
+La operación POST crea nuevos recursos en el servidor. Los datos que el cliente envía vienen en el cuerpo de la petición y están disponibles en `req.body` gracias al middleware `express.json()`. Es importante validar siempre los datos recibidos antes de procesarlos para evitar errores o datos incorrectos. Cuando se crea un recurso exitosamente, el código de estado apropiado es 201 (Created):
+
+```javascript
+app.post('/anuncios', (req, res) => {
+  const { nombre, asunto, comentario } = req.body;
+  
+  if (!nombre || !asunto) {
+    return res.status(400).json({ 
+      error: 'Nombre y asunto son requeridos' 
+    });
+  }
+  
+  const nuevoAnuncio = {
+    id: Date.now(),
+    nombre,
+    asunto,
+    comentario
+  };
+  
+  anuncios.push(nuevoAnuncio);
+  res.status(201).json(nuevoAnuncio);
+});
+```
+
+La operación PUT actualiza un recurso existente reemplazándolo completamente con los nuevos datos. Para actualizar necesitamos tanto el identificador del recurso (que viene en la URL) como los nuevos datos (que vienen en el body). Si el recurso no existe, devolvemos un error 404:
+
+```javascript
+app.put('/anuncios/:id', (req, res) => {
+  const { id } = req.params;
+  const { nombre, asunto, comentario } = req.body;
+  
+  const anuncio = anuncios.find(a => a.id === parseInt(id));
+  
+  if (!anuncio) {
+    return res.status(404).json({ error: 'No encontrado' });
+  }
+  
+  anuncio.nombre = nombre;
+  anuncio.asunto = asunto;
+  anuncio.comentario = comentario;
+  
+  res.json(anuncio);
+});
+```
+
+La operación DELETE elimina un recurso del servidor. Podemos opcionalmente devolver el recurso eliminado en la respuesta, o simplemente devolver un código 204 (No Content) que indica éxito sin contenido. El método `findIndex()` nos permite localizar la posición del elemento en el array para poder eliminarlo con `splice()`:
+
+```javascript
+app.delete('/anuncios/:id', (req, res) => {
+  const { id } = req.params;
+  const index = anuncios.findIndex(a => a.id === parseInt(id));
+  
+  if (index === -1) {
+    return res.status(404).json({ error: 'No encontrado' });
+  }
+  
+  const anuncioEliminado = anuncios.splice(index, 1)[0];
+  res.json(anuncioEliminado);
+});
+```
+
+## Middlewares en Express
+
+Los middlewares son funciones que se ejecutan durante el ciclo de vida de una petición, antes de que llegue al controlador final. Tienen acceso a los objetos de petición `req` y respuesta `res`, y a la función `next()` que permite pasar el control al siguiente middleware o ruta. Los middlewares son útiles para tareas transversales como logging, autenticación, validación o manejo de errores.
+
+Un middleware de logging básico registra cada petición que llega al servidor. Es importante llamar a `next()` al final para que la petición continúe su flujo normal hacia el controlador apropiado:
+
+```javascript
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+```
+
+Los middlewares de manejo de errores son especiales porque tienen cuatro parámetros en lugar de tres. Express los identifica automáticamente por esta firma y los invoca cuando ocurre un error. Deben colocarse después de todas las rutas para capturar cualquier error que no haya sido manejado:
+
+```javascript
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Error interno del servidor' });
+});
+```
+
+## Servir archivos estáticos
+
+Además de servir una API REST, Express puede servir archivos estáticos como HTML, CSS, JavaScript del cliente e imágenes. El middleware `express.static()` configura un directorio desde el cual se servirán estos archivos automáticamente. Cuando el cliente solicita un archivo, Express lo busca en ese directorio y lo envía si existe:
+
+```javascript
+app.use(express.static('public'));
+```
+
+Con esta configuración, si creamos la siguiente estructura de carpetas, los archivos serán accesibles directamente desde la raíz del servidor:
+
+```
+mi-api-juego/
+├── public/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+└── src/
+    └── app.js
+```
+
+El archivo `public/index.html` estará disponible en `http://localhost:8080/index.html` y `public/script.js` en `http://localhost:8080/script.js`

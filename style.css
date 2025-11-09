@@ -1,0 +1,786 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* === CONFIGURACIÓN DE PÁGINA === */
+@page {
+    size: A4;
+    margin: 2.5cm;
+}
+
+@page :first {
+    margin: 0;
+    @bottom-center { content: none; }
+}
+
+@page toc {
+    margin: 2.5cm;
+    @bottom-center { content: "Página " counter(page); font-size: 9pt; color: #666; }
+}
+
+@page content {
+    margin: 2.5cm;
+    @bottom-center { content: "Página " counter(page); font-size: 9pt; color: #666; }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+}
+
+p {
+    margin-bottom: 0.8em;
+}
+
+ul, ol {
+    margin-left: 2em;
+    margin-bottom: 0.8em;
+}
+
+li {
+    margin-bottom: 0.4em;
+}
+
+figure {
+    margin-bottom: 1.5em;
+}
+
+figcaption {
+    font-size: 10pt;
+    font-style: italic;
+    color: #4b5563;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+figcaption::before {
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* === FOOTNOTES === */
+sup {
+    font-size: 0.7em;
+    line-height: 0;
+}
+
+/* === OCULTAR PÁGINA DE TÍTULO AUTOMÁTICA DE QUARTO === */
+header#title-block-header {
+    display: none;
+}
+
+.quarto-title-block {
+    display: none;
+}
+
+/* === PORTADA AJUSTADA PARA A4 === */
+.portada {
+    width: 21cm;
+    height: 29.7cm;
+    margin: 0;
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    overflow: hidden;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    page: first;
+}
+
+/* Banda decorativa superior */
+.portada::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #dc2626 0%, #e11d48 50%, #dc2626 100%);
+    z-index: 1;
+}
+
+/* Elemento decorativo geométrico - ajustado */
+.portada::after {
+    content: '';
+    position: absolute;
+    top: 12%;
+    right: -8%;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.04) 0%, rgba(225, 29, 72, 0.02) 100%);
+    border-radius: 50%;
+    transform: rotate(15deg);
+    z-index: 0;
+}
+
+.portada-container {
+    padding: 2.5cm 2.5cm 2cm 2.5cm;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+/* === HEADER PORTADA === */
+.portada-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 2.5cm;
+}
+
+.portada-logo {
+    width: 240px;
+    margin-bottom: 0.6cm;
+    opacity: 0.95;
+}
+
+.portada-escuela {
+    font-size: 10pt;
+    font-weight: 500;
+    color: #374151;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    border-left: 3px solid #dc2626;
+    padding-left: 10px;
+    line-height: 1.2;
+    max-width: 240px;
+}
+
+/* === CONTENIDO PRINCIPAL PORTADA === */
+.portada-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 0.5cm;
+}
+
+.portada-titulo {
+    font-size: 28pt;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.1;
+    margin-bottom: 0.6cm;
+    max-width: 11cm;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.portada-subtitulo {
+    font-size: 16pt;
+    font-weight: 400;
+    color: #6b7280;
+    margin-bottom: 0.4cm;
+    letter-spacing: -0.1px;
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.portada-contenidos {
+    margin-bottom: 1.2cm;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.03) 0%, rgba(225, 29, 72, 0.01) 100%);
+    border-left: 3px solid #dc2626;
+    border-radius: 0 6px 6px 0;
+}
+
+.portada-contenidos-titulo {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #111827;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.4cm;
+}
+
+.portada-lista {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.portada-lista li {
+    font-size: 11pt;
+    font-weight: 400;
+    color: #374151;
+    margin-bottom: 0.3cm;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.3;
+}
+
+.portada-lista li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    width: 6px;
+    height: 6px;
+    background: #dc2626;
+    border-radius: 50%;
+}
+
+.portada-grado {
+    display: inline-block;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.08);
+    padding: 5px 14px;
+    border-radius: 16px;
+    margin-bottom: 2cm;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    white-space: nowrap;
+}
+
+/* === AUTORES PORTADA === */
+.portada-autores-section {
+    margin-bottom: 1.5cm;
+}
+
+.portada-autores-titulo {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.4cm;
+}
+
+.portada-autor {
+    font-size: 12pt;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.25cm;
+    position: relative;
+    padding-left: 16px;
+}
+
+.portada-autor::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    background: #dc2626;
+    border-radius: 50%;
+}
+
+.portada-fecha {
+    font-size: 12pt;
+    font-weight: 500;
+    color: #9ca3af;
+    margin-bottom: 0.8cm;
+}
+
+/* === FOOTER PORTADA === */
+.portada-footer {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 0.6cm;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.portada-licencia-logo {
+    width: 70px;
+    opacity: 0.8;
+}
+
+.portada-licencia-texto {
+    font-size: 7pt;
+    color: #6b7280;
+    line-height: 1.3;
+    flex: 1;
+}
+
+/* === ÍNDICE MEJORADO === */
+nav#TOC {
+    break-after: page;
+    page: toc;
+    padding-top: 1cm;
+}
+
+nav#TOC h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 22pt;
+    font-weight: 700;
+    color: #111827;
+    text-align: left;
+    border-bottom: 2px solid #dc2626;
+    padding-bottom: 8px;
+    margin-bottom: 1.5cm;
+}
+
+nav#TOC ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+nav#TOC > ul > li {
+    margin-bottom: 1.2em;
+    font-size: 13pt;
+    font-weight: 600;
+    color: #111827;
+    border-left: 3px solid #dc2626;
+    padding-left: 12px;
+    padding-bottom: 0.3em;
+}
+
+nav#TOC ul ul li {
+    margin-bottom: 0.4em;
+    font-size: 11pt;
+    font-weight: 400;
+    color: #374151;
+    border-left: none;
+    padding-left: 1em;
+    position: relative;
+}
+
+nav#TOC ul ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #dc2626;
+    font-weight: bold;
+}
+
+nav#TOC ul ul ul li {
+    margin-bottom: 0.3em;
+    font-size: 10pt;
+    font-weight: 400;
+    color: #4b5563;
+    padding-left: 1.2em;
+}
+
+nav#TOC ul ul ul li::before {
+    content: '◦';
+    left: 0.4em;
+    color: #9ca3af;
+}
+
+nav#TOC a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: none;
+}
+
+nav#TOC a .toc-section-number::after {
+    content: ".";
+    margin-right: 0.5em;
+}
+
+nav#TOC a::after {
+    content: target-counter(attr(href), page);
+    font-weight: 500;
+    color: #6b7280;
+    margin-left: auto;
+    padding-left: 1em;
+}
+
+/* === CONTENIDO DEL DOCUMENTO === */
+.main-content {
+    page: content;
+}
+
+h1, h2, h3 {
+    font-family: 'Inter', sans-serif;
+    color: #111827;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+}
+
+.header-section-number::after {
+    content: ".";
+    margin-right: 0.5em;
+}
+
+h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    border-bottom: 2px solid #dc2626;
+    padding-bottom: 6px;
+    break-before: page;
+    margin-top: 0;
+    padding-top: 0.5cm;
+}
+
+h2 {
+    font-size: 16pt;
+    font-weight: 600;
+    margin-top: 2em;
+    color: #1f2937;
+}
+
+h3 {
+    font-size: 14pt;
+    font-weight: 600;
+    margin-top: 1.5em;
+    color: #374151;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 0.8em;
+}
+
+/* Primera página de cada capítulo */
+div.quarto-chapter-body > h1:first-of-type {
+    break-before: auto;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* === ELEMENTOS DECORATIVOS - SIMPLIFICADOS === */
+.portada-deco-lines {
+    position: absolute;
+    right: 1.5cm;
+    top: 35%;
+    transform: translateY(-50%);
+    opacity: 0.08;
+    z-index: 1;
+}
+
+.portada-deco-line {
+    width: 40px;
+    height: 1.5px;
+    background: #dc2626;
+    margin-bottom: 6px;
+    transform-origin: left;
+}
+
+.portada-deco-line:nth-child(1) { transform: scaleX(1); }
+.portada-deco-line:nth-child(2) { transform: scaleX(0.7); }
+.portada-deco-line:nth-child(3) { transform: scaleX(0.4); }
+
+/* === BLOQUES DE CÓDIGO === */
+pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-left: 3px solid #dc2626;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 1em;
+    overflow-x: auto;
+    font-size: 9pt;
+    line-height: 1.4;
+}
+
+code {
+    font-family: 'Monaco', 'Courier New', monospace;
+    background-color: #f1f3f5;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* === TABLAS === */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1.5em;
+    font-size: 10pt;
+}
+
+thead {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dc2626;
+}
+
+th {
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    color: #111827;
+}
+
+td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* === BLOCKQUOTES === */
+blockquote {
+    border-left: 4px solid #dc2626;
+    padding-left: 16px;
+    margin: 1em 0;
+    color: #4b5563;
+    font-style: italic;
+    background-color: #f9fafb;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+}
+
+/* === ENLACES === */
+a {
+    color: #dc2626;
+    text-decoration: none;
+    border-bottom: 1px dotted #dc2626;
+}
+
+a:hover {
+    color: #b91c1c;
+    border-bottom-style: solid;
+}
+
+/* === IMÁGENES === */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+}
+
+/* === SVG RENDERING === */
+svg {
+    max-width: 100%;
+    height: auto;
+}
+
+svg text {
+    font-family: 'DejaVu Sans', 'Arial', sans-serif;
+    fill: currentColor;
+}
+
+/* === AJUSTES FINALES === */
+@media print {
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .portada { height: 29.7cm !important; }
+
+    /* Evitar saltos de página dentro de elementos */
+    pre, blockquote, figure {
+        break-inside: avoid;
+    }
+
+    /* Permitir que las tablas se dividan entre páginas */
+    table {
+        page-break-inside: auto;
+    }
+
+    /* Evitar que las filas se rompan */
+    tr, td, th {
+        page-break-inside: avoid;
+    }
+
+    /* Evitar huérfanas y viudas */
+    p {
+        orphans: 3;
+        widows: 3;
+    }
+}
+
+
+/* === METADATA DEL REPOSITORIO === */
+.portada-repositorio {
+    margin-bottom: 1.5cm;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.03) 0%, rgba(225, 29, 72, 0.01) 100%);
+    border-left: 3px solid #dc2626;
+    border-radius: 0 6px 6px 0;
+}
+
+.portada-repositorio-texto {
+    font-size: 11pt;
+    color: #374151;
+    font-weight: 400;
+}
+
+.portada-repositorio-label {
+    font-weight: 600;
+    color: #111827;
+}
+
+.portada-repositorio-uri {
+    color: #dc2626;
+    text-decoration: none;
+    border-bottom: 1px dotted #dc2626;
+    transition: all 0.3s ease;
+    font-size: 10pt;
+}
+
+.portada-repositorio-uri:hover {
+    color: #b91c1c;
+    border-bottom-style: solid;
+}
+
+/* === ÍNDICE EN PORTADA === */
+.portada-indice {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.portada-indice-titulo {
+    font-size: 18pt;
+    font-weight: 600;
+    color: #0066cc;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0066cc;
+}
+
+.portada-indice-item {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    font-size: 12pt;
+    line-height: 1.5;
+}
+
+.portada-indice-nombre {
+    font-weight: 500;
+    color: #333;
+    min-width: 160px;
+}
+
+.portada-indice-puntos {
+    flex-grow: 1;
+    color: #999;
+    font-size: 10pt;
+    text-align: center;
+    overflow: hidden;
+}
+
+.portada-indice-pagina {
+    font-weight: 500;
+    color: #0066cc;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* === PÁGINA DE ÍNDICE SEPARADA === */
+.indice-pagina {
+    width: 100%;
+    height: 100vh;
+    padding: 60px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.indice-titulo {
+    font-size: 28pt;
+    font-weight: 600;
+    color: #0066cc;
+    text-align: center;
+    margin-bottom: 80px;
+    border-bottom: 3px solid #0066cc;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.indice-tabla {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    font-size: 16pt;
+    line-height: 1.8;
+}
+
+.indice-fila {
+    height: 60px;
+}
+
+.indice-nombre {
+    font-weight: 500;
+    color: #333;
+    text-align: left;
+    padding: 15px 0;
+    width: 40%;
+}
+
+.indice-puntos {
+    color: #999;
+    text-align: center;
+    font-size: 14pt;
+    width: 40%;
+    padding: 15px 0;
+}
+
+.indice-pagina {
+    font-weight: 600;
+    color: #0066cc;
+    text-align: right;
+    padding: 15px 0;
+    width: 20%;
+}
+
+/* === ÍNDICE INTEGRADO EN PORTADA === */
+.portada-indice-integrado {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.portada-indice-titulo-compacto {
+    font-size: 16pt;
+    font-weight: 600;
+    color: #0066cc;
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0066cc;
+}
+
+.portada-indice-tabla-compacta {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11pt;
+    line-height: 1.4;
+}
+
+.indice-nombre-compacto {
+    font-weight: 500;
+    color: #333;
+    text-align: left;
+    padding: 8px 5px;
+    width: 45%;
+}
+
+.indice-puntos-compacto {
+    color: #999;
+    text-align: center;
+    font-size: 9pt;
+    width: 35%;
+    padding: 8px 0;
+}
+
+.indice-pagina-compacto {
+    font-weight: 600;
+    color: #0066cc;
+    text-align: right;
+    padding: 8px 5px;
+    width: 20%;
+}

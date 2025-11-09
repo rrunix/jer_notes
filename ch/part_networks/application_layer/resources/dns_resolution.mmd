@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant Cliente as Cliente/SO
+    participant Local as Servidor DNS Local<br/>(Recursivo)
+    participant Raiz as Servidor Raíz
+    participant TLD as Servidor TLD<br/>(.com, .org, etc.)
+    participant Auth as Servidor Autoritativo
+
+    Note over Cliente: Ejemplo: www.google.es
+
+    Cliente->>Cliente: 1. Verifica caché local del SO.
+    alt No está en caché local
+        Cliente->>Local: 2. Consulta DNS: ¿IP de www.google.es?
+
+        Local->>Local: Verifica caché DNS local
+        alt No está en caché DNS
+            Local->>Raiz: 3. ¿Quién maneja .es?
+            Raiz->>Local: 4. Servidor TLD para .es: [IP_TLD]
+
+            Local->>TLD: 5. ¿Quién maneja www.google.es?
+            TLD->>Local: 6. Servidor autoritativo: [IP_AUTH]
+
+            Local->>Auth: 7. ¿IP de www.google.es?
+            Auth->>Local: 8. IP: 173.194.202.94
+        end
+
+        Local->>Cliente: 9. Respuesta: 173.194.202.94
+    end
+
+    Note over Cliente,Auth: El cliente ahora puede conectarse<br/>directamente a 173.194.202.94

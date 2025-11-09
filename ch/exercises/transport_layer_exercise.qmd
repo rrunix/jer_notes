@@ -1,0 +1,47 @@
+## Capa de Transporte {#sec-ex-transport-layer}
+
+###  Análisis de Conexiones TCP y UDP
+
+Investiga las conexiones activas en tu sistema y analiza el comportamiento de TCP y UDP.
+
+**Tareas:**
+
+1. **Visualiza conexiones activas:**
+   - En Linux/Mac: `netstat -tunap` o `ss -tunap`
+   - En Windows: `netstat -ano`
+   - Identifica:
+     - ¿Cuántas conexiones TCP tienes activas?
+     - ¿Hay conexiones UDP? ¿A qué puertos?
+     - ¿Reconoces algún servicio por su puerto? (80=HTTP, 443=HTTPS, 53=DNS, etc.)
+
+2. **Analiza estados TCP:**
+   - Busca conexiones en estado ESTABLISHED, LISTEN, TIME_WAIT
+   - ¿Qué significa cada estado?
+   - ¿Por qué hay puertos en estado LISTEN?
+
+3. **Compara TCP vs UDP:**
+   Completa la tabla:
+
+   | Característica | TCP | UDP |
+   |----------------|-----|-----|
+   | Orientado a conexión | ? | ? |
+   | Garantiza entrega | ? | ? |
+   | Garantiza orden | ? | ? |
+   | Control de flujo | ? | ? |
+   | Overhead | ? | ? |
+   | Velocidad | ? | ? |
+   | Ejemplo de uso | ? | ? |
+
+4. **Investiga el handshake de TCP:**
+   - Dibuja el proceso de establecimiento de conexión (3-way handshake)
+   - ¿Qué flags se utilizan? (SYN, ACK)
+   - ¿Qué ocurre si se pierde uno de los paquetes?
+
+5. **Caso práctico:**
+   Para un videojuego multijugador, ¿usarías TCP o UDP para los siguientes casos?
+   - Chat de texto entre jugadores
+   - Posición de los jugadores en tiempo real
+   - Transferencia de archivos (mapas, texturas)
+   - Sistema de login/autenticación
+
+   Justifica cada respuesta.

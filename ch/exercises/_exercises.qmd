@@ -1,0 +1,27 @@
+# Ejercicios de la asignatura {#sec-exercises}
+
+{{< include network_intro_exercise.qmd >}}
+
+{{< include access_layer_exercise.qmd >}}
+
+{{< include network_layer_exercise.qmd >}}
+
+{{< include transport_layer_exercise.qmd >}}
+
+{{< include application_layer_exercise.qmd >}}
+
+{{< include js_exercise.qmd >}}
+
+{{< include phaser_exercise.qmd >}}
+
+{{< include rest_intro_exercise.qmd >}}
+
+{{< include rest_client_exercise.qmd >}}
+
+{{< include rest_server_exercise.qmd >}}
+
+{{< include ws_intro_exercise.qmd >}}
+
+{{< include ws_client_exercise.qmd >}}
+
+{{< include ws_server_exercise.qmd >}}

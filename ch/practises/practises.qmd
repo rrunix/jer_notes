@@ -1,0 +1,272 @@
+# Juegos en Red - 3º Grado en Diseño y Desarrollo de Videojuegos
+
+## Enunciado de la práctica
+
+Diseña e implementa un juego en red para dos o más jugadores
+
+**NOTA** : El contenido de este enunciado puede actualizarse y completarse a medida que avanza el curso.
+Cualquier actualización será notificada en los foros de la asignatura en el aula virtual.
+
+---
+
+### Objetivo
+
+El objetivo de la práctica es que el alumno implemente un juego de la forma más parecida a como lo haría a nivel profesional.
+Algunas de las características de la práctica que simulan un entorno real son las siguientes:
+
+* La práctica se desarrollará en un equipo formado, con carácter general, por 4 alumnos.
+* La temática del juego será libre, de forma que los alumnos puedan usar su creatividad y su experiencia personal (dentro de unos límites que se definirán más adelante en el documento).
+* Se utilizarán herramientas profesionales, tanto para el desarrollo en sí como para la compartición del código entre los miembros del equipo y su publicación.
+
+### Funcionalidad y características del juego
+
+El juego que hay que diseñar e implementar tiene una temática libre.
+El equipo de desarrollo deberá decidir el género, mecánica de juego, aspecto gráfico, etc.
+
+Las únicas **restricciones** serán las siguientes:
+
+* La versión final del juego deberá funcionar a través de una red de ordenadores.
+* El flujo del juego no podrá ser "por turnos".
+* Se deberá implementar una representación 2D.
+* El trabajo debe ser original del alumno.
+
+Independientemente de la temática elegida por el equipo de desarrollo, el juego deberá cumplir los siguientes **requisitos técnicos**:
+
+* El juego deberá implementarse con las tecnologías principales abordadas en la asignatura.
+* El juego deberá disponer de una parte en la que cliente y servidor se comunican a través de una API REST y otra parte en la que se comunican de forma asíncrona.
+
+### Desarrollo del juego por fases
+
+El desarrollo del juego deberá realizarse siguiendo las siguientes fases:
+
+1.  **Fase 1:** Formación del equipo de desarrollo, elección de la temática del juego, diseño de las mecánicas e identificación y descripción de las funcionalidades principales.
+    * El objetivo de esta fase será que el alumno produzca un GDD (Game Design Document).
+2.  **Fase 2:** Desarrollo de juego en local.
+3.  **Fase 3:** Comunicación con cliente (juego) – servidor mediante una API – REST.
+4.  **Fase 4:** Comunicación con cliente (juego) – servidor de forma asíncrona.
+5.  **Fase 5:** Por definir.
+
+Estas fases deberán entregarse y presentarse al profesor en las fechas que comunique el profesor a través del Aula Virtual.
+
+### Presentación de las fases
+
+La presentación de las fases se realizará de la siguiente forma:
+
+* El contenido de cada fase se presentará al profesor en horario de clase.
+* Aunque el trabajo es colaborativo y es importante el reparto de tareas, todos los miembros del equipo deberán conocer el código completo de la aplicación (aunque algunas partes hayan sido desarrolladas por otro compañero).
+* Todos los miembros del grupo deberán asistir a la presentación del juego, porque el profesor podrá preguntar individualmente a cualquier alumno, si lo considera necesario, sobre cualquier parte del mismo.
+* Aunque el alumno tenga dispensa académica deberá asistir a las presentaciones de las fases, porque forman parte evaluación.
+* Se requerirá a todos los miembros del grupo valorar su propio trabajo y el de sus compañeros a través de un mecanismo de autoevaluación.
+
+### Proceso de desarrollo del juego
+
+El juego se desarrollará usando un repositorio de GitHub¹ público.
+
+* El código fuente de la aplicación tendrá licencia open source, en concreto, Apache 2. El repositorio se creará en la cuenta de alguno de los miembros del equipo.
+* Los miembros del equipo de desarrollo pueden coordinarse entre sí como consideren conveniente, aunque es recomendable que utilicen el servicio de GitHub Projects para gestionar el estado de las tareas y su responsable.
+* Durante el desarrollo de las fases 2, 3 y 4 se irá subiendo el código al repositorio a medida que se vaya desarrollando.
+* Es importante que los commit tengan un tamaño adecuado y no sean muy grandes.
+* Es decir, no se considerará adecuado que una aplicación se implemente con un único commit por cada fase.
+* La utilización del repositorio para desarrollar la aplicación es obligatoria.
+* Idealmente deberá realizarse un commit por cada funcionalidad que se añada a la aplicación.
+* Los mensajes asociados a los commit también tienen que ser adecuados y deben describir correctamente el objetivo de los mismos.
+* Se recomienda que cada mensaje tenga en su primera línea un resumen del commit de no más de 50 caracteres y, opcionalmente, una descripción más extensa a partir de la tercera línea (dejando una línea en blanco entre el resumen y la descripción).
+* Para gestionar el repositorio de GitHub se puede usar cualquier cliente de git.
+* Cuando el código del repositorio esté listo para la entrega en alguna de las fases, será necesario hacer un **tag** en el repositorio con el nombre de la fase que se vaya a entregar.
+* El contenido de dicho tag, además de mantenerlo en GitHub, deberá enviarse utilizando en Aula Virtual tal y como se indica a continuación.
+* Antes de hacer el tag de cada fase, el fichero **README.md** deberá ampliarse para contener toda la información sobre la entrega que se va a realizar.
+* No es necesario entregar una memoria de la entrega.
+* El día concreto en el que se evaluará la práctica para un grupo será indicado con anterioridad por el profesor.
+
+### Entrega de la práctica
+
+La entrega de la práctica desarrollada se realizará por fases, en las fechas indicadas, a través de la tarea correspondiente en el Aula Virtual.
+La entrega se realizará en un único archivo comprimido (formato .zip) con todo el contenido necesario (código fuente de GitHub del cliente y servidor, ejecutables, documentos o aclaraciones extra para su correcta ejecución).
+El formato del nombre del archivo deberá ser el siguiente: `F_NÚMEROFASE_GRUPO_ID` (P.Ej. F\_1\_GRUPO\_01.zip).
+
+### Fase 1: Equipo de desarrollo y temática del juego
+
+En la fase 1 se debe formar el equipo de desarrollo, elegir la temática del juego e identificar las funcionalidades y mecánicas principales del juego.
+Toda esa información debe registrarse mediante la creación de un Game Design Document (GDD) en un Markdown que se entregará en el aula virtual.
+
+* Se deberá crear un `README.md`, que quedará público en la raíz del repositorio y que se irá ampliando, a medida que se vayan completando las siguientes fases del proyecto.
+* El fichero `README.md` se visualiza al acceder al repositorio de GitHub desde un navegador web.
+* Para ello debe estar escrito en formato Markdown.
+* En la cabecera de dicho documento se incluirá la siguiente información:
+    * Nombre del juego.
+    * Descripción de la temática del juego.
+    * Integrantes del equipo de desarrollo: nombre, apellidos, correo oficial de la universidad, cuenta en GitHub.
+* Posteriormente, podréis incluir el GDD como una sección del `README.md`.
+* De forma alternativa, podéis crear un archivo `GDD.md` que incluya el `README.md` y referenciarlo desde el `README.md`.
+
+### Fase 2: Desarrollo del juego en local
+
+(Por definir)
+
+### Fase 3: Comunicación con cliente (juego) – servidor mediante una API – REST.
+
+(Por definir)
+
+### Fase 4: Comunicación con cliente (juego) – servidor de forma asíncrona.
+
+(Por definir)
+
+### Fase 5 (opcional): Mejoras finales / Publicación del juego
+
+(Por definir)
+
+---
+
+### Evaluación
+
+Al evaluar cada una de las fases se tendrán en cuenta los siguientes aspectos:
+
+* Las fases tendrán una nota entre 0 y 10.
+* Durante la evaluación, el profesor puede detectar que la práctica tiene algunos aspectos mejorables/subsanables.
+* En ese caso, el profesor puede poner una nota condicionada a que esos aspectos sean subsanados en un plazo de 1 semana.
+* Si no son subsanados, la nota final para esa fase sería inferior a la nota indicada o incluso la fase estaría suspensa.
+* Si la fase no cumple con los mínimos exigidos (falta de funcionalidad, se encuentra incompleta, no funciona correctamente / tiene errores, etc.) la fase se considerará suspensa.
+* Un grupo puede subsanar los errores que tuviera en una fase, para poder completar la siguiente fase, o incluso superar fases posteriores aun teniendo alguna fase previa pendiente.
+* Las deficiencias de las fases previas que estén suspensas deben solventarse y se evaluarán en convocatoria extraordinaria.
+* La nota de cada alumno del grupo es independiente. Un alumno puede obtener más o menos nota que el resto de sus compañeros.
+* La nota individual de cada alumno se determina dependiendo de:
+    * El conocimiento de la aplicación durante la defensa, ya que todos los alumnos tienen que conocer el código de toda la aplicación, aunque ellos no hayan desarrollado esa parte.
+    * El histórico de commit de ese alumno en el repositorio.
+    * Los commit tienen que reflejar la aportación real del alumno a la práctica.
+    * Si tiene pocos commit o con poco contenido, se considerará que ha trabajado menos que el resto de los compañeros.
+    * Las autoevaluaciones proporcionadas a los alumnos para valorar su propio trabajo y el de sus compañeros.
+* Si algún miembro de un grupo decide dejar la asignatura o abandonar el grupo, el resto de los miembros del grupo pueden continuar con el desarrollo de la misma práctica sin este o estos integrantes.
+* El/los integrantes segregados, también pueden continuar con la práctica a partir del momento de la segregación o bien integrarse en otro grupo (previa autorización del profesor) siempre que el grupo en el que se integren tengan aprobadas las mismas fases previas hasta la fecha de la separación.
+* Por ejemplo, un alumno no se puede ir a un grupo que tenga aprobadas las fases 2 y 3 si él no tiene aprobada la fase 2 en su grupo original.
+
+### Ponderación de notas
+
+Para obtener la nota final de la práctica (40% del total) se usará la nota de cada fase ponderada de la siguiente forma:
+
+* **Fase 1:** 10%
+* **Fase 2:** 35%
+* **Fase 3:** 25%
+* **Fase 4:** 30%
+
+La nota final de la fase 5 (15% de la nota final de la asignatura) es independiente de la de la práctica.
+
+### Convocatoria extraordinaria
+
+* Aquellas fases aprobadas en la convocatoria ordinaria se guardan para la convocatoria extraordinaria.
+* Es decir, en la convocatoria extraordinaria los alumnos solo tendrán que realizar aquellas fases suspensas o no entregadas.
+* La nota final de la práctica se calculará con los mismos porcentajes que en la convocatoria ordinaria, siendo condición necesaria aprobar las cuatro fases obligatorias de manera independiente.
+* En la convocatoria extraordinaria no existe una nota condicionada a que se solucionen los problemas encontrados.
+
+---
+
+## Entrega y Rúbricas de evaluación
+
+### Fase 1
+
+**Entrega**
+
+La entrega de la Fase 1 de la práctica obligatoria de la asignatura se realizará a través de la actividad correspondiente, teniendo en cuenta las siguientes consideraciones:
+
+* Se entregará un único archivo.zip con todo el contenido necesario. En concreto, será necesario entregar:
+    * El documento `README.md` descargado de github.com.
+    * El GDD del juego que vayáis a construir (siguiendo las indicaciones destacadas en el enunciado de la práctica).
+* El tamaño máximo será de aproximadamente 3500 palabras.
+* El documento se puede entregar incrustado en el `README.md`, es decir, como un apartado, u como otro documento aparte (`GDD.md`) e incluir un enlace desde el `README.md` al `GDD.md`.
+* Un documento de texto llamado `GRUPOXX.txt` (donde XX debe sustituirse por el identificador de cada grupo) en el que se indiquen los integrantes del grupo, la URL del repositorio GitHub.
+* Documento .pptx o similar con la presentación utilizada para exponer la entrega (en caso de utilizarse este soporte).
+
+**Rúbrica de Evaluación - Game Design Document (GDD)**
+
+| CATEGORÍA | PUNTOS | CRITERIO | DESCRIPCIÓN |
+| :--- | :--- | :--- | :--- |
+| **ENTREGA** | **5 puntos** | README.md / README.md + GDD.md | Se debe entregar únicamente en formato Markdown |
+| | | URL de GitHub | Debe proporcionar enlace funcional al repositorio |
+| | | Créditos | "Debe incluir autores, grupo y título del proyecto" |
+| **DOCUMENTO** | **30 puntos** | Extensión y detalle | Documento detallado y completo (cuantos más detalles mejor) |
+| | | Recursos multimedia | "Debe incluir imágenes, diagramas y otros recursos visuales" |
+| | | Estructura | Debe tener índice claro y encabezados bien organizados en Markdown |
+| | | Diagrama de flujo | Debe incluir esquema o diagrama de flujo del juego |
+| | | Referencias | Debe incluir referencias bibliográficas |
+| | | Especificaciones básicas | "Debe especificar género, público objetivo/edad y plataforma" |
+| **IMAGEN Y DISEÑO VISUAL** | **20 puntos** | Bocetos | Debe incluir bocetos de interfaz de menú y pantallas/personajes |
+| | | Logotipo | Debe incluir diseño de logo |
+| | | Descripción visual | Debe describir uso de colores |
+| | | Aspectos técnicos | "Debe indicar uso de cámara y especificar si es 2D/3D" |
+| | | Estilo visual | "Debe especificar estilo (pixel art, cartoon, etc.)" |
+| | | Inspiración | "Debe especificar inspiración artística/cultural y vinculación con otros trabajos" |
+| **SONIDO** | **5 puntos** | Música | Debe incluir descripción de la banda sonora |
+| | | Efectos sonoros | Debe incluir descripción de efectos de audio |
+| **JUGABILIDAD** | **20 puntos** | Objetivo del juego | El objetivo debe estar claramente definido |
+| | | Controles | Debe describir los controles que se utilizarán |
+| | | Mecánicas | Debe describir las mecánicas del juego |
+| | | Físicas | Debe incluir físicas variadas con elementos de dificultad |
+| | | Calidad del escenario | El escenario descrito debe ser de calidad |
+| **NARRATIVA** | **15 puntos** | Historia del juego | Debe tener riqueza en la narrativa principal |
+| | | Desarrollo de personajes | Debe tener riqueza en la historia de los personajes |
+| **Comunicación** | **5 puntos** | Marketing | Incluir estrategia de marketing o comunicación |
+| **TOTAL** | **100 puntos** | | |
+
+
+**PENALIZACIONES**
+
+| TIPO | DESCRIPCIÓN | PUNTOS |
+| :--- | :--- | :--- |
+| Mezcla de idiomas | Mezclar inglés y castellano | -5 |
+| Faltas de ortografía | Errores ortográficos frecuentes | -5 |
+
+---
+
+### Fase 2
+
+Esta fase se centra en la implementación de una versión funcional del juego en modo local. Se evaluará la jugabilidad, la coherencia audiovisual y la estructura técnica del proyecto.
+
+**Entrega**
+
+La entrega está configurada como "entrega en grupo", por lo que únicamente una persona de cada grupo debe entregar todo lo relativo a la correspondiente fase.
+
+* Será necesario entregar un `.zip` que contenga todos los documentos indicados en el enunciado de la práctica, incluyendo:
+    * Los archivos fuente del juego desarrollado (.css, .js, .html, .json) junto con todos los recursos necesarios (imágenes, audio, etc.).
+    * El documento `README.md` descargado de github.com en su estado actual (que debe haber sido modificado respecto a la fase anterior con las novedades correspondientes a esta fase).
+    * Un documento de texto llamado `GRUPOXX.txt` (donde XX debe sustituirse por el identificador de cada grupo) en el que se indiquen los integrantes del grupo, la URL del repositorio GitHub.
+    * Presentación que se utilizará en la exposición de la fase.
+* Será obligatorio también realizar un "release" en el repositorio de github previo a la defensa, siguiendo las instrucciones del enunciado de la práctica (https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).
+
+**Rúbrica de Evaluación - Fase 2**
+
+| CATEGORÍA | PUNTOS | CRITERIOS A EVALUAR |
+| :--- | :--- | :--- |
+| **Entrega** | **5 puntos** | ¿Han evolucionado el markdown?<br>¿Han hecho un *release* en github?<br>¿Indican la licencia de distribución? |
+| **Gestión del juego** | **15 puntos** | ¿Hay un Menú?<br>¿El juego tiene un logotipo?<br>¿Hay créditos del juego?<br>¿Incluye ajustes (subir sonido, cambiar teclas de juego)?<br>¿Incluye guía explicativa? |
+| **Imagen** | **20 puntos** | ¿Hay varias escenas? ¿La gestión, cambio de escena, etc. es adecuada?<br>¿El juego tiene coherencia gráfica / colores?<br>¿La tipografía es adecuada?<br>¿Hacen un uso adecuado de la cámara?<br>¿Las transiciones son suaves/adecuadas? |
+| **Sonido** | **10 puntos** | ¿Hay música en el menú de espera?<br>¿Incluye música durante el juego?<br>¿La música del menú y del juego son distintas?<br>¿Incluye efectos de sonido adicionales?<br>¿El juego tiene coherencia en sonido? |
+| **Jugabilidad** | **35 puntos** | Valoración global del juego (complejidad adecuada, originalidad, mecánicas, etc.)<br>¿El objetivo del juego está claro?<br>Controles: ¿Usa ratón y teclado?<br>¿Hay botón/opción de pausa?<br>Opción de salir del juego<br>¿Hay riqueza en las físicas utilizadas? |
+| **Assets** | **10 puntos** | ¿Hay riqueza en los *assets* utilizados (escenarios, personajes, menús, etc.)? |
+| **Presentación** | **5 puntos** | ¿La puesta en escena/ presentación es adecuada? |
+| **TOTAL** | **100 puntos** | |
+
+**Penalizaciones**
+
+| TIPO | DESCRIPCIÓN |
+| :--- | :--- |
+| **Eliminatorio** | ¿El juego funciona? (Si no funciona, la fase está suspensa) |
+| **Grave** | ¿Hay cosas prohibidas que no den *feedback*?<br>¿Hay *bugs* graves que impiden la jugabilidad? |
+| **Leve** | ¿Mezclan idiomas inglés-castellano? |
+| **Otras** | Otras no contempladas anteriormente (se definirán junto con la penalización aplicada) |
+
+---
+
+### Fase 3
+
+(Por definir)
+
+---
+
+### Fase 4
+
+(Por definir)
+
+---
+
+### Fase 5
+
+(Por definir)

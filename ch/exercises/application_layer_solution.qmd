@@ -1,0 +1,308 @@
+---
+title: "Solución: Capa de Aplicación"
+---
+
+## Solución: Análisis de Petición HTTP
+
+### 1. Petición HTTP simple
+
+```bash
+$ curl -v http://example.com
+
+> GET / HTTP/1.1
+> Host: example.com
+> User-Agent: curl/7.68.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Type: text/html; charset=UTF-8
+< Content-Length: 1256
+< Server: Apache/2.4.41
+< Date: Thu, 06 Nov 2025 10:30:00 GMT
+<
+<!DOCTYPE html>
+<html>
+...
+```
+
+**Análisis:**
+
+**Cabeceras de petición (Request headers):**
+```
+GET / HTTP/1.1              ← Método, ruta, versión de HTTP
+Host: example.com           ← Dominio de destino (obligatorio en HTTP/1.1)
+User-Agent: curl/7.68.0     ← Cliente que hace la petición
+Accept: */*                 ← Tipos de contenido aceptados
+```
+
+**Cabeceras de respuesta (Response headers):**
+```
+HTTP/1.1 200 OK                    ← Versión HTTP y código de estado
+Content-Type: text/html; charset=UTF-8  ← Tipo de contenido
+Content-Length: 1256               ← Tamaño del cuerpo en bytes
+Server: Apache/2.4.41              ← Servidor web utilizado
+Date: Thu, 06 Nov 2025 10:30:00   ← Fecha y hora de la respuesta
+```
+
+**Código de estado**: `200 OK`
+- Significa: Petición exitosa
+- La página se descargó correctamente
+
+### 2. HTTP vs HTTPS
+
+**HTTP (puerto 80):**
+```bash
+$ curl -v http://google.com
+
+> GET / HTTP/1.1
+> Host: google.com
+>
+< HTTP/1.1 301 Moved Permanently
+< Location: http://www.google.com/
+```
+
+**HTTPS (puerto 443):**
+```bash
+$ curl -v https://google.com
+
+* TLSv1.3 (OUT), TLS handshake, Client hello
+* TLSv1.3 (IN), TLS handshake, Server hello
+* TLSv1.3 (IN), TLS handshake, Certificate
+* SSL connection using TLSv1.3
+*
+> GET / HTTP/1.1
+> Host: google.com
+>
+< HTTP/1.1 200 OK
+< Content-Type: text/html; charset=ISO-8859-1
+```
+
+**Diferencias observadas:**
+
+1. **Redirección en HTTP**:
+   - `301 Moved Permanently` → redirige a www.google.com
+   - Google fuerza el uso de HTTPS
+
+2. **HTTPS incluye handshake TLS/SSL**:
+   - Negociación de cifrado antes de HTTP
+   - Intercambio de certificados
+   - Establecimiento de canal seguro
+   - Añade ~1-2 RTT de latencia inicial
+
+3. **Puerto diferente**:
+   - HTTP: puerto 80
+   - HTTPS: puerto 443
+
+4. **Seguridad**:
+   - HTTP: Texto plano (vulnerable a sniffing)
+   - HTTPS: Cifrado (protege contra eavesdropping, MITM)
+
+### 3. Métodos HTTP
+
+**GET**:
+- **Descripción**: Solicitar un recurso del servidor
+- **Características**:
+  - Solo lee datos, no modifica
+  - Parámetros en URL (query string)
+  - Cacheable
+  - Idempotente (misma petición = mismo resultado)
+- **En videojuegos**:
+  - Obtener leaderboard: `GET /api/scores?limit=10`
+  - Obtener perfil de jugador: `GET /api/player/123`
+  - Listar mapas disponibles: `GET /api/maps`
+
+**POST**:
+- **Descripción**: Enviar datos para crear un recurso
+- **Características**:
+  - Datos en el cuerpo (body), no en URL
+  - No cacheable
+  - No idempotente (crear dos veces = dos recursos)
+- **En videojuegos**:
+  - Crear nueva partida: `POST /api/games` con datos del juego
+  - Enviar puntuación: `POST /api/scores` con score y player
+  - Registrar nuevo usuario: `POST /api/users`
+
+**PUT**:
+- **Descripción**: Actualizar/reemplazar un recurso completo
+- **Características**:
+  - Datos en el cuerpo
+  - Idempotente (actualizar N veces = mismo resultado)
+  - Reemplaza el recurso entero
+- **En videojuegos**:
+  - Actualizar configuración: `PUT /api/player/123/settings`
+  - Guardar progreso completo: `PUT /api/save/456`
+  - Actualizar perfil: `PUT /api/player/123/profile`
+
+**DELETE**:
+- **Descripción**: Eliminar un recurso
+- **Características**:
+  - Idempotente
+  - Sin cuerpo (típicamente)
+- **En videojuegos**:
+  - Borrar partida guardada: `DELETE /api/save/456`
+  - Eliminar personaje: `DELETE /api/character/789`
+  - Cerrar sesión de juego: `DELETE /api/session/abc`
+
+**Otros métodos útiles**:
+- **PATCH**: Actualización parcial (solo campos específicos)
+  - `PATCH /api/player/123` con `{"level": 5}` (solo actualiza nivel)
+- **OPTIONS**: Consultar métodos permitidos (CORS preflight)
+- **HEAD**: Como GET pero solo cabeceras (sin cuerpo)
+
+### 4. Códigos de estado HTTP
+
+**Categorías:**
+
+**1xx - Informacionales** (raro verlos):
+- **100 Continue**: El servidor acepta la petición, continúa enviando cuerpo
+- **101 Switching Protocols**: Cambiando a WebSocket, por ejemplo
+
+**2xx - Éxito**:
+- **200 OK**: Petición exitosa, recurso devuelto
+  - *Ejemplo en juego*: GET leaderboard exitoso
+- **201 Created**: Recurso creado correctamente
+  - *Ejemplo en juego*: POST nueva partida creada
+- **204 No Content**: Éxito pero sin contenido en respuesta
+  - *Ejemplo en juego*: DELETE partida eliminada
+
+**3xx - Redirección**:
+- **301 Moved Permanently**: Recurso movido permanentemente
+  - *Ejemplo en juego*: API antigua redirige a nueva URL
+- **302 Found**: Redirección temporal
+  - *Ejemplo en juego*: Login redirige a dashboard
+- **304 Not Modified**: Recurso no cambió (cache válida)
+  - *Ejemplo en juego*: Assets del juego no actualizados
+
+**4xx - Error del cliente**:
+- **400 Bad Request**: Petición malformada
+  - *Ejemplo en juego*: JSON inválido enviado al servidor
+- **401 Unauthorized**: Requiere autenticación
+  - *Ejemplo en juego*: Token de sesión expirado
+- **403 Forbidden**: Autenticado pero sin permisos
+  - *Ejemplo en juego*: Intentar acceder a partida de otro jugador
+- **404 Not Found**: Recurso no existe
+  - *Ejemplo en juego*: GET /api/player/999999 (jugador inexistente)
+
+**5xx - Error del servidor**:
+- **500 Internal Server Error**: Error genérico del servidor
+  - *Ejemplo en juego*: Crash del servidor al procesar partida
+- **502 Bad Gateway**: Gateway/proxy recibió respuesta inválida
+  - *Ejemplo en juego*: Load balancer no puede conectar con servidor de juego
+- **503 Service Unavailable**: Servidor temporalmente no disponible
+  - *Ejemplo en juego*: Mantenimiento del servidor, sobrecarga
+
+**Tabla resumen:**
+
+| Código | Significado | Ejemplo en Juego |
+|--------|-------------|------------------|
+| 200 | OK | Leaderboard obtenido correctamente |
+| 201 | Created | Nueva partida creada |
+| 301 | Moved | API v1 → API v2 |
+| 302 | Redirect | Login → menu principal |
+| 400 | Bad Request | Datos de partida inválidos |
+| 401 | Unauthorized | Token expirado, login requerido |
+| 403 | Forbidden | No puedes editar partida ajena |
+| 404 | Not Found | Jugador no existe |
+| 500 | Server Error | Crash al guardar partida |
+| 502 | Bad Gateway | Servidor de juego caído |
+| 503 | Unavailable | Servidor en mantenimiento |
+
+### 5. DNS
+
+```bash
+$ nslookup google.com
+
+Server:     8.8.8.8
+Address:    8.8.8.8#53
+
+Non-authoritative answer:
+Name:   google.com
+Address: 142.250.185.14
+Address: 142.250.185.46
+Address: 2a00:1450:4003:80c::200e
+```
+
+**Análisis:**
+
+**IPs resueltas:**
+- **IPv4**: 142.250.185.14, 142.250.185.46
+- **IPv6**: 2a00:1450:4003:80c::200e
+
+**¿Por qué múltiples IPs?**
+
+1. **Redundancia**: Si un servidor falla, hay alternativas
+2. **Balanceo de carga**: Distribuir tráfico entre múltiples servidores
+3. **Geografía**: IPs diferentes para regiones distintas (CDN)
+4. **IPv4 + IPv6**: Soporte para ambos protocolos
+5. **Round-robin DNS**: Cada consulta puede devolver IPs en diferente orden
+
+**Proceso DNS completo:**
+```
+1. Usuario escribe: google.com
+   ↓
+2. Sistema verifica cache local
+   ↓
+3. Si no está en cache, consulta DNS resolver (ej: 8.8.8.8)
+   ↓
+4. DNS resolver consulta:
+   - Root servers (.)
+   - TLD servers (.com)
+   - Authoritative servers (google.com)
+   ↓
+5. Retorna IP: 142.250.185.14
+   ↓
+6. Navegador se conecta a esa IP
+```
+
+**¿Qué pasaría sin DNS?**
+
+**Consecuencias graves:**
+
+1. **Tendrías que memorizar IPs**:
+   - En vez de `google.com` → `142.250.185.14`
+   - En vez de `github.com` → `140.82.121.4`
+   - Imposible recordar miles de sitios
+
+2. **Los servicios serían frágiles**:
+   - Si el servidor cambia de IP, todos los enlaces se rompen
+   - No habría CDNs eficientes
+   - Imposible migrar servidores sin romper todo
+
+3. **Sin balanceo de carga**:
+   - Un solo servidor para todo el tráfico
+   - No se podría distribuir carga geográficamente
+
+4. **Certificados SSL/TLS problemáticos**:
+   - Están atados a nombres de dominio, no IPs
+   - HTTPS sería mucho más complicado
+
+**Ejemplo práctico en juego:**
+
+```javascript
+// Con DNS (fácil):
+const API_URL = "https://api.mygame.com";
+// Si el servidor se mueve, solo cambias DNS
+
+// Sin DNS (imposible):
+const API_URL = "https://142.250.185.14";
+// Si cambias servidor, todos los jugadores deben actualizar el juego
+```
+
+**Comandos DNS útiles:**
+```bash
+# Consulta DNS básica
+nslookup google.com
+
+# Consulta detallada
+dig google.com
+
+# Ver caché DNS local (Linux)
+systemd-resolve --statistics
+
+# Limpiar caché DNS
+# Linux: sudo systemd-resolve --flush-caches
+# Mac: sudo dscacheutil -flushcache
+# Windows: ipconfig /flushdns
+```
+
+DNS es fundamental para que Internet sea usable por humanos. Sin él, sería como tener una agenda telefónica solo con números, sin nombres.

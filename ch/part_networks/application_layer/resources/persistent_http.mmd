@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant C as Cliente (Navegador)
+    participant S as Servidor Web
+
+    C->>S: 1. SYN - Establecer conexión TCP
+    S->>C: 2. SYN-ACK - Confirmar conexión
+    C->>S: 3. ACK - Conexión establecida
+
+    C->>S: 4. GET /index.html HTTP/1.1<br/>Host: ejemplo.com<br/>Connection: keep-alive
+    S->>C: 5. HTTP/1.1 200 OK<br/>Connection: keep-alive<br/>+ contenido HTML
+
+    C->>S: 6. GET /imagen.jpg HTTP/1.1<br/>Host: ejemplo.com<br/>Connection: keep-alive
+    S->>C: 7. HTTP/1.1 200 OK<br/>Connection: keep-alive<br/>+ imagen
+
+    Note over C,S: Más recursos pueden solicitarse...
+
+    C->>S: 8. Connection: close (cuando termine)
+    Note over C,S: Tiempo total: 1 RTT + tiempo de transferencia

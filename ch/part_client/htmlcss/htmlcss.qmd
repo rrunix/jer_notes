@@ -1,0 +1,909 @@
+# HTML y CSS {#sec-htmlcss}
+
+## Introducción
+
+HTML (HyperText Markup Language) y CSS (Cascading Style Sheets) son las tecnologías fundamentales para crear páginas web. HTML define la estructura y el contenido de la página mediante etiquetas, mientras que CSS controla su presentación visual. En el desarrollo de videojuegos web, HTML proporciona el contenedor donde se ejecuta el juego y los elementos de la interfaz de usuario, mientras que CSS da estilo a estos elementos.
+
+## HTML (HyperText Markup Language)
+
+### ¿Qué es HTML?
+
+HTML es un lenguaje de marcado que utiliza **etiquetas** (tags) para estructurar el contenido. Una etiqueta se escribe entre corchetes angulares `<>` y generalmente viene en pares: una etiqueta de apertura `<etiqueta>` y una de cierre `</etiqueta>`. El contenido se coloca entre ambas.
+
+```html
+<p>Este es un párrafo de texto.</p>
+```
+
+Algunas etiquetas no tienen contenido y se auto-cierran:
+
+```html
+<img src="imagen.png" alt="Descripción">
+<br>
+```
+
+### Estructura Básica de un Documento HTML
+
+Todo documento HTML sigue una estructura estándar:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Primera Página Web</title>
+</head>
+<body>
+    <h1>Bienvenido</h1>
+    <p>Este es el contenido visible de la página.</p>
+</body>
+</html>
+```
+
+**Explicación de cada parte:**
+
+- `<!DOCTYPE html>`: Declara que este es un documento HTML5 (la versión más reciente).
+- `<html>`: Elemento raíz que contiene todo el documento. El atributo `lang="es"` indica el idioma.
+- `<head>`: Contiene metadatos e información que no se muestra directamente (título, enlaces a CSS, etc.).
+- `<meta charset="UTF-8">`: Define la codificación de caracteres para soportar acentos y símbolos especiales.
+- `<title>`: El texto que aparece en la pestaña del navegador.
+- `<body>`: Contiene todo el contenido visible de la página.
+
+### Elementos de Texto
+
+HTML ofrece diversas etiquetas para estructurar texto:
+
+```html
+<!-- Encabezados (h1 es el más importante, h6 el menos) -->
+<h1>Título Principal</h1>
+<h2>Subtítulo</h2>
+<h3>Sección</h3>
+
+<!-- Párrafos -->
+<p>Este es un párrafo de texto normal.</p>
+
+<!-- Formato de texto -->
+<strong>Texto importante (negrita)</strong>
+<em>Texto enfatizado (cursiva)</em>
+<mark>Texto resaltado</mark>
+<small>Texto pequeño</small>
+
+<!-- Saltos de línea -->
+<p>Primera línea<br>Segunda línea</p>
+
+<!-- Línea horizontal -->
+<hr>
+```
+
+Los encabezados `<h1>` a `<h6>` crean una jerarquía de títulos, siendo `<h1>` el más importante. Solo debe haber un `<h1>` por página. Los elementos `<strong>` y `<em>` no solo cambian la apariencia sino que también indican importancia semántica.
+
+### Listas
+
+Las listas organizan información relacionada:
+
+```html
+<!-- Lista no ordenada (viñetas) -->
+<ul>
+    <li>Primer elemento</li>
+    <li>Segundo elemento</li>
+    <li>Tercer elemento</li>
+</ul>
+
+<!-- Lista ordenada (numerada) -->
+<ol>
+    <li>Paso 1</li>
+    <li>Paso 2</li>
+    <li>Paso 3</li>
+</ol>
+
+<!-- Listas anidadas -->
+<ul>
+    <li>Jugadores
+        <ul>
+            <li>Jugador 1</li>
+            <li>Jugador 2</li>
+        </ul>
+    </li>
+    <li>Enemigos</li>
+</ul>
+```
+
+`<ul>` crea listas no ordenadas (con viñetas), `<ol>` crea listas ordenadas (numeradas), y `<li>` define cada elemento de la lista. Las listas pueden anidarse para crear jerarquías.
+
+### Enlaces e Imágenes
+
+```html
+<!-- Enlaces -->
+<a href="https://www.ejemplo.com">Visitar Ejemplo</a>
+<a href="pagina2.html">Ir a otra página del sitio</a>
+<a href="#seccion">Ir a una sección de esta página</a>
+<a href="documento.pdf" download>Descargar PDF</a>
+
+<!-- Imágenes -->
+<img src="imagen.jpg" alt="Descripción de la imagen">
+<img src="sprites/player.png" alt="Sprite del jugador" width="64" height="64">
+```
+
+El elemento `<a>` (anchor) crea enlaces. El atributo `href` especifica la URL de destino. Puede ser una URL completa, una ruta relativa a otro archivo, o un ancla a una sección de la misma página usando `#`.
+
+El elemento `<img>` inserta imágenes. El atributo `src` indica la ruta de la imagen y `alt` proporciona texto alternativo para accesibilidad o cuando la imagen no carga. Los atributos `width` y `height` definen las dimensiones en píxeles.
+
+### Contenedores: Div y Span
+
+Los elementos `<div>` y `<span>` son contenedores genéricos sin significado semántico, pero son fundamentales para organizar y dar estilo al contenido:
+
+```html
+<!-- div: contenedor de bloque (ocupa todo el ancho disponible) -->
+<div class="game-container">
+    <h2>Mi Juego</h2>
+    <p>Puntuación: 100</p>
+</div>
+
+<!-- span: contenedor en línea (solo ocupa el espacio de su contenido) -->
+<p>Vidas: <span class="lives-count">3</span></p>
+<p>Estado: <span id="status">Jugando</span></p>
+```
+
+`<div>` es un contenedor de nivel de bloque: cada `<div>` comienza en una nueva línea y ocupa todo el ancho disponible. Se usa para agrupar secciones grandes de contenido.
+
+`<span>` es un contenedor en línea: no interrumpe el flujo del texto y solo ocupa el espacio necesario para su contenido. Se usa para aplicar estilos a partes específicas de texto.
+
+### Elementos Semánticos
+
+HTML5 introdujo elementos semánticos que describen el propósito del contenido:
+
+```html
+<header>
+    <h1>Título del Sitio</h1>
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#juego">Juego</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<main>
+    <section id="juego">
+        <h2>Área de Juego</h2>
+        <canvas id="game-canvas"></canvas>
+    </section>
+
+    <aside>
+        <h3>Instrucciones</h3>
+        <p>Usa las flechas para moverte.</p>
+    </aside>
+</main>
+
+<footer>
+    <p>&copy; 2024 Mi Juego</p>
+</footer>
+```
+
+- `<header>`: Encabezado de la página o sección
+- `<nav>`: Bloque de navegación con enlaces
+- `<main>`: Contenido principal del documento (solo uno por página)
+- `<section>`: Sección temática de contenido
+- `<aside>`: Contenido complementario o lateral
+- `<footer>`: Pie de página con información adicional
+
+Estos elementos mejoran la accesibilidad y la estructura del código comparado con usar solo `<div>`.
+
+### Formularios
+
+Los formularios permiten recopilar información del usuario:
+
+```html
+<form id="player-form">
+    <!-- Campo de texto -->
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="player-name" placeholder="Tu nombre">
+
+    <!-- Campo numérico -->
+    <label for="age">Edad:</label>
+    <input type="number" id="age" min="1" max="100">
+
+    <!-- Botones de radio (una opción) -->
+    <p>Dificultad:</p>
+    <input type="radio" id="easy" name="difficulty" value="easy">
+    <label for="easy">Fácil</label>
+
+    <input type="radio" id="hard" name="difficulty" value="hard">
+    <label for="hard">Difícil</label>
+
+    <!-- Checkbox (múltiples opciones) -->
+    <input type="checkbox" id="sound" name="sound" checked>
+    <label for="sound">Activar sonido</label>
+
+    <!-- Menú desplegable -->
+    <label for="character">Personaje:</label>
+    <select id="character" name="character">
+        <option value="warrior">Guerrero</option>
+        <option value="mage">Mago</option>
+        <option value="archer">Arquero</option>
+    </select>
+
+    <!-- Botón de envío -->
+    <button type="submit">Comenzar Juego</button>
+</form>
+```
+
+El elemento `<label>` asocia texto descriptivo con un campo. El atributo `for` del label debe coincidir con el `id` del input. Los diferentes `type` de input determinan qué tipo de dato se espera: `text`, `number`, `email`, `password`, etc.
+
+Los inputs `radio` con el mismo `name` forman un grupo donde solo se puede seleccionar una opción. Los `checkbox` permiten múltiples selecciones. El elemento `<select>` crea menús desplegables con opciones `<option>`.
+
+### Canvas (Elemento para Videojuegos)
+
+El elemento `<canvas>` es fundamental para videojuegos web, proporcionando una superficie de dibujo que JavaScript puede manipular:
+
+```html
+<canvas id="game-canvas" width="800" height="600"></canvas>
+```
+
+El canvas es un área rectangular donde se pueden dibujar gráficos, formas, imágenes y animaciones mediante JavaScript. Los atributos `width` y `height` definen su tamaño en píxeles.
+
+### Referencias a Scripts y Hojas de Estilo
+
+Para integrar JavaScript y CSS con HTML:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Juego</title>
+
+    <!-- Enlazar CSS externo -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/game.css">
+
+    <!-- CSS interno -->
+    <style>
+        body { margin: 0; padding: 0; }
+    </style>
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <!-- Script externo - al final del body -->
+    <script src="js/game.js"></script>
+    <script src="js/controls.js"></script>
+
+    <!-- Script interno -->
+    <script>
+        console.log('Página cargada');
+    </script>
+</body>
+</html>
+```
+
+**Hojas de estilo CSS:**
+- `<link rel="stylesheet" href="ruta.css">` en el `<head>` enlaza archivos CSS externos
+- `<style>` permite escribir CSS directamente en el HTML
+
+**Scripts JavaScript:**
+- `<script src="ruta.js">` enlaza archivos JavaScript externos
+- Se recomienda colocarlos al final del `<body>` para que el HTML cargue primero
+- `<script>` sin `src` permite escribir JavaScript directamente en el HTML
+
+### Atributos Comunes
+
+Los atributos proporcionan información adicional sobre los elementos:
+
+```html
+<!-- id: identificador único -->
+<div id="game-canvas"></div>
+
+<!-- class: clasificación para estilos (puede repetirse) -->
+<button class="menu-btn primary">Jugar</button>
+<button class="menu-btn secondary">Salir</button>
+
+<!-- style: estilos CSS inline -->
+<p style="color: red; font-size: 20px;">Texto rojo</p>
+
+<!-- data-*: atributos personalizados -->
+<div class="enemy" data-type="orc" data-health="100"></div>
+
+<!-- title: tooltip al pasar el mouse -->
+<button title="Haz click para pausar">Pausa</button>
+```
+
+El `id` debe ser único en toda la página y se usa para identificar un elemento específico. La `class` puede repetirse en múltiples elementos y se usa para aplicar estilos compartidos. Los atributos `data-*` permiten almacenar información personalizada en elementos HTML.
+
+## CSS (Cascading Style Sheets)
+
+### ¿Qué es CSS?
+
+CSS (Hojas de Estilo en Cascada) es el lenguaje que controla la presentación visual de HTML. Permite definir colores, tamaños, posiciones, animaciones y mucho más. CSS separa el contenido (HTML) de la presentación (estilos).
+
+### Sintaxis Básica
+
+Una regla CSS consta de un **selector** que identifica qué elementos afectar, y **declaraciones** que definen los estilos:
+
+```css
+selector {
+    propiedad: valor;
+    otra-propiedad: otro-valor;
+}
+```
+
+Ejemplo real:
+
+```css
+h1 {
+    color: blue;
+    font-size: 32px;
+    text-align: center;
+}
+```
+
+Esto hace que todos los elementos `<h1>` sean azules, con tamaño de fuente de 32 píxeles, y centrados.
+
+### Formas de Incluir CSS
+
+**1. CSS Externo (recomendado):**
+
+```html
+<link rel="stylesheet" href="estilos.css">
+```
+
+El archivo `estilos.css` contiene todas las reglas CSS. Es la mejor opción porque permite reutilizar estilos en múltiples páginas.
+
+**2. CSS Interno:**
+
+```html
+<head>
+    <style>
+        p { color: green; }
+    </style>
+</head>
+```
+
+Los estilos se escriben dentro de `<style>` en el HTML. Útil para estilos específicos de una página.
+
+**3. CSS Inline:**
+
+```html
+<p style="color: red; font-size: 18px;">Texto rojo</p>
+```
+
+Los estilos se aplican directamente en el atributo `style` del elemento. No se recomienda excepto para estilos dinámicos con JavaScript.
+
+### Selectores CSS
+
+Los selectores determinan a qué elementos se aplican los estilos:
+
+```css
+/* Selector de elemento - afecta a TODOS los elementos del tipo */
+p {
+    color: black;
+}
+
+/* Selector de ID - afecta al elemento con ese id específico */
+#game-canvas {
+    border: 2px solid black;
+}
+
+/* Selector de clase - afecta a todos los elementos con esa clase */
+.menu-btn {
+    background-color: blue;
+    color: white;
+}
+
+/* Selector de múltiples elementos */
+h1, h2, h3 {
+    font-family: Arial, sans-serif;
+}
+
+/* Selector descendiente - elementos dentro de otros */
+.game-container p {
+    margin: 10px;
+}
+
+/* Selector hijo directo */
+nav > a {
+    display: inline-block;
+}
+```
+
+- **Elemento** (`p`, `h1`, `div`): Selecciona todos los elementos de ese tipo
+- **ID** (`#nombre`): Selecciona el elemento con `id="nombre"` (solo uno)
+- **Clase** (`.nombre`): Selecciona todos los elementos con `class="nombre"`
+- **Descendiente** (`div p`): Selecciona todos los `<p>` dentro de cualquier `<div>`
+- **Hijo directo** (`div > p`): Selecciona solo los `<p>` que son hijos directos de `<div>`
+
+### Colores
+
+CSS permite definir colores de varias formas. La propiedad `color` controla el color del texto, mientras que `background-color` controla el color de fondo del elemento.
+
+```css
+.ejemplo {
+    /* Nombres de colores predefinidos */
+    color: red;
+    background-color: white;
+}
+```
+
+**Nombres de colores:** CSS reconoce 140 nombres de colores en inglés como `red`, `blue`, `green`, `black`, `white`, etc. Son fáciles de recordar pero ofrecen pocas opciones.
+
+```css
+.hexadecimal {
+    /* Hexadecimal - formato más común */
+    color: #ff0000;        /* rojo: ff=255 rojo, 00=0 verde, 00=0 azul */
+    color: #00ff00;        /* verde */
+    color: #0000ff;        /* azul */
+    color: #fff;           /* blanco (forma corta de #ffffff) */
+    color: #000;           /* negro (forma corta de #000000) */
+}
+```
+
+**Hexadecimal:** El formato más usado. Los colores se representan con 6 dígitos hexadecimales (0-9, A-F) precedidos por `#`. Los primeros dos dígitos son el rojo, los siguientes dos el verde, y los últimos dos el azul. Cuando los pares de dígitos son iguales, se puede usar la forma corta de 3 dígitos: `#f00` es igual a `#ff0000`.
+
+```css
+.rgb {
+    /* RGB - valores de 0 a 255 */
+    color: rgb(255, 0, 0);      /* rojo */
+    color: rgb(0, 255, 0);      /* verde */
+    color: rgb(128, 128, 128);  /* gris medio */
+}
+```
+
+**RGB (Red, Green, Blue):** Especifica colores usando tres números del 0 al 255 que representan la intensidad de rojo, verde y azul. Es más intuitivo que hexadecimal para algunas personas.
+
+```css
+.transparencia {
+    /* RGBA - RGB con transparencia (alpha) */
+    background-color: rgba(0, 0, 0, 0.5);    /* negro semi-transparente */
+    background-color: rgba(255, 0, 0, 0.8);  /* rojo casi opaco */
+    background-color: rgba(0, 0, 255, 0.2);  /* azul muy transparente */
+}
+```
+
+**RGBA:** Igual que RGB pero añade un cuarto valor (alpha) que controla la transparencia. El valor alpha va de 0 (completamente transparente) a 1 (completamente opaco). Un valor de 0.5 significa 50% transparente.
+
+### Texto y Fuentes
+
+CSS ofrece múltiples propiedades para controlar la apariencia del texto:
+
+```css
+.titulo {
+    font-family: Arial, sans-serif;
+}
+```
+
+**font-family:** Define qué tipografía se usa. Se especifica una lista de fuentes separadas por comas porque no todos los sistemas tienen todas las fuentes instaladas. El navegador usa la primera fuente disponible. Es recomendable terminar con una familia genérica (`serif`, `sans-serif`, `monospace`) como respaldo.
+
+```css
+.texto {
+    font-size: 16px;     /* Tamaño absoluto en píxeles */
+    font-size: 1.5em;    /* Tamaño relativo al padre (1.5 veces más grande) */
+    font-size: 100%;     /* Tamaño relativo (100% = igual al padre) */
+}
+```
+
+**font-size:** Controla el tamaño del texto. Las unidades más comunes son píxeles (`px`), que son fijas, y unidades relativas como `em` (relativa al tamaño de fuente del elemento padre) o porcentajes.
+
+```css
+.negrita {
+    font-weight: bold;      /* Negrita */
+    font-weight: normal;    /* Normal */
+    font-weight: 700;       /* Negrita (valor numérico) */
+    font-weight: 400;       /* Normal (valor numérico) */
+}
+```
+
+**font-weight:** Controla el grosor del texto. Puede usar palabras clave (`normal`, `bold`) o valores numéricos de 100 a 900, donde 400 es normal y 700 es negrita.
+
+```css
+.cursiva {
+    font-style: italic;   /* Cursiva */
+    font-style: normal;   /* Normal (no cursiva) */
+}
+```
+
+**font-style:** Define si el texto está en cursiva (`italic`) o normal.
+
+```css
+.alineacion {
+    text-align: left;     /* Alineado a la izquierda (predeterminado) */
+    text-align: center;   /* Centrado */
+    text-align: right;    /* Alineado a la derecha */
+    text-align: justify;  /* Justificado (alineado a ambos lados) */
+}
+```
+
+**text-align:** Controla la alineación horizontal del texto dentro de su contenedor.
+
+### Modelo de Caja (Box Model)
+
+El concepto más importante de CSS es el **modelo de caja**. Cada elemento HTML es una caja rectangular compuesta por cuatro áreas que se suman para determinar el espacio total que ocupa:
+
+```
+┌─────────────── margin ───────────────┐
+│ ┌──────────── border ─────────────┐ │
+│ │ ┌────────── padding ──────────┐ │ │
+│ │ │                              │ │ │
+│ │ │         CONTENIDO            │ │ │
+│ │ │        (width x height)      │ │ │
+│ │ │                              │ │ │
+│ │ └──────────────────────────────┘ │ │
+│ └──────────────────────────────────┘ │
+└──────────────────────────────────────┘
+```
+
+**1. Contenido (content):** Es el área donde aparece el texto, imágenes o contenido del elemento. Se controla con `width` (ancho) y `height` (alto).
+
+```css
+.contenido {
+    width: 200px;    /* Ancho del área de contenido */
+    height: 100px;   /* Alto del área de contenido */
+}
+```
+
+**2. Relleno (padding):** Es el espacio entre el contenido y el borde. Es transparente y adopta el color de fondo del elemento. Sirve para dar "respiración" al contenido.
+
+```css
+.con-padding {
+    padding: 20px;  /* 20px de espacio en los 4 lados */
+}
+
+.padding-individual {
+    padding-top: 10px;     /* Arriba */
+    padding-right: 15px;   /* Derecha */
+    padding-bottom: 10px;  /* Abajo */
+    padding-left: 15px;    /* Izquierda */
+}
+
+.padding-forma-corta {
+    /* Forma corta: arriba derecha abajo izquierda (sentido horario) */
+    padding: 10px 15px 10px 15px;
+
+    /* Si vertical y horizontal son iguales, se puede reducir a 2 valores */
+    padding: 10px 15px;  /* 10px arriba/abajo, 15px izquierda/derecha */
+}
+```
+
+**3. Borde (border):** Es una línea que rodea el padding y el contenido. Se puede definir su grosor, estilo y color.
+
+```css
+.con-borde {
+    border: 2px solid black;  /* Grosor Estilo Color */
+}
+
+.borde-detallado {
+    border-width: 3px;           /* Grosor del borde */
+    border-style: solid;         /* Estilo: solid, dashed, dotted, double */
+    border-color: blue;          /* Color del borde */
+    border-radius: 10px;         /* Esquinas redondeadas */
+}
+
+.bordes-individuales {
+    border-top: 1px solid red;      /* Solo borde superior */
+    border-bottom: 2px dashed blue; /* Solo borde inferior */
+}
+```
+
+**4. Margen (margin):** Es el espacio externo entre el elemento y otros elementos. Es completamente transparente y sirve para separar elementos entre sí.
+
+```css
+.con-margen {
+    margin: 20px;  /* 20px de espacio exterior en los 4 lados */
+}
+
+.margen-individual {
+    margin-top: 10px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+
+.centrado {
+    width: 200px;
+    margin: 0 auto;  /* Centra horizontalmente: 0 arriba/abajo, auto izquierda/derecha */
+}
+```
+
+**Cálculo del tamaño total:**
+
+Por defecto, el tamaño total de un elemento se calcula así:
+
+```
+Ancho total = margin-left + border-left + padding-left + width + padding-right + border-right + margin-right
+
+Alto total = margin-top + border-top + padding-top + height + padding-bottom + border-bottom + margin-bottom
+```
+
+Ejemplo: si un elemento tiene `width: 200px`, `padding: 10px`, `border: 2px`, el ancho visible será 224px (2 + 10 + 200 + 10 + 2).
+
+**Box-sizing:** Para simplificar este cálculo, existe la propiedad `box-sizing`:
+
+```css
+.caja-tradicional {
+    box-sizing: content-box;  /* Predeterminado: width solo afecta al contenido */
+    width: 200px;
+    padding: 10px;
+    border: 2px;
+    /* Ancho total = 224px (2+10+200+10+2) */
+}
+
+.caja-moderna {
+    box-sizing: border-box;   /* width incluye contenido + padding + border */
+    width: 200px;
+    padding: 10px;
+    border: 2px;
+    /* Ancho total = 200px (el padding y border se restan del contenido) */
+}
+```
+
+La mayoría de desarrolladores modernos usan `box-sizing: border-box` porque hace los cálculos más intuitivos. Es común ver esto al inicio de las hojas de estilo:
+
+```css
+* {
+    box-sizing: border-box;  /* Aplica a todos los elementos */
+}
+```
+
+### Display: Bloque vs Inline
+
+La propiedad `display` es fundamental porque controla cómo se comporta un elemento en el flujo del documento. Los dos valores principales son `block` e `inline`.
+
+**Elementos de bloque (block):**
+
+Los elementos de bloque ocupan todo el ancho disponible de su contenedor y siempre comienzan en una nueva línea. Son como cajas apiladas verticalmente.
+
+```css
+div {
+    display: block;  /* Comportamiento predeterminado de div */
+}
+```
+
+Elementos que son block por defecto: `<div>`, `<p>`, `<h1>-<h6>`, `<ul>`, `<li>`, `<section>`, `<header>`, etc.
+
+Características:
+- Ocupan todo el ancho disponible
+- Empiezan en una nueva línea
+- Aceptan propiedades de ancho (`width`) y alto (`height`)
+- Se pueden apilar verticalmente con márgenes
+
+**Elementos en línea (inline):**
+
+Los elementos inline solo ocupan el espacio de su contenido y no interrumpen el flujo del texto. Son como palabras en una oración.
+
+```css
+span {
+    display: inline;  /* Comportamiento predeterminado de span */
+}
+```
+
+Elementos que son inline por defecto: `<span>`, `<a>`, `<strong>`, `<em>`, `<img>`, etc.
+
+Características:
+- Solo ocupan el espacio de su contenido
+- No interrumpen el flujo del texto
+- NO aceptan `width` ni `height`
+- Los márgenes verticales no funcionan correctamente
+
+**Inline-block (lo mejor de ambos mundos):**
+
+```css
+.boton {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+}
+```
+
+`inline-block` combina ambos comportamientos: el elemento fluye como inline (no interrumpe la línea) pero acepta dimensiones como block.
+
+**Ocultar elementos:**
+
+```css
+.oculto {
+    display: none;  /* Elimina completamente el elemento del flujo */
+}
+
+.invisible {
+    visibility: hidden;  /* Oculta el elemento pero mantiene su espacio */
+}
+```
+
+### Posicionamiento
+
+El posicionamiento controla dónde aparece un elemento en la página. Por defecto, los elementos siguen el flujo normal del documento (uno después de otro), pero podemos cambiar esto.
+
+**Static (posición normal):**
+
+```css
+.normal {
+    position: static;  /* Valor predeterminado */
+}
+```
+
+El elemento sigue el flujo normal del documento. Las propiedades `top`, `right`, `bottom`, `left` no tienen efecto.
+
+**Relative (posición relativa):**
+
+```css
+.desplazado {
+    position: relative;
+    top: 10px;    /* Se mueve 10px HACIA ABAJO desde su posición original */
+    left: 20px;   /* Se mueve 20px HACIA LA DERECHA desde su posición original */
+}
+```
+
+El elemento se desplaza desde su posición original, pero su espacio original se mantiene reservado. Otros elementos se comportan como si este elemento siguiera en su lugar original.
+
+**Absolute (posición absoluta):**
+
+```css
+.contenedor {
+    position: relative;  /* Esto es importante */
+}
+
+.flotante {
+    position: absolute;
+    top: 20px;    /* 20px desde el BORDE SUPERIOR del contenedor */
+    right: 10px;  /* 10px desde el BORDE DERECHO del contenedor */
+}
+```
+
+El elemento se extrae completamente del flujo normal y se posiciona respecto al ancestro posicionado más cercano (cualquier elemento con `position` diferente de `static`). Si no hay ninguno, se posiciona respecto al `<body>`.
+
+Usos comunes:
+- Menús desplegables
+- Tooltips
+- Elementos superpuestos sobre otros
+
+**Fixed (posición fija):**
+
+```css
+.barra-superior {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+}
+```
+
+El elemento se posiciona respecto a la ventana del navegador y permanece en el mismo lugar incluso al hacer scroll. Útil para barras de navegación fijas o botones flotantes.
+
+**Z-index (orden de apilamiento):**
+
+Cuando los elementos se superponen, `z-index` controla cuál aparece encima:
+
+```css
+.fondo {
+    position: absolute;
+    z-index: 1;  /* Aparece debajo */
+}
+
+.encima {
+    position: absolute;
+    z-index: 10;  /* Aparece encima (número mayor = más arriba) */
+}
+```
+
+**Importante:** `z-index` solo funciona en elementos posicionados (con `position` diferente de `static`).
+
+### Pseudo-clases
+
+Las pseudo-clases permiten aplicar estilos a elementos según su estado o posición, sin necesidad de añadir clases en el HTML.
+
+**Estados interactivos:**
+
+```css
+/* Cuando el mouse pasa sobre el elemento */
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+/* Mientras se hace click en el elemento */
+button:active {
+    background-color: darkblue;
+}
+
+/* Cuando el elemento tiene el foco (navegación con teclado) */
+input:focus {
+    border-color: blue;
+    outline: 2px solid lightblue;
+}
+```
+
+La pseudo-clase `:hover` es muy útil para dar feedback visual al usuario. `:active` captura el momento exacto del click. `:focus` es importante para accesibilidad cuando se navega con teclado.
+
+**Selectores de posición:**
+
+```css
+/* El primer elemento de su tipo */
+li:first-child {
+    font-weight: bold;
+}
+
+/* El último elemento de su tipo */
+li:last-child {
+    border-bottom: none;
+}
+
+/* Elementos pares o impares */
+tr:nth-child(even) {
+    background-color: #f0f0f0;  /* Filas pares en gris claro */
+}
+
+tr:nth-child(odd) {
+    background-color: white;     /* Filas impares en blanco */
+}
+```
+
+Estas pseudo-clases son útiles para crear efectos visuales como tablas con filas alternadas sin tener que añadir clases manualmente a cada elemento.
+
+## Integración HTML, CSS y JavaScript
+
+Estas tres tecnologías trabajan juntas en el desarrollo web:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo Integrado</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Mi Juego</h1>
+        <div id="score">Puntuación: <span id="score-value">0</span></div>
+        <button id="start-btn">Iniciar</button>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
+```
+
+```css
+/* styles.css */
+#game-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+#score {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+#score-value {
+    color: green;
+    font-weight: bold;
+}
+
+#start-btn {
+    padding: 10px 30px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#start-btn:hover {
+    background-color: #45a049;
+}
+```
+
+```javascript
+// game.js
+const scoreElement = document.getElementById('score-value');
+const startBtn = document.getElementById('start-btn');
+
+let score = 0;
+
+startBtn.addEventListener('click', function() {
+    score += 10;
+    scoreElement.textContent = score;
+});
+```
+
+En este ejemplo: HTML define la estructura (título, puntuación, botón), CSS controla la apariencia (colores, tamaños, efectos hover), y JavaScript añade interactividad (actualiza la puntuación al hacer click).

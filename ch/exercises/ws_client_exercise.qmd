@@ -1,0 +1,87 @@
+## WebSockets - Cliente {#sec-ex-ws-client}
+
+###  Cliente WebSocket para Chat de Juego
+
+Implementa un cliente WebSocket simple para un sistema de chat en tiempo real de un videojuego.
+
+**Requisitos:**
+
+1. **Crea una clase `GameChat`:**
+   - Constructor que reciba la URL del servidor WebSocket
+   - Método `connect()` para establecer conexión
+   - Método `sendMessage(message)` para enviar mensajes
+   - Método `disconnect()` para cerrar la conexión
+   - Callbacks para eventos: `onMessage`, `onConnect`, `onDisconnect`, `onError`
+
+2. **Manejo de estados de conexión:**
+   - Mostrar indicador cuando se está conectando
+   - Mostrar indicador cuando está conectado
+   - Mostrar error si falla la conexión
+   - Intentar reconectar automáticamente si se pierde la conexión
+
+3. **Interfaz de usuario HTML:**
+   - Input para el nombre de usuario
+   - Botón para conectar
+   - Área de mensajes (mostrar historial)
+   - Input para escribir mensaje
+   - Botón para enviar mensaje
+   - Indicador de estado de conexión
+
+4. **Formato de mensajes JSON:**
+   ```javascript
+   // Cliente → Servidor (enviar mensaje)
+   {
+     type: "message",
+     username: "player1",
+     text: "Hola a todos"
+   }
+
+   // Servidor → Cliente (mensaje broadcast)
+   {
+     type: "message",
+     username: "player2",
+     text: "Hola player1!",
+     timestamp: "2025-11-06T10:30:00Z"
+   }
+
+   // Servidor → Cliente (usuario conectado)
+   {
+     type: "user_joined",
+     username: "player3"
+   }
+   ```
+
+**Estructura sugerida:**
+```javascript
+class GameChat {
+    constructor(serverURL) {
+        this.serverURL = serverURL;
+        this.ws = null;
+        this.username = null;
+
+        // Callbacks
+        this.onMessage = null;
+        this.onConnect = null;
+        this.onDisconnect = null;
+        this.onError = null;
+    }
+
+    connect(username) {
+        // TODO: Establecer conexión WebSocket
+    }
+
+    sendMessage(text) {
+        // TODO: Enviar mensaje al servidor
+    }
+
+    disconnect() {
+        // TODO: Cerrar conexión
+    }
+}
+```
+
+**Bonus:**
+
+- Mostrar quién está escribiendo ("player2 is typing...")
+- Soporte para comandos especiales ("/help", "/users")
+- Emoticones o formato básico de texto

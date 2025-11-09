@@ -1,0 +1,28 @@
+## Introducción a Redes {#sec-ex-network-intro}
+
+###  Investigación del Modelo TCP/IP
+
+Investiga y compara el modelo de capas TCP/IP con tu propia experiencia navegando por Internet.
+
+**Tareas:**
+
+1. **Traza la ruta de una petición web:**
+   - Ejecuta el comando `traceroute www.google.com` (Linux/Mac) o `tracert www.google.com` (Windows)
+   - Documenta cuántos saltos (hops) hay hasta llegar al destino
+   - Identifica si alguno de los routers intermedios pertenece a tu ISP
+
+2. **Análisis por capas:**
+   Para acceder a una página web (ej: https://www.google.com), describe qué ocurre en cada capa del modelo TCP/IP:
+   - **Capa de Aplicación**: ¿Qué protocolo se utiliza?
+   - **Capa de Transporte**: ¿TCP o UDP? ¿Por qué?
+   - **Capa de Red**: ¿Qué información contienen los paquetes IP?
+   - **Capa de Acceso a la Red**: ¿Qué tecnología física usas (WiFi, Ethernet, 4G)?
+
+3. **Encapsulación:**
+   - Dibuja un diagrama mostrando cómo se encapsulan los datos en cada capa
+   - Indica qué información añade cada capa (cabeceras)
+
+4. **Reflexión:**
+   - ¿Por qué crees que el modelo está organizado en capas?
+   - ¿Qué ventajas tiene esta separación?
+   - Da un ejemplo de cómo puedes cambiar una capa sin afectar a las demás

@@ -1,0 +1,18 @@
+graph LR
+    R1((Peer 1))
+    R2((Peer 2))
+    R3((Peer 3))
+    R4((Peer 4))
+    R5((Peer 5))
+
+    R1 --- R2
+    R2 --- R3
+    R3 --- R4
+    R4 --- R5
+    R5 --- R1
+
+    classDef peerNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef hubNode fill:#fff3e0,stroke:#e65100,stroke-width:3px
+
+    class P1,P2,P3,P4,P5,R1,R2,R3,R4,R5,S2,S3,S4,S5,H2,H3,H4,H5,H6 peerNode
+    class S1,H1 hubNode

@@ -1,0 +1,313 @@
+# Servidor WebSockets con JavasScript {#sec-ws-server}
+
+## Servidor WebSocket con Node.js
+
+Para implementar un servidor WebSocket en Node.js, utilizaremos la librería **`ws`**, que es una implementación robusta y eficiente del protocolo WebSocket. Esta librería nos permite crear servidores WebSocket que pueden manejar múltiples conexiones simultáneas de clientes.
+
+Primero necesitamos inicializar un proyecto Node.js e instalar las dependencias necesarias:
+
+```bash
+npm init -y
+npm install ws express
+```
+
+Instalamos tanto `ws` para el servidor WebSocket como `express` para servir archivos estáticos (la interfaz del cliente). Para usar la sintaxis moderna de módulos ES6, debemos configurar el `package.json`:
+
+```json
+{
+  "name": "websocket-server",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "ws": "^8.0.0",
+    "express": "^4.18.0"
+  }
+}
+```
+
+La propiedad `"type": "module"` nos permite usar `import` y `export` en lugar de `require` y `module.exports`.
+
+Un servidor WebSocket completo que también sirve archivos estáticos tiene la siguiente estructura:
+
+```javascript
+import express from 'express';
+import { WebSocketServer } from 'ws';
+import { createServer } from 'http';
+
+const app = express();
+const server = createServer(app);
+
+// Configurar Express para servir archivos estáticos
+app.use(express.static('public'));
+
+// Crear el servidor WebSocket
+const wss = new WebSocketServer({ server });
+
+// Iniciar el servidor HTTP
+const PORT = 8080;
+server.listen(PORT, () => {
+  console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+});
+```
+
+En este código estamos creando un servidor HTTP con `createServer(app)` que servirá tanto las peticiones HTTP normales (archivos estáticos) como las conexiones WebSocket; configurando Express para servir archivos estáticos desde la carpeta `public`, donde estará nuestra interfaz HTML/CSS/JS del cliente; y creando el servidor WebSocket asociándolo al mismo servidor HTTP, lo que permite que ambos protocolos compartan el mismo puerto.
+
+El servidor WebSocket funciona mediante eventos. El evento más importante es `connection`, que se dispara cada vez que un cliente establece una conexión:
+
+```javascript
+wss.on('connection', (ws) => {
+  console.log('Nuevo cliente conectado');
+
+  // Aquí manejamos los eventos de este cliente específico
+});
+```
+
+El parámetro `ws` representa la conexión individual con ese cliente. Cada cliente que se conecta tiene su propio objeto `ws`, lo que nos permite comunicarnos de forma independiente con cada uno.
+
+Para recibir mensajes que envían los clientes, configuramos un listener para el evento `message` en cada conexión:
+
+```javascript
+wss.on('connection', (ws) => {
+  console.log('Nuevo cliente conectado');
+
+  ws.on('message', (message) => {
+    console.log('Mensaje recibido:', message.toString());
+
+    // Procesar el mensaje aquí
+    const data = message.toString();
+  });
+});
+```
+
+Los mensajes llegan como objetos `Buffer`, por lo que usamos `.toString()` para convertirlos a strings. Si esperamos recibir JSON, podemos parsearlo:
+
+```javascript
+ws.on('message', (message) => {
+  const data = JSON.parse(message.toString());
+  console.log('Nombre:', data.nombre);
+  console.log('Mensaje:', data.mensaje);
+});
+```
+
+Para enviar un mensaje a un cliente específico, usamos el método `send()` del objeto de conexión:
+
+```javascript
+ws.on('message', (message) => {
+  const received = message.toString();
+
+  // Enviar respuesta de vuelta al mismo cliente
+  ws.send(`Echo: ${received}`);
+});
+```
+
+Si queremos enviar objetos JavaScript (como JSON), debemos convertirlos a string primero:
+
+```javascript
+ws.on('message', (message) => {
+  const respuesta = {
+    tipo: 'confirmacion',
+    timestamp: new Date().toISOString(),
+    mensaje: 'Mensaje recibido correctamente'
+  };
+
+  ws.send(JSON.stringify(respuesta));
+});
+```
+
+Es fundamental limpiar recursos cuando un cliente se desconecta. Para esto escuchamos el evento `close`:
+
+```javascript
+wss.on('connection', (ws) => {
+  console.log('Nuevo cliente conectado');
+
+  ws.on('close', () => {
+    console.log('Cliente desconectado');
+    // Aquí podríamos limpiar cualquier dato asociado a este cliente
+  });
+
+  ws.on('message', (message) => {
+    // ... manejar mensajes
+  });
+});
+```
+
+También podemos manejar errores de conexión con el evento `error`:
+
+```javascript
+ws.on('error', (error) => {
+  console.error('Error en la conexión:', error);
+});
+```
+
+## Ejemplo completo: Servidor Echo
+
+Un servidor echo completo que devuelve cualquier mensaje que recibe se vería así:
+
+```javascript
+import express from 'express';
+import { WebSocketServer } from 'ws';
+import { createServer } from 'http';
+
+const app = express();
+const server = createServer(app);
+
+app.use(express.static('public'));
+
+const wss = new WebSocketServer({ server });
+
+wss.on('connection', (ws) => {
+  console.log('Nuevo cliente conectado');
+  
+  ws.on('message', (message) => {
+    const data = message.toString();
+    console.log('Mensaje recibido:', data);
+    
+    // Enviar el mensaje de vuelta al cliente
+    ws.send(`Echo: ${data}`);
+  });
+  
+  ws.on('close', () => {
+    console.log('Cliente desconectado');
+  });
+  
+  ws.on('error', (error) => {
+    console.error('Error:', error);
+  });
+});
+
+const PORT = 8080;
+server.listen(PORT, () => {
+  console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+});
+```
+
+## Ejemplo completo: Servidor de Chat con JSON
+
+Un servidor de chat más sofisticado que maneja mensajes en formato JSON:
+
+```javascript
+import express from 'express';
+import { WebSocketServer } from 'ws';
+import { createServer } from 'http';
+
+const app = express();
+const server = createServer(app);
+
+app.use(express.static('public'));
+
+const wss = new WebSocketServer({ server });
+
+wss.on('connection', (ws) => {
+  console.log('Nuevo cliente conectado al chat');
+  
+  ws.on('message', (message) => {
+    try {
+      // Parsear el mensaje JSON del cliente
+      const datos = JSON.parse(message.toString());
+      console.log(`${datos.nombre}: ${datos.mensaje}`);
+      
+      // Crear respuesta en formato JSON
+      const respuesta = {
+        nombre: datos.nombre,
+        mensaje: datos.mensaje,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Broadcast: enviar a todos los clientes
+      wss.clients.forEach((client) => {
+        if (client.readyState === ws.OPEN) {
+          client.send(JSON.stringify(respuesta));
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error al parsear mensaje:', error);
+      ws.send(JSON.stringify({ 
+        error: 'Formato de mensaje inválido' 
+      }));
+    }
+  });
+  
+  ws.on('close', () => {
+    console.log('Cliente desconectado del chat');
+  });
+  
+  ws.on('error', (error) => {
+    console.error('Error en la conexión:', error);
+  });
+});
+
+const PORT = 8080;
+server.listen(PORT, () => {
+  console.log(`Servidor de chat ejecutándose en http://localhost:${PORT}`);
+});
+```
+
+En este ejemplo de chat, recibimos mensajes JSON que contienen el nombre del usuario y su mensaje; validamos el formato usando un bloque try-catch para manejar errores de parsing; enriquecemos el mensaje añadiendo un timestamp del servidor; y hacemos broadcast enviando el mensaje a todos los clientes conectados en formato JSON.
+
+A menudo necesitamos mantener información sobre los clientes conectados. Podemos usar estructuras de datos como `Map` para asociar datos adicionales a cada conexión:
+
+```javascript
+const clientes = new Map();
+
+wss.on('connection', (ws) => {
+  // Asignar un ID único al cliente
+  const clientId = Date.now();
+  clientes.set(ws, { id: clientId, nombre: null });
+
+  console.log(`Cliente ${clientId} conectado`);
+
+  ws.on('message', (message) => {
+    const datos = JSON.parse(message.toString());
+
+    // Guardar el nombre del cliente
+    const clienteInfo = clientes.get(ws);
+    clienteInfo.nombre = datos.nombre;
+
+    // Procesar el mensaje...
+  });
+
+  ws.on('close', () => {
+    const clienteInfo = clientes.get(ws);
+    console.log(`Cliente ${clienteInfo.id} desconectado`);
+    clientes.delete(ws);
+  });
+});
+```
+
+## Integración con Express
+
+Podemos combinar rutas REST de Express con WebSockets en el mismo servidor:
+
+```javascript
+import express from 'express';
+import { WebSocketServer } from 'ws';
+import { createServer } from 'http';
+
+const app = express();
+const server = createServer(app);
+
+app.use(express.json());
+app.use(express.static('public'));
+
+// Rutas REST
+app.get('/api/status', (req, res) => {
+  res.json({
+    clientesConectados: wss.clients.size,
+    estado: 'activo'
+  });
+});
+
+// Servidor WebSocket
+const wss = new WebSocketServer({ server });
+
+wss.on('connection', (ws) => {
+  // ... manejar conexiones WebSocket
+});
+
+server.listen(8080, () => {
+  console.log('Servidor ejecutándose en http://localhost:8080');
+});
+```
+
+Esta arquitectura híbrida es muy útil porque HTTP/REST es ideal para operaciones puntuales como autenticación, consultas y subida de archivos, mientras que WebSocket es perfecto para comunicación en tiempo real como notificaciones, actualizaciones en vivo y chat. Ambos protocolos comparten el mismo servidor HTTP y puerto, simplificando el despliegue y la configuración del cliente.

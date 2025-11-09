@@ -1,0 +1,42 @@
+## WebSockets - Introducción {#sec-ex-ws-intro}
+
+###  Comparación REST vs WebSockets
+
+Analiza las diferencias entre REST y WebSockets y determina cuándo usar cada uno.
+
+**Tareas:**
+
+1. **Completa la tabla comparativa:**
+
+   | Aspecto | REST (HTTP) | WebSockets |
+   |---------|-------------|------------|
+   | Protocolo base | ? | ? |
+   | Conexión | ? | ? |
+   | Comunicación | ? (cliente→servidor) | ? |
+   | Overhead | ? | ? |
+   | Tiempo real | ? | ? |
+   | Escalabilidad | ? | ? |
+   | Complejidad | ? | ? |
+
+2. **Casos de uso - ¿REST o WebSocket?**
+   Para cada escenario de videojuego, indica si usarías REST, WebSocket o ambos, y justifica:
+
+   a) **Chat entre jugadores en tiempo real**
+   b) **Cargar lista de mapas disponibles**
+   c) **Sincronizar posición de jugadores en un shooter multijugador**
+   d) **Subir una puntuación al leaderboard**
+   e) **Notificaciones de amigos que se conectan**
+   f) **Descargar un mapa de 50MB**
+   g) **Partida de ajedrez online por turnos**
+   h) **Sistema de login/autenticación**
+
+3. **Investigación:**
+   - ¿Qué es el "handshake" de WebSocket?
+   - ¿Por qué WebSocket usa HTTP inicialmente?
+   - ¿Pueden atravesar WebSockets un firewall/proxy más fácilmente que un socket TCP puro?
+
+4. **Diseño arquitectónico:**
+   Para un juego multijugador tipo battle royale:
+   - ¿Qué información enviarías por REST?
+   - ¿Qué información enviarías por WebSocket?
+   - Dibuja un diagrama simple de la arquitectura

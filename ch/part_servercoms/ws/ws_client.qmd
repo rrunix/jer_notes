@@ -1,0 +1,155 @@
+# Cliente WebSockets con JavasScript {#sec-ws-client}
+
+## La API WebSocket en JavaScript
+
+JavaScript proporciona una API nativa para crear y administrar conexiones WebSocket desde el navegador. Esta API nos permite establecer conexiones con servidores WebSocket de forma sencilla y manejar toda la comunicación bidireccional. La gran ventaja de esta API es que está integrada directamente en el navegador, por lo que no necesitamos instalar librerías adicionales para usar WebSockets en nuestras aplicaciones web.
+
+La API está implementada en el objeto **WebSocket**. Para crear una conexión, simplemente instanciamos este objeto pasándole como parámetro la URL del servidor al que queremos conectarnos:
+
+```javascript
+WebSocket('ws://IP:PUERTO/RUTA');
+```
+
+Donde **ws://** es el protocolo WebSocket (o `wss://` para conexiones seguras), **IP** es la dirección IP o dominio del servidor, **PUERTO** es el puerto donde escucha el servidor WebSocket, y **RUTA** es el path específico del endpoint WebSocket en el servidor.
+
+Imagina que tenemos un servidor WebSocket ejecutándose localmente en el puerto 8080, con un endpoint llamado `/echo`:
+
+```javascript
+var connection = new WebSocket('ws://127.0.0.1:8080/echo');
+```
+
+Con esta única línea hemos creado la conexión. El navegador automáticamente inicia el handshake HTTP que vimos en el tema anterior, negocia el cambio al protocolo WebSocket, y establece la conexión persistente. Ahora tenemos un objeto `connection` que representa nuestro extremo de la comunicación bidireccional.
+
+## Métodos del Objeto WebSocket
+
+El objeto WebSocket tiene dos métodos principales que utilizaremos para interactuar con el servidor. El método **send()** transmite datos al servidor a través de la conexión WebSocket:
+
+```javascript
+connection.send('Hi');
+```
+
+Este método es muy simple: le pasamos los datos que queremos enviar y el objeto WebSocket se encarga de transmitirlos al servidor. Podemos enviar texto simple como `'Hola servidor'`, o datos más complejos (típicamente JSON convertido a string):
+
+```javascript
+var data = {
+  action: 'move',
+  x: 100,
+  y: 250
+};
+connection.send(JSON.stringify(data));
+```
+
+En juegos en red, es común enviar objetos JSON que describen las acciones del jugador. Por ejemplo, si el jugador se mueve, podríamos enviar:
+
+```javascript
+connection.send(JSON.stringify({
+  type: 'player_move',
+  x: 150,
+  y: 200
+}));
+```
+
+El método **close()** cierra la conexión WebSocket de forma ordenada:
+
+```javascript
+connection.close();
+```
+
+Cuando llamamos a este método, se inicia el proceso de cierre de la conexión, se envía una señal al servidor indicando que vamos a cerrar, y se libera la conexión. Esto es útil cuando el jugador sale del juego o cuando queremos limpiar recursos.
+
+## Event Listeners - La Clave de WebSockets
+
+Aquí viene la parte más importante: los **event listeners**. Un objeto WebSocket tiene diferentes atributos que actúan como listeners, es decir, funciones que se ejecutan automáticamente cuando ocurren ciertos eventos. Estos listeners son la forma en que nuestro código "escucha" lo que está pasando con la conexión WebSocket.
+
+El listener **onopen** es llamado cuando la conexión del WebSocket cambia a un estado abierto (OPEN):
+
+```javascript
+connection.onopen = function () {
+  connection.send('Hi');
+}
+```
+
+Este evento se dispara justo después de que la conexión se establece exitosamente. Es el momento perfecto para enviar un mensaje inicial al servidor, notificar al usuario que está conectado, o inicializar el estado del juego. En el ejemplo anterior, tan pronto como se abre la conexión, enviamos el mensaje 'Hi' al servidor. Podríamos hacer algo más elaborado:
+
+```javascript
+connection.onopen = function() {
+  console.log('¡Conectado al servidor!');
+
+  // Enviar información inicial del jugador
+  connection.send(JSON.stringify({
+    type: 'player_join',
+    username: 'Jugador1'
+  }));
+};
+```
+
+El listener **onerror** es llamado cuando se produce un error en la conexión:
+
+```javascript
+connection.onerror = function(e) {
+  console.log("WS error: " + e);
+}
+```
+
+Este evento se dispara cuando algo sale mal: no se puede establecer la conexión con el servidor, hay un problema de red, o el servidor rechaza la conexión. Es importante manejar estos errores para informar al usuario de que algo no funciona correctamente:
+
+```javascript
+connection.onerror = function(error) {
+  console.log("WS error: " + error);
+  alert('No se pudo conectar al servidor. Por favor, verifica tu conexión.');
+};
+```
+
+El listener **onmessage** es llamado cuando se recibe un mensaje del servidor. Este es probablemente el listener más importante, ya que aquí es donde procesamos toda la información que nos envía el servidor:
+
+```javascript
+connection.onmessage = function(msg) {
+  console.log("WS message: " + msg.data);
+}
+```
+
+El parámetro `msg` es un objeto evento que contiene la información del mensaje. El dato real que envió el servidor está en **msg.data**. Veamos un ejemplo más completo:
+
+```javascript
+connection.onmessage = function(msg) {
+  console.log("Mensaje recibido: " + msg.data);
+
+  // Si el servidor envía JSON, lo parseamos
+  var data = JSON.parse(msg.data);
+
+  // Procesamos según el tipo de mensaje
+  if (data.type === 'player_position') {
+    actualizarPosicionJugador(data.playerId, data.x, data.y);
+  } else if (data.type === 'game_over') {
+    mostrarPantallaFinJuego(data.winner);
+  }
+};
+```
+
+En un juego multijugador, este listener recibiría constantemente actualizaciones del servidor sobre posiciones de otros jugadores, estado del juego, y eventos importantes (un jugador ganó, apareció un enemigo, etc.).
+
+El listener **onclose** es llamado cuando la conexión del WebSocket cambia a un estado cerrado (CLOSED):
+
+```javascript
+connection.onclose = function(event) {
+  console.log('Conexión cerrada');
+};
+```
+
+Este evento se dispara cuando llamamos a `connection.close()` nosotros mismos, el servidor cierra la conexión, o se pierde la conexión de red. Es un buen lugar para limpiar recursos o intentar reconectar:
+
+```javascript
+connection.onclose = function(event) {
+  console.log('Desconectado del servidor');
+  console.log('Código de cierre:', event.code);
+
+  // Notificar al usuario
+  alert('Se ha perdido la conexión con el servidor');
+
+  // Intentar reconectar después de 3 segundos
+  setTimeout(function() {
+    connection = new WebSocket('ws://127.0.0.1:8080/echo');
+    configurarListeners(connection);
+  }, 3000);
+};
+```

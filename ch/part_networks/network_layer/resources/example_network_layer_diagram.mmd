@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant A as Dispositivo A<br/>(192.168.1.10)
+    participant RA as Router-A<br/>(Casa)<br/>192.168.1.1
+    participant RB as Router-B<br/>(Google DC)<br/>142.250.184.1
+    participant B as Servidor Web<br/>(142.250.184.3)
+
+    Note over A: 1) Analiza IP destino (142.250.184.3) <br/> 2) No está en mi red local <br/> 3) Decidir enviar al gateway (192.168.1.1)
+
+    A->>RA: Trama Ethernet<br/>MAC: A → Router-A<br/>IP: 192.168.1.10 → 142.250.184.3
+
+    Note over RA: 1) Recibe trama, extrae datagrama IP. <br/> 2) Consulta tabla de enrutamiento. <br/> 3) Envía al router ISP → Router-B
+
+    RA->>RB: Nueva trama Ethernet<br/>MAC: Router-A → Router-B<br/>IP: 192.168.1.10 → 142.250.184.3<br/>(múltiples saltos por Internet)
+
+    Note over RB: 1) Recibe trama, extrae datagrama IP. <br/> 2) IP 142.250.184.3 está en red local
+
+    RB->>B: Trama Ethernet<br/>MAC: Router-B → B<br/>IP: 192.168.1.10 → 142.250.184.3
+
+    Note over B: 1) Recepción final comprueba IP. <br/> 2) Entrega datos a capa superior

@@ -1,0 +1,104 @@
+---
+title: "Solución: WebSocket Servidor"
+---
+
+## Solución: Servidor WebSocket para Chat
+
+```javascript
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8080 });
+
+// Datos
+const clients = new Map();
+
+// Closure approach: función que retorna handlers
+function createChatHandlers() {
+    // Métodos privados
+    function broadcast(data, excludeWs = null) {
+        const message = JSON.stringify(data);
+        clients.forEach((clientData, ws) => {
+            if (ws !== excludeWs && ws.readyState === WebSocket.OPEN) {
+                ws.send(message);
+            }
+        });
+    }
+
+    function send(ws, data) {
+        if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(data));
+        }
+    }
+
+    // Retornar handlers públicos
+    return {
+        handleRegister(ws, data) {
+            const username = data.username;
+            clients.get(ws).username = username;
+
+            send(ws, { type: 'registered', username });
+            broadcast({ type: 'user_joined', username }, ws);
+
+            console.log(`User registered: ${username}`);
+        },
+
+        handleMessage(ws, data) {
+            const clientData = clients.get(ws);
+            if (!clientData.username) {
+                send(ws, { type: 'error', message: 'Not registered' });
+                return;
+            }
+
+            broadcast({
+                type: 'message',
+                username: clientData.username,
+                text: data.text,
+                timestamp: new Date().toISOString()
+            });
+        },
+
+        handleDisconnect(ws) {
+            const clientData = clients.get(ws);
+            if (clientData?.username) {
+                broadcast({ type: 'user_left', username: clientData.username }, ws);
+                console.log(`User disconnected: ${clientData.username}`);
+            }
+            clients.delete(ws);
+        }
+    };
+}
+
+// Crear handlers
+const handlers = createChatHandlers();
+
+// Manejar conexiones
+wss.on('connection', (ws) => {
+    console.log('New connection');
+    clients.set(ws, { username: null });
+
+    ws.on('message', (rawMessage) => {
+        const data = JSON.parse(rawMessage);
+
+        if (data.type === 'register') {
+            handlers.handleRegister(ws, data);
+        } else if (data.type === 'message') {
+            handlers.handleMessage(ws, data);
+        }
+    });
+
+    ws.on('close', () => handlers.handleDisconnect(ws));
+});
+
+console.log('WebSocket server running on ws://localhost:8080');
+```
+
+### Características de la solución
+
+**Closure approach para handlers:**
+- `createChatHandlers()` retorna objeto con handlers
+- Métodos privados (`broadcast`, `send`) encapsulados
+- Separa lógica de negocio de event listeners
+
+**Ventajas:**
+- Más funcional y modular
+- Encapsulación de métodos auxiliares
+- Fácil de testear cada handler

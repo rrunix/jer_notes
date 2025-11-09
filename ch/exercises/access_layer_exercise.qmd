@@ -1,0 +1,35 @@
+## Capa de Acceso {#sec-ex-access-layer}
+
+###  Análisis de Direcciones MAC y ARP
+
+Investiga las direcciones MAC en tu red local y el protocolo ARP.
+
+**Tareas:**
+
+1. **Descubre tu dirección MAC:**
+   - En Linux/Mac: `ip link show` o `ifconfig`
+   - En Windows: `ipconfig /all`
+   - Anota la dirección MAC de tu interfaz de red principal
+
+2. **Analiza la tabla ARP:**
+   - En Linux/Mac: `arp -a` o `ip neigh show`
+   - En Windows: `arp -a`
+   - Documenta:
+     - ¿Cuántas entradas tiene tu tabla ARP?
+     - ¿Reconoces alguna de las IPs? (router, otros dispositivos)
+     - ¿Hay entradas incompletas o que fallan?
+
+3. **Experimento con ARP:**
+   - Haz ping a tu router/gateway: `ping 192.168.1.1`
+   - Vuelve a consultar la tabla ARP
+   - ¿Qué ha cambiado?
+
+4. **Investigación:**
+   - ¿Qué pasaría si dos dispositivos en la misma red tuvieran la misma dirección MAC?
+   - ¿Por qué las direcciones MAC no se usan para enrutamiento en Internet?
+   - ¿Cuál es la diferencia entre una dirección MAC y una dirección IP en términos de alcance?
+
+5. **Analiza la estructura de la dirección MAC:**
+   - Tu MAC tiene formato: `XX:XX:XX:YY:YY:YY`
+   - Los primeros 3 bytes (XX:XX:XX) son el OUI (Organizationally Unique Identifier)
+   - Busca el fabricante de tu tarjeta de red en: https://maclookup.app/

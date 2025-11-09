@@ -1,0 +1,30 @@
+graph TD
+    PAN["📱 PAN (Personal Area Network)<br>Smartphone ↔ Smartwatch"]
+    LAN["🏠 LAN (Local Area Network)<br>Home/Office/Building Network"]
+    WLAN["📡 WLAN (Wireless LAN)<br>Wi-Fi Implementation of LAN"]
+    CAN["🏫 CAN (Campus Area Network)<br>Multiple LANs in Campus"]
+    MAN_ISP["🏙️ MAN (Metropolitan Area Network)<br>ISP Network"]
+    MAN_MOBILE["📶 MAN (Metropolitan Area Network)<br>5G/4G Mobile Network"]
+    WAN["🌍 WAN (Wide Area Network)<br>Between Cities or Countries"]
+    INTERNET["🌐 Internet<br>Global Interconnected WANs"]
+    VPN["🔐 VPN (Virtual Private Network)<br>Secure Tunnel over Internet"]
+    
+    %% Traditional wired path
+    PAN --> LAN
+    WLAN -.-> LAN
+    LAN -->|Multiple LANs| CAN
+    CAN --> MAN_ISP
+    LAN -->|Multiple LANs| MAN_ISP
+    
+    %% Mobile path
+    PAN --> MAN_MOBILE
+    
+    %% Both MANs connect to WAN
+    MAN_ISP -->|Multiple MANs| WAN
+    MAN_MOBILE -->|Multiple MANs| WAN
+    WAN -->|Multiple WANs| INTERNET
+    VPN --> INTERNET
+    
+    style WLAN fill:#e1f5fe
+    style VPN fill:#f3e5f5
+    style MAN_MOBILE fill:#fff3e0

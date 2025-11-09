@@ -1,0 +1,170 @@
+---
+title: "Solución: Phaser"
+---
+
+## Solución: Sistema de Puntuación Persistente
+
+```javascript
+class GameScene extends Phaser.Scene {
+    constructor() {
+        super('GameScene');
+        this.score = 0;
+        this.highScore = 0;
+    }
+
+    create() {
+        // Cargar high score desde localStorage
+        this.loadHighScore();
+
+        // Título del juego
+        this.add.text(400, 50, 'Sistema de Puntuación', {
+            fontSize: '32px',
+            fill: '#fff'
+        }).setOrigin(0.5);
+
+        // Mostrar puntuación actual
+        this.scoreText = this.add.text(400, 150, `Score: ${this.score}`, {
+            fontSize: '24px',
+            fill: '#0f0'
+        }).setOrigin(0.5);
+
+        // Mostrar high score
+        this.highScoreText = this.add.text(400, 200, `High Score: ${this.highScore}`, {
+            fontSize: '24px',
+            fill: '#ff0'
+        }).setOrigin(0.5);
+
+        // Instrucciones
+        this.add.text(400, 300, 'Presiona ESPACIO para incrementar puntos', {
+            fontSize: '16px',
+            fill: '#fff'
+        }).setOrigin(0.5);
+
+        // Configurar tecla SPACE para incrementar puntuación
+        this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        // Botón para resetear high score
+        const resetButton = this.add.text(400, 400, 'Resetear High Score', {
+            fontSize: '20px',
+            fill: '#f00',
+            backgroundColor: '#333',
+            padding: { x: 10, y: 5 }
+        }).setOrigin(0.5).setInteractive();
+
+        resetButton.on('pointerdown', () => {
+            this.resetHighScore();
+        });
+
+        // Efectos hover en el botón
+        resetButton.on('pointerover', () => {
+            resetButton.setStyle({ fill: '#fff' });
+        });
+
+        resetButton.on('pointerout', () => {
+            resetButton.setStyle({ fill: '#f00' });
+        });
+    }
+
+    update() {
+        // Detectar cuando se presiona SPACE
+        if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
+            this.incrementScore();
+        }
+    }
+
+    incrementScore() {
+        // Incrementar puntuación
+        this.score += 10;
+
+        // Actualizar texto de puntuación
+        this.scoreText.setText(`Score: ${this.score}`);
+
+        // Verificar si se superó el high score
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+            this.highScoreText.setText(`High Score: ${this.highScore}`);
+            this.saveHighScore();
+
+            // Efecto visual cuando se supera el high score
+            this.highScoreText.setScale(1.2);
+            this.tweens.add({
+                targets: this.highScoreText,
+                scale: 1,
+                duration: 200,
+                ease: 'Back.easeOut'
+            });
+        }
+    }
+
+    loadHighScore() {
+        try {
+            const saved = localStorage.getItem('highScore');
+            this.highScore = saved ? parseInt(saved) : 0;
+            console.log('High score cargado:', this.highScore);
+        } catch (error) {
+            console.error('Error al cargar high score:', error);
+            this.highScore = 0;
+        }
+    }
+
+    saveHighScore() {
+        try {
+            localStorage.setItem('highScore', this.highScore.toString());
+            console.log('High score guardado:', this.highScore);
+        } catch (error) {
+            console.error('Error al guardar high score:', error);
+        }
+    }
+
+    resetHighScore() {
+        this.highScore = 0;
+        this.highScoreText.setText(`High Score: ${this.highScore}`);
+        localStorage.removeItem('highScore');
+        console.log('High score reseteado');
+
+        // Efecto visual de reseteo
+        this.cameras.main.flash(200, 255, 0, 0);
+    }
+}
+
+// Configuración del juego
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    backgroundColor: '#2d2d2d',
+    scene: [GameScene]
+};
+
+const game = new Phaser.Game(config);
+```
+
+### Explicación de la solución
+
+**Características implementadas:**
+
+1. **Persistencia de datos**:
+   - `loadHighScore()`: Carga el high score de localStorage al iniciar
+   - `saveHighScore()`: Guarda el high score cada vez que se supera
+   - Manejo de errores con try-catch para localStorage
+
+2. **Interacción del usuario**:
+   - Tecla SPACE para incrementar puntuación
+   - Botón interactivo para resetear el high score
+   - Efectos hover en el botón
+
+3. **Feedback visual**:
+   - Animación de escala cuando se supera el high score
+   - Flash rojo de la cámara al resetear
+   - Colores diferentes para score (verde) y high score (amarillo)
+
+4. **Detección de input**:
+   - `Phaser.Input.Keyboard.JustDown()`: Detecta una sola pulsación (no repetida)
+   - Evita incrementos múltiples al mantener presionada la tecla
+
+5. **Comparación y actualización**:
+   - Verifica automáticamente si la puntuación actual supera el high score
+   - Actualiza tanto la variable como el texto en pantalla
+   - Persiste el cambio inmediatamente
+
+Esta solución demuestra cómo integrar localStorage con Phaser para crear sistemas de puntuación persistentes, una característica común en videojuegos.

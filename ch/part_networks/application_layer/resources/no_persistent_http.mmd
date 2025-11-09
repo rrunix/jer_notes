@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant C as Cliente (Navegador)
+    participant S as Servidor Web
+    Note over C,S: Solicitud del primer recurso
+    C->>S: 1. SYN - Establecer conexión TCP
+    S->>C: 2. SYN-ACK - Confirmar conexión
+    C->>S: 3. ACK - Conexión establecida
+
+    C->>S: 4. GET /index.html HTTP/1.0
+    S->>C: 5. HTTP/1.0 200 OK + contenido HTML
+
+    C->>S: 6. FIN - Cerrar conexión TCP
+    S->>C: 7. FIN-ACK - Confirmar cierre
+    C->>S: 8. ACK - Conexión cerrada
+
+    Note over C,S: Solicitud del segundo recurso
+    C->>S: 9. SYN - Nueva conexión TCP
+    S->>C: 10. SYN-ACK - Confirmar nueva conexión
+    C->>S: 11. ACK - Nueva conexión establecida
+
+    C->>S: 12. GET /imagen.jpg HTTP/1.0
+    S->>C: 13. HTTP/1.0 200 OK + imagen
+
+    C->>S: 14. FIN - Cerrar conexión TCP
+    S->>C: 15. FIN-ACK - Confirmar cierre
+    C->>S: 16. ACK - Conexión cerrada
+    Note over C,S: Tiempo total: 4 RTT + tiempo de transferencia

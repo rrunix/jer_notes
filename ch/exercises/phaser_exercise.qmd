@@ -1,0 +1,48 @@
+## Phaser {#sec-ex-phaser}
+
+###  Sistema de Puntuación Persistente
+
+Crea un sistema de puntuación para un juego Phaser que:
+
+1. Muestre la puntuación actual en pantalla durante el juego
+2. Guarde la puntuación más alta (high score) en `localStorage`
+3. Muestre el high score en la pantalla principal
+4. Permita resetear el high score
+
+**Requisitos:**
+
+- Crea una escena de Phaser con:
+  - Un texto que muestre "Score: X"
+  - Un texto que muestre "High Score: Y"
+  - Un botón o tecla para incrementar la puntuación (simular evento del juego)
+  - Un botón para resetear el high score
+
+- Implementa la lógica para:
+  - Incrementar la puntuación cuando ocurra un evento (ej: presionar SPACE)
+  - Comparar la puntuación actual con el high score
+  - Actualizar el high score si se supera
+  - Persistir el high score en `localStorage`
+  - Cargar el high score guardado al iniciar
+
+**Pista:** Utiliza `localStorage.setItem()` y `localStorage.getItem()` para la persistencia.
+
+**Estructura sugerida:**
+```javascript
+class GameScene extends Phaser.Scene {
+    constructor() {
+        super('GameScene');
+        this.score = 0;
+        this.highScore = 0;
+    }
+
+    create() {
+        // Cargar high score
+        // Crear textos
+        // Configurar controles
+    }
+
+    update() {
+        // Actualizar puntuación
+    }
+}
+```

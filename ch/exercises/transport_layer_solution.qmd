@@ -1,0 +1,261 @@
+---
+title: "Solución: Capa de Transporte"
+---
+
+## Solución: Análisis de Conexiones TCP y UDP
+
+### 1. Conexiones activas (ejemplo)
+
+```bash
+$ ss -tunap
+Netid  State    Recv-Q Send-Q Local Address:Port  Peer Address:Port
+tcp    ESTAB    0      0      192.168.1.100:54321 140.82.121.4:443
+tcp    ESTAB    0      0      192.168.1.100:48392 172.217.16.78:443
+tcp    LISTEN   0      128    127.0.0.1:5432       0.0.0.0:*
+tcp    LISTEN   0      128    0.0.0.0:22           0.0.0.0:*
+udp    UNCONN   0      0      0.0.0.0:68           0.0.0.0:*
+udp    UNCONN   0      0      192.168.1.100:54893  8.8.8.8:53
+```
+
+**Análisis:**
+
+**Conexiones TCP activas**: 4 conexiones
+1. `192.168.1.100:54321 → 140.82.121.4:443` (ESTABLISHED)
+   - Puerto 443 = **HTTPS**
+   - Probablemente navegador web conectado a GitHub
+
+2. `192.168.1.100:48392 → 172.217.16.78:443` (ESTABLISHED)
+   - Puerto 443 = **HTTPS**
+   - IP 172.217.x.x pertenece a Google (Gmail, YouTube, etc.)
+
+3. `127.0.0.1:5432` (LISTEN)
+   - Puerto 5432 = **PostgreSQL**
+   - Servidor de base de datos escuchando en localhost
+
+4. `0.0.0.0:22` (LISTEN)
+   - Puerto 22 = **SSH**
+   - Servidor SSH esperando conexiones en todas las interfaces
+
+**Conexiones UDP**: 2 conexiones
+1. `0.0.0.0:68` (UNCONN)
+   - Puerto 68 = **DHCP Client**
+   - Cliente esperando respuestas del servidor DHCP
+
+2. `192.168.1.100:54893 → 8.8.8.8:53` (UNCONN)
+   - Puerto 53 = **DNS**
+   - Consulta DNS a Google DNS (8.8.8.8)
+
+### 2. Estados TCP
+
+**Estados TCP identificados:**
+
+**ESTABLISHED**:
+- **Significado**: Conexión activa y funcionando
+- La conexión completó el handshake de 3 vías
+- Se están transmitiendo datos
+- Ambos extremos están comunicándose
+
+**LISTEN**:
+- **Significado**: Servidor esperando conexiones entrantes
+- El socket está en modo pasivo
+- Acepta peticiones SYN de clientes
+- Típico de servicios/servidores (SSH, PostgreSQL, HTTP)
+
+**TIME_WAIT**:
+- **Significado**: Conexión cerrada, esperando que pasen paquetes retrasados
+- Ocurre después de cerrar una conexión
+- Dura típicamente 2 * MSL (Maximum Segment Lifetime) = ~60-120 segundos
+- Evita que paquetes antiguos interfieran con nuevas conexiones
+
+**Otros estados TCP comunes**:
+- **SYN_SENT**: Cliente esperando respuesta después de enviar SYN
+- **SYN_RECEIVED**: Servidor recibió SYN, esperando ACK final
+- **FIN_WAIT_1/2**: Proceso de cierre de conexión en marcha
+- **CLOSE_WAIT**: Esperando que la aplicación cierre la conexión
+- **CLOSING**: Cierre simultáneo de ambos lados
+
+**¿Por qué puertos en LISTEN?**
+- Los servicios/servidores deben escuchar continuamente
+- Esperan conexiones entrantes de clientes
+- Ejemplos:
+  - Servidor web escucha en puerto 80/443
+  - Servidor SSH escucha en puerto 22
+  - Base de datos escucha en su puerto específico
+
+### 3. TCP vs UDP
+
+| Característica | TCP | UDP |
+|----------------|-----|-----|
+| **Orientado a conexión** | ✅ Sí (handshake requerido) | ❌ No (sin estado) |
+| **Garantiza entrega** | ✅ Sí (ACK + retransmisión) | ❌ No (fire and forget) |
+| **Garantiza orden** | ✅ Sí (números de secuencia) | ❌ No (pueden llegar desordenados) |
+| **Control de flujo** | ✅ Sí (ventana deslizante) | ❌ No |
+| **Control de congestión** | ✅ Sí (algoritmos como TCP Reno) | ❌ No |
+| **Overhead** | ⬆️ Alto (cabecera 20-60 bytes) | ⬇️ Bajo (cabecera 8 bytes) |
+| **Velocidad** | ⬇️ Más lento (por fiabilidad) | ⬆️ Más rápido (sin confirmaciones) |
+| **Detección de errores** | ✅ Checksum + reenvío | ⚠️ Checksum (pero no reenvía) |
+| **Ejemplo de uso** | HTTP, HTTPS, FTP, SSH, Email | DNS, DHCP, streaming, VoIP, gaming |
+
+**Explicación detallada:**
+
+**TCP - Transmission Control Protocol**:
+- **Fiable pero lento**: Cada paquete debe confirmarse (ACK)
+- **Stream de bytes**: Los datos se entregan como flujo continuo ordenado
+- **Uso**: Cuando la integridad es crítica (transferencia de archivos, páginas web, etc.)
+
+**UDP - User Datagram Protocol**:
+- **Rápido pero no fiable**: No espera confirmaciones
+- **Datagramas independientes**: Cada paquete es independiente
+- **Uso**: Cuando la velocidad es más importante que la perfección (video, juegos, DNS)
+
+### 4. Handshake de TCP (3-way handshake)
+
+```
+Cliente                                    Servidor
+  │                                           │
+  │    1. SYN (seq=100)                       │
+  │──────────────────────────────────────────>│
+  │                                           │
+  │    Estado: SYN_SENT                       │ Estado: LISTEN → SYN_RECEIVED
+  │                                           │
+  │                2. SYN-ACK                 │
+  │                (seq=300, ack=101)         │
+  │<──────────────────────────────────────────│
+  │                                           │
+  │    3. ACK (seq=101, ack=301)              │
+  │──────────────────────────────────────────>│
+  │                                           │
+  │    Estado: ESTABLISHED                    │ Estado: ESTABLISHED
+  │                                           │
+  │         Conexión establecida              │
+  │<─────────────────────────────────────────>│
+  │            Transferencia de datos         │
+```
+
+**Proceso detallado:**
+
+1. **SYN (Synchronize)**:
+   - Cliente envía paquete con flag SYN=1
+   - Incluye número de secuencia inicial (ej: seq=100)
+   - Estado del cliente: SYN_SENT
+
+2. **SYN-ACK (Synchronize-Acknowledge)**:
+   - Servidor responde con flags SYN=1 y ACK=1
+   - Incluye su propio número de secuencia (seq=300)
+   - Confirma el SYN del cliente (ack=101, es decir, seq+1)
+   - Estado del servidor: SYN_RECEIVED
+
+3. **ACK (Acknowledge)**:
+   - Cliente confirma el SYN del servidor
+   - Envía ACK=1 con ack=301 (seq del servidor + 1)
+   - Estado de ambos: ESTABLISHED
+   - ¡La conexión está lista para transmitir datos!
+
+**¿Qué ocurre si se pierde un paquete?**
+
+**Caso 1: Se pierde el SYN inicial**
+```
+Cliente              Servidor
+   │──── SYN ────X
+   │
+   │  (timeout ~3 segundos)
+   │
+   │──── SYN ────────>
+   │<─── SYN-ACK ────
+   │──── ACK ────────>
+```
+- El cliente reintenta después del timeout (retransmisión)
+- Típicamente 3-5 reintentos con backoff exponencial
+
+**Caso 2: Se pierde el SYN-ACK**
+```
+Cliente              Servidor
+   │──── SYN ────────>
+   │                 (SYN-ACK se pierde)
+   │     X ←── SYN-ACK
+   │
+   │  (timeout cliente)
+   │
+   │──── SYN ────────>
+   │<─── SYN-ACK ────
+   │──── ACK ────────>
+```
+- El cliente retransmite el SYN completo
+- El servidor reenvía el SYN-ACK
+
+**Caso 3: Se pierde el ACK final**
+```
+Cliente              Servidor
+   │──── SYN ────────>
+   │<─── SYN-ACK ────
+   │──── ACK ────X
+   │
+   │ (servidor timeout)
+   │
+   │<─── SYN-ACK ──── (reenvío)
+   │──── ACK ────────>
+```
+- El servidor reenvía el SYN-ACK
+- El cliente lo recibe y reenvía el ACK
+- Si el cliente ya envió datos, el servidor los aceptará (el ACK implícito en datos cuenta)
+
+### 5. Caso práctico: Videojuego multijugador
+
+**Chat de texto entre jugadores: TCP**
+- **Razón**:
+  - Mensajes deben llegar completos y en orden
+  - No importa un pequeño delay (50-100ms)
+  - Perder mensajes sería frustrante para usuarios
+  - Garantía de entrega es crítica
+- **Ejemplo**: "¡Cuidado enemigo!" debe llegar completo
+
+**Posición de jugadores en tiempo real: UDP**
+- **Razón**:
+  - Latencia ultra-baja es crítica (<50ms ideal)
+  - Los datos se envían 20-60 veces por segundo
+  - Si un paquete se pierde, el siguiente lo reemplaza
+  - Dato antiguo retransmitido no sirve (ya hay uno más nuevo)
+  - TCP añadiría lag inaceptable
+- **Técnicas adicionales**:
+  - Client-side prediction
+  - Server reconciliation
+  - Interpolación entre posiciones
+- **Ejemplo**: Perdemos frame de posición (50,100) pero recibimos siguiente (52,103)
+
+**Transferencia de archivos (mapas, texturas): TCP**
+- **Razón**:
+  - Integridad del archivo es absolutamente crítica
+  - Un solo byte corrupto puede romper el mapa/textura
+  - No importa si tarda unos segundos más
+  - Se hace típicamente al cargar nivel (no en tiempo real)
+  - Checksum y validación son necesarios
+- **Ejemplo**: Mapa de 50MB debe llegar perfecto o el juego crashea
+
+**Sistema de login/autenticación: TCP**
+- **Razón**:
+  - Seguridad crítica: credenciales deben llegar intactas
+  - TLS/SSL requiere TCP (handshake de cifrado)
+  - No se repite frecuentemente (solo al conectar)
+  - Confiabilidad más importante que velocidad
+  - Necesita confirmación del servidor
+- **Ejemplo**: Usuario/contraseña no pueden llegar corruptos o incompletos
+
+**Resumen práctico:**
+
+```
+Juego Multijugador (ej: shooter online)
+
+TCP:                          UDP:
+├─ Sistema de login          ├─ Posición de jugadores
+├─ Chat de texto             ├─ Rotación de cámara
+├─ Descarga de mapas         ├─ Estado de animaciones
+├─ Compra de items           ├─ Efectos de partículas
+├─ Matchmaking               └─ Audio voice chat (a veces)
+└─ Leaderboards
+
+Híbrido común:
+├─ TCP para datos críticos
+└─ UDP para estado del juego en tiempo real
+```
+
+Muchos juegos modernos usan **ambos simultáneamente**: TCP para lo crítico y UDP para lo rápido.

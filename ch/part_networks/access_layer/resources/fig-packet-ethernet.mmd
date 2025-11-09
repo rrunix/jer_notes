@@ -1,0 +1,9 @@
+packet-beta
+    0-63: "Preámbulo (8 bytes) - Sincronización"
+    64-111: "Dirección MAC Destino (6 bytes)"
+    112-159: "Dirección MAC Origen (6 bytes)"
+    160-175: "Tipo/Longitud (2 bytes)"
+    176-191: "Data/Payload"
+    192-207: "(46-1500 bytes)"
+    208-223: "Frame Check Sequence"
+    224-255: "FCS - CRC (4 bytes)"

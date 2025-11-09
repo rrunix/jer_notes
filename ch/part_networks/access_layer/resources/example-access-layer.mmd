@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant A as Computadora A<br/>(00:1A:2B:3C:4D:5E)
+    participant S as Switch<br/>(Tabla MAC)
+    participant B as Computadora B<br/>(00:2B:3C:4D:5E:6F)
+    participant C as Computadora C<br/>(00:3C:4D:5E:6F:70)
+    participant D as Computadora D<br/>(00:4D:5E:6F:70:81)
+
+    Note over S: Tabla MAC vacía
+
+    Note over A,D: FASE 1: ARP Request (Broadcast)
+    
+    A->>S: ARP Request<br/>Origen: A (00:1A:2B:3C:4D:5E)<br/>Destino: Broadcast (FF:FF:FF:FF:FF:FF)
+    
+    Note over S: Aprende: Puerto 1 → MAC de A
+    
+    S->>B: ARP Request (Flooding)
+    S->>C: ARP Request (Flooding)
+    S->>D: ARP Request (Flooding)
+    
+    Note over B,D: Solo C responde al ARP
+
+    Note over A,D: FASE 2: ARP Response
+    
+    C->>S: ARP Response<br/>Origen: C (00:3C:4D:5E:6F:70)<br/>Destino: A (00:1A:2B:3C:4D:5E)
+    
+    Note over S: Aprende: Puerto 3 → MAC de C
+    
+    S->>A: ARP Response (Unicast)
+
+    Note over A,D: FASE 3: Comunicación Directa
+    
+    A->>S: Datos para C<br/>Origen: A (00:1A:2B:3C:4D:5E)<br/>Destino: C (00:3C:4D:5E:6F:70)
+    
+    Note over S: Consulta tabla MAC<br/>Encuentra C en puerto 3
+    
+    S->>C: Datos (Solo puerto 3)

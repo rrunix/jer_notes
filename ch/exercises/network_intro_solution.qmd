@@ -1,0 +1,158 @@
+---
+title: "Solución: Introducción a Redes"
+---
+
+## Solución: Investigación del Modelo TCP/IP
+
+### 1. Traza de ruta (ejemplo real)
+
+```bash
+$ traceroute www.google.com
+traceroute to www.google.com (142.250.185.14), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  3.414 ms  3.863 ms  1.752 ms
+ 2  100.70.0.1 (100.70.0.1)  5.245 ms  4.996 ms  4.405 ms
+ 3  10.14.0.53 (10.14.0.53)  7.091 ms  4.812 ms  4.892 ms
+ 4  10.14.246.6 (10.14.246.6)  4.209 ms  4.406 ms  4.230 ms
+ 5  * * *
+ 6  72.14.195.182 (72.14.195.182)  4.665 ms
+ 7  74.125.245.171 (74.125.245.171)  5.109 ms  5.751 ms  5.791 ms
+ 8  142.250.185.14 (142.250.185.14)  4.722 ms  6.253 ms  4.893 ms
+```
+
+**Análisis:**
+- **Saltos totales**: 8 hops hasta Google
+- **Salto 1** (192.168.1.1): Router doméstico (gateway local)
+- **Saltos 2-4**: Routers del ISP (direcciones privadas/internas del ISP)
+- **Salto 5**: Timeout (router configurado para no responder ICMP)
+- **Saltos 6-7**: Infraestructura de Google (IPs públicas de Google)
+- **Salto 8**: Servidor web de Google (destino final)
+
+### 2. Análisis por capas para HTTPS
+
+**Capa de Aplicación:**
+- **Protocolo**: HTTP/HTTPS (HTTP sobre TLS/SSL)
+- **Función**:
+  - El navegador construye una petición HTTP GET
+  - Ejemplo: `GET / HTTP/1.1\nHost: www.google.com`
+  - HTTPS añade cifrado TLS para seguridad
+- **Puerto**: 443 (HTTPS) o 80 (HTTP)
+
+**Capa de Transporte:**
+- **Protocolo**: **TCP** (no UDP)
+- **Razón**:
+  - HTTP requiere transmisión confiable y ordenada
+  - TCP garantiza que todos los datos lleguen completos y en orden
+  - TCP maneja retransmisiones si hay pérdida de paquetes
+  - Necesario establecer conexión (handshake de 3 vías)
+- **Información añadida**:
+  - Puerto origen (ej: 54321) y destino (443)
+  - Números de secuencia para ordenar paquetes
+  - ACKs para confirmar recepción
+  - Checksum para integridad
+
+**Capa de Red:**
+- **Protocolo**: IP (Internet Protocol)
+- **Información en paquetes IP**:
+  - Dirección IP origen: Tu IP (ej: 192.168.1.100 → traducida por NAT)
+  - Dirección IP destino: IP de Google (ej: 142.250.185.14)
+  - TTL (Time To Live): Evita loops infinitos
+  - Protocolo de capa superior: TCP (valor 6)
+  - Checksum de cabecera
+- **Función**: Enrutamiento entre redes
+
+**Capa de Acceso a la Red:**
+- **Tecnología física** (ejemplo): WiFi 802.11ac
+- **Protocolo de enlace**: Ethernet (sobre WiFi)
+- **Información añadida**:
+  - Dirección MAC origen: Tu tarjeta de red
+  - Dirección MAC destino: Router WiFi
+  - Frame check sequence (FCS) para detección de errores
+- **Conversión**: Bits a señales de radio (2.4GHz o 5GHz)
+
+### 3. Diagrama de encapsulación
+
+```
+┌────────────────────────────────────────────────────────────┐
+│ APLICACIÓN: Datos HTTP                                     │
+│ GET / HTTP/1.1                                             │
+│ Host: www.google.com                                       │
+└────────────────────────────────────────────────────────────┘
+                        ↓ Añade cabecera TCP
+┌──────────────┬─────────────────────────────────────────────┐
+│ Cabecera TCP │ Datos HTTP                                  │
+│ Src:54321    │ GET / HTTP/1.1                              │
+│ Dst:443      │ Host: www.google.com                        │
+│ Seq, ACK...  │                                             │
+└──────────────┴─────────────────────────────────────────────┘
+                        ↓ Añade cabecera IP
+┌─────────────┬──────────────┬──────────────────────────────┐
+│ Cabecera IP │ Cabecera TCP │ Datos HTTP                   │
+│ Src IP      │ Src:54321    │ GET / HTTP/1.1               │
+│ Dst IP      │ Dst:443      │ Host: www.google.com         │
+│ TTL, Proto  │              │                              │
+└─────────────┴──────────────┴──────────────────────────────┘
+                        ↓ Añade cabecera Ethernet + trailer
+┌────────────┬─────────────┬──────────────┬─────────────┬────┐
+│ Cabecera   │ Cabecera IP │ Cabecera TCP │ Datos HTTP  │FCS │
+│ Ethernet   │ Src IP      │ Src:54321    │ GET /...    │    │
+│ MAC Src    │ Dst IP      │ Dst:443      │             │    │
+│ MAC Dst    │ TTL, Proto  │              │             │    │
+└────────────┴─────────────┴──────────────┴─────────────┴────┘
+                        ↓ Se convierte en bits
+              01010101010101... (señal WiFi/Ethernet)
+```
+
+**Proceso inverso (desencapsulación) en el servidor:**
+1. Capa física recibe bits, los convierte en trama
+2. Capa de enlace verifica MAC destino, extrae paquete IP
+3. Capa de red verifica IP destino, extrae segmento TCP
+4. Capa de transporte verifica puerto, reensambla datos
+5. Capa de aplicación procesa la petición HTTP
+
+### 4. Reflexión
+
+**¿Por qué organización en capas?**
+
+1. **Modularidad**: Cada capa tiene una responsabilidad específica y bien definida
+2. **Abstracción**: Las capas superiores no necesitan conocer detalles de las inferiores
+3. **Interoperabilidad**: Diferentes implementaciones pueden trabajar juntas si respetan las interfaces
+
+**Ventajas de la separación:**
+
+1. **Desarrollo independiente**:
+   - Los protocolos de cada capa pueden evolucionar sin afectar a otros
+   - Diferentes equipos pueden trabajar en diferentes capas
+
+2. **Reutilización**:
+   - TCP/IP funciona sobre WiFi, Ethernet, fibra, 4G, etc.
+   - HTTP puede usar TCP o QUIC sin cambiar la aplicación
+
+3. **Facilita el debugging**:
+   - Puedes analizar problemas capa por capa
+   - Herramientas especializadas (Wireshark, tcpdump) por capa
+
+4. **Flexibilidad**:
+   - Puedes optimizar cada capa según el contexto
+   - Añadir nuevas tecnologías en cualquier capa
+
+**Ejemplo de cambio de capa sin afectar a otras:**
+
+**Escenario**: Cambiar de WiFi a Ethernet (cable)
+
+- **Capa afectada**: Solo la Capa de Acceso a la Red
+- **Cambios**:
+  - Tecnología física: Ondas de radio → Señales eléctricas en cable
+  - Dirección MAC: Cambia (cada interfaz tiene su MAC)
+  - Velocidad: Puede variar (WiFi 300Mbps → Ethernet 1Gbps)
+
+- **Capas NO afectadas**:
+  - **Red**: Misma IP, mismo enrutamiento
+  - **Transporte**: Mismo TCP, mismas conexiones se mantienen
+  - **Aplicación**: El navegador ni se entera del cambio
+
+**Otro ejemplo**: Cambiar de HTTP a HTTP/2
+- **Capa afectada**: Solo Aplicación
+- **Cambios**: Multiplexación, compresión de cabeceras, server push
+- **Capas inferiores**: TCP, IP, Ethernet siguen igual
+
+Esta separación es lo que hace que Internet sea tan flexible y escalable.

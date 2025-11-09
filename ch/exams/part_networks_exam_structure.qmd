@@ -1,0 +1,184 @@
+---
+title: "Estructura y posibles preguntas del Parcial 1"
+author: "Juegos en red"
+
+format: pdf
+---
+
+**Estructura del examen:**
+
+- 2 preguntas de desarrollo (corto): 3.5 sobre 10.
+- 4 preguntas cortas: 4 sobre 10.
+- 4 preguntas de tipo test: 2.5 sobre 10.
+
+
+**Preguntas muy importantes:**
+
+1. Explica brevemente cuáles son las capas de la pila de protocolos TCP/IP y nombra un protocolo de cada una de ellas.
+2. Explica el funcionamiento de los routers y de los switch.
+
+**Otras preguntas cortas:**
+
+1. ¿Qué es la transmisión de datos fiable?
+2. ¿Cuáles son las **principales** limitaciones de IPv4? ¿Cómo se solucionan en IPv6?
+3. Explica para qué se utiliza NAT.
+4. ¿Qué ventajas otorga CIDR respecto al sistema de clases?
+5. ¿Cuál es el principal motivo de la escalabilidad de Internet (Redes de datagramas)?
+6. Para cada una de las capas de la pila de protocolos TCP/IP indica si se ejecutan en los host y en el núcleo de la red.
+7. ¿Con qué protocolo podemos obtener la dirección MAC a partir de una IP de un dispositivo que está en nuestra red?
+8. Explica las diferencias entre los diferentes tipos de arquitecturas de aplicaciones en red.
+9. ¿Qué es la encapsulación?
+10. ¿Qué es una arquitectura basada en capas?
+11. Para un juego de tu elección, justifica brevemente qué protocolo de la capa de transporte utilizarías.
+12. ¿Qué es el MTU? ¿Qué pasa si un paquete lo excede?
+13. ¿Qué es una dirección MAC?
+14. ¿Qué es una dirección IP? ¿Y es su estructura?
+15. ¿Cuáles son las características principales del protocolo IP?
+16. ¿Qué es una dirección IP privada?
+17. ¿Qué pasa si se pierde un paquete en TCP? ¿Qué mecanismos se ven afectados? ¿Y en UDP?
+18. ¿Qué es el control de flujo?
+19. ¿Qué es un socket?
+20. ¿Como funciona el protocolo DNS?
+
+**Preguntas de tipo test:**
+
+En el enunciado de la pregunta se os especificará si tiene una única opción o múltiples.
+
+1. [MULTIPLE] ¿Qué nos asegura una transmisión fiable?:
+    - Entrega en orden
+    - Sin mensajes duplicados
+    - Se entrega toda la información
+    - La información llega antes de cierto tiempo límite
+
+2. [MULTIPLE] En una arquitectura cliente-servidor:
+    - El servidor siempre está activo
+    - El servidor inicia la conexión
+    - La IP del servidor es fija
+    - Los clientes hablan entre sí.
+
+3. [UNICA] en el protocolo HTTP:
+    - Sigue una arquitectura cliente-servidor.
+    - Tiene estado ya que estamos utilizando TCP.
+    - No es necesario utilizar un verbo (método).
+    - Tiene seguridad nativa.
+
+4. [MULTIPLE] En el plano de datos del router:
+    - Ejecuta el proceso de reenvío
+    - Ejecuta el proceso de enrutamiento
+    - Calcula la tabla de reenvío.
+    - Selecciona los puertos de salida.
+
+5. [MULTIPLE] Cuáles de las siguientes **NO** son correctas respecto al protocolo IP:
+    - Necesita establecer una conexión previamente
+    - Tiene control de flujo
+    - Es un protocolo de mejor esfuerzo
+    - Fragmenta los paquetes
+
+
+**Sobre la puntuación de preguntas de tipo test**
+
+Los tests se diseñan para que el valor esperado si contestáis de forma aleatoria sean un 0. Es decir, las seleccionadas incorrectamente incluyen una penalización. Dependiendo de si son multi-opción o una única opción se calcula de forma diferente, siendo la multi-opción una generalización de una única opción.
+
+**Opción única**
+Con **n** opciones, restar por fallo:
+```
+p = x/(n-1)
+```
+
+Donde $p$ es la penalización, $x$ es la puntuación de la pregunta y $n$ es el número de preguntas.
+
+**Ejemplos:**
+
+- 4 opciones: restar x/3
+- 5 opciones: restar x/4
+
+**Múltiples opciones**
+
+Si hay **k** correctas entre **n** totales:
+```
+p = x/(n-k)
+```
+
+Donde $p$ es la penalización, $x$ es la puntuación de la pregunta, $n$ el número de preguntas y $k$ el número de opciones válidas.
+
+**Ejemplos:**
+
+- 4 opciones con 2 válidas: restar x / (4-2) = x/2
+
+**Análisis computacional de sesgo**
+
+> El valor esperado, "la media", debería de ser 0.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = 1
+n_simulaciones = 10_000
+n_preguntas = 5
+
+n_opciones = 4
+penalizacion_unica = x / (n_opciones - 1)
+
+correctas = np.random.randint(0, n_opciones, size=(n_simulaciones, n_preguntas))
+respuestas = np.random.randint(0, n_opciones, size=(n_simulaciones, n_preguntas))
+
+aciertos = (correctas == respuestas)
+puntos_pregunta = np.where(aciertos, x, -penalizacion_unica)
+
+notas_unica = puntos_pregunta.sum(axis=1)
+
+n_opciones_mult = 4
+k_correctas = 2
+n_incorrectas = n_opciones_mult - k_correctas
+penalizacion_mult = x / n_incorrectas
+
+correctas_mult = np.zeros((n_simulaciones, n_preguntas, n_opciones_mult), dtype=bool)
+
+for i in range(n_simulaciones):
+    for j in range(n_preguntas):
+        idx_correctas = np.random.choice(n_opciones_mult, k_correctas, replace=False)
+        correctas_mult[i, j, idx_correctas] = True
+
+marcadas_mult = np.random.rand(n_simulaciones, n_preguntas, n_opciones_mult) > 0.5
+
+correctas_marcadas = correctas_mult & marcadas_mult
+puntos_correctas = correctas_marcadas.sum(axis=2) * (x / k_correctas)
+
+incorrectas_marcadas = (~correctas_mult) & marcadas_mult
+puntos_incorrectas = incorrectas_marcadas.sum(axis=2) * penalizacion_mult
+
+puntos_mult_pregunta = puntos_correctas - puntos_incorrectas
+notas_mult = puntos_mult_pregunta.sum(axis=1)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+ax1.hist(notas_unica, bins=20, edgecolor='black', alpha=0.7, color='steelblue')
+ax1.axvline(np.mean(notas_unica), color='red', linestyle='--', linewidth=2, 
+            label=f'Media: {np.mean(notas_unica):.3f}')
+ax1.axvline(0, color='green', linestyle=':', linewidth=2, label='Esperado: 0')
+ax1.set_xlabel('Nota Final')
+ax1.set_ylabel('Frecuencia')
+ax1.set_title(f'Opción única - {n_preguntas} preguntas (n={n_opciones})\nPenalización: {penalizacion_unica:.3f} por fallo')
+ax1.legend()
+ax1.grid(axis='y', alpha=0.3)
+
+ax2.hist(notas_mult, bins=20, edgecolor='black', alpha=0.7, color='coral')
+ax2.axvline(np.mean(notas_mult), color='red', linestyle='--', linewidth=2,
+            label=f'Media: {np.mean(notas_mult):.3f}')
+ax2.axvline(0, color='green', linestyle=':', linewidth=2, label='Esperado: 0')
+ax2.set_xlabel('Nota Final')
+ax2.set_ylabel('Frecuencia')
+ax2.set_title(f'Múltiples opciones - {n_preguntas} preguntas (n={n_opciones_mult}, k={k_correctas})\nPenalización: {penalizacion_mult:.3f} por error')
+ax2.legend()
+ax2.grid(axis='y', alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+print(f"\nResultados con {n_preguntas} preguntas:")
+print(f"Opción única - Media: {np.mean(notas_unica):.4f}, Desv: {np.std(notas_unica):.4f}")
+print(f"Múltiples opciones - Media: {np.mean(notas_mult):.4f}, Desv: {np.std(notas_mult):.4f}")
+print(f"\nRango opción única: [{notas_unica.min():.2f}, {notas_unica.max():.2f}]")
+print(f"Rango múltiples: [{notas_mult.min():.2f}, {notas_mult.max():.2f}]")
+```

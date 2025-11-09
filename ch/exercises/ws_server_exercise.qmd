@@ -1,0 +1,60 @@
+## WebSockets - Servidor {#sec-ex-ws-server}
+
+###  Servidor WebSocket para Chat de Juego
+
+Implementa un servidor WebSocket simple usando Node.js y la librería `ws`.
+
+**Requisitos:**
+
+1. **Instala las dependencias:**
+   ```bash
+   npm init -y
+   npm install ws
+   ```
+
+2. **Implementa el servidor WebSocket:**
+   - Servidor escuchando en el puerto 8080
+   - Manejar conexiones de múltiples clientes simultáneamente
+   - Broadcast de mensajes a todos los clientes conectados
+   - Gestionar usuarios (username por cliente)
+
+3. **Tipos de mensajes:**
+   - `register`: Cliente envía su username al conectar
+   - `message`: Cliente envía mensaje de chat
+   - `user_joined`: Servidor notifica cuando alguien se une
+   - `user_left`: Servidor notifica cuando alguien se va
+
+4. **Funcionalidades:**
+   - Almacenar usuarios conectados con su websocket y username
+   - Broadcast a todos excepto al emisor
+   - Notificar a todos cuando un usuario se conecta/desconecta
+   - Manejo de errores y desconexiones
+
+**Estructura sugerida:**
+```javascript
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8080 });
+
+// Almacenar clientes conectados
+const clients = new Map(); // ws -> {username, ws}
+
+wss.on('connection', (ws) => {
+    console.log('New client connected');
+
+    ws.on('message', (message) => {
+        // TODO: Manejar mensajes
+    });
+
+    ws.on('close', () => {
+        // TODO: Manejar desconexión
+    });
+});
+```
+
+**Bonus:**
+
+- Logging con timestamp de cada evento
+- Comando "/users" para listar usuarios conectados
+- Límite máximo de clientes simultáneos
+- Heartbeat/ping para detectar conexiones muertas

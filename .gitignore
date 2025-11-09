@@ -1,0 +1,16 @@
+*_files
+.quarto
+.vscode
+.DS_Store
+.env
+_book
+aux
+TODO.md
+/.quarto/
+*-files/
+**/*.quarto_ipynb
+*.pdf
+*.html
+/.luarc.json
+*.png
+ch/part_networks/transport_layer/resources/tcp_congestion_window.png

@@ -1,0 +1,63 @@
+# Introducción a WebSockets {#sec-ws-intro}
+
+## Introducción a los Sockets
+
+Antes de adentrarnos en WebSockets, es fundamental comprender el concepto básico de sockets en las comunicaciones de red. En el contexto de las comunicaciones fiables, cuando conocemos la dirección IP y el puerto de dos aplicaciones que se ejecutan en máquinas distintas, los **sockets** permiten establecer una comunicación bidireccional entre ellas.
+
+Un **socket** se identifica mediante una dirección IP y un puerto. Podemos pensar en él como uno de los extremos de un canal de comunicación bidireccional entre dos programas. Cuando establecemos una conexión, tanto el cliente como el servidor tienen un socket asociado a través del cual pueden enviar y recibir información simultáneamente.
+
+Imaginemos un escenario típico donde un servidor tiene la IP `212.128.240.50` y está escuchando en el puerto `10000`, mientras que un cliente con IP `1XX.XXX.XXX.XX` usa un puerto dinámico (por ejemplo, `YYYY`). El proceso de comunicación funciona así: primero, el servidor se encuentra escuchando en su puerto específico; luego, el cliente inicia una petición de conexión hacia el servidor; una vez aceptada, se establece una conexión bidireccional donde ambas partes pueden enviar y recibir datos simultáneamente.
+
+Esta comunicación bidireccional es clave: no se trata solo de que el cliente solicite y el servidor responda, sino que ambos pueden iniciar el envío de información en cualquier momento una vez establecida la conexión. Un socket es cada uno de los extremos de esta comunicación bidireccional entre dos programas.
+
+## ¿Qué son los WebSockets?
+
+**WebSockets** es un protocolo de comunicaciones que permite abrir una sesión interactiva entre un cliente (normalmente un navegador web) y un servidor. La principal innovación de WebSockets es que permite establecer un canal **full-duplex**, lo que significa que tanto el cliente como el servidor pueden enviar mensajes de forma independiente sin necesidad de abrir una nueva conexión cada vez que se quiere comunicar. La comunicación es bidireccional y simultánea.
+
+El funcionamiento de WebSockets sigue estos pasos: inicialmente, el cliente solicita la conexión al servidor; la conexión es aceptada por el servidor; se genera una conexión permanente que permanece abierta; y deberá haber procesos en ambos lados que escuchen para recibir mensajes. Esta persistencia de la conexión es fundamental para aplicaciones en tiempo real como juegos multijugador, donde necesitamos que el servidor pueda enviar actualizaciones al cliente sin que este tenga que estar constantemente preguntando "¿hay algo nuevo?".
+
+## WebSockets como Estándar
+
+WebSockets está definido como un estándar de comunicación en el RFC 6455 que funciona sobre un único socket TCP. Una de las grandes ventajas de WebSockets es que utiliza el puerto 80 (el mismo que HTTP) de forma multiplexada, lo que significa que puede soportar varias comunicaciones por el mismo puerto, evita problemas con firewalls y proxies que bloquean puertos no estándar, y está pensado principalmente para navegadores y servidores web.
+
+Aunque WebSockets comienza con HTTP, no está limitado a este protocolo. Un cliente puede abrir un socket con el servidor y comunicarse con él a través de HTTP (el protocolo web tradicional) o un protocolo propio diseñado específicamente para la aplicación. Esta flexibilidad es especialmente útil en juegos en red, donde podemos diseñar un protocolo de comunicación optimizado para nuestras necesidades específicas.
+
+## Negociación de Conexión WebSocket
+
+Aunque los desarrolladores raramente necesitan implementar manualmente este proceso, entender cómo se negocia una conexión WebSocket nos ayuda a comprender mejor su funcionamiento. La negociación para obtener un WebSocket se inicia sobre HTTP. El cliente envía una petición especial:
+
+```http
+GET /demo HTTP/1.1
+Host: example.com
+Connection: Upgrade
+Upgrade: WebSocket
+Origin: http://example.com
+```
+
+Esta petición comienza como una petición HTTP normal (`GET /demo HTTP/1.1`), pero el header `Connection: Upgrade` indica que queremos cambiar de protocolo, el header `Upgrade: WebSocket` especifica que queremos usar WebSocket, y el header `Origin` indica desde dónde se origina la petición (importante para seguridad). En esencia, le estamos diciendo al servidor: "Hola, quiero establecer una conexión WebSocket contigo en la ruta `/demo`".
+
+Si el servidor acepta la conexión WebSocket, responde con:
+
+```http
+HTTP/1.1 101 WebSocket Protocol Handshake
+Upgrade: WebSocket
+Connection: Upgrade
+Sec-WebSocket-Origin: http://example.com
+Sec-WebSocket-Location: ws://example.com/demo
+```
+
+El código 101 indica que se acepta el cambio de protocolo, `Upgrade: WebSocket` confirma que vamos a usar WebSocket, `Connection: Upgrade` confirma el cambio de protocolo, `Sec-WebSocket-Origin` confirma el origen de la conexión, y `Sec-WebSocket-Location` indica la ubicación del WebSocket con el nuevo protocolo.
+
+Fíjate en la última línea: `ws://example.com/demo`. WebSocket introduce dos nuevos esquemas de protocolo: **ws://** para WebSocket en claro (equivalente a `http://`) y **wss://** para WebSocket seguro sobre TLS (equivalente a `https://`). Una vez completado este "handshake" (apretón de manos), la conexión HTTP se transforma en una conexión WebSocket persistente, y ambas partes pueden comenzar a intercambiar mensajes libremente.
+
+## Uso Normal de WebSockets
+
+En la práctica, normalmente no tenemos que preocuparnos por la negociación HTTP que acabamos de ver. Las conexiones se realizan automáticamente utilizando los protocolos **ws://** para WebSocket normal y **wss://** para WebSocket seguro. Cuando creamos una conexión WebSocket desde JavaScript (como veremos en el siguiente tema), simplemente usamos:
+
+```javascript
+new WebSocket('ws://example.com/demo');
+```
+
+Y todo el proceso de negociación que hemos explicado ocurre automáticamente entre bastidores. El navegador y el servidor se encargan de todo el intercambio HTTP inicial y del cambio al protocolo WebSocket.
+
+Para concluir este tema, es importante destacar por qué WebSockets es especialmente útil en el contexto de juegos en red: proporciona comunicación en tiempo real donde los jugadores reciben actualizaciones instantáneas sin demoras; es bidireccional, permitiendo que el servidor envíe eventos a los clientes sin que estos pregunten constantemente; es eficiente, ya que una sola conexión persistente consume menos recursos que múltiples peticiones HTTP; ofrece baja latencia, ideal para juegos que requieren respuestas rápidas; y es un estándar compatible que funciona en todos los navegadores modernos sin necesidad de plugins.

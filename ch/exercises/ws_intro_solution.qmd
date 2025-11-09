@@ -1,0 +1,57 @@
+---
+title: "Solución: WebSockets Introducción"
+---
+
+## Solución: Comparación REST vs WebSockets
+
+### Tabla comparativa
+
+| Aspecto | REST (HTTP) | WebSockets |
+|---------|-------------|------------|
+| **Conexión** | Nueva por petición | Persistente |
+| **Comunicación** | Unidireccional | Bidireccional |
+| **Tiempo real** | Polling necesario | Push inmediato |
+| **Overhead** | Alto (headers HTTP) | Bajo |
+| **Latencia** | Mayor | Menor |
+
+### Casos de uso
+
+**Chat en tiempo real**
+- **Protocolo**: WebSocket
+- **Por qué**: Mensajes instantáneos, comunicación bidireccional constante
+
+**Cargar lista de mapas**
+- **Protocolo**: REST
+- **Por qué**: Operación infrecuente, datos estáticos, cacheable
+
+**Sincronizar posiciones en shooter**
+- **Protocolo**: WebSocket
+- **Por qué**: Actualizaciones 60 veces/segundo, latencia crítica
+
+**Subir puntuación**
+- **Protocolo**: REST
+- **Por qué**: Operación ocasional, no requiere respuesta inmediata
+
+### Handshake de WebSocket
+
+El handshake establece la conexión mediante HTTP:
+
+```
+Cliente → Servidor:
+GET /chat HTTP/1.1
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+
+Servidor → Cliente:
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+```
+
+**¿Por qué usar HTTP inicialmente?**
+- Compatibilidad con proxies/firewalls
+- Puertos estándar 80/443 raramente bloqueados
+- Reutiliza autenticación HTTP (cookies, headers)
+- Usa TLS/SSL existente (WSS = WS sobre TLS)

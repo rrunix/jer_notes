@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant E as Emisor
+    participant R as Receptor
+
+    Note over R: Buffer: 4KB libres
+    R->>E: ACK=1000, Window=4096
+    E->>R: seq=1000, data=2KB
+    Note over R: Buffer: 2KB libres
+    R->>E: ACK=3000, Window=2048
+    E->>R: seq=3000, data=2KB
+    Note over R: Buffer: 0KB libres (lleno)
+    R->>E: ACK=5000, Window=0
+    Note over E: Detiene envío, inicia probe timer
+    Note over R: Aplicación lee datos, libera 1KB
+    E->>R: seq=5000, data=1 byte (window probe)
+    R->>E: ACK=5001, Window=1024
+    E->>R: seq=5001, data=1KB

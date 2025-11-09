@@ -1,0 +1,921 @@
+
+# Phaser 3 {#sec-phaser}
+
+En el capítulo anterior hemos aprendido los fundamentos de JavaScript, incluyendo su orientación a objetos, el manejo del DOM y BOM, y cómo configurar un entorno de desarrollo moderno con Node.js y Webpack. Ahora vamos a aplicar todos estos conocimientos para crear videojuegos web utilizando Phaser 3, uno de los frameworks más populares y potentes para el desarrollo de juegos en navegadores.
+
+Phaser 3 es un framework open source de HTML5 diseñado para la creación de videojuegos que se ejecutan directamente en navegadores web. Liberado en 2018, representa una evolución significativa respecto a versiones anteriores, ofreciendo un sistema más modular y potente para el desarrollo de juegos 2D. Phaser aprovecha todo lo que hemos aprendido sobre JavaScript: utiliza clases ES2015+ para estructurar el código, manipula el DOM para renderizar gráficos en el canvas, y se integra perfectamente con las herramientas de desarrollo modernas como npm y Webpack que ya conocemos.
+
+## Características principales
+
+El framework se caracteriza por su versatilidad y accesibilidad. Al estar basado en tecnologías web estándar (HTML5, JavaScript y Canvas/WebGL), permite crear juegos que no requieren instalación adicional por parte del usuario final. Esto facilita enormemente la distribución y accesibilidad de los juegos desarrollados.
+
+Phaser 3 soporta dos sistemas de renderizado: **Canvas**, que es el modo por defecto y el más compatible entre navegadores y dispositivos, y **WebGL**, que permite gráficos más avanzados pero requiere mayor soporte del hardware. La elección entre uno u otro dependerá de las necesidades específicas del proyecto y del público objetivo.
+
+Está orientado tanto a escritorio como a dispositivos móviles, lo que lo convierte en una opción ideal para el desarrollo de juegos multiplataforma sin necesidad de reescribir código para diferentes sistemas operativos.
+
+## Requisitos para empezar
+
+Para comenzar a desarrollar con Phaser 3 necesitamos:
+
+### Navegador web
+Cualquier navegador moderno funcionará, aunque se recomienda por orden de preferencia: Chrome, Firefox, Safari, Edge u Opera. Chrome suele ofrecer las mejores herramientas de desarrollo integradas.
+
+### Framework Phaser 3
+Podemos obtenerlo de tres formas:
+
+**Descarga directa**: Desde [https://phaser.io/download/stable](https://phaser.io/download/stable)
+
+**Repositorio GitHub**: [https://github.com/photonstorm/phaser](https://github.com/photonstorm/phaser)
+
+**CDN** (la más rápida para empezar):
+```html
+<script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+```
+
+## Estructura básica de un juego en Phaser 3
+
+### El elemento Canvas
+
+Phaser utiliza el elemento HTML5 `<canvas>` para renderizar los gráficos del juego. Este elemento es una etiqueta de HTML5 que permite dibujar gráficos mediante JavaScript y CSS.
+
+El canvas funciona como un lienzo en blanco donde podemos dibujar formas, imágenes y animaciones. A diferencia de un elemento `<img>`, el canvas no tiene atributos `src` ni `alt`, pero sí tiene `width` y `height` que definen el espacio de coordenadas (por defecto 300x300 píxeles).
+
+El sistema de coordenadas del canvas coloca el origen (0,0) en la esquina superior izquierda, con el eje X positivo hacia la derecha y el eje Y positivo hacia abajo.
+
+### Configuración inicial del juego
+
+La estructura mínima de un archivo HTML con Phaser tiene este aspecto:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="phaser.js"></script>
+</head>
+<body>
+    <script>
+        var config = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 300 }
+                }
+            },
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+        
+        var game = new Phaser.Game(config);
+        
+        function preload() {
+            // Cargar recursos
+        }
+        
+        function create() {
+            // Crear objetos del juego
+        }
+        
+        function update() {
+            // Actualizar cada frame
+        }
+    </script>
+
+    <!-- También podemos cargar directamente el juego con la creación, etc. Recomendado. -->
+    <script src="bundle.js"></script>
+</body>
+</html>
+```
+
+#### Objeto de configuración
+
+El objeto `config` es el punto de partida de cualquier juego en Phaser 3. Este objeto JavaScript define todos los parámetros fundamentales del juego: cómo se renderizará, qué tamaño tendrá, qué motor de físicas usará, y qué escenas contendrá. Es el equivalente a la "configuración inicial" o "settings" del juego.
+
+Veamos un ejemplo completo con las opciones más comunes:
+
+```javascript
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    backgroundColor: '#2d2d2d',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+
+var game = new Phaser.Game(config);
+```
+
+**Explicación detallada de cada propiedad:**
+
+- **`type`**: Especifica el sistema de renderizado que Phaser usará para dibujar los gráficos. Las opciones son:
+  - `Phaser.AUTO`: Phaser elige automáticamente el mejor disponible (intenta WebGL primero, si no está disponible usa Canvas)
+  - `Phaser.WEBGL`: Fuerza el uso de WebGL (más rápido, gráficos avanzados, requiere soporte GPU)
+  - `Phaser.CANVAS`: Fuerza el uso de Canvas 2D (más compatible, funciona en dispositivos antiguos)
+
+  **Recomendación:** Usar `Phaser.AUTO` en la mayoría de casos para máxima compatibilidad.
+
+- **`width` y `height`**: Dimensiones del canvas en píxeles. Definen el área de juego visible. En el ejemplo, 800x600 píxeles es un tamaño clásico que funciona bien en la mayoría de pantallas. Otras opciones comunes:
+  - 1024x768 para juegos más grandes
+  - 320x240 para juegos retro de pixel art
+  - Se puede usar `scale` para hacer el juego responsive (más sobre esto en configuración avanzada)
+
+- **`backgroundColor`**: Color de fondo del canvas en formato hexadecimal. Si no se especifica, será negro por defecto. Útil para dar un estilo visual inicial antes de cargar recursos.
+
+- **`physics`**: Objeto de configuración del motor de físicas. Tiene dos propiedades principales:
+  - **`default`**: Motor de físicas a usar (`'arcade'`, `'impact'`, o `'matter'`). Arcade es el más usado por su simplicidad y rendimiento.
+  - **`arcade`**: Objeto con configuración específica del motor Arcade Physics:
+    - **`gravity`**: Objeto con `x` e `y` que define la gravedad en píxeles/segundo². `{ y: 300 }` simula gravedad terrestre hacia abajo. Si fuera `{ y: -300 }` sería hacia arriba.
+    - **`debug`**: Boolean. Si es `true`, muestra los contornos de los cuerpos físicos en verde/azul, muy útil durante desarrollo para visualizar colisiones.
+
+- **`scene`**: Define las escenas del juego. Puede ser:
+  - Un objeto con las funciones `preload`, `create`, `update` (forma simple para juegos pequeños)
+  - Un array de clases de escena: `scene: [MenuPrincipal, Juego, GameOver]` (forma recomendada para juegos más complejos)
+  - Una sola clase: `scene: MiEscena`
+
+
+#### Las tres funciones principales
+
+Todo juego en Phaser 3 se estructura alrededor de tres funciones fundamentales que se ejecutan en un orden específico y cumplen roles claramente diferenciados. Estas funciones forman el ciclo de vida básico de una escena del juego.
+
+**preload() - Carga de recursos**
+
+Esta es la primera función que se ejecuta cuando se inicia una escena. Su propósito exclusivo es cargar todos los recursos (assets) que necesitará el juego: imágenes, spritesheets, audio, datos JSON, tilemaps, etc. Phaser ejecuta esta función y espera a que todos los recursos se carguen completamente antes de continuar con `create()`.
+
+```javascript
+function preload() {
+    // Cargar imágenes individuales
+    this.load.image('cielo', 'assets/cielo.png');
+    this.load.image('suelo', 'assets/plataforma.png');
+    this.load.image('estrella', 'assets/estrella.png');
+
+    // Cargar spritesheets para animaciones
+    this.load.spritesheet('jugador', 'assets/jugador.png', {
+        frameWidth: 32,
+        frameHeight: 48
+    });
+
+    // Cargar audio
+    this.load.audio('musica', 'assets/musica.mp3');
+}
+```
+
+Cada recurso se identifica con una clave única ('cielo', 'suelo', 'estrella') que usaremos después para referenciarlos en el juego. Es crucial cargar todos los recursos aquí para evitar problemas de recursos no disponibles durante el juego.
+
+**Otros tipos de recursos:** Phaser 3 soporta muchos más tipos de recursos como atlas de texturas, tilemaps, fuentes de bitmap, videos, plugins, shaders y más. Para una lista completa de métodos de carga, consulta la [documentación oficial de Phaser 3 Loader](https://docs.phaser.io/phaser/concepts/loader).
+
+**create() - Inicialización del juego**
+
+Se ejecuta una sola vez después de que `preload()` haya terminado de cargar todos los recursos. Aquí creamos e inicializamos todos los objetos del juego: colocamos sprites, creamos grupos, configuramos físicas, establecemos colisiones, inicializamos variables, y preparamos todo el estado inicial del juego.
+
+```javascript
+function create() {
+    // Añadir fondo (imagen estática sin físicas)
+    this.add.image(400, 300, 'cielo');
+
+    // Crear plataforma con físicas
+    var plataforma = this.physics.add.image(400, 500, 'suelo');
+    plataforma.setImmovable(true);          // No se mueve al colisionar
+    plataforma.setCollideWorldBounds(true); // No sale de los límites
+
+    // Crear jugador
+    this.jugador = this.physics.add.sprite(100, 450, 'jugador');
+    this.jugador.setBounce(0.2);
+    this.jugador.setCollideWorldBounds(true);
+
+    // Configurar colisión entre jugador y plataforma
+    this.physics.add.collider(this.jugador, plataforma);
+
+    // Configurar controles
+    this.cursors = this.input.keyboard.createCursorKeys();
+
+    // Inicializar puntuación
+    this.puntuacion = 0;
+    this.textoPuntuacion = this.add.text(16, 16, 'Puntos: 0', {
+        fontSize: '32px',
+        fill: '#000'
+    });
+}
+```
+
+El orden de creación es importante: los elementos se renderizan en el orden en que se añaden, por lo que si queremos que algo aparezca sobre otra cosa, debemos crearlo después. Observa cómo primero añadimos el fondo, luego las plataformas y finalmente el jugador y el texto, asegurando que cada elemento aparezca en la capa visual correcta.
+
+**update(time, delta) - Bucle principal del juego**
+
+Esta función se ejecuta continuamente, aproximadamente 60 veces por segundo (60 FPS), formando el bucle principal del juego (game loop). Aquí colocamos toda la lógica que debe actualizarse constantemente: movimiento del jugador, comportamiento de enemigos, detección de condiciones de victoria o derrota, actualización de puntuación, etc.
+
+Los parámetros son:
+
+- **`time`**: Tiempo total transcurrido desde que se inició el juego, en milisegundos
+- **`delta`**: Tiempo transcurrido desde el último frame, en milisegundos (normalmente ~16ms a 60 FPS)
+
+```javascript
+function update(time, delta) {
+    // Resetear velocidad horizontal
+    this.jugador.setVelocityX(0);
+
+    // Movimiento izquierda/derecha
+    if (this.cursors.left.isDown) {
+        this.jugador.setVelocityX(-160);
+        this.jugador.anims.play('izquierda', true);
+    } else if (this.cursors.right.isDown) {
+        this.jugador.setVelocityX(160);
+        this.jugador.anims.play('derecha', true);
+    } else {
+        this.jugador.anims.play('quieto');
+    }
+
+    // Saltar solo si está tocando el suelo
+    if (this.cursors.up.isDown && this.jugador.body.touching.down) {
+        this.jugador.setVelocityY(-330);
+    }
+
+    // Usar delta para movimiento independiente de framerate
+    // this.enemigo.x += (100 * delta / 1000); // 100 píxeles por segundo
+}
+```
+
+Es importante resetear velocidades o estados al inicio de `update()` para evitar que se acumulen. En el ejemplo, reseteamos la velocidad horizontal a 0 para que el jugador se detenga cuando no se presiona ninguna tecla.
+
+El parámetro `delta` es especialmente útil para movimientos independientes del framerate: si multiplicamos velocidades por `delta / 1000`, el movimiento será consistente incluso si el juego no mantiene exactamente 60 FPS. Esto es crucial para que el juego se comporte igual en diferentes dispositivos con distintas capacidades de procesamiento.
+
+**Resumen del flujo de ejecución:**
+
+1. **preload()** → Carga recursos una vez al inicio
+2. **create()** → Inicializa objetos y configuración una vez después de la carga
+3. **update()** → Se ejecuta continuamente 60 veces por segundo durante todo el juego
+
+## Gestión de escenas
+
+### Concepto de escena
+
+Una escena en Phaser 3 es una unidad autónoma y autocontenida que representa un estado o pantalla específica del juego. Podemos pensar en las escenas como los diferentes "momentos" o "pantallas" por los que pasa un jugador: el menú principal, la pantalla de carga, cada nivel del juego, el menú de pausa, la pantalla de game over, la tabla de puntuaciones, etc.
+
+Lo revolucionario del sistema de escenas es que cada una es completamente independiente: tiene su propio ciclo de vida con sus propias funciones `preload()`, `create()` y `update()`, mantiene sus propios objetos del juego (sprites, grupos, texto, etc.), gestiona su propia lógica, y puede cargar sus propios recursos específicos. Esta arquitectura modular tiene ventajas enormes:
+
+**Organización del código:** En lugar de tener todo el código del juego en un único archivo gigante, podemos separarlo en escenas lógicas. Por ejemplo, `MenuPrincipal.js`, `Nivel1.js`, `Nivel2.js`, `GameOver.js`. Esto hace que el código sea mucho más fácil de entender, mantener y depurar.
+
+**Reutilización:** Podemos tener una escena genérica de pausa que se lance sobre cualquier nivel de juego, o una escena de transición que se use entre diferentes niveles.
+
+**Gestión de memoria:** Cuando una escena termina, Phaser puede limpiar automáticamente todos sus recursos, liberando memoria. Esto es crucial para juegos grandes con muchos niveles.
+
+**Desarrollo en equipo:** Diferentes programadores pueden trabajar en diferentes escenas simultáneamente sin pisarse el código entre sí.
+
+**Ejemplo de estructura típica de un juego:**
+
+```javascript
+// Escena 1: Pantalla de carga inicial
+class Boot extends Phaser.Scene {
+    preload() {
+        // Cargar recursos mínimos (logo, barra de carga)
+    }
+    create() {
+        this.scene.start('MenuPrincipal');
+    }
+}
+
+// Escena 2: Menú principal
+class MenuPrincipal extends Phaser.Scene {
+    create() {
+        // Mostrar título, botones de jugar, opciones, créditos
+    }
+}
+
+// Escena 3: El juego real
+class Nivel1 extends Phaser.Scene {
+    preload() {
+        // Cargar recursos específicos del nivel 1
+    }
+    create() {
+        // Crear plataformas, enemigos, jugador
+    }
+    update() {
+        // Lógica del juego
+    }
+}
+
+// Escena 4: Pantalla final
+class GameOver extends Phaser.Scene {
+    create() {
+        // Mostrar puntuación final, botón para reiniciar
+    }
+}
+```
+
+Cada escena es una clase que extiende `Phaser.Scene`, permitiendo aprovechar la orientación a objetos de JavaScript que aprendimos en el capítulo anterior.
+
+### SceneManager
+
+Phaser 3 incluye un `SceneManager` que se encarga de gestionar el ciclo de vida de todas las escenas del juego: iniciarlas, pausarlas, detenerlas y cambiar entre ellas. Este gestor nos proporciona una API sencilla para controlar el flujo del juego.
+
+Para configurar las escenas de nuestro juego, las definimos en el objeto de configuración inicial:
+
+```javascript
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 }
+        }
+    },
+    scene: [Boot, MenuPrincipal, Nivel1, Nivel2, GameOver]
+};
+
+var game = new Phaser.Game(config);
+```
+
+El array de escenas define todas las escenas disponibles en el juego. **Importante:** La primera escena del array (`Boot` en este ejemplo) es la que se iniciará automáticamente cuando arranque el juego. El orden de las demás escenas no importa, ya que las activaremos explícitamente cuando las necesitemos.
+
+### Gestionar escenas
+
+Phaser ofrece múltiples formas de controlar el estado de las escenas:
+
+```javascript
+// Iniciar una escena (apaga la actual)
+this.scene.start('clave', datos);
+
+// Lanzar en paralelo (mantiene la actual)
+this.scene.launch('clave', datos);
+
+// Pausar (detiene update pero sigue renderizando)
+this.scene.pause('clave');
+
+// Reanudar una escena pausada
+this.scene.resume('clave');
+
+// Dormir (detiene update y renderizado)
+this.scene.sleep('clave');
+
+// Despertar una escena dormida
+this.scene.wake('clave');
+
+// Detener completamente (limpia recursos)
+this.scene.stop('clave');
+```
+
+La diferencia clave entre `start` y `launch` es que `start` detiene la escena actual, mientras que `launch` permite ejecutar múltiples escenas simultáneamente. Esto es útil para mostrar interfaces como menús de pausa sobre el juego activo.
+
+#### Transiciones entre escenas
+
+Podemos crear transiciones visuales suaves entre escenas:
+
+```javascript
+this.scene.transition({
+    target: 'SiguienteEscena',
+    duration: 1000,  // Duración en milisegundos
+    moveBelow: true,
+    onUpdate: (progress) => {
+        // Código durante la transición
+    }
+});
+```
+
+La función `onUpdate` se ejecuta durante toda la transición, recibiendo un valor `progress` que va de 0 a 1, permitiendo crear efectos visuales personalizados como fundidos o desvanecimientos.
+
+#### Reordenar escenas
+
+Las escenas tienen un orden de renderizado que puede modificarse:
+
+```javascript
+// Mover arriba/abajo en la pila
+this.scene.moveUp('clave');
+this.scene.moveDown('clave');
+
+// Intercambiar posición de dos escenas
+this.scene.swapPosition('claveA', 'claveB');
+
+// Mover encima/debajo de otra escena
+this.scene.moveAbove('clave', 'claveReferencia');
+this.scene.moveBelow('clave', 'claveReferencia');
+
+// Traer al frente o enviar al fondo
+this.scene.bringToTop('clave');
+this.scene.sendToBack('clave');
+```
+
+El orden de renderizado determina qué escenas se dibujan sobre otras. Esto es especialmente útil cuando se ejecutan múltiples escenas en paralelo, como un HUD sobre la pantalla de juego.
+
+**Ejemplo práctico**: Sistema de menú con pausa
+
+```javascript
+class Juego extends Phaser.Scene {
+    constructor() {
+        super('Juego');
+    }
+    
+    create() {
+        // Configurar el juego
+        this.input.keyboard.on('keydown-ESC', () => {
+            this.scene.pause();
+            this.scene.launch('MenuPausa');
+        });
+    }
+}
+
+class MenuPausa extends Phaser.Scene {
+    constructor() {
+        super('MenuPausa');
+    }
+    
+    create() {
+        let botonContinuar = this.add.text(400, 300, 'Continuar');
+        botonContinuar.setInteractive();
+        
+        botonContinuar.on('pointerdown', () => {
+            this.scene.stop();
+            this.scene.resume('Juego');
+        });
+    }
+}
+```
+
+Este ejemplo muestra cómo implementar un sistema de pausa: cuando el jugador pulsa ESC durante el juego, se pausa la escena principal y se lanza el menú de pausa sobre ella. Al hacer clic en "Continuar", el menú se cierra y el juego se reanuda desde donde estaba.
+
+## Trabajo con imágenes
+
+### Cargar y mostrar imágenes
+
+Las imágenes son elementos fundamentales en cualquier juego. En Phaser, primero debemos cargarlas en `preload()` y luego añadirlas al juego en `create()`:
+
+```javascript
+function preload() {
+    // Cargar la imagen con un identificador único
+    this.load.image('personaje', 'assets/personaje.png');
+    this.load.image('fondo', 'assets/fondo.jpg');
+}
+
+function create() {
+    // Añadir la imagen al canvas en posición (x, y)
+    this.add.image(400, 300, 'fondo');
+    let sprite = this.add.image(200, 150, 'personaje');
+}
+```
+
+Es importante cargar las imágenes en `preload()` para garantizar que estén disponibles antes de intentar usarlas. El identificador que asignamos ('personaje', 'fondo') es la clave que utilizaremos después para referenciar estas imágenes.
+
+### Sistema de coordenadas y origen
+
+Por defecto, todas las imágenes se posicionan usando su centro como punto de referencia. Podemos cambiar este comportamiento:
+
+```javascript
+// Establecer el origen en la esquina superior izquierda
+let imagen = this.add.image(100, 100, 'personaje').setOrigin(0, 0);
+
+// Origen en el centro inferior
+let imagen2 = this.add.image(200, 200, 'personaje').setOrigin(0.5, 1);
+```
+
+Los valores de origen van de 0 a 1, donde (0,0) es la esquina superior izquierda y (1,1) es la inferior derecha de la imagen. Cambiar el origen es útil para alinear objetos o hacer que roten alrededor de puntos específicos.
+
+### Transformaciones básicas
+
+```javascript
+function create() {
+    let jugador = this.add.image(400, 300, 'personaje');
+    
+    // Escalar la imagen (0.5 = mitad del tamaño, 2 = doble)
+    jugador.setScale(1.5);
+    
+    // Escalar de forma independiente en X e Y
+    jugador.setScale(2, 0.5);
+    
+    // Voltear horizontalmente
+    jugador.flipX = true;
+    
+    // Voltear verticalmente
+    jugador.flipY = true;
+    
+    // Rotar (en radianes)
+    jugador.rotation = Math.PI / 4; // 45 grados
+    
+    // Cambiar profundidad (controla qué se dibuja encima)
+    jugador.depth = 10;
+}
+```
+
+El escalado independiente en X e Y permite crear efectos de estiramiento. La propiedad `depth` funciona como las capas en programas de diseño: valores mayores se dibujan sobre valores menores. Para convertir grados a radianes, recordemos que π radianes = 180 grados.
+
+**Ejemplo práctico**: Sprite que sigue al ratón
+
+```javascript
+let jugador;
+
+function create() {
+    jugador = this.add.image(400, 300, 'nave');
+}
+
+function update() {
+    // Obtener posición del ratón
+    let pointer = this.input.activePointer;
+    
+    // Mover suavemente hacia el ratón
+    jugador.x += (pointer.x - jugador.x) * 0.1;
+    jugador.y += (pointer.y - jugador.y) * 0.1;
+    
+    // Rotar hacia la dirección del movimiento
+    let angulo = Phaser.Math.Angle.Between(
+        jugador.x, jugador.y, 
+        pointer.x, pointer.y
+    );
+    jugador.rotation = angulo;
+}
+```
+
+Este ejemplo crea un efecto de seguimiento suave: en lugar de mover el sprite directamente a la posición del ratón, solo se desplaza el 10% de la distancia en cada frame (multiplicador 0.1). Esto produce un movimiento más natural y fluido. La función `Angle.Between` calcula automáticamente el ángulo necesario para que el sprite "mire" hacia el cursor.
+
+## Motores de físicas en Phaser 3
+
+Los motores de físicas son componentes esenciales en el desarrollo de videojuegos que simulan el comportamiento del mundo real: gravedad, colisiones, rebotes, fricción y fuerzas. Sin un motor de físicas, tendríamos que programar manualmente cada uno de estos comportamientos, lo cual sería extremadamente complejo y propenso a errores. Un motor de físicas nos proporciona estas funcionalidades de manera optimizada y consistente.
+
+Phaser 3 incluye tres motores de físicas diferentes, cada uno diseñado para diferentes niveles de complejidad y casos de uso específicos. La elección del motor adecuado dependerá del tipo de juego que estemos desarrollando y del nivel de realismo físico que necesitemos.
+
+### Arcade Physics
+
+Es el motor de físicas más simple y el que utilizaremos principalmente. Está optimizado para rendimiento y es perfecto para la mayoría de juegos 2D.
+
+**Características**:
+
+- Solo soporta colisiones con rectángulos y círculos
+- Muy eficiente y rápido
+- Ideal para juegos arcade clásicos, plataformas simples, etc.
+
+```javascript
+var config = {
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    }
+};
+```
+
+La gravedad se especifica en píxeles por segundo al cuadrado. Un valor de 300 simula una gravedad similar a la terrestre para juegos de plataformas. El modo `debug: true` muestra los contornos de los cuerpos físicos, muy útil durante el desarrollo.
+
+En todos los ejemplos usaremos el motor Arcade, para los otros motores podría ser necesario hacer cambios.
+
+### Impact Physics
+
+Originalmente creado para el motor Impact, permite físicas más complejas que Arcade.
+
+**Características**:
+
+- Soporta pendientes en tiles (muy útil para plataformas)
+- Más complejo que Arcade pero menos que Matter
+- Bueno para juegos de plataformas con terrenos inclinados
+
+### Matter Physics
+
+Es el motor más avanzado y realista de los tres.
+
+**Características**:
+
+- Soporta formas complejas y polígonos
+- Simulación física muy precisa
+- Mayor costo de rendimiento
+- Ideal para puzzles físicos, juegos que requieren realismo
+
+### Añadir físicas a objetos
+
+Para que un objeto tenga físicas, debe crearse usando `physics.add` en lugar de solo `add`:
+
+```javascript
+function create() {
+    // Imagen simple sin físicas
+    this.add.image(400, 300, 'fondo');
+    
+    // Imagen con físicas
+    this.jugador = this.physics.add.image(100, 450, 'personaje');
+    
+    // Configurar propiedades físicas
+    this.jugador.setCollideWorldBounds(true);  // No salir del canvas
+    this.jugador.setBounce(0.3);               // Rebote (0-1)
+    this.jugador.setVelocity(100, -50);        // Velocidad inicial
+    this.jugador.setAcceleration(50, 0);       // Aceleración
+}
+```
+
+El rebote (`bounce`) determina cuánta energía conserva el objeto al chocar: 0 significa que no rebota, 1 que rebota perfectamente sin perder energía. La velocidad se mide en píxeles por segundo, mientras que la aceleración en píxeles por segundo al cuadrado.
+
+
+## Sistema de entrada (Input)
+
+La interacción del jugador es el corazón de cualquier videojuego. En el capítulo de JavaScript aprendimos sobre el sistema de eventos del DOM para detectar clics y pulsaciones de teclas. Phaser 3 construye sobre estos conceptos y proporciona un sistema de entrada (input) mucho más potente y especializado para videojuegos, que simplifica la detección de teclado, ratón, táctil y gamepad.
+
+El sistema de input de Phaser 3 unifica diferentes tipos de entrada bajo una API consistente, permitiendo que nuestro juego funcione tanto en escritorio (con teclado y ratón) como en dispositivos móviles (con pantalla táctil) sin necesidad de escribir código específico para cada plataforma. Además, Phaser optimiza la detección de entrada para el contexto de videojuegos, donde necesitamos respuestas instantáneas y la capacidad de detectar múltiples entradas simultáneas.
+
+### Teclado
+
+#### Detección de teclas individuales
+
+```javascript
+function create() {
+    // Método 1: Eventos de teclas específicas
+    this.input.keyboard.on('keydown-SPACE', () => {
+        console.log('¡Salto!');
+    });
+    
+    // Detectar cuando se suelta la tecla
+    this.input.keyboard.on('keyup-SPACE', () => {
+        console.log('Tecla soltada');
+    });
+}
+```
+
+El evento `keydown` se dispara en el momento exacto que se presiona la tecla, mientras que `keyup` lo hace al soltarla. Esto es útil para acciones instantáneas como saltos o disparos.
+
+#### Uso de cursores
+
+```javascript
+let jugador;
+let cursors;
+
+function create() {
+    jugador = this.physics.add.image(400, 300, 'personaje');
+    
+    // Crear objeto de cursores (flechas + espacio + shift)
+    cursors = this.input.keyboard.createCursorKeys();
+}
+
+function update() {
+    // Resetear velocidad
+    jugador.setVelocityX(0);
+    
+    // Comprobar teclas presionadas
+    if (cursors.left.isDown) {
+        jugador.setVelocityX(-160);
+    } else if (cursors.right.isDown) {
+        jugador.setVelocityX(160);
+    }
+    
+    if (cursors.up.isDown && jugador.body.touching.down) {
+        jugador.setVelocityY(-330);
+    }
+}
+```
+
+Es importante resetear la velocidad horizontal en cada frame para que el personaje se detenga inmediatamente al soltar las teclas. La condición `jugador.body.touching.down` evita el salto infinito, permitiendo saltar solo cuando el jugador toca el suelo.
+
+#### Teclas con modificadores
+
+```javascript
+function create() {
+    this.input.keyboard.on('keydown-A', (event) => {
+        if (event.ctrlKey) {
+            console.log('CTRL + A: Seleccionar todo');
+        } else if (event.altKey) {
+            console.log('ALT + A: Acción alternativa');
+        } else if (event.shiftKey) {
+            console.log('SHIFT + A: Acción mayúscula');
+        } else {
+            console.log('Solo A');
+        }
+    });
+}
+```
+
+Los modificadores permiten crear atajos de teclado complejos. El objeto `event` contiene propiedades booleanas para cada modificador (`ctrlKey`, `altKey`, `shiftKey`), permitiendo detectar combinaciones de teclas.
+
+#### Combos de teclas
+
+```javascript
+function create() {
+    // Combo con letras
+    let combo1 = this.input.keyboard.createCombo('KONAMI');
+    
+    // Combo con keycodes (arriba, arriba, abajo, abajo, izq, der, izq, der)
+    let combo2 = this.input.keyboard.createCombo([38, 38, 40, 40, 37, 39, 37, 39]);
+    
+    // Detectar cuando se completa el combo
+    this.input.keyboard.on('keycombomatch', (combo) => {
+        console.log('¡Combo desbloqueado!');
+        this.activarModoEspecial();
+    });
+}
+```
+
+Los combos permiten implementar códigos secretos o trucos. El sistema detecta automáticamente cuando el jugador presiona la secuencia correcta de teclas en orden. El segundo ejemplo muestra el famoso código Konami usando los valores numéricos de las teclas de dirección.
+
+### Ratón
+
+#### Eventos básicos del ratón
+
+```javascript
+function create() {
+    // Detectar clic
+    this.input.on('pointerdown', (pointer) => {
+        if (pointer.leftButtonDown()) {
+            console.log('Clic izquierdo en:', pointer.x, pointer.y);
+        }
+        
+        if (pointer.rightButtonDown()) {
+            console.log('Clic derecho');
+        }
+    });
+    
+    // Detectar cuando se suelta
+    this.input.on('pointerup', (pointer) => {
+        console.log('Botón soltado');
+    });
+    
+    // Detectar movimiento
+    this.input.on('pointermove', (pointer) => {
+        console.log('Ratón movido a:', pointer.x, pointer.y);
+    });
+}
+```
+
+El sistema de punteros unifica ratón y táctil bajo la misma API. El objeto `pointer` contiene las coordenadas (x, y) y métodos para detectar qué botón se ha pulsado.
+
+
+## Detección de colisiones
+
+La detección de colisiones es uno de los aspectos más fundamentales en el desarrollo de videojuegos. Determina cuándo dos objetos del juego se tocan o superponen, permitiendo implementar mecánicas como que el jugador camine sobre plataformas, recoja objetos, reciba daño de enemigos, o dispare proyectiles que impacten en objetivos. Sin un sistema robusto de detección de colisiones, los objetos del juego simplemente se atravesarían unos a otros sin ningún tipo de interacción.
+
+Phaser 3, a través de su sistema Arcade Physics, proporciona herramientas optimizadas para detectar y responder a colisiones de manera eficiente. El sistema está diseñado para manejar desde colisiones simples entre dos objetos hasta complejas interacciones entre grupos de cientos de entidades, todo ello manteniendo un rendimiento fluido de 60 frames por segundo.
+
+### Conceptos básicos
+
+Phaser 3 Arcade Physics ofrece dos formas fundamentales de detectar interacciones entre objetos:
+
+**Collider**: Detecta y resuelve colisiones físicamente, separando los objetos y aplicando propiedades como masa, velocidad y rebote.
+
+**Overlap**: Detecta superposición espacial sin resolución física. Los objetos pueden atravesarse.
+
+### Colisiones básicas
+
+```javascript
+function create() {
+    let jugador = this.physics.add.image(100, 450, 'personaje');
+    let plataforma = this.physics.add.image(400, 500, 'suelo');
+    plataforma.setImmovable(true);
+    
+    // Colisión con resolución física
+    this.physics.add.collider(jugador, plataforma);
+    
+    // Overlap sin resolución física
+    let estrella = this.physics.add.image(200, 200, 'estrella');
+    this.physics.add.overlap(jugador, estrella, (j, e) => {
+        e.destroy();
+        console.log('¡Estrella recogida!');
+    });
+}
+```
+
+La propiedad `setImmovable(true)` hace que la plataforma no se mueva al recibir impactos. Sin esto, el jugador empujaría la plataforma al caer sobre ella. Los colliders son ideales para plataformas y paredes, mientras que los overlaps funcionan bien para objetos coleccionables.
+
+### Trabajar con grupos
+
+#### Grupos estáticos
+
+Ideales para objetos inmóviles como plataformas:
+
+```javascript
+function create() {
+    let jugador = this.physics.add.image(100, 450, 'personaje');
+    
+    let plataformas = this.physics.add.staticGroup();
+    plataformas.create(400, 568, 'suelo').setScale(2).refreshBody();
+    plataformas.create(600, 400, 'suelo');
+    plataformas.create(50, 250, 'suelo');
+    
+    this.physics.add.collider(jugador, plataformas);
+}
+```
+
+Los grupos estáticos son más eficientes para objetos que nunca se moverán. Tras modificar propiedades de un objeto estático (como `setScale`), es crucial llamar a `refreshBody()` para actualizar su cuerpo físico.
+
+#### Grupos dinámicos
+
+Para objetos con físicas completas:
+
+```javascript
+function create() {
+    let jugador = this.physics.add.image(100, 450, 'personaje');
+    
+    let estrellas = this.physics.add.group({
+        key: 'estrella',
+        repeat: 11,
+        setXY: { x: 12, y: 0, stepX: 70 }
+    });
+    
+    estrellas.children.iterate((estrella) => {
+        estrella.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    });
+    
+    this.physics.add.overlap(jugador, estrellas, (j, e) => {
+        e.disableBody(true, true);
+    });
+}
+```
+
+Este código crea 12 estrellas (repeat: 11 significa el objeto inicial más 11 repeticiones) espaciadas horizontalmente cada 70 píxeles. La función `iterate` aplica un rebote aleatorio a cada estrella. El método `disableBody(true, true)` oculta y desactiva la estrella sin destruirla completamente, lo que es más eficiente para objetos que pueden reutilizarse.
+
+### Callbacks y condiciones
+
+#### Callback de colisión
+
+```javascript
+this.physics.add.collider(jugador, enemigo, (j, e) => {
+    console.log('¡Colisión!');
+    j.setTint(0xff0000);
+    j.setVelocityX(-200);
+});
+```
+
+El callback se ejecuta cada vez que ocurre la colisión. En este ejemplo, el jugador se tiñe de rojo y retrocede al tocar al enemigo. Los parámetros del callback son los dos objetos que colisionaron.
+
+#### Process callback (condición)
+
+El process callback decide si procesar la colisión. Retorna `true` para procesarla, `false` para ignorarla:
+
+```javascript
+function create() {
+    this.jugador = this.physics.add.image(100, 450, 'personaje');
+    this.jugador.invulnerable = false;
+    
+    let enemigo = this.physics.add.image(400, 300, 'enemigo');
+    
+    this.physics.add.collider(
+        this.jugador,
+        enemigo,
+        this.dañar,
+        this.puedeRecibirDanio,
+        this
+    );
+}
+
+function puedeRecibirDanio(jugador, enemigo) {
+    return !jugador.invulnerable;
+}
+
+function dañar(jugador, enemigo) {
+    jugador.invulnerable = true;
+    jugador.setTint(0xff0000);
+    this.time.delayedCall(2000, () => {
+        jugador.invulnerable = false;
+        jugador.clearTint();
+    });
+}
+```
+
+Este sistema implementa un período de invulnerabilidad temporal: tras recibir daño, el jugador se vuelve inmune durante 2 segundos (2000 milisegundos). El process callback `puedeRecibirDanio` se ejecuta antes de la colisión y determina si debe procesarse según el estado de invulnerabilidad.
+
+### Colisiones entre grupos
+
+```javascript
+function create() {
+    this.balas = this.physics.add.group();
+    this.enemigos = this.physics.add.group({
+        key: 'enemigo',
+        repeat: 5,
+        setXY: { x: 100, y: 100, stepX: 100 }
+    });
+    
+    // Colisión grupo contra grupo
+    this.physics.add.collider(this.balas, this.enemigos, (bala, enemigo) => {
+        bala.destroy();
+        enemigo.destroy();
+    });
+}
+```
+
+Las colisiones entre grupos permiten que cualquier miembro de un grupo colisione con cualquier miembro del otro grupo. Aquí, cada bala puede impactar a cualquier enemigo, destruyendo ambos objetos en el proceso. Esto es mucho más eficiente que crear colliders individuales para cada combinación posible.
+
+### Detectar colisiones específicas
+
+```javascript
+function update() {
+    // Verificar contacto con superficies
+    if (this.jugador.body.touching.down) {
+        console.log('En el suelo');
+    }
+    
+    // Salto solo si está en el suelo
+    if (this.cursors.up.isDown && this.jugador.body.touching.down) {
+        this.jugador.setVelocityY(-330);
+    }
+}
+```
+
+
+Propiedades útiles: `touching.down`, `touching.up`, `touching.left`, `touching.right`, `blocked.down`, `blocked.up`. La diferencia entre `touching` y `blocked` es que `touching` detecta contacto con cualquier objeto, mientras que `blocked` solo detecta contacto con objetos inmóviles. Estas propiedades son esenciales para controlar mecánicas como saltos o detectar si un personaje está contra una pared.

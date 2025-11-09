@@ -1,0 +1,419 @@
+# Guía de estudio {.unnumbered}
+
+Los videojuegos en red representan uno de los sectores más dinámicos y desafiantes de la industria del software, donde la capacidad de diseñar e implementar sistemas de comunicación eficientes y robustos es fundamental. En este contexto, comprender las arquitecturas de red, los protocolos de comunicación y las técnicas de programación tanto del lado del cliente como del servidor se ha convertido en una habilidad esencial para cualquier desarrollador de juegos modernos. Este libro está diseñado para proporcionar una comprensión profunda y práctica de estas tecnologías, basándose en el contenido de la asignatura **Juegos en Red**.
+
+El desarrollo de juegos en red tiene múltiples facetas que exploraremos en profundidad: desde los **fundamentos de las redes de comunicación** hasta la **programación en el cliente** con JavaScript y Phaser, y finalmente la **comunicación cliente-servidor** mediante APIs REST y WebSockets. Entender esta progresión es clave para desarrollar juegos multijugador escalables y eficientes.
+
+Comenzaremos sentando las bases de las redes de ordenadores, explorando las diferentes capas del modelo TCP/IP. A partir de ahí, aprenderemos a desarrollar aplicaciones web interactivas usando JavaScript y el motor de juegos Phaser. Finalmente, dominaremos las técnicas de comunicación cliente-servidor mediante APIs REST para operaciones síncronas y WebSockets para comunicación en tiempo real.
+
+::: {.callout-note}
+La primera parte de este libro sobre redes de ordenadores está basada en los conceptos presentados en *Computer Networks: A Top-Down Approach* [@kurose2021computer], adaptados al contexto específico del desarrollo de videojuegos en red.
+:::
+
+## Objetivos de la asignatura {.unnumbered}
+
+- Comprender los fundamentos de las redes de ordenadores y los protocolos de comunicación del modelo TCP/IP.
+- Dominar el lenguaje JavaScript para el desarrollo de aplicaciones web interactivas.
+- Aprender a utilizar el motor de juegos Phaser para crear juegos 2D en el navegador.
+- Diseñar e implementar APIs REST para la comunicación cliente-servidor.
+- Desarrollar sistemas de comunicación en tiempo real utilizando WebSockets.
+- Integrar todas estas tecnologías para crear juegos multijugador funcionales.
+
+## Temario de la asignatura {.unnumbered}
+
+La asignatura está dividida en 5 partes, que se corresponden con la categorización de la guia docente. Además, cada uno de estas partes está dividida en diferentes capítulos, con el fin de facilitar su lectura. 
+
+### Parte 1: Introducción a los juegos en red y a las redes de comunicaciones {.unnumbered}
+- **Capítulo 1:** Introducción a las Redes de Ordenadores
+- **Capítulo 2:** Capa de Acceso a la Red
+- **Capítulo 3:** Capa de Red
+- **Capítulo 4:** Capa de Transporte
+- **Capítulo 5:** Capa de Aplicación
+
+### Parte 2: Desarrollo en el lado del cliente {.unnumbered}
+- **Capítulo 6:** JavaScript
+- **Capítulo 7:** HTML y CSS
+
+### Parte 3: Desarrollo de juegos con tecnología web {.unnumbered}
+- **Capítulo 8:** Phaser - Motor de Juegos 2D
+
+### Parte 4: Desarrollo en el lado del servidor {.unnumbered}
+- **Capítulo 9:** APIs REST - Introducción, Cliente y Servidor
+
+### Parte 5: Comunicación asíncrona cliente - servidor  {.unnumbered}
+- **Capítulo 10:** WebSockets - Introducción, Cliente y Servidor
+
+## Desarrollo de la asignatura {.unnumbered}
+
+El curso se desarrolla a lo largo de 15 semanas, con dos sesiones semanales. La metodología busca integrar la teoría y la práctica de forma fluida: los conceptos teóricos se presentarán junto con su implementación práctica, fomentando un aprendizaje aplicado en cada clase.
+
+### Calendario de clases {.unnumbered}
+
+| Semana | Dia 1 | Dia 2 |
+|--------|-------|--------|
+| 1 | Clase 1: Introducción a asignatura y a las Redes de Ordenadores | Clase 2: Capa de Acceso a la Red |
+| 2 | Clase 3: Capa de Red | Clase 4: Capa de Transporte |
+| 3 | Clase 5: Capa de Aplicación | Clase 6: Repaso y Prácticas de Redes |
+| 4 | Clase 7: Repaso y Prácticas de Redes | Clase 8: Presentación e Introducción a JavaScript |
+| 5 | Clase 9: Examen Parcial | Clase 10: JavaScript Orientado a Objetos |
+| 6 | Clase 11: Introducción a Phaser | Clase 12: Phaser (continuación) |
+| 7 | Clase 13: Phaser (continuación) | Clase 14: Phaser (continuación) |
+| 8 | Clase 15: Phaser (continuación) | Clase 16: APIs REST - Introducción y Cliente |
+| 9 | Clase 17: APIs REST - Cliente (continuación) | Clase 18: Presentación prácticas |
+| 10 | Clase 19: Examen | Clase 20: APIs REST - Servidor |
+| 11 | Clase 21: APIs REST - Servidor (continuación) | Clase 22: APIs REST - Servidor (continuación) |
+| 12 | Clase 23: APIs REST - Servidor (continuación) | Clase 24: WebSockets - Cliente y Servidor |
+| 13 | Clase 25: WebSockets (continuación) | Clase 26: WebSockets (continuación) |
+| 14 | Clase 27: WebSockets (continuación) | Clase 28: WebSockets (continuación) |
+| 15 | Clase 29: Examen | Clase 30: Presentación prácticas |
+
+### Clase 1: Presentación a asignatura e itroducción a las Redes de Ordenadores {.unnumbered}
+
+- **Contenidos:** Presentación de la asignatura, guía docente y sistema de evaluación.Introducción de los conceptos fundamentales de redes de ordenadores. Arquitectura de red por capas. Modelo TCP/IP. Protocolos y estándares. Historia y evolución de Internet.
+- **Objetivos de Aprendizaje:**
+    - Comprender la arquitectura en capas de las redes de ordenadores.
+    - Identificar los componentes fundamentales de Internet.
+    - Entender el papel de los protocolos en la comunicación de red.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-network-intro
+    - Diapositivas: @sec-slides-subject-intro @sec-slides-network-intro
+    - Ejercicios: @sec-ex-network-intro
+- **Actividades Planificadas:**
+    - Discusión sobre la importancia de las redes en los videojuegos.
+    - Análisis de la arquitectura de red de juegos multijugador populares.
+- **Trabajo Personal Recomendado:**
+    - Lectura completa de los apuntes de introducción a redes.
+    - Realización del ejercicio práctico de trazado de rutas.
+
+
+### Clase 2: Capa de Acceso a la Red {.unnumbered}
+
+- **Contenidos:** Funciones de la capa de acceso. Tecnologías de acceso físico. Ethernet. WiFi. Direccionamiento MAC. Conmutación y dominios de colisión.
+- **Objetivos de Aprendizaje:**
+    - Comprender las funciones de la capa de acceso a la red.
+    - Identificar las diferencias entre distintas tecnologías de acceso.
+    - Entender el funcionamiento de las direcciones MAC.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-access-layer
+    - Diapositivas: @sec-slides-access-layer
+    - Ejercicios: @sec-ex-access-layer
+- **Actividades Planificadas:**
+    - Análisis de tramas Ethernet.
+    - Configuración de redes locales.
+- **Trabajo Personal Recomendado:**
+    - Lectura de los apuntes sobre la capa de acceso.
+    - Realización del ejercicio práctico.
+
+
+### Clase 3: Capa de Red {.unnumbered}
+
+- **Contenidos:** Protocolo IP. Direccionamiento IPv4 e IPv6. Subredes y máscaras. Enrutamiento. Protocolo ARP. ICMP y herramientas de diagnóstico (ping, traceroute).
+- **Objetivos de Aprendizaje:**
+    - Comprender el funcionamiento del protocolo IP.
+    - Dominar el direccionamiento IP y el concepto de subredes.
+    - Utilizar herramientas de diagnóstico de red.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-network-layer
+    - Diapositivas: @sec-slides-network-layer
+    - Ejercicios: @sec-ex-network-layer
+- **Actividades Planificadas:**
+    - Prácticas con herramientas de diagnóstico (ping, traceroute).
+    - Análisis de tablas de enrutamiento.
+- **Trabajo Personal Recomendado:**
+    - Lectura de los apuntes sobre la capa de red.
+    - Realización del ejercicio de direccionamiento IP.
+
+
+### Clase 4: Capa de Transporte {.unnumbered}
+
+- **Contenidos:** Protocolo TCP. Protocolo UDP. Control de flujo y congestión. Establecimiento y cierre de conexiones. Puertos y sockets. Comparación TCP vs UDP para videojuegos.
+- **Objetivos de Aprendizaje:**
+    - Comprender las diferencias entre TCP y UDP.
+    - Entender cuándo utilizar cada protocolo en el desarrollo de juegos.
+    - Dominar el concepto de puertos y sockets.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-transport-layer
+    - Diapositivas: @sec-slides-transport-layer
+    - Ejercicios: @sec-ex-transport-layer
+- **Actividades Planificadas:**
+    - Análisis del tráfico TCP y UDP.
+    - Discusión sobre las necesidades de latencia en juegos multijugador.
+- **Trabajo Personal Recomendado:**
+    - Lectura de los apuntes sobre la capa de transporte.
+    - Realización del ejercicio práctico.
+
+### Clase 5: Capa de Aplicación {.unnumbered}
+
+- **Contenidos:** Protocolos de aplicación. HTTP y HTTPS. DNS. Arquitecturas cliente-servidor y peer-to-peer. APIs web. Introducción a los servicios web.
+- **Objetivos de Aprendizaje:**
+    - Comprender los protocolos de la capa de aplicación.
+    - Entender el funcionamiento de HTTP/HTTPS.
+    - Conocer diferentes arquitecturas de aplicación en red.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-application-layer
+    - Diapositivas: @sec-slides-application-layer
+    - Ejercicios: @sec-ex-application-layer
+- **Actividades Planificadas:**
+    - Análisis de peticiones HTTP.
+    - Exploración de APIs públicas.
+- **Trabajo Personal Recomendado:**
+    - Lectura de los apuntes sobre la capa de aplicación.
+    - Realización del ejercicio de análisis de tráfico HTTP.
+
+
+### Clase 6-7: Repaso y Prácticas de Redes {.unnumbered}
+
+- **Contenidos:** Repaso integral de los conceptos de redes de ordenadores. Resolución de ejercicios prácticos. Preparación para la siguiente fase del curso.
+- **Objetivos de Aprendizaje:**
+    - Consolidar los conocimientos de todas las capas del modelo TCP/IP.
+    - Integrar los conceptos en casos prácticos.
+- **Materiales Utilizados:**
+    - Todos los materiales de las semanas 1-5.
+    - Ejercicios de repaso.
+- **Actividades Planificadas:**
+    - Sesión de resolución de dudas.
+    - Prácticas guiadas de configuración y análisis de redes.
+- **Trabajo Personal Recomendado:**
+    - Repaso de todos los capítulos de redes.
+    - Preparación del entorno de desarrollo para JavaScript.
+
+
+### Clase 8: Presentación e Introducción a JavaScript {.unnumbered}
+
+- **Contenidos:** Presentación de la segunda parte del curso. Fundamentos de JavaScript: variables, tipos de datos, operadores, estructuras de control. Funciones y ámbito.
+- **Objetivos de Aprendizaje:**
+    - Comprender la sintaxis básica de JavaScript.
+    - Dominar las estructuras de control de flujo.
+    - Crear y utilizar funciones en JavaScript.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-javascript
+    - Diapositivas: @sec-slides-javascript
+    - Ejercicios: @sec-ex-javascript
+- **Actividades Planificadas:**
+    - Configuración del entorno de desarrollo.
+    - Primeros programas en JavaScript.
+- **Trabajo Personal Recomendado:**
+    - Lectura de las secciones introductorias de JavaScript.
+    - Práctica con ejercicios básicos de programación.
+
+
+### Clase 9: Examen Parcial {.unnumbered}
+
+- **Contenidos:** Evaluación de los contenidos de redes de ordenadores (Clases 1-7).
+- **Objetivos de Aprendizaje:**
+    - Demostrar comprensión de los fundamentos de redes.
+    - Aplicar los conocimientos a problemas prácticos.
+- **Materiales Utilizados:**
+    - Todos los materiales de las clases 1-7.
+- **Actividades Planificadas:**
+    - Examen parcial teórico-práctico.
+- **Trabajo Personal Recomendado:**
+    - Continuar con el aprendizaje de JavaScript.
+
+
+### Clase 10: JavaScript Orientado a Objetos {.unnumbered}
+
+- **Contenidos:** Objetos y arrays. Programación orientada a objetos en JavaScript. Clases y prototipos. Manipulación del DOM. Eventos.
+- **Objetivos de Aprendizaje:**
+    - Dominar el trabajo con objetos y arrays.
+    - Comprender la programación orientada a objetos en JavaScript.
+    - Manipular el DOM y gestionar eventos.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-javascript
+    - Diapositivas: @sec-slides-javascript-oop
+    - Ejercicios: @sec-ex-javascript
+- **Actividades Planificadas:**
+    - Creación de aplicaciones interactivas simples.
+    - Prácticas con eventos del navegador.
+- **Trabajo Personal Recomendado:**
+    - Lectura de las secciones avanzadas de JavaScript.
+    - Desarrollo de pequeños proyectos personales.
+
+
+### Clase 11-15: Introducción a Phaser {.unnumbered}
+
+- **Contenidos:** Introducción al motor de juegos Phaser. Escenas y ciclo de vida. Sprites y texturas. Sistema de físicas. Gestión de entrada (teclado, ratón, táctil).
+- **Objetivos de Aprendizaje:**
+    - Comprender la arquitectura de Phaser.
+    - Crear escenas y gestionar el ciclo de vida del juego.
+    - Implementar físicas básicas y controles.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-phaser
+    - Diapositivas: @sec-slides-phaser
+    - Ejercicios: @sec-ex-phaser
+- **Actividades Planificadas:**
+    - Desarrollo de un proyecto de juego completo.
+    - Sesión de depuración y optimización.
+- **Trabajo Personal Recomendado:**
+    - Finalización del proyecto de juego.
+    - Lectura de @sec-htmlcss para crear la base web del juego.
+    - Preparación para la integración con servicios de red.
+
+
+### Clase 16-17: APIs REST - Introducción y Cliente {.unnumbered}
+
+- **Contenidos:** Arquitectura REST. Métodos HTTP (GET, POST, PUT, DELETE). Formato JSON. Consumo de APIs REST desde JavaScript. Fetch API. Manejo de promesas y async/await.
+- **Objetivos de Aprendizaje:**
+    - Comprender los principios de la arquitectura REST.
+    - Consumir APIs REST desde el cliente.
+    - Manejar operaciones asíncronas en JavaScript.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-rest-intro, @sec-rest-client
+    - Diapositivas: @sec-slides-rest
+    - Ejercicios: @sec-ex-rest-intro, @sec-ex-rest-client
+- **Actividades Planificadas:**
+    - Consumo de APIs públicas.
+    - Integración de datos externos en aplicaciones.
+- **Trabajo Personal Recomendado:**
+    - Lectura de los apuntes sobre REST.
+    - Realización de los ejercicios de consumo de APIs.
+
+### Clase 18: Presentación prácticas {.unnumbered}
+
+- **Contenidos:** Presentación del proyecto de juego desarrollado con Phaser. Demostración de funcionalidades implementadas. Revisión del código y arquitectura del juego.
+- **Objetivos de Aprendizaje:**
+    - Presentar de forma efectiva un proyecto de desarrollo de juegos.
+    - Explicar las decisiones de diseño y arquitectura del juego.
+    - Demostrar dominio de JavaScript y Phaser.
+- **Materiales Utilizados:**
+    - Proyecto personal de juego con Phaser.
+    - Código fuente del proyecto.
+- **Actividades Planificadas:**
+    - Presentaciones de los proyectos de juego.
+    - Sesión de preguntas y respuestas sobre las implementaciones.
+- **Trabajo Personal Recomendado:**
+    - Preparación de la presentación del proyecto.
+    - Revisión y refinamiento del código del juego.
+    - Estudio para el examen de JavaScript y Phaser.
+
+### Clase 19: Examen {.unnumbered}
+
+- **Contenidos:** Evaluación de los contenidos de JavaScript y Phaser (Clases 8-15).
+- **Objetivos de Aprendizaje:**
+    - Demostrar dominio de JavaScript y programación orientada a objetos.
+    - Aplicar los conocimientos de Phaser en problemas prácticos.
+    - Resolver ejercicios de desarrollo de juegos.
+- **Materiales Utilizados:**
+    - Todos los materiales de las clases 8-17.
+    - Apuntes de JavaScript y Phaser.
+- **Actividades Planificadas:**
+    - Examen teórico-práctico de JavaScript y Phaser.
+- **Trabajo Personal Recomendado:**
+    - Continuar con el aprendizaje de APIs REST.
+    - Lectura de los apuntes sobre desarrollo de servidores.
+
+### Clase 20-23: APIs REST - Servidor {.unnumbered}
+
+- **Contenidos:** Desarrollo de APIs REST con Node.js y Express. Diseño de endpoints. Middleware. Gestión de errores. Validación de datos. Persistencia de datos.
+- **Objetivos de Aprendizaje:**
+    - Diseñar e implementar una API REST.
+    - Gestionar peticiones y respuestas HTTP.
+    - Implementar la lógica de negocio del servidor.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-rest-server
+    - Diapositivas: @sec-slides-rest
+    - Ejercicios: @sec-ex-rest-server
+- **Actividades Planificadas:**
+    - Desarrollo de una API REST completa.
+    - Pruebas de endpoints con herramientas como Postman.
+- **Trabajo Personal Recomendado:**
+    - Lectura de los apuntes sobre desarrollo de servidores REST.
+    - Implementación de la API del proyecto final.
+
+
+### Clase 24-28: WebSockets - Cliente y Servidor {.unnumbered}
+
+- **Contenidos:** Introducción a WebSockets. Comunicación bidireccional en tiempo real. Socket.IO. Gestión de conexiones. Salas y broadcast. Sincronización de estado en juegos multijugador.
+- **Objetivos de Aprendizaje:**
+    - Comprender las ventajas de WebSockets sobre HTTP.
+    - Implementar comunicación en tiempo real.
+    - Sincronizar el estado del juego entre múltiples clientes.
+- **Materiales Utilizados:**
+    - Apuntes: @sec-ws-intro, @sec-ws-client, @sec-ws-server
+    - Diapositivas: @sec-slides-websockets
+    - Ejercicios: @sec-ex-ws-intro, @sec-ex-ws-client, @sec-ex-ws-server
+- **Actividades Planificadas:**
+    - Implementación de chat en tiempo real.
+    - Desarrollo de la comunicación multijugador para el proyecto final.
+- **Trabajo Personal Recomendado:**
+    - Lectura de todos los apuntes sobre WebSockets.
+    - Integración de WebSockets en el proyecto final.
+
+
+### Clase 29: Examen {.unnumbered}
+
+- **Contenidos:** Evaluación de los contenidos de APIs REST y WebSockets (Clases 16-17, 20-28).
+- **Objetivos de Aprendizaje:**
+    - Demostrar comprensión de la arquitectura REST y WebSockets.
+    - Aplicar los conocimientos de comunicación cliente-servidor.
+    - Implementar soluciones de comunicación en tiempo real.
+- **Materiales Utilizados:**
+    - Todos los materiales de las clases 16-17 y 20-28.
+    - Apuntes de REST y WebSockets.
+- **Actividades Planificadas:**
+    - Examen teórico-práctico de REST y WebSockets.
+- **Trabajo Personal Recomendado:**
+    - Finalización del proyecto final con comunicación en tiempo real.
+    - Preparación de la presentación final del proyecto.
+
+### Clase 30: Presentación prácticas {.unnumbered}
+
+- **Contenidos:** Presentación del proyecto de juego multijugador con API REST. Demostración de la integración cliente-servidor. Arquitectura del sistema completo.
+- **Objetivos de Aprendizaje:**
+    - Presentar un proyecto completo de juego en red con API REST.
+    - Explicar la arquitectura cliente-servidor implementada.
+    - Demostrar dominio de todas las tecnologías del curso.
+- **Materiales Utilizados:**
+    - Proyecto final de juego multijugador.
+    - Código fuente del cliente y servidor.
+    - Documentación de la API REST implementada.
+- **Actividades Planificadas:**
+    - Presentaciones de los proyectos finales.
+    - Demostración en vivo de las funcionalidades multijugador.
+    - Sesión de retroalimentación y evaluación.
+- **Trabajo Personal Recomendado:**
+    - Preparación exhaustiva de la presentación final.
+    - Documentación completa del proyecto.
+    - Estudio para el examen de la evaluación ordinaria.
+
+
+### Examen de la evaluación ordinaria (Proyecto final) {.unnumbered}
+
+- **Contenidos:** Desarrollo de un juego multijugador completo con WebSockets.
+- **Objetivos de Aprendizaje:**
+    - Demostrar comprensión integral de redes de ordenadores, JavaScript, Phaser, APIs REST y WebSockets.
+    - Implementar un juego multijugador funcional con comunicación en tiempo real.
+    - Aplicar todos los conocimientos adquiridos durante el curso.
+- **Materiales Utilizados:**
+    - Todos los materiales del curso (Clases 1-30).
+    - Apuntes completos de redes, JavaScript, Phaser, REST y WebSockets.
+    - Documentación de todas las tecnologías utilizadas.
+- **Actividades Planificadas:**
+    - Desarrollo y presentación final de un juego multijugador con WebSockets.
+- **Trabajo Personal Recomendado:**
+    - Repaso exhaustivo de todos los contenidos de la asignatura.
+    - Práctica con proyectos personales integrando todas las tecnologías.
+    - Revisión de todos los ejercicios y proyectos del curso.
+
+## Recursos adicionales {.unnumbered}
+
+Los siguientes recursos complementarios pueden ser útiles durante el curso:
+
+- Documentación oficial de JavaScript [@mdn2024javascript]: [MDN Web Docs](https://developer.mozilla.org/)
+- Documentación oficial de Phaser [@photonstorm2024phaser]: [Phaser.io](https://phaser.io/)
+- Documentación de Node.js: [Node.js Docs](https://nodejs.org/)
+- Documentación de Socket.IO: [Socket.IO](https://socket.io/)
+- Plataforma con visualizaciones: [JER Games](https://jergames.dslabapps.es) (Para información sobre el código fuente ver @sec-code)
+
+## Bibliografía recomendada {.unnumbered}
+
+Para profundizar en los conceptos del curso, se recomienda consultar:
+
+- **Redes de ordenadores**: Los fundamentos de redes están basados en [@kurose2021computer]. También es recomendable [@tanenbaum2021computer].
+- **JavaScript**: Para dominar el lenguaje, consultar [@flanagan2020javascript] y [@haverbeke2018eloquent].
+- **Desarrollo de juegos en red**: Recursos esenciales incluyen [@gambetta2014multiplayer], [@fiedler2024gaffer], [@claypool2006latency], [@bernier2001latency], [@aldridge2011halo], y [@glazer2015multiplayer].
+- **APIs REST**: La arquitectura REST está definida en [@fielding2000architectural]. Guías prácticas incluyen [@masse2011rest], [@richardson2013restful], y [@sturgeon2016build].
+- **WebSockets**: El protocolo está especificado en [@fette2011websocket]. Para implementación práctica, ver [@wang2013websocket] y [@doglio2015rest].
+- **Node.js y Express**: Referencias recomendadas incluyen [@wilson2018nodejs], [@hahn2014express], y [@young2017nodejs].
+
+Todas las referencias completas se encuentran en la sección de referencias del libro.

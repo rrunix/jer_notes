@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant E as Emisor
+    participant R as Receptor
+    E ->> X: seq=100, data="A", Paquete perdido
+    E ->> R: seq=101, data="B"
+    E ->> R: seq=102, data="C"
+    E ->> R: seq=103, data="D"
+    R ->> E: ACK=100
+    R ->> E: ACK=100
+    R ->> E: ACK=100
+    Note over E,R: Retransmisión rápida
+    E ->> R: seq=100, data="A"

@@ -1,0 +1,17 @@
+---
+config:
+  packet:
+    showBits: true
+---
+packet-beta
+
+0-3: "Version (4)"
+4-11: "Traffic Class (8)"
+12-31: "Flow Label (20)"
+32-47: "Payload Length (16)"
+48-55: "Next Header (8)"
+56-63: "Hop Limit (8)"
+64-127: "Source Address (64 bits - first half)"
+128-191: "Source Address (64 bits - second half)"
+192-255: "Destination Address (64 bits - first half)"
+256-319: "Destination Address (64 bits - second half)"

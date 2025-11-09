@@ -1,0 +1,69 @@
+## REST - Cliente {#sec-ex-rest-client}
+
+###  Cliente REST con Fetch API
+
+Implementa un cliente JavaScript que consuma la API REST de un videojuego usando Fetch API.
+
+**Requisitos:**
+
+1. **Crea funciones para consumir la API:**
+   Implementa las siguientes funciones usando `fetch()`:
+
+   ```javascript
+   async function getPlayers() { ... }
+   async function getPlayer(id) { ... }
+   async function createPlayer(playerData) { ... }
+   async function updatePlayer(id, updates) { ... }
+   async function deletePlayer(id) { ... }
+   async function getTopScores(limit = 10) { ... }
+   ```
+
+2. **Manejo de errores:**
+   - Verifica el código de estado de la respuesta
+   - Lanza excepciones personalizadas para errores HTTP
+   - Maneja errores de red (ej: servidor no disponible)
+
+3. **Implementa una clase `GameAPI`:**
+   Encapsula todas las funciones en una clase con:
+   - Base URL configurable
+   - Métodos para cada operación
+   - Manejo centralizado de errores
+   - Headers comunes (Content-Type, Authorization si aplica)
+
+4. **Crea una interfaz de usuario simple:**
+   - Botón para obtener el top 10 de puntuaciones
+   - Mostrar los resultados en una lista HTML
+   - Indicador de carga durante la petición
+   - Mensaje de error si falla
+
+**Estructura sugerida:**
+```javascript
+class GameAPI {
+    constructor(baseURL) {
+        this.baseURL = baseURL;
+    }
+
+    async request(endpoint, options = {}) {
+        // Método helper para hacer peticiones
+    }
+
+    async getPlayers() { ... }
+    async createPlayer(data) { ... }
+    // ... más métodos
+}
+```
+
+**Uso esperado:**
+```javascript
+const api = new GameAPI('https://api.mygame.com');
+
+// Obtener jugador
+const player = await api.getPlayer(123);
+console.log(player.username);
+
+// Crear nuevo jugador
+const newPlayer = await api.createPlayer({
+    username: 'newbie',
+    email: 'newbie@example.com'
+});
+```

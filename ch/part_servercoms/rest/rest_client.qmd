@@ -1,0 +1,153 @@
+# Cliente API REST con Javascript {#sec-rest-client}
+
+La función `fetch()` es la API estándar moderna de JavaScript para realizar peticiones HTTP. Está integrada en todos los navegadores modernos y utiliza promesas (Promises) para manejar operaciones asincrónicas de manera elegante.
+
+Cuando trabajamos con `fetch()`, tenemos dos formas principales de manejar las respuestas asincrónicas. La primera opción es usar callbacks con `.then()`, donde encadenamos promesas para procesar la respuesta. Primero verificamos si la petición fue exitosa con `response.ok`, luego convertimos la respuesta a JSON, y finalmente procesamos los datos. Si algo falla en cualquier punto de la cadena, el `.catch()` captura el error.
+
+La segunda opción, más recomendada por su legibilidad, es usar `async/await`. Aquí declaramos una función asíncrona y usamos `await` para esperar las promesas. Esto hace que el código se lea de forma más secuencial y natural, similar a código síncrono, aunque sigue siendo asíncrono. Siempre envolvemos el código en un bloque `try/catch` para manejar posibles errores.
+
+```javascript
+// Con callbacks (.then)
+fetch('https://api.game.com/players/alice')
+    .then(response => {
+        if (!response.ok) throw new Error('HTTP error ' + response.status);
+        return response.json();
+    })
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+
+// Con async/await (recomendado)
+async function getPlayer() {
+    try {
+        const response = await fetch('https://api.game.com/players/alice');
+        if (!response.ok) throw new Error('HTTP error ' + response.status);
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+```
+
+## GET - Obtener datos
+
+Para obtener datos de una API, usamos el método GET, que es el predeterminado de `fetch()`. En el primer ejemplo obtenemos información de un jugador y accedemos directamente a una propiedad específica del objeto retornado. En el segundo ejemplo creamos una función reutilizable que acepta un ID dinámico mediante template literals, lo que nos permite obtener diferentes jugadores cambiando solo el parámetro.
+
+```javascript
+// Con callbacks
+fetch('https://api.game.com/players/alice')
+    .then(response => response.json())
+    .then(player => console.log(player.name))
+    .catch(error => console.error(error));
+
+// Con async/await
+async function getPlayer(id) {
+    const response = await fetch(`https://api.game.com/players/${id}`);
+    return await response.json();
+}
+```
+
+## POST - Crear recurso
+
+Cuando necesitamos crear un nuevo recurso, usamos el método POST. Aquí debemos especificar tres elementos clave en el segundo parámetro de `fetch()`: el método HTTP, las cabeceras indicando que enviamos JSON, y el cuerpo de la petición con los datos convertidos a string JSON mediante `JSON.stringify()`. El servidor procesará estos datos, creará el nuevo jugador, y típicamente nos devolverá el objeto creado con su nuevo ID asignado.
+
+```javascript
+// Con callbacks
+fetch('https://api.game.com/players', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'charlie', email: 'charlie@example.com' })
+})
+    .then(response => response.json())
+    .then(newPlayer => console.log('Creado:', newPlayer.id))
+    .catch(error => console.error(error));
+
+// Con async/await
+async function createPlayer(data) {
+    const response = await fetch('https://api.game.com/players', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return await response.json();
+}
+```
+
+## PUT - Actualizar recurso
+
+Para actualizar un recurso existente, usamos PUT, que reemplaza completamente el recurso en el servidor. La estructura es similar al POST, pero aquí incluimos el ID del recurso en la URL para indicar cuál queremos actualizar. Enviamos los nuevos datos que queremos aplicar, y el servidor actualiza el recurso y nos devuelve la versión actualizada. Es importante notar que PUT típicamente reemplaza todo el recurso, a diferencia de PATCH que solo actualizaría los campos especificados.
+
+```javascript
+// Con callbacks
+fetch('https://api.game.com/players/charlie', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'newemail@example.com', level: 5 })
+})
+    .then(response => response.json())
+    .then(updated => console.log('Actualizado'))
+    .catch(error => console.error(error));
+
+// Con async/await
+async function updatePlayer(id, updates) {
+    const response = await fetch(`https://api.game.com/players/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+    });
+    return await response.json();
+}
+```
+
+## DELETE - Eliminar recurso
+
+El método DELETE es el más simple de todos, ya que solo necesitamos especificar el método y la URL con el ID del recurso a eliminar. No necesitamos enviar un cuerpo ni cabeceras especiales. El servidor eliminará el recurso y típicamente responde con un código 204 (sin contenido) o 200 (éxito). Verificamos que la operación fue exitosa usando `response.ok`, que será `true` para códigos de estado 2xx.
+
+```javascript
+// Con callbacks
+fetch('https://api.game.com/players/charlie', {
+    method: 'DELETE'
+})
+    .then(response => {
+        if (response.ok) console.log('Eliminado');
+    })
+    .catch(error => console.error(error));
+
+// Con async/await
+async function deletePlayer(id) {
+    const response = await fetch(`https://api.game.com/players/${id}`, {
+        method: 'DELETE'
+    });
+    return response.ok;
+}
+```
+
+## Manejo de errores y códigos de estado
+
+En aplicaciones reales, necesitamos manejar diferentes situaciones que pueden ocurrir durante las peticiones HTTP. Este ejemplo muestra cómo implementar un manejo robusto de errores usando un `switch` sobre el código de estado. Cada código HTTP tiene un significado específico: 200 indica éxito y devolvemos los datos, 401 significa que el usuario necesita autenticarse, 403 indica que aunque esté autenticado no tiene permisos para ese recurso, 404 significa que el recurso no existe, y 500 indica un error interno del servidor. Capturando estos casos específicos, podemos proporcionar mensajes de error claros y tomar acciones apropiadas para cada situación, mejorando significativamente la experiencia del usuario.
+
+```javascript
+async function fetchWithErrorHandling(url) {
+    try {
+        const response = await fetch(url);
+        
+        switch (response.status) {
+            case 200:
+                return await response.json();
+            case 401:
+                throw new Error('No autenticado');
+            case 403:
+                throw new Error('Sin permisos');
+            case 404:
+                throw new Error('Recurso no encontrado');
+            case 500:
+                throw new Error('Error del servidor');
+            default:
+                throw new Error(`Error: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('Error en petición:', error);
+        throw error;
+    }
+}
+```

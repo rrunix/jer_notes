@@ -1,0 +1,148 @@
+# Capa de Acceso a la Red {#sec-access-layer}
+
+La Capa de Acceso a la Red se encarga de la transmisión física de datos entre dispositivos directamente conectados en una red local, manejando tanto los aspectos físicos de la transmisión como el control de acceso al medio compartido. Esta capa combina las funciones de las capas física y de enlace de datos del modelo OSI, proporcionando una interfaz entre los protocolos de red de nivel superior y el hardware de red específico. Su principal responsabilidad es garantizar que los datos puedan transmitirse de manera confiable entre nodos adyacentes en la red.
+
+El capítulo se divide en un apartado donde veremos las principales funciones de la red y después veremos los protocolos definidos en esta capa. Para guiar el aprendizaje, antes veremos un ejemplo del funcionamiento de la Capa de Acceso a Red. No os preocupéis si no entendéis por ahora todos los conceptos, los iremos viendo a lo largo de este capítulo.
+
+Consideremos una red Ethernet típica con un switch central conectando cuatro computadoras (A, B, C, D) con las siguientes direcciones MAC:
+
+- A (Puerto 1): 00:1A:2B:3C:4D:5E.
+- B (Puerto 2): 00:2B:3C:4D:5E:6F.
+- C (Puerto 3): 00:3C:4D:5E:6F:70.
+- D (Puerto 4): 00:4D:5E:6F:70:81.
+
+Como ejemplo, vamos a ver los pasos para el envío de un mensaje desde A a C. Podéis ver la representación en un diagrama de secuencia en la @fig-example-access-layer. Los pasos serían los siguientes:
+
+1. Inicialización del switch. La tabla de direcciones MAC del switch que asocia MAC y puerto está vacia.
+2. A quiere enviar el paquete a C, pero no conoce su MAC. Por lo tanto envía una trama ARP broadcast por Ethernet para descubrir la dirección MAC de C.
+3. El switch lo recibe en el puerto 1, aprende que la MAC de A está en el puerto 1, y reenvía el paquete a los demás puertos.
+4. El switch recibe la respuesta de C desde el puerto 3. Asocia la dirección MAC de C al puerto 3. Reenvia la respuesta a A, que ya sabe que está en el 1.
+5. A envía el mensaje con destinatario la dirección MAC de C.
+6. El switch recibe el mensaje, busca en su tabla y comprueba que la dirección MAC coincide con el puerto 3 y lo reenvia.
+
+
+![Ejemplo de envío de paquetes en una red local donde no se conoce la MAC del destinatario.](resources/example-access-layer.png){#fig-example-access-layer}
+
+## Funciones principales de la Capa de Acceso a la Red
+
+La Capa de Acceso a la Red desempeña múltiples funciones críticas que trabajan en conjunto para garantizar una comunicación eficiente y confiable entre dispositivos en la red local.
+
+### Control de Acceso al Medio (MAC)
+
+La función de control de acceso al medio (MAC) es fundamental para coordinar cómo múltiples dispositivos comparten un medio de transmisión común. Esta función implementa diversos algoritmos y protocolos según la tecnología de red utilizada. Su eficiencia determina directamente el rendimiento y la escalabilidad de toda la red local. En redes Ethernet tradicionales de half-duplex (sólo pueden transmitir en una dirección a la vez), los dispositivos emplean el método CSMA/CD (Carrier Sense Multiple Access with Collision Detection), donde primero escuchan el medio antes de transmitir para verificar que esté libre, permiten que múltiples dispositivos accedan al mismo medio compartido, y detectan colisiones durante la transmisión implementando algoritmos de backoff exponencial para programar retransmisiones inteligentes.
+
+Las redes inalámbricas, por el contrario, utilizan CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) debido a que la detección de colisiones es impráctica en el medio radioeléctrico. En este esquema, los dispositivos esperan un tiempo aleatorio antes de transmitir para reducir la probabilidad de colisiones, utilizan mecanismos de acknowledgment para confirmar que la transmisión fue recibida correctamente, e implementan el protocolo RTS/CTS (Request to Send/Clear to Send) para resolver el problema del nodo oculto donde algunos dispositivos no pueden detectar las transmisiones de otros.
+
+Complementariamente, los mecanismos de control de flujo evitan que transmisores rápidos saturen receptores más lentos mediante técnicas como Pause Frames en Ethernet full-duplex (se puede transmitir en ambas direcciones a la vez) que permiten al receptor solicitar pausas temporales, buffer management en switches para absorber ráfagas de tráfico sin pérdida de datos, y rate limiting para controlar dinámicamente la velocidad de transmisión según las condiciones de la red.
+
+### Direccionamiento Físico
+
+El direccionamiento físico opera a nivel de hardware y es independiente de los protocolos de capa superior. Utiliza direcciones MAC únicas para identificar cada interfaz de red en el segmento local. Este sistema de direccionamiento es esencial para la entrega precisa de tramas entre dispositivos directamente conectados. Las direcciones MAC son como el DNI del dispositivo, son únicas, estáticas y cada dispositivo tiene una. Están formadas por 48 bits siguen una estructura específica donde los primeros 24 bits constituyen el OUI (Organizationally Unique Identifier) asignado por IEEE a cada fabricante, los últimos 24 bits forman el identificador único del dispositivo asignado por el fabricante, y bits especiales indican si la dirección es individual o grupal y si está administrada universalmente o localmente. Las MAC se representan mediante octetos 6 octetos separados por dos ":", como por ejemplo "00:1A:2B:3C:4D:5E".
+
+::: {.callout-tip}
+# Dirección MAC
+Una dirección MAC es un identificador único asignado a cada tarjeta de red. Están formados por 48 bits donde la primera parte identifica al fabricante, después el dispositivo dentro del fabricante, y por último tiene unos bits especiales.
+:::
+
+El sistema soporta tres tipos principales de direccionamiento: unicast para comunicación dirigida a un único dispositivo específico, broadcast utilizando la dirección especial FF:FF:FF:FF:FF:FF para alcanzar todos los dispositivos del segmento simultáneamente, y multicast para dirigir tráfico a grupos específicos de dispositivos identificados por el primer bit configurado en 1.
+
+### Detección y Corrección de Errores
+
+Esta función garantiza la integridad de los datos transmitidos a través del medio físico. Implementa algoritmos como Códigos de Redundancia Cíclica (CRC) para detectar errores de transmisión y mecanismos de retransmisión cuando es necesario. Sin esta función, los datos corruptos podrían propagarse por la red causando problemas de comunicación. Los códigos de CRC son ampliamente utilizados y generan un polinomio matemático basado en los datos originales, agregan el resultado como Frame Check Sequence (FCS) al final de cada trama, y permiten al receptor recalcular el CRC para compararlo con el recibido, detectando efectivamente errores de un solo bit y muchos errores de múltiples bits. Para aplicaciones menos críticas existen checksums simples que realizan una suma aritmética de todos los bytes de datos, son menos robustos que CRC pero requieren menos procesamiento computacional.
+
+Las técnicas más avanzadas incluyen Forward Error Correction (FEC) que no solo detecta sino que corrige errores automáticamente, utiliza códigos como Hamming para corrección de errores de un solo bit y Reed-Solomon para errores en ráfagas, y es especialmente importante en medios inalámbricos donde la interferencia y las condiciones ambientales pueden causar errores frecuentes.
+
+### Control de tamaño
+
+Esta función maneja las limitaciones de tamaño impuestas por diferentes tecnologías de red. Cada tecnología de red define un Maximum Transmission Unit (MTU) específico que determina el tamaño máximo de datos que puede transportar una sola trama, donde Ethernet maneja 1500 bytes de datos, Token Ring típicamente 4464 bytes, FDDI 4352 bytes, y PPP sobre enlaces seriales utiliza valores variables aunque comúnmente 1500 bytes para mantener compatibilidad. Cuando los datos de capas superiores exceden el MTU disponible, la Capa de Acceso a la Red descarta automáticamente el paquete.
+
+### Sincronización y Temporización
+
+Esta función coordina el timing entre dispositivos para asegurar la correcta interpretación de las señales digitales. Establece marcos de tiempo comunes para la transmisión y recepción de datos. Es especialmente crítica en redes de alta velocidad donde pequeñas diferencias de timing pueden causar errores de comunicación. La sincronización de reloj es esencial para el funcionamiento correcto de cualquier comunicación digital, abarcando la sincronización de bit para determinar precisamente los límites temporales de cada bit transmitido, la sincronización de trama para identificar inequívocamente el inicio y fin de cada trama de datos, y la sincronización de símbolo necesaria en modulaciones complejas como QAM donde múltiples bits se codifican en un solo símbolo.
+
+### Gestión de Topología
+
+Esta función se encarga de descubrir y mantener información sobre la estructura física de la red. Implementa protocolos para detectar enlaces, prevenir bucles y optimizar rutas de comunicación. Permite que la red se adapte automáticamente a cambios en la topología como fallos de enlaces o adición de nuevos dispositivos. El mantenimiento continuo de enlaces se logra mediante mensajes  de tipo keepalive que detectan proactivamente fallos de enlace antes de que afecten el tráfico de usuarios. Los protocolos de detección de topología como CDP (Cisco Discovery Protocol) y LLDP (Link Layer Discovery Protocol) permiten que los dispositivos se identifiquen mutuamente y compartan información sobre sus capacidades, mientras que Spanning Tree Protocol previene bucles peligrosos en topologías redundantes que podrían causar tormentas de broadcast.
+
+### Control de Calidad de Servicio (QoS)
+
+Esta función prioriza diferentes tipos de tráfico según su importancia y requisitos de rendimiento. Es fundamental para el funcionamiento adecuado de aplicaciones en tiempo real como voz y vídeo. Esto se logra implementando mecanismos de gestión de buffers y scheduling para garantizar que aplicaciones críticas reciban el ancho de banda necesario, y se realiza bajo estándares de clasificación. Los mecanismos de gestión de buffers aseguran que diferentes tipos de tráfico reciban el tratamiento apropiado mediante Weighted Fair Queuing que asigna recursos proporcionalmente según la importancia de cada clase de tráfico, priority queuing que garantiza que el tráfico más crítico siempre tenga precedencia sobre tráfico menos importante, y Random Early Detection que previene congestión descartando proactivamente paquetes menos críticos antes de que los buffers se saturen completamente.
+
+## Dispositivos de la Capa de Acceso a la Red
+
+Los **switches** son dispositivos de red que operan en la Capa de Acceso a la Red, específicamente en la subcapa de enlace de datos. Funcionan como elementos centrales que conectan múltiples dispositivos en una red local, creando dominios de colisión separados para cada puerto. Es decir, que la información de dispositivos conectados por diferentes puertos no colisiona entre sí, ya que no están en el mismo medio. Estos dispositivos evolucionaron desde los **bridges** tradicionales (que conectaban solo 2-4 segmentos) hasta reemplazar los **hubs** tradicionales, donde todos los puertos operaban igual con colisiones frecuentes a un sistema donde cada puerto opera independientemente con capacidades full-duplex que permiten transmisión y recepción simultánea, duplicando efectivamente el ancho de banda disponible. Su importancia radica en funcionalidades clave como el aprendizaje automático de direcciones MAC donde construyen dinámicamente tablas que asocian cada dirección con su puerto específico, el reenvío selectivo que envía tramas únicamente al puerto de destino reduciendo tráfico innecesario.
+
+Los switches se categorizan principalmente en dos tipos según sus capacidades de gestión: 
+
+- no gestionados: son plug-and-play y se utilizan generalmente en redes pequeñas y domésticas.
+- gestionados: ofrecen un control más granular y más capacidades, como seguridad, monitorización y medidas QoS.
+
+Los **puntos de acceso** son dispositivos fundamentales para la conectividad inalámbrica en la Capa de Acceso a la Red que actúan como traductores entre medios cableados e inalámbricos, manejan la asociación y autenticación de dispositivos inalámbricos, e implementan CSMA/CA para coordinar el acceso al medio y evitar colisiones en el espectro radioeléctrico compartido. 
+
+Los **repetidores** extienden el alcance de las redes regenerando señales digitales sin filtrar tráfico ni reducir colisiones, simplemente reciben, amplifican y retransmiten las señales para superar las limitaciones de distancia de los medios físicos. Los amplificadores incluyen RF amplifiers que aumentan la potencia de señales inalámbricas y optical amplifiers que amplifican señales en fibra óptica sin conversión eléctrica, todos debiendo cumplir estrictas regulaciones de potencia de transmisión para evitar interferencia con otros sistemas.
+
+Los **conversores de medio** facilitan la interoperabilidad convirtiendo entre diferentes medios físicos como fibra óptica y cobre, adaptando automáticamente velocidades, y permitiendo extensión de redes existentes o migración gradual a tecnologías más avanzadas. 
+
+Tabla de resumen:
+
+| Dispositivo | Función Principal | Características Clave | Aplicación Típica |
+|-------------|-------------------|----------------------|-------------------|
+| **Switches No Gestionados** | Conectividad básica LAN | Plug-and-play, aprendizaje MAC automático, full-duplex | Redes pequeñas y domésticas |
+| **Switches Gestionados** | Conectividad LAN avanzada | VLANs, QoS, SNMP, seguridad 802.1X, port mirroring | Redes empresariales |
+| **Puntos de acceso** | Conectividad inalámbrica | CSMA/CA, traducción cableado-wireless, beamforming | Redes Wi-Fi empresariales |
+| **Repetidores** | Extensión de alcance | Regeneración de señal, sin filtrado | Superación de límites de distancia |
+| **Amplificadores** | Amplificación de señal | Aumento de potencia RF/óptica | Enlaces de larga distancia |
+| **Conversores de medio** | Conversión de medios | Fibra ↔ cobre, adaptación de velocidades | Migración gradual, extensión |
+| **Modulador** | Conectividad modular | SFP/SFP+/QSFP, intercambiables | Flexibilidad en tipos de conexión |
+
+## Protocolos
+### Ethernet (IEEE 802.3)
+
+Ethernet es el protocolo dominante en redes cableadas locales. Define tanto el formato de las tramas como los métodos de acceso al medio. Su éxito radica en la simplicidad de implementación, la robustez del diseño, y la capacidad de evolucionar continuamente para satisfacer las demandas crecientes de ancho de banda en entornos empresariales y domésticos. Al principio en Ethernet se tenía una arquitectura de medio compartida, y por ello, se tenían que utilizar técnicas como CSMA/CD para minimizar colisiones. Esto hacía que eficiencia de la red disminuyese. Con la llegada de los bridges y switches, se introdujo una topología de estrella, donde todos están conectados al switch y este crea dominios de colisión independientes, volviendo innecesario el CSMA/CD y mejorando considerablemente la eficiencia de la red.
+
+La estructura de las tramas Ethernet sigue un formato estandarizado que garantiza la interoperabilidad entre dispositivos de diferentes fabricantes. Cada trama comienza con un **preámbulo** de 8 bytes que proporciona sincronización entre el transmisor y receptor, estableciendo el timing necesario para la correcta interpretación de los bits que siguen. Las **direcciones MAC** de destino y origen, de 6 bytes cada una, identifican inequívocamente los dispositivos involucrados en la comunicación, mientras que el campo **Tipo/Longitud** de 2 bytes especifica qué protocolo de capa superior procesa los datos o la longitud de la carga útil cuando es menor a 1536 bytes. El contenido útil reside en el campo de **data/payload** que puede contener entre 46 y 1500 bytes de información útil, con padding automático cuando los datos son menores al mínimo requerido, y finalmente el **Frame Check Sequence** de 4 bytes implementa detección de errores CRC permitiendo al receptor verificar la integridad de toda la trama recibida.
+
+
+![Cabeceras de un paquete de Ethernet.](resources/fig-packet-ethernet.png){#fig-packet-ethernet}
+
+La evolución de Ethernet ha sido extraordinaria, comenzando con 10Base-T que maneja 10 Mbps sobre cable trenzado CAT3/5, evolucionando hasta 10GBase-T con 10 Gbps sobre CAT6A/7. En contextos intensivas, o en nodos centrales, se cuenta con implementaciones de mayor velocidad. Todo esto se ha conseguido a través de diferentes estandares de modelos físicos y la mejora de rendimiento en el hardware. También se ha vuelto posible combinar la transmisión de datos y energía eléctrica por un mismo cable, simplificando los dispositivos de red.
+
+::: {.callout-note title="Limite de longitud"}
+En los cables de pares trenzados hechos de cobre el límite máximo de trasmisión es de 100 metros. Es decir, que cada 100 metros hay que añadir un dispositivo de red que regenere la señal, como switches o repetidores, para evitar la degradación y pérdida de datos. Esta limitación se debe a la atenuación de la señal y la interferencia electromagnética que se acumulan con la distancia. Para superar esta restricción se utilizan alternativas como fibra óptica (alcanza kilómetros sin regeneración), extensores Ethernet (hasta 300m), o tecnologías inalámbricas. En entornos empresariales, esto determina la ubicación estratégica de closets de telecomunicaciones en la arquitectura de red.
+:::
+
+
+### Wi-Fi (IEEE 802.11)
+
+El protocolo Wi-Fi maneja la comunicación inalámbrica y debe lidiar con desafíos únicos como la interferencia y la movilidad de dispositivos. A diferencia de las redes cableadas donde el medio físico está claramente definido y controlado, las redes inalámbricas operan en un espectro electromagnético compartido donde múltiples factores pueden afectar la calidad de la transmisión. Esta complejidad ha llevado al desarrollo de sofisticados mecanismos de control y técnicas avanzadas de modulación que permiten comunicaciones confiables incluso en entornos con alta densidad de dispositivos. Uno de los métodos principales es la utilización de CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance). 
+
+La trama Wi-Fi (802.11) es considerablemente más compleja que Ethernet debido a los desafíos únicos del medio inalámbrico. El **Frame Control** contiene información crítica sobre el tipo de trama, versión del protocolo, y flags especiales para funciones como gestión de energía y fragmentación. El campo **Duration/ID** implementa el mecanismo de reserva virtual del medio, permitiendo que otros dispositivos sepan cuánto tiempo estará ocupado el canal. La característica más distintiva son las **múltiples direcciones MAC** (hasta 4) que manejan la complejidad de las redes inalámbricas. Address 1 identifica al receptor inmediato, Address 2 al transmisor inmediato, Address 3 proporciona filtrado adicional (a menudo el BSSID del punto de acceso), y Address 4 se utiliza únicamente en sistemas de distribución inalámbrica cuando los access points se comunican entre sí. Los **campos opcionales** reflejan la evolución del estándar: QoS Control permite priorización de tráfico para aplicaciones sensibles al tiempo, HT Control habilita características de alto rendimiento como MIMO y beamforming, y el **Sequence Control** maneja la ordenación de tramas y detección de duplicados, crítico en un medio donde las transmisiones pueden perderse o duplicarse debido a interferencia.
+
+![Cabeceras de un paquete Wi-Fi](resources/fig-packet-wifi.png){#fig-packet-wifi}
+
+Al igual que en Ethernet, la evolución de Wi-Fi ha sido enorme. Los primeros estándares, 802.11n (Wi-Fi 4), contaban con velocidades de hasta 600 Mbps, mientras que Wi-Fi 7 (802.11be) promete hasta 46 Gbps. Las mejoras se han enfocado en técnicas para reducir interferencias entre redes y colisiones entre dispositivos, y la inclusión de más bandas:
+
+- 2.4 GHz: mayor alcance y penetración, pero menor velocidad.
+- 5 GHz: mayor velocidad pero menor alcance.
+- 6 GHz: mejor rendimiento, aunque requiere de hardware específico y tiene el mejor alcance.
+
+
+### Point-to-Point Protocol (PPP)
+
+PPP se utiliza para conexiones directas entre dos dispositivos, comúnmente en enlaces seriales y conexiones de acceso telefónico. Este protocolo fue diseñado específicamente para superar las limitaciones de protocolos más antiguos como SLIP (Serial Line Internet Protocol), proporcionando un marco robusto y flexible para comunicaciones punto a punto. Aunque su uso ha disminuido con la proliferación de tecnologías de banda ancha, PPP sigue siendo relevante en conexiones de respaldo, enlaces satelitales, y ciertas implementaciones de VPN donde se requiere control granular sobre la conexión. PPP utiliza un formato de trama mucho más simple que Ethernet o Wi-Fi, reflejando su naturaleza punto a punto donde no hay necesidad de direccionamiento complejo, permitiendo un procesamiento eficiente en enlaces de baja velocidad y dispositivos con recursos limitados.
+
+Las características avanzadas de PPP lo distinguen de protocolos más simples al integrar detección y corrección de errores que garantizan la integridad de los datos transmitidos incluso en enlaces propensos a interferencia, capacidades de autenticación mediante PAP (Password Authentication Protocol) o el más seguro CHAP (Challenge Handshake Authentication Protocol), y configuración automática de direcciones IP que negocia dinámicamente parámetros de red eliminando la necesidad de configuración manual en ambos extremos.
+
+### Frame Relay
+
+Frame Relay es un protocolo de capa de enlace utilizado en redes WAN que proporciona conexiones virtuales entre sitios remotos. Frame Relay fue desarrollado como una evolución más eficiente de X.25, eliminando muchas de las verificaciones y controles redundantes que hacían lento al protocolo anterior. Aunque ha sido en gran medida reemplazado por tecnologías más modernas como MPLS y VPN sobre Internet, Frame Relay estableció conceptos fundamentales de redes WAN que siguen siendo relevantes en tecnologías contemporáneas.
+
+La arquitectura de Frame Relay se basa en conmutación de tramas utilizando identificadores de circuito virtual que permiten múltiples conexiones lógicas sobre una sola interfaz física, simplificando la gestión de conectividad entre múltiples sitios remotos. El protocolo implementa un control de congestión sofisticado.
+
+### Address Resolution Protocol (ARP)
+
+ARP es fundamental para la operación de redes IP sobre Ethernet, proporcionando la traducción entre direcciones IP (Capa de Red) y direcciones MAC (Capa de Acceso a la Red). Este protocolo resuelve uno de los problemas más básicos pero críticos en redes: cómo traducir direcciones lógicas que los humanos y aplicaciones entienden fácilmente a direcciones físicas que el hardware de red requiere para la transmisión real.
+
+El proceso ARP opera mediante un mecanismo de solicitud y respuesta que minimiza el tráfico de red mientras proporciona la información necesaria. Cuando un dispositivo necesita comunicarse con otro pero solo conoce su dirección IP, envía un ARP Request como broadcast preguntando "¿Quién tiene la IP X.X.X.X?" a todos los dispositivos del segmento local. El dispositivo que posee esa dirección IP específica responde con un ARP Reply unicast que incluye su dirección MAC, permitiendo al solicitante establecer la asociación necesaria. Para optimizar el rendimiento, estas asociaciones IP-MAC se almacenan en una caché ARP local con temporizadores que eliminan automáticamente entradas obsoletas, evitando repetir el proceso de resolución para comunicaciones frecuentes.
+
+ARP soporta múltiples modalidades de operación que se adaptan a diferentes necesidades de red y escenarios operativos. ARP Estático permite crear entradas manuales permanentes que nunca expiran, útil para dispositivos críticos como gateways y servidores donde se requiere máxima predictibilidad. ARP Dinámico constituye el modo normal de operación donde las entradas se aprenden automáticamente con tiempo de vida configurable, balanceando eficiencia con actualización automática cuando los dispositivos cambian. 

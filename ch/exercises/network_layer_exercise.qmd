@@ -1,0 +1,51 @@
+## Capa de Red {#sec-ex-network-layer}
+
+###  Análisis de Direccionamiento IP y Subredes
+
+Dada la siguiente salida del comando `ip addr` en un sistema Linux, analiza la configuración de red y responde las preguntas:
+
+```bash
+$ ip addr show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP
+    link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.100/24 brd 192.168.1.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5054:ff:fe12:3456/64 scope link
+       valid_lft forever preferred_lft forever
+
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP
+    link/ether a4:5e:60:ab:cd:ef brd ff:ff:ff:ff:ff:ff
+    inet 10.0.5.42/22 brd 10.0.7.255 scope global wlan0
+       valid_lft forever preferred_lft forever
+```
+
+**Preguntas:**
+
+1. **Direcciones de red**: Para cada interfaz con IPv4, calcula:
+   - La dirección de red
+   - La dirección de broadcast
+   - El rango de IPs válidas para hosts
+   - El número total de hosts disponibles
+
+2. **Clasificación**:
+   - ¿Qué interfaces tienen direcciones IP privadas? ¿Por qué?
+   - ¿La dirección de loopback es pública o privada? ¿Para qué se utiliza?
+
+3. **Máscara de subred**:
+   - Convierte las máscaras CIDR (/8, /24, /22) a formato decimal (ej: 255.255.255.0)
+   - ¿Cuál es la diferencia entre /24 y /22 en términos de número de hosts?
+
+4. **Escenario práctico**:
+   - Si quieres enviar un paquete desde esta máquina (192.168.1.100) a un servidor web en Internet (8.8.8.8), ¿qué interfaz se utilizaría?
+   - ¿Necesitarías NAT? ¿Por qué?
+
+5. **MTU**:
+   - ¿Qué significa MTU 1500?
+   - Si envías un datagrama IP de 2000 bytes por eth0, ¿qué ocurrirá?

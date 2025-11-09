@@ -1,0 +1,81 @@
+---
+title: "Solución: REST Cliente"
+---
+
+## Solución: Cliente REST con Fetch API
+
+### Implementación con closure approach
+
+```javascript
+"use strict";
+
+// Closure approach: función que retorna un objeto con métodos
+function createGameAPI(baseURL) {
+    // Variables privadas (closures)
+    const headers = { 'Content-Type': 'application/json' };
+
+    // Método privado
+    async function request(endpoint, options = {}) {
+        const response = await fetch(`${baseURL}${endpoint}`, {
+            ...options,
+            headers: { ...headers, ...options.headers }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        return response.status === 204 ? null : response.json();
+    }
+
+    // Retornar API pública
+    return {
+        async getPlayers(limit = 10) {
+            return await request(`/api/players?limit=${limit}`);
+        },
+
+        async createPlayer(playerData) {
+            return await request('/api/players', {
+                method: 'POST',
+                body: JSON.stringify(playerData)
+            });
+        },
+
+        async getTopScores(limit = 10) {
+            return await request(`/api/scores?limit=${limit}`);
+        }
+    };
+}
+
+// Ejemplo de uso
+const api = createGameAPI('https://api.mygame.com');
+
+try {
+    const players = await api.getPlayers(5);
+    console.log('Players:', players);
+
+    const newPlayer = await api.createPlayer({
+        username: 'gamer123',
+        email: 'gamer@game.com'
+    });
+    console.log('Created:', newPlayer);
+
+    const scores = await api.getTopScores(3);
+    console.log('Top Scores:', scores);
+
+} catch (error) {
+    console.error('Error:', error.message);
+}
+```
+
+### Características de la solución
+
+**Closure approach:**
+- `createGameAPI()` retorna un objeto con métodos
+- Variables privadas (`headers`, `request`) encapsuladas mediante closures
+- Solo los métodos públicos son accesibles
+
+**Ventajas:**
+- Más funcional y simple que clases
+- Encapsulación natural sin `private`
+- Fácil de testear y extender

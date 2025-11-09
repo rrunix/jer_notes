@@ -1,0 +1,87 @@
+---
+title: "Solución: WebSocket Cliente"
+---
+
+## Solución: Cliente WebSocket para Chat
+
+### Implementación con closure approach
+
+```javascript
+"use strict";
+
+// Closure approach: función que retorna API del chat
+function createGameChat(serverURL) {
+    let ws = null;
+    let username = null;
+    const callbacks = {};
+
+    // Métodos privados
+    function handleMessage(event) {
+        const data = JSON.parse(event.data);
+
+        if (data.type === 'message' && callbacks.onMessage) {
+            callbacks.onMessage(data);
+        } else if (data.type === 'user_joined' && callbacks.onUserJoined) {
+            callbacks.onUserJoined(data.username);
+        }
+    }
+
+    function send(data) {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(data));
+        }
+    }
+
+    // API pública
+    return {
+        connect(user) {
+            username = user;
+            ws = new WebSocket(serverURL);
+
+            ws.onopen = () => {
+                send({ type: 'register', username });
+                if (callbacks.onConnect) callbacks.onConnect();
+            };
+
+            ws.onmessage = handleMessage;
+            ws.onclose = () => {
+                if (callbacks.onDisconnect) callbacks.onDisconnect();
+            };
+        },
+
+        sendMessage(text) {
+            send({ type: 'message', username, text });
+        },
+
+        disconnect() {
+            if (ws) ws.close();
+        },
+
+        on(event, callback) {
+            callbacks[event] = callback;
+        }
+    };
+}
+
+// Ejemplo de uso
+const chat = createGameChat('ws://localhost:8080');
+
+chat.on('onConnect', () => console.log('Connected!'));
+chat.on('onMessage', (data) => console.log(`${data.username}: ${data.text}`));
+chat.on('onUserJoined', (user) => console.log(`${user} joined`));
+
+chat.connect('player1');
+chat.sendMessage('Hello everyone!');
+```
+
+### Características de la solución
+
+**Closure approach:**
+- `createGameChat()` retorna API pública
+- Variables privadas (`ws`, `callbacks`) encapsuladas
+- Métodos privados (`handleMessage`, `send`) no accesibles
+
+**Ventajas:**
+- Más funcional y simple
+- Encapsulación natural
+- API limpia con patrón observer (`on()`)

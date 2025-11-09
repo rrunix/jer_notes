@@ -1,0 +1,54 @@
+graph TD
+    subgraph "Tier 1 ISPs"
+        T1A["Tier 1 ISP A<br/>Global Backbone"]
+        T1B["Tier 1 ISP B<br/>Global Backbone"]
+        T1C["Tier 1 ISP C<br/>Global Backbone"]
+    end
+    
+    subgraph "Tier 2 ISPs"
+        T2A["Tier 2 ISP A<br/>Regional Provider"]
+        T2B["Tier 2 ISP B<br/>Regional Provider"]
+        T2C["Tier 2 ISP C<br/>Regional Provider"]
+        T2D["Tier 2 ISP D<br/>Regional Provider"]
+    end
+    
+    subgraph "Tier 3 ISPs"
+        T3A["Tier 3 ISP A<br/>Local Provider"]
+        T3B["Tier 3 ISP B<br/>Local Provider"]
+        T3C["Tier 3 ISP C<br/>Local Provider"]
+        T3D["Tier 3 ISP D<br/>Local Provider"]
+        T3E["Tier 3 ISP E<br/>Local Provider"]
+        T3F["Tier 3 ISP F<br/>Local Provider"]
+    end
+    
+    %% Tier 1 peering relationships (free exchange)
+    T1A -.->|"Free Peering"| T1B
+    T1B -.->|"Free Peering"| T1C
+    T1A -.->|"Free Peering"| T1C
+    
+    %% Tier 2 purchasing transit from Tier 1
+    T1A -->|"Transit (Paid)"| T2A
+    T1A -->|"Transit (Paid)"| T2B
+    T1B -->|"Transit (Paid)"| T2C
+    T1C -->|"Transit (Paid)"| T2D
+    
+    %% Tier 2 peering with other Tier 2
+    T2A -.->|"Peering"| T2C
+    T2B -.->|"Peering"| T2D
+    
+    %% Tier 3 purchasing transit from Tier 2
+    T2A -->|"Transit (Paid)"| T3A
+    T2A -->|"Transit (Paid)"| T3B
+    T2B -->|"Transit (Paid)"| T3C
+    T2C -->|"Transit (Paid)"| T3D
+    T2D -->|"Transit (Paid)"| T3E
+    T2D -->|"Transit (Paid)"| T3F
+    
+    %% Styling
+    classDef tier1 fill:#ff6b6b,stroke:#d63031,stroke-width:3px,color:#fff
+    classDef tier2 fill:#4ecdc4,stroke:#00b894,stroke-width:2px,color:#fff
+    classDef tier3 fill:#fdcb6e,stroke:#e17055,stroke-width:2px,color:#2d3436
+    
+    class T1A,T1B,T1C tier1
+    class T2A,T2B,T2C,T2D tier2
+    class T3A,T3B,T3C,T3D,T3E,T3F tier3

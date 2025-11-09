@@ -1,0 +1,9 @@
+---
+format:
+  pdf:
+    pdf-engine: weasyprint
+    include-before-body: _cover.html
+    css: style.css
+---
+
+En el siguiente enlace se puede encontrar la versión html actualizada de los presentes apuntes: <https://urjcdslab.github.io/ModelosEstadisticosPrediccion/>

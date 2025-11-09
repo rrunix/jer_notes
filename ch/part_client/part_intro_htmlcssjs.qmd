@@ -1,0 +1,5 @@
+# Desarrollo en el lado del cliente {.unnumbered}
+
+Una vez comprendidos los fundamentos de las redes de comunicación, es momento de adentrarnos en el desarrollo del lado del cliente, donde JavaScript emerge como el lenguaje fundamental para crear aplicaciones web interactivas. En esta parte del curso, comenzaremos dominando los conceptos esenciales de JavaScript, desde sus fundamentos básicos como variables, tipos de datos y estructuras de control, hasta aspectos más avanzados como la programación orientada a objetos, la manipulación del DOM y la gestión de eventos.
+
+Una vez establecidas las bases de JavaScript, exploraremos HTML y CSS, las tecnologías que definen la estructura y presentación de las páginas web. HTML nos permitirá crear los contenedores y elementos de interfaz necesarios para nuestros juegos, mientras que CSS controlará su apariencia visual. Este conocimiento combinado será crucial para desarrollar la interfaz de nuestros juegos en red y para comprender cómo el cliente interactúa con los servicios del servidor en un entorno multijugador.

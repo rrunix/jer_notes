@@ -1,0 +1,22 @@
+---
+config:
+  packet:
+    showBits: true
+---
+packet-beta
+
+title IPv4 Header Format
+0-3: "Version (4)"
+4-7: "IHL (4)"
+8-15: "Type of Service (8)"
+16-31: "Total Length (16)"
+32-47: "Identification (16)"
+48-50: "Flags (3)"
+51-63: "Fragment Offset (13)"
+64-71: "Time to Live (8)"
+72-79: "Protocol (8)"
+80-95: "Header Checksum (16)"
+96-127: "Source Address (32)"
+128-159: "Destination Address (32)"
+160-191: "Options (variable)"
+192-223: "Padding"

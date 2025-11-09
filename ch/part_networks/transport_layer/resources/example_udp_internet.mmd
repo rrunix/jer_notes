@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant A as Client A
+    participant I as The Internet
+    participant B as Server B
+
+    A->>I: Paquete UDP 1 (IP destino: 8.8.8.8, puerto: 80)
+    I->>B: Paquete 1 entregado
+
+    A->>I: Paquete UDP 2 (IP destino: 8.8.8.8, puerto:80)
+    I->>B: Paquete 2 entregado
+
+    A->>I: Paquete UDP 3 (IP destino: 8.8.8.8, puerto:80)
+
+    A->>I: Paquete UDP 4 (IP destino: 8.8.8.8, puerto:80)
+    I->>B: Paquete 4 entregado (llega primero!)
+    A->>I: Paquete UDP 5 (IP destino: 8.8.8.8, puerto:80)
+    I->>B: Paquete 3 entregado (llega tarde!)

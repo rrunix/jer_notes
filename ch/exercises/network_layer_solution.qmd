@@ -1,0 +1,124 @@
+---
+title: "Solución: Capa de Red"
+---
+
+## Solución: Análisis de Direccionamiento IP y Subredes
+
+### 1. Direcciones de red
+
+**Interfaz `lo` (127.0.0.1/8):**
+- Dirección de red: `127.0.0.0`
+- Dirección de broadcast: `127.255.255.255`
+- Rango válido: `127.0.0.1` a `127.255.255.254`
+- Hosts disponibles: $2^{24} - 2 = 16,777,214$ hosts
+
+**Interfaz `eth0` (192.168.1.100/24):**
+- Dirección de red: `192.168.1.0`
+- Dirección de broadcast: `192.168.1.255`
+- Rango válido: `192.168.1.1` a `192.168.1.254`
+- Hosts disponibles: $2^8 - 2 = 254$ hosts
+
+**Interfaz `wlan0` (10.0.5.42/22):**
+- Dirección de red: `10.0.4.0`
+- Dirección de broadcast: `10.0.7.255`
+- Rango válido: `10.0.4.1` a `10.0.7.254`
+- Hosts disponibles: $2^{10} - 2 = 1,022$ hosts
+
+**Cálculo detallado para wlan0:**
+```
+IP:      10.0.5.42     = 00001010.00000000.00000101.00101010
+Máscara: /22           = 11111111.11111111.11111100.00000000
+                                                ^^
+                         (22 bits a 1, 10 bits a 0)
+
+Red:     10.0.4.0      = 00001010.00000000.00000100.00000000
+Broadcast: 10.0.7.255  = 00001010.00000000.00000111.11111111
+```
+
+### 2. Clasificación
+
+**Direcciones IP privadas:**
+- `eth0`: 192.168.1.100 → **Privada** (rango 192.168.0.0/16)
+- `wlan0`: 10.0.5.42 → **Privada** (rango 10.0.0.0/8)
+
+**Loopback (127.0.0.1):**
+- Es una dirección **especial reservada**, ni pública ni privada en el sentido tradicional
+- Se utiliza para:
+  - Comunicación interna del host consigo mismo
+  - Pruebas de servicios locales (ej: servidor web en localhost)
+  - No genera tráfico en la red física
+  - Siempre disponible, incluso sin conexión de red
+
+### 3. Máscara de subred
+
+**Conversión CIDR a decimal:**
+
+| CIDR | Binario | Decimal |
+|------|---------|---------|
+| /8 | 11111111.00000000.00000000.00000000 | 255.0.0.0 |
+| /24 | 11111111.11111111.11111111.00000000 | 255.255.255.0 |
+| /22 | 11111111.11111111.11111100.00000000 | 255.255.252.0 |
+
+**Diferencia entre /24 y /22:**
+- **/24**: 8 bits para hosts → $2^8 - 2 = 254$ hosts
+- **/22**: 10 bits para hosts → $2^{10} - 2 = 1,022$ hosts
+- **Diferencia**: /22 permite 768 hosts más (4 veces más que /24)
+
+### 4. Escenario práctico
+
+**Envío de paquete a 8.8.8.8:**
+
+1. **Interfaz utilizada**: Depende de la tabla de enrutamiento, pero típicamente sería `eth0` (Ethernet) si está configurada como interfaz predeterminada, o `wlan0` (WiFi) si no hay cable conectado.
+
+2. **Comprobación de destino**:
+   - 8.8.8.8 NO está en 192.168.1.0/24 (red local de eth0)
+   - 8.8.8.8 NO está en 10.0.4.0/22 (red local de wlan0)
+   - Por lo tanto, el paquete se envía al **gateway predeterminado**
+
+3. **¿Se necesita NAT?**
+   - **Sí, absolutamente necesario**
+   - Razón: 192.168.1.100 y 10.0.5.42 son direcciones **privadas**
+   - Las direcciones privadas **no son enrutables** en Internet público
+   - El router debe traducir la IP privada a su IP pública mediante NAT
+   - Proceso:
+     ```
+     [Host] 192.168.1.100:12345 → 8.8.8.8:53
+     [Router] Cambia origen a 203.0.113.100:5001 → 8.8.8.8:53
+     [Router] Tabla NAT: 192.168.1.100:12345 ↔ 5001
+     ```
+
+### 5. MTU
+
+**MTU 1500:**
+- **Significado**: Maximum Transmission Unit = 1500 bytes
+- Es el tamaño máximo de **payload** que puede transmitir la capa de enlace (Ethernet)
+- Incluye: cabecera IP (20 bytes) + cabecera TCP/UDP (20/8 bytes) + datos
+
+**Datagrama de 2000 bytes:**
+1. **Fragmentación IP** ocurrirá automáticamente
+2. El datagrama se divide en fragmentos que caben en el MTU:
+   - Fragmento 1: 1500 bytes (MTU completo)
+   - Fragmento 2: 520 bytes (resto: 2000 - 1480 = 520 bytes de datos + 20 cabecera)
+
+   *Nota: 1480 bytes de datos en el primer fragmento porque la cabecera IP (20 bytes) cuenta dentro del MTU*
+
+3. Cada fragmento viaja independientemente por la red
+
+4. Se **reensamblan en el destino** final
+
+5. **Campos IP utilizados**:
+   - `Identification`: mismo valor en todos los fragmentos
+   - `Flags`: "More Fragments" bit
+   - `Fragment Offset`: posición del fragmento
+
+**Diagrama del proceso:**
+```
+Datagrama original: [Cabecera IP 20B][Datos 1980B] = 2000B total
+                                    ↓
+                            Fragmentación
+                                    ↓
+Fragmento 1: [Cabecera IP 20B][Datos 1480B] = 1500B
+Fragmento 2: [Cabecera IP 20B][Datos 500B] = 520B
+```
+
+**Consideración**: La fragmentación añade overhead y puede afectar el rendimiento. Las aplicaciones modernas suelen usar **Path MTU Discovery** para evitarla.

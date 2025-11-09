@@ -1,0 +1,77 @@
+---
+title: "Solución: JavaScript"
+---
+
+## Solución: Sistema de Inventario de Videojuego
+
+```javascript
+"use strict";
+
+class Inventario {
+    constructor() {
+        this.items = [];
+    }
+
+    get totalItems() {
+        return this.items.length;
+    }
+
+    agregarItem(nombre, cantidad) {
+        const itemExistente = this.items.find(item => item.nombre === nombre);
+
+        if (itemExistente) {
+            itemExistente.cantidad += cantidad;
+        } else {
+            this.items.push({ nombre, cantidad });
+        }
+        console.log(`${nombre}: ${itemExistente ? itemExistente.cantidad : cantidad}`);
+    }
+
+    usarItem(nombre, cantidad) {
+        const item = this.items.find(item => item.nombre === nombre);
+
+        if (!item || item.cantidad < cantidad) {
+            throw new Error(`No hay suficiente ${nombre}`);
+        }
+
+        item.cantidad -= cantidad;
+        if (item.cantidad === 0) {
+            this.items = this.items.filter(i => i.nombre !== nombre);
+        }
+        console.log(`${nombre} usado. Quedan: ${item.cantidad}`);
+    }
+
+    mostrarInventario() {
+        console.log("\n=== INVENTARIO ===");
+        this.items.forEach(item => {
+            console.log(`${item.nombre}: ${item.cantidad}`);
+        });
+        console.log(`Total: ${this.totalItems}\n`);
+    }
+}
+
+// Ejemplo de uso
+const inventario = new Inventario();
+
+inventario.agregarItem("Espada", 1);
+inventario.agregarItem("Poción", 5);
+inventario.agregarItem("Poción", 3);
+inventario.mostrarInventario();
+
+inventario.usarItem("Poción", 2);
+inventario.mostrarInventario();
+```
+
+### Explicación de la solución
+
+**Características principales:**
+
+1. **Clase ES2015+**: Usa sintaxis moderna de clases con constructor, métodos y getter.
+
+2. **Getter `totalItems`**: Propiedad computada que retorna dinámicamente el número de items.
+
+3. **Métodos de arrays modernos**: `find()` para buscar items, `filter()` para eliminar items.
+
+4. **Template literals**: Usa backticks para mensajes dinámicos con interpolación.
+
+5. **Manejo de errores**: Lanza excepciones cuando no hay suficientes items.

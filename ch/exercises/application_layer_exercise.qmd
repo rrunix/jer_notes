@@ -1,0 +1,47 @@
+## Capa de Aplicación {#sec-ex-application-layer}
+
+###  Análisis de Petición HTTP
+
+Investiga cómo funciona el protocolo HTTP usando herramientas de línea de comandos.
+
+**Tareas:**
+
+1. **Realiza una petición HTTP simple:**
+   ```bash
+   curl -v http://example.com
+   ```
+   - Analiza la salida
+   - Identifica las cabeceras de petición (Request headers)
+   - Identifica las cabeceras de respuesta (Response headers)
+   - ¿Qué código de estado se recibe?
+
+2. **Compara HTTP vs HTTPS:**
+   ```bash
+   curl -v http://google.com
+   curl -v https://google.com
+   ```
+   - ¿Qué diferencias observas?
+   - ¿Hay una redirección en la versión HTTP?
+   - ¿Qué información adicional aparece en HTTPS?
+
+3. **Investiga los métodos HTTP:**
+   Para cada método, describe:
+   - GET
+   - POST
+   - PUT
+   - DELETE
+   - ¿Cuándo usarías cada uno en un videojuego?
+
+4. **Analiza códigos de estado HTTP:**
+   Agrupa estos códigos por categoría (1xx, 2xx, 3xx, 4xx, 5xx):
+   - 200, 201, 301, 302, 400, 401, 403, 404, 500, 502, 503
+   - ¿Qué significa cada categoría?
+   - Da un ejemplo de cuándo podrías recibir cada código en un juego
+
+5. **Investiga DNS:**
+   ```bash
+   nslookup google.com
+   ```
+   - ¿Qué IP(s) se resuelven?
+   - ¿Por qué hay múltiples IPs?
+   - ¿Qué pasaría si el DNS no funcionara?

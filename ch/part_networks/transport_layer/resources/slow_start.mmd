@@ -1,0 +1,14 @@
+sequenceDiagram
+    participant E as Emisor
+    participant R as Receptor
+
+    Note over E: Slow Start: cwnd=1 MSS
+    E->>R: seq=1000, MSS=1KB
+    R->>E: ACK=2000
+    Note over E: cwnd=2 MSS
+    E->>R: seq=2000, MSS=1KB
+    E->>R: seq=3000, MSS=1KB
+    R->>E: ACK=3000
+    R->>E: ACK=4000
+    Note over E: cwnd=4 MSS (crecimiento exponencial)
+    Note over E: ... continúa hasta threshold o detectar pérdida ...

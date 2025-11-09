@@ -1,0 +1,29 @@
+graph TD
+    A[Internet Global] --> B[Red 192.168.0.0/16]
+    A --> C[Red 10.0.0.0/8]
+    A --> D[Red 172.16.0.0/12]
+
+    B --> B1[Subred 192.168.1.0/24]
+    B --> B2[Subred 192.168.2.0/24]
+    B --> B3[Subred 192.168.3.0/24]
+
+    C --> C1[Subred 10.0.1.0/24]
+    C --> C2[Subred 10.0.2.0/24]
+
+    B1 --> B1A[Host 192.168.1.1]
+    B1 --> B1B[Host 192.168.1.2]
+    B1 --> B1C[Host 192.168.1.10]
+
+    B2 --> B2A[Host 192.168.2.5]
+    B2 --> B2B[Host 192.168.2.100]
+
+    C1 --> C1A[Host 10.0.1.50]
+    C1 --> C1B[Host 10.0.1.75]
+
+    classDef network fill:#e1f5fe
+    classDef subnet fill:#f3e5f5
+    classDef host fill:#fff3e0
+
+    class A,B,C,D network
+    class B1,B2,B3,C1,C2 subnet
+    class B1A,B1B,B1C,B2A,B2B,C1B,C1A host

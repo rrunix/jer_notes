@@ -1,0 +1,81 @@
+---
+title: "Solución: REST Introducción"
+---
+
+## Solución: Diseño de API REST para Videojuego
+
+### Recursos principales
+
+- **Players** (Jugadores)
+- **Scores** (Puntuaciones)
+
+### Endpoints RESTful
+
+#### **PLAYERS**
+
+```http
+GET    /api/players        # Listar jugadores
+GET    /api/players/:id    # Obtener jugador específico
+POST   /api/players        # Crear jugador
+PUT    /api/players/:id    # Actualizar jugador
+DELETE /api/players/:id    # Eliminar jugador
+```
+
+**Ejemplo - Crear jugador:**
+```http
+POST /api/players
+Content-Type: application/json
+
+{
+  "username": "player1",
+  "email": "player1@game.com"
+}
+
+Respuesta: 201 Created
+{
+  "id": 1,
+  "username": "player1",
+  "email": "player1@game.com",
+  "level": 1,
+  "score": 0
+}
+```
+
+#### **SCORES**
+
+```http
+GET  /api/scores              # Top puntuaciones
+GET  /api/players/:id/scores  # Scores de un jugador
+POST /api/scores              # Registrar puntuación
+```
+
+**Ejemplo - Top scores:**
+```http
+GET /api/scores?limit=10
+
+Respuesta: 200 OK
+{
+  "data": [
+    {
+      "rank": 1,
+      "playerId": 5,
+      "playerUsername": "proGamer",
+      "score": 15000
+    },
+    {
+      "rank": 2,
+      "playerId": 1,
+      "playerUsername": "player1",
+      "score": 12500
+    }
+  ]
+}
+```
+
+### Convenciones REST
+
+- ✅ Nombres en plural: `/api/players` (no `/api/player`)
+- ✅ IDs en la URL: `/api/players/123`
+- ✅ Query params para filtros: `/api/scores?limit=10`
+- ✅ Métodos HTTP semánticos: GET (leer), POST (crear), PUT (actualizar), DELETE (eliminar)
+- ✅ Códigos de estado: 200 (OK), 201 (Created), 404 (Not Found), 409 (Conflict)

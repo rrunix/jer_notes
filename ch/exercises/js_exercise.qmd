@@ -1,0 +1,45 @@
+## JavaScript {#sec-ex-javascript}
+
+###  Sistema de Inventario de Videojuego
+
+Crea un sistema de inventario para un videojuego utilizando JavaScript moderno (ES2015+). El sistema debe:
+
+1. Crear una clase `Inventario` que pueda almacenar items con las siguientes propiedades:
+   - `nombre` (string)
+   - `cantidad` (number)
+   - `tipo` (string): "arma", "consumible", o "quest"
+
+2. La clase `Inventario` debe tener los siguientes métodos:
+   - `agregarItem(nombre, cantidad, tipo)`: Añade un item al inventario. Si el item ya existe, incrementa su cantidad.
+   - `usarItem(nombre, cantidad)`: Reduce la cantidad del item especificado. Si llega a 0, elimina el item.
+   - `obtenerItemsPorTipo(tipo)`: Retorna un array con todos los items de un tipo específico.
+   - `get totalItems()`: Getter que retorna el número total de items diferentes en el inventario.
+
+3. Implementa validaciones:
+   - La cantidad nunca puede ser negativa
+   - El tipo debe ser uno de los válidos ("arma", "consumible", "quest")
+   - No se puede usar más cantidad de la disponible
+
+4. Guarda el inventario en `localStorage` cada vez que se modifique y permite cargarlo cuando se crea una nueva instancia.
+
+**Requisitos técnicos:**
+
+- Utiliza la sintaxis de clases ES2015+
+- Usa getters/setters cuando sea apropiado
+- Emplea métodos de arrays modernos (map, filter, etc.)
+- Implementa manejo de errores con try-catch
+- Usa template literals para mensajes
+
+**Ejemplo de uso:**
+```javascript
+const inventario = new Inventario();
+inventario.agregarItem("Espada de Fuego", 1, "arma");
+inventario.agregarItem("Poción de Salud", 5, "consumible");
+inventario.agregarItem("Llave Antigua", 1, "quest");
+
+console.log(`Total de items: ${inventario.totalItems}`); // 3
+
+inventario.usarItem("Poción de Salud", 2);
+const consumibles = inventario.obtenerItemsPorTipo("consumible");
+console.log(consumibles); // [{ nombre: "Poción de Salud", cantidad: 3, tipo: "consumible" }]
+```

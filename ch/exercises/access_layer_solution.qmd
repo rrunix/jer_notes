@@ -1,0 +1,207 @@
+---
+title: "Solución: Capa de Acceso"
+---
+
+## Solución: Análisis de Direcciones MAC y ARP
+
+### 1. Dirección MAC (ejemplo)
+
+```bash
+$ ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP
+    link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
+
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP
+    link/ether a4:5e:60:ab:cd:ef brd ff:ff:ff:ff:ff:ff
+```
+
+**Direcciones MAC identificadas:**
+- **Loopback (lo)**: `00:00:00:00:00:00` (especial, no es real)
+- **Ethernet (eth0)**: `52:54:00:12:34:56`
+- **WiFi (wlan0)**: `a4:5e:60:ab:cd:ef`
+
+### 2. Tabla ARP (ejemplo)
+
+```bash
+$ arp -a
+? (192.168.1.1) at b8:27:eb:a1:b2:c3 on wlan0 [ether]
+? (192.168.1.50) at 5c:f9:dd:45:67:89 on wlan0 [ether]
+? (192.168.1.105) at (incomplete) on wlan0
+```
+
+**Análisis:**
+- **Total de entradas**: 3 dispositivos
+- **192.168.1.1** (b8:27:eb:a1:b2:c3):
+  - Es el **router/gateway** (dirección .1 típica)
+  - OUI: b8:27:eb → Raspberry Pi Foundation (router casero personalizado)
+- **192.168.1.50** (5c:f9:dd:45:67:89):
+  - Otro dispositivo en la red local
+  - Podría ser un smartphone, ordenador, smart TV, etc.
+- **192.168.1.105** (incomplete):
+  - Entrada ARP incompleta
+  - Razones posibles:
+    - Dispositivo apagado o desconectado
+    - Petición ARP sin respuesta aún
+    - Entrada antigua en proceso de expiración
+
+### 3. Experimento con ARP
+
+**Antes del ping:**
+```bash
+$ arp -a | grep 192.168.1.1
+# (posiblemente vacío si la entrada expiró)
+```
+
+**Ejecutar ping:**
+```bash
+$ ping -c 3 192.168.1.1
+PING 192.168.1.1 (192.168.1.1): 56 data bytes
+64 bytes from 192.168.1.1: icmp_seq=0 ttl=64 time=3.2 ms
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=2.8 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=64 time=3.1 ms
+```
+
+**Después del ping:**
+```bash
+$ arp -a | grep 192.168.1.1
+? (192.168.1.1) at b8:27:eb:a1:b2:c3 on wlan0 [ether]
+```
+
+**¿Qué ha cambiado?**
+1. **Se creó/actualizó la entrada ARP** para 192.168.1.1
+2. **Proceso que ocurrió**:
+   - Tu ordenador necesitaba la MAC del router para enviar paquetes ICMP (ping)
+   - Envió un broadcast ARP Request: "¿Quién tiene 192.168.1.1?"
+   - El router respondió con ARP Reply: "Yo tengo 192.168.1.1, mi MAC es b8:27:eb:a1:b2:c3"
+   - Tu ordenador guardó esta asociación en su tabla ARP
+3. **La entrada se mantiene en caché** (típicamente 5-20 minutos dependiendo del SO)
+
+### 4. Investigación
+
+**¿Qué pasaría con MACs duplicadas?**
+
+**Escenario**: Dos dispositivos con la misma MAC en la misma red
+
+**Consecuencias graves**:
+1. **Conflicto de identidad en la capa de enlace**:
+   - Los switches no sabrían a qué puerto físico enviar las tramas
+   - El switch actualizaría constantemente su tabla MAC al recibir tramas de ambos dispositivos
+
+2. **Comportamiento errático**:
+   - Los paquetes se enviarían aleatoriamente a uno u otro dispositivo
+   - Conexiones inestables, sesiones interrumpidas
+   - Ambos dispositivos recibirían tráfico destinado al otro
+
+3. **ARP poisoning accidental**:
+   - Otros dispositivos tendrían entradas ARP conflictivas
+   - IP A podría asociarse con dos MACs diferentes
+
+4. **En la práctica**:
+   - Es muy raro porque cada fabricante asigna MACs únicas (OUI + serial único)
+   - Puede ocurrir con:
+     - Máquinas virtuales clonadas incorrectamente
+     - Configuración manual incorrecta
+     - Ataque malicioso (MAC spoofing)
+
+**¿Por qué las MACs no se usan para enrutamiento en Internet?**
+
+**Razones fundamentales**:
+
+1. **No tienen estructura jerárquica**:
+   - Las MACs son planas, sin división red/host
+   - No permiten agregación de rutas
+   - Los routers necesitarían tablas enormes con TODAS las MACs del mundo
+
+2. **Ámbito local**:
+   - Las MACs solo funcionan en la misma red física (dominio de broadcast)
+   - Los routers no propagan broadcasts
+   - Cambiar de red requiere cambiar de MAC de destino
+
+3. **No son configurables lógicamente**:
+   - Las MACs están asignadas por hardware del fabricante
+   - No reflejan la topología de red
+   - IPs se pueden organizar por geografía, proveedor, organización
+
+4. **Escalabilidad**:
+   - Miles de millones de dispositivos
+   - Imposible mantener tablas de enrutamiento globales con MACs
+   - Las IPs permiten agregación: 192.168.0.0/16 representa 65,536 hosts en una sola entrada
+
+**Ejemplo práctico**:
+```
+Red A: 192.168.1.0/24
+- PC1: IP 192.168.1.10, MAC aa:bb:cc:11:22:33
+- Router: IP 192.168.1.1, MAC aa:bb:cc:44:55:66
+
+Internet (múltiples saltos)
+
+Red B: 10.0.5.0/24
+- Servidor: IP 10.0.5.100, MAC dd:ee:ff:77:88:99
+```
+
+Cuando PC1 envía a Servidor:
+- **Trama en Red A**: MAC origen=aa:bb:cc:11:22:33, MAC destino=aa:bb:cc:44:55:66 (router)
+- **Paquete IP**: IP origen=192.168.1.10, IP destino=10.0.5.100 (se mantiene)
+- **Trama en Red B**: MAC origen=router_B, MAC destino=dd:ee:ff:77:88:99
+
+Las MACs cambian en cada salto, las IPs persisten end-to-end.
+
+**Diferencia MAC vs IP en términos de alcance:**
+
+| Aspecto | Dirección MAC | Dirección IP |
+|---------|---------------|--------------|
+| **Alcance** | Local (mismo segmento de red) | Global (Internet completo) |
+| **Capa OSI** | Capa 2 (Enlace de datos) | Capa 3 (Red) |
+| **Asignación** | Fabricante (fija en hardware) | Administrador de red (configurable) |
+| **Cambio entre redes** | Sí, cambia en cada salto | No, persiste extremo a extremo |
+| **Estructura** | Plana (48 bits sin jerarquía) | Jerárquica (red + host) |
+| **Uso principal** | Entrega local en el enlace | Enrutamiento entre redes |
+| **Visibilidad** | Solo en la red local | Visible en todo el camino |
+
+### 5. Análisis de estructura MAC
+
+**Ejemplo de MAC**: `a4:5e:60:ab:cd:ef`
+
+**Estructura**:
+```
+a4:5e:60 : ab:cd:ef
+   ↓          ↓
+  OUI      NIC Specific
+(24 bits)  (24 bits)
+
+Organizationally    Network Interface
+Unique Identifier   Controller Specific
+(Fabricante)        (Serial único)
+```
+
+**Desglose**:
+- **OUI (a4:5e:60)**: Asignado por IEEE al fabricante
+  - Buscar en maclookup.app: Podría ser Intel, Apple, Samsung, etc.
+  - Cada fabricante tiene uno o múltiples OUIs asignados
+
+- **NIC Specific (ab:cd:ef)**: Asignado por el fabricante
+  - Serial único dentro de ese OUI
+  - Garantiza que no haya duplicados
+
+**Bits especiales**:
+```
+Primer byte: a4 = 10100100 binario
+                    ↑    ↑
+                    │    └─ I/G bit (Individual/Group)
+                    │       0 = unicast, 1 = multicast/broadcast
+                    │
+                    └────── U/L bit (Universal/Local)
+                            0 = globalmente único (IEEE)
+                            1 = administrado localmente
+```
+
+**Direcciones MAC especiales**:
+- `ff:ff:ff:ff:ff:ff`: **Broadcast** (todos los dispositivos)
+- `01:00:5e:xx:xx:xx`: **Multicast IPv4**
+- `33:33:xx:xx:xx:xx`: **Multicast IPv6**
+- `00:00:00:00:00:00`: **Inválida** (no asignada)
+
+Esta estructura garantiza unicidad global de direcciones MAC cuando se asignan correctamente.

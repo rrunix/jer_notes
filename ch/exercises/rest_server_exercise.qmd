@@ -1,0 +1,61 @@
+## REST - Servidor {#sec-ex-rest-server}
+
+###  Implementar un Servidor REST con Express
+
+Crea un servidor REST básico para gestionar jugadores de un videojuego usando Node.js y Express.
+
+**Requisitos:**
+
+1. **Configura un proyecto Express:**
+   ```bash
+   npm init -y
+   npm install express
+   ```
+
+2. **Implementa los siguientes endpoints:**
+   - `GET /api/players` - Listar todos los jugadores
+   - `GET /api/players/:id` - Obtener un jugador por ID
+   - `POST /api/players` - Crear un nuevo jugador
+   - `PUT /api/players/:id` - Actualizar un jugador
+   - `DELETE /api/players/:id` - Eliminar un jugador
+
+3. **Almacenamiento en memoria:**
+   - Usa un array para almacenar los jugadores temporalmente
+   - Cada jugador debe tener: `id`, `username`, `level`, `score`
+
+4. **Validaciones:**
+   - Verificar que `username` no esté vacío
+   - Verificar que `level` y `score` sean números
+   - Retornar error 400 si los datos son inválidos
+   - Retornar error 404 si el jugador no existe
+
+5. **Middleware:**
+   - Usa `express.json()` para parsear JSON
+   - Añade un middleware de logging que imprima cada petición
+
+**Estructura sugerida:**
+```javascript
+const express = require('express');
+const app = express();
+
+// Datos en memoria
+let players = [
+    { id: 1, username: "player1", level: 5, score: 1000 },
+    { id: 2, username: "player2", level: 3, score: 500 }
+];
+let nextId = 3;
+
+// Middleware
+app.use(express.json());
+
+// TODO: Implementar endpoints
+
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
+```
+
+**Bonus:**
+
+- Añade un endpoint `GET /api/players?level=X` para filtrar por nivel
+- Implementa paginación con `limit` y `offset`

@@ -1,0 +1,52 @@
+## REST - Introducción {#sec-ex-rest-intro}
+
+###  Diseño de API REST para Videojuego
+
+Diseña una API RESTful para un sistema de gestión de jugadores y partidas de un videojuego.
+
+**Requisitos:**
+
+1. **Define los recursos principales:**
+   - Jugadores (players)
+   - Partidas (games)
+   - Puntuaciones (scores)
+
+2. **Diseña los endpoints siguiendo principios REST:**
+   Para cada operación, especifica:
+   - Método HTTP (GET, POST, PUT, DELETE)
+   - Ruta del endpoint
+   - Código de estado esperado
+   - Ejemplo de request/response
+
+   **Operaciones requeridas:**
+   - Listar todos los jugadores
+   - Obtener un jugador específico
+   - Crear un nuevo jugador
+   - Actualizar información de un jugador
+   - Eliminar un jugador
+   - Obtener todas las partidas de un jugador
+   - Crear una nueva partida
+   - Obtener el top 10 de puntuaciones
+
+3. **Aplica convenciones RESTful:**
+   - Usa nombres en plural para recursos
+   - Usa IDs en la URL para recursos específicos
+   - Usa query parameters para filtros y paginación
+   - Diseña URLs jerárquicas para relaciones
+
+4. **Diseña las estructuras de datos:**
+   Define el formato JSON para:
+   - Un jugador (Player)
+   - Una partida (Game)
+   - Una puntuación (Score)
+
+**Ejemplo de formato:**
+```
+GET /api/players/123
+Respuesta: 200 OK
+{
+  "id": 123,
+  "username": "player1",
+  ...
+}
+```
