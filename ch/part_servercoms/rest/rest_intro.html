@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>10&nbsp; API REST – Apuntes de Juegos en Red</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../ch/part_servercoms/rest/rest_client.html" rel="next">
+<link href="../../../ch/part_servercoms/part_intro_rest.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-49c62e5b8c3163634b294513a7851f6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_servercoms/part_intro_rest.html">Desarrollo en el servidor y comunicación</a></li><li class="breadcrumb-item"><a href="../../../ch/part_servercoms/rest/rest_intro.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../../">Apuntes de Juegos en Red</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introducción a redes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/part_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parte: Introducción a los juegos en red y a las redes de comunicaciones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Desarrollo en el cliente</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/part_intro_htmlcssjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del cliente</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/js/js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">JavaScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/htmlcss/htmlcss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">HTML y CSS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/part_intro_phaser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo de juegos con tecnología web</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/phaser/phaser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Phaser 3</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/part_intro_rest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/rest/rest_intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/rest/rest_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Cliente API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/rest/rest_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Servidor API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/part_intro_ws.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicación asíncrona cliente - servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/ws/ws_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Introducción a WebSockets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/ws/ws_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Cliente WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/ws/ws_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Servidor WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/slides/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Diapositivas de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/exercises/_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Ejercicios de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/code/code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Software utilizado en la asignatura</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">10.1</span> Introducción</a></li>
+  <li><a href="#qué-es-una-api-rest" id="toc-qué-es-una-api-rest" class="nav-link" data-scroll-target="#qué-es-una-api-rest"><span class="header-section-number">10.2</span> ¿Qué es una API REST?</a>
+  <ul class="collapse">
+  <li><a href="#niveles-de-madurez-rest" id="toc-niveles-de-madurez-rest" class="nav-link" data-scroll-target="#niveles-de-madurez-rest">Niveles de madurez REST</a></li>
+  </ul></li>
+  <li><a href="#casos-de-uso-de-apis-rest" id="toc-casos-de-uso-de-apis-rest" class="nav-link" data-scroll-target="#casos-de-uso-de-apis-rest"><span class="header-section-number">10.3</span> Casos de Uso de APIs REST</a></li>
+  <li><a href="#formato-json" id="toc-formato-json" class="nav-link" data-scroll-target="#formato-json"><span class="header-section-number">10.4</span> Formato JSON</a></li>
+  <li><a href="#funcionamiento-de-un-servicio-rest" id="toc-funcionamiento-de-un-servicio-rest" class="nav-link" data-scroll-target="#funcionamiento-de-un-servicio-rest"><span class="header-section-number">10.5</span> Funcionamiento de un Servicio REST</a></li>
+  <li><a href="#ventajas-de-esta-arquitectura" id="toc-ventajas-de-esta-arquitectura" class="nav-link" data-scroll-target="#ventajas-de-esta-arquitectura"><span class="header-section-number">10.6</span> Ventajas de esta Arquitectura</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_servercoms/part_intro_rest.html">Desarrollo en el servidor y comunicación</a></li><li class="breadcrumb-item"><a href="../../../ch/part_servercoms/rest/rest_intro.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-rest-intro" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducción" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">10.1</span> Introducción</h2>
+<p>En el desarrollo de juegos multijugador modernos, la comunicación entre el cliente y el servidor es fundamental. Después de haber implementado un juego con Phaser 3 el siguiente paso natural es conectar nuestro juego con un servidor mediante una API REST.</p>
+<p>En una aplicación web tradicional, el cliente (navegador) se comunica con el servidor utilizando el protocolo HTTP. En aplicaciones web sin AJAX, las peticiones HTTP devuelven un documento HTML que será visualizado por el navegador. Sin embargo, en las aplicaciones con AJAX y las aplicaciones SPA (Single Page Application), las peticiones HTTP se utilizan para intercambiar información entre el navegador y el servidor, pero no HTML.</p>
+<p>Las APIs REST permiten esta comunicación mediante el intercambio de datos estructurados. En el contexto de nuestro juego, necesitaremos la API REST para gestionar registro y autenticación de jugadores, almacenamiento de puntuaciones y estadísticas, gestión de partidas y salas de juego, configuración de perfiles de usuario, y consulta de rankings. Posteriormente, cuando implementemos WebSockets, usaremos esa tecnología para la comunicación en tiempo real durante el juego, pero la API REST seguirá siendo esencial para todas las operaciones que no requieren actualización instantánea.</p>
+<p>Imaginemos nuestra aplicación de juego haciendo una petición HTTP para obtener información de un jugador:</p>
+<pre><code>Petición:
+GET http://www.mygame.com/players/alice
+
+Respuesta:
+{
+  "id": "alice",
+  "name": "Alice Smith",
+  "level": 15,
+  "score": 8500,
+  "achievements": ["first_win", "speed_demon"]
+}</code></pre>
+</section>
+<section id="qué-es-una-api-rest" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="qué-es-una-api-rest"><span class="header-section-number">10.2</span> ¿Qué es una API REST?</h2>
+<p>REST es un estilo de arquitectura de software basado en HTTP que sigue una serie de principios específicos. Cuando un servicio web cumple estos principios, se denomina RESTful. Una API REST es el servicio que devuelve un servidor web cuando quiere intercambiar información estructurada en lugar de devolver HTML.</p>
+<p>El término REST fue acuñado en el año 2000 por <strong>Roy Fielding</strong>, uno de los principales autores de la especificación del protocolo HTTP, en su tesis doctoral. Aunque existen otros tipos de servicios web como SOAP (basados en XML y mucho más complejos), las APIs REST se han convertido en el estándar de facto debido a su simplicidad y eficiencia.</p>
+<section id="niveles-de-madurez-rest" class="level3">
+<h3 class="anchored" data-anchor-id="niveles-de-madurez-rest">Niveles de madurez REST</h3>
+<p>Existe un modelo de madurez de Richardson que clasifica las APIs en 4 niveles según su conformidad con los principios REST:</p>
+<p><strong>Nivel 0 - The Swamp of POX (Plain Old XML)</strong>: En este nivel más básico, se usa HTTP simplemente como un sistema de transporte para llamadas a procedimientos remotos. Toda la comunicación se realiza típicamente mediante peticiones POST a una única URL, y el cuerpo de la petición contiene información sobre qué operación realizar. Es similar a usar HTTP como un túnel para otros protocolos (como SOAP). No se aprovecha ninguna característica del protocolo HTTP más allá del transporte.</p>
+<p><strong>Nivel 1 - Resources</strong>: En este nivel, la API introduce el concepto de recursos individuales. En lugar de tener una única URL para todo, cada recurso tiene su propia URI específica. Por ejemplo, <code>/players/alice</code> y <code>/matches/123</code> son URIs distintas para recursos diferentes. Sin embargo, todavía se usan métodos HTTP de forma incorrecta, típicamente solo POST para todas las operaciones, sin aprovechar la semántica de GET, PUT, DELETE, etc.</p>
+<p><strong>Nivel 2 - HTTP Verbs</strong>: Este es el nivel más común y el que usaremos en este curso. Aquí se utilizan correctamente los métodos HTTP (GET para obtener, POST para crear, PUT para actualizar, DELETE para eliminar) y los códigos de estado HTTP (200 para éxito, 404 para no encontrado, 500 para error del servidor, etc.). Este nivel aprovecha plenamente la semántica del protocolo HTTP, haciendo que las APIs sean más intuitivas y fáciles de usar.</p>
+<p><strong>Nivel 3 - Hypermedia Controls (HATEOAS)</strong>: El nivel más avanzado, donde las respuestas incluyen enlaces hipermedia que guían al cliente sobre qué acciones puede realizar a continuación. Por ejemplo, al obtener información de un jugador, la respuesta incluiría enlaces a recursos relacionados como sus partidas, amigos, o acciones disponibles. Este nivel permite que los clientes descubran dinámicamente la API, aunque en la práctica pocas APIs implementan HATEOAS por su complejidad.</p>
+<p>En este curso nos centraremos en el Nivel 2 (HTTP Verbs), que es el enfoque más habitual y práctico, donde se hace uso correcto de los métodos HTTP (GET, POST, PUT, DELETE) y códigos de estado.</p>
+<p>Un servicio REST ofrece operaciones CRUD (Create, Read, Update, Delete) sobre recursos (ítems de información) del servidor web. Se aprovecha de todos los aspectos del protocolo HTTP: URL, métodos, códigos de estado, cabeceras, etc. La información se intercambia típicamente en formato JSON.</p>
+</section>
+</section>
+<section id="casos-de-uso-de-apis-rest" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="casos-de-uso-de-apis-rest"><span class="header-section-number">10.3</span> Casos de Uso de APIs REST</h2>
+<p>Además de navegadores web, muchos otros tipos de aplicaciones utilizan APIs REST. Las aplicaciones móviles son consumidoras intensivas: la aplicación de Google Maps para Android usa la misma API REST que la versión web, permitiendo mantener una única fuente de verdad en el servidor y consistencia entre plataformas. En comunicación Backend a Backend, un servidor puede consumir APIs REST de otros servidores; por ejemplo, el Aula Virtual de la URJC podría usar la API REST de Google Calendar para publicar eventos. Los videojuegos multijugador utilizan APIs REST para sincronizar estado, gestionar perfiles, implementar matchmaking, guardar partidas en la nube y sistemas de logros, incluyendo juegos en consolas y navegador. Finalmente, dispositivos IoT como Smart TVs, wearables y dispositivos embebidos usan APIs REST para comunicarse con servicios en la nube.</p>
+</section>
+<section id="formato-json" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="formato-json"><span class="header-section-number">10.4</span> Formato JSON</h2>
+<p>JSON (JavaScript Object Notation) es el formato estándar para el intercambio de datos en APIs REST. Es un formato de texto ligero, fácil de leer para humanos y fácil de parsear para máquinas. JSON construye estructuras con dos tipos principales: objetos (colección de pares clave-valor en <code>{}</code>) y arrays (lista ordenada en <code>[]</code>). Los valores pueden ser cadenas de texto, números, booleanos, <code>null</code>, objetos o arrays.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"game"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"match_12345"</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"pong"</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"active"</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"players"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"alice"</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"Alice Smith"</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"score"</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"ready"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"bob"</span><span class="fu">,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"Bob Johnson"</span><span class="fu">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"score"</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"ready"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"settings"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"max_score"</span><span class="fu">:</span> <span class="dv">11</span><span class="fu">,</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"ball_speed"</span><span class="fu">:</span> <span class="dv">300</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este ejemplo muestra cómo representar el estado completo de una partida de Pong. JSON también se usa en ficheros de configuración, almacenamiento de datos en disco, y bases de datos NoSQL como MongoDB.</p>
+</section>
+<section id="funcionamiento-de-un-servicio-rest" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="funcionamiento-de-un-servicio-rest"><span class="header-section-number">10.5</span> Funcionamiento de un Servicio REST</h2>
+<p>El enfoque más habitual en los servicios REST establece cuatro principios fundamentales. En REST, todo es un recurso identificado por una URI única. La URI está compuesta por una parte fija (dominio y ruta base) y una parte variable que identifica el recurso específico. Por ejemplo: <code>http://api.game.com/players/alice</code>, <code>http://api.game.com/matches/12345</code>, <code>http://api.game.com/players/alice/scores</code>, o <code>http://api.game.com/leaderboard</code>.</p>
+<p>Los principios de diseño de URIs incluyen usar sustantivos, no verbos (<code>/players/alice</code> ✓ vs <code>/getPlayer?id=alice</code> ✗); usar plurales para colecciones (<code>/players</code> para colección, <code>/players/alice</code> para uno específico); crear jerarquías lógicas (<code>/players/alice/matches</code> refleja relación entre recursos); y usar minúsculas y guiones (<code>/game-sessions/active</code>).</p>
+<p>REST aprovecha los métodos HTTP para indicar qué operación realizar sobre un recurso. <strong>GET</strong> obtiene información, es seguro (no modifica el servidor), idempotente (múltiples peticiones producen el mismo resultado) y cacheable. <strong>POST</strong> crea nuevos recursos, donde el servidor decide el ID y lo devuelve en la respuesta; no es seguro ni idempotente. <strong>PUT</strong> actualiza un recurso existente enviando el recurso completo; no es seguro pero sí idempotente. <strong>DELETE</strong> elimina un recurso; no es seguro pero sí idempotente (eliminar varias veces produce el mismo resultado: el recurso no existe).</p>
+<p>La información se intercambia en formato JSON. Una petición HTTP REST completa tiene la siguiente anatomía:</p>
+<pre><code>POST /matches HTTP/1.1
+Host: api.game.com
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Length: 89
+
+{
+  "type": "pong",
+  "mode": "ranked",
+  "max_score": 11,
+  "player_id": "alice"
+}</code></pre>
+<p>Esta petición tiene tres partes: la línea de petición (<code>POST /matches HTTP/1.1</code>) indica el método (POST), la ruta (/matches) y la versión HTTP; los headers (cabeceras) son metadatos sobre la petición donde <code>Content-Type: application/json</code> indica que enviamos JSON, <code>Accept: application/json</code> indica que queremos recibir JSON, <code>Authorization: Bearer ...</code> incluye el token de autenticación, y <code>Content-Length: 89</code> indica el tamaño del cuerpo en bytes; y el body (cuerpo) contiene los datos JSON que enviamos al servidor.</p>
+<p>Una respuesta HTTP REST completa tiene la siguiente estructura:</p>
+<pre><code>HTTP/1.1 201 Created
+Content-Type: application/json
+Location: http://api.game.com/matches/67890
+Content-Length: 156
+
+{
+  "id": "67890",
+  "type": "pong",
+  "mode": "ranked",
+  "max_score": 11,
+  "status": "waiting",
+  "created_at": "2025-01-15T14:30:00Z",
+  "players": ["alice"]
+}</code></pre>
+<p>Esta respuesta tiene tres partes: la línea de estado (<code>HTTP/1.1 201 Created</code>) indica la versión HTTP, el código de estado (201) y el mensaje (Created); los headers (cabeceras) son metadatos sobre la respuesta donde <code>Content-Type: application/json</code> indica que la respuesta es JSON, <code>Location: http://...</code> proporciona la URI del recurso creado, y <code>Content-Length: 156</code> indica el tamaño de la respuesta; y el body (cuerpo) contiene los datos JSON del recurso creado.</p>
+<p>Los códigos de estado HTTP son números de tres dígitos que comunican el resultado de la operación:</p>
+<p><strong>1xx - Respuestas informativas</strong>: Indican que la petición fue recibida y el proceso continúa. Raramente usados en REST. El más relevante es 101 Switching Protocols, usado para cambiar de HTTP a WebSockets.</p>
+<p><strong>2xx - Respuestas exitosas</strong>: La petición fue procesada correctamente. Los más comunes son 200 OK (éxito general en GET/PUT), 201 Created (recurso creado tras POST, debe incluir header Location), y 204 No Content (éxito sin contenido, típico en DELETE).</p>
+<p><strong>3xx - Redirecciones</strong>: El cliente debe tomar acciones adicionales. Incluyen 301 Moved Permanently (recurso movido permanentemente) y 304 Not Modified (usado con caché, el recurso no ha cambiado).</p>
+<p><strong>4xx - Errores del cliente</strong>: Error en la petición. Los más importantes son 400 Bad Request (petición mal formada), 401 Unauthorized (autenticación requerida), 403 Forbidden (sin permisos), 404 Not Found (recurso no existe), 409 Conflict (conflicto con estado actual, ej: usuario ya existe), y 422 Unprocessable Entity (formato correcto pero errores de validación).</p>
+<p><strong>5xx - Errores del servidor</strong>: El servidor no pudo completar la petición. Los principales son 500 Internal Server Error (error genérico), 503 Service Unavailable (servidor temporalmente no disponible, debe incluir Retry-After), y 504 Gateway Timeout (timeout esperando respuesta de otro servidor).</p>
+</section>
+<section id="ventajas-de-esta-arquitectura" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="ventajas-de-esta-arquitectura"><span class="header-section-number">10.6</span> Ventajas de esta Arquitectura</h2>
+<p>La arquitectura REST ofrece varias ventajas clave. Proporciona separación de responsabilidades, donde la API REST maneja operaciones de gestión mientras que el sistema de comandos se encarga de la lógica del juego, permitiendo que cada componente evolucione independientemente. Ofrece escalabilidad, ya que al separar las operaciones de gestión de las de tiempo real, podemos escalar cada servicio según sus necesidades específicas. Mejora la testabilidad, permitiendo probar la API REST de forma independiente al juego, y el sistema de comandos puede probarse sin necesidad de conexión a red. Finalmente, proporciona flexibilidad, ya que la misma API REST puede servir a múltiples clientes: el juego web, una aplicación móvil, o herramientas de administración.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../ch/part_servercoms/part_intro_rest.html" class="pagination-link" aria-label="Desarrollo en el lado del servidor">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Desarrollo en el lado del servidor</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../ch/part_servercoms/rest/rest_client.html" class="pagination-link" aria-label="Cliente API REST con Javascript">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Cliente API REST con Javascript</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

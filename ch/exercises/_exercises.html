@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>17&nbsp; Ejercicios de la asignatura – Apuntes de Juegos en Red</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../ch/code/code.html" rel="next">
+<link href="../../ch/slides/slides.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-49c62e5b8c3163634b294513a7851f6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../ch/exercises/_exercises.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Ejercicios de la asignatura</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Apuntes de Juegos en Red</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introducción a redes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_networks/part_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parte: Introducción a los juegos en red y a las redes de comunicaciones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Desarrollo en el cliente</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_client/part_intro_htmlcssjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del cliente</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_client/js/js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">JavaScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_client/htmlcss/htmlcss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">HTML y CSS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_client/part_intro_phaser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo de juegos con tecnología web</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_client/phaser/phaser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Phaser 3</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/part_intro_rest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/rest/rest_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/rest/rest_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Cliente API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/rest/rest_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Servidor API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/part_intro_ws.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicación asíncrona cliente - servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/ws/ws_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Introducción a WebSockets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/ws/ws_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Cliente WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/part_servercoms/ws/ws_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Servidor WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/slides/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Diapositivas de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/exercises/_exercises.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Ejercicios de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../ch/code/code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Software utilizado en la asignatura</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#sec-ex-network-intro" id="toc-sec-ex-network-intro" class="nav-link active" data-scroll-target="#sec-ex-network-intro"><span class="header-section-number">17.1</span> Introducción a Redes</a>
+  <ul class="collapse">
+  <li><a href="#investigación-del-modelo-tcpip" id="toc-investigación-del-modelo-tcpip" class="nav-link" data-scroll-target="#investigación-del-modelo-tcpip">Investigación del Modelo TCP/IP</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-access-layer" id="toc-sec-ex-access-layer" class="nav-link" data-scroll-target="#sec-ex-access-layer"><span class="header-section-number">17.2</span> Capa de Acceso</a>
+  <ul class="collapse">
+  <li><a href="#análisis-de-direcciones-mac-y-arp" id="toc-análisis-de-direcciones-mac-y-arp" class="nav-link" data-scroll-target="#análisis-de-direcciones-mac-y-arp">Análisis de Direcciones MAC y ARP</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-network-layer" id="toc-sec-ex-network-layer" class="nav-link" data-scroll-target="#sec-ex-network-layer"><span class="header-section-number">17.3</span> Capa de Red</a>
+  <ul class="collapse">
+  <li><a href="#análisis-de-direccionamiento-ip-y-subredes" id="toc-análisis-de-direccionamiento-ip-y-subredes" class="nav-link" data-scroll-target="#análisis-de-direccionamiento-ip-y-subredes">Análisis de Direccionamiento IP y Subredes</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-transport-layer" id="toc-sec-ex-transport-layer" class="nav-link" data-scroll-target="#sec-ex-transport-layer"><span class="header-section-number">17.4</span> Capa de Transporte</a>
+  <ul class="collapse">
+  <li><a href="#análisis-de-conexiones-tcp-y-udp" id="toc-análisis-de-conexiones-tcp-y-udp" class="nav-link" data-scroll-target="#análisis-de-conexiones-tcp-y-udp">Análisis de Conexiones TCP y UDP</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-application-layer" id="toc-sec-ex-application-layer" class="nav-link" data-scroll-target="#sec-ex-application-layer"><span class="header-section-number">17.5</span> Capa de Aplicación</a>
+  <ul class="collapse">
+  <li><a href="#análisis-de-petición-http" id="toc-análisis-de-petición-http" class="nav-link" data-scroll-target="#análisis-de-petición-http">Análisis de Petición HTTP</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-javascript" id="toc-sec-ex-javascript" class="nav-link" data-scroll-target="#sec-ex-javascript"><span class="header-section-number">17.6</span> JavaScript</a>
+  <ul class="collapse">
+  <li><a href="#sistema-de-inventario-de-videojuego" id="toc-sistema-de-inventario-de-videojuego" class="nav-link" data-scroll-target="#sistema-de-inventario-de-videojuego">Sistema de Inventario de Videojuego</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-phaser" id="toc-sec-ex-phaser" class="nav-link" data-scroll-target="#sec-ex-phaser"><span class="header-section-number">17.7</span> Phaser</a>
+  <ul class="collapse">
+  <li><a href="#sistema-de-puntuación-persistente" id="toc-sistema-de-puntuación-persistente" class="nav-link" data-scroll-target="#sistema-de-puntuación-persistente">Sistema de Puntuación Persistente</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-rest-intro" id="toc-sec-ex-rest-intro" class="nav-link" data-scroll-target="#sec-ex-rest-intro"><span class="header-section-number">17.8</span> REST - Introducción</a>
+  <ul class="collapse">
+  <li><a href="#diseño-de-api-rest-para-videojuego" id="toc-diseño-de-api-rest-para-videojuego" class="nav-link" data-scroll-target="#diseño-de-api-rest-para-videojuego">Diseño de API REST para Videojuego</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-rest-client" id="toc-sec-ex-rest-client" class="nav-link" data-scroll-target="#sec-ex-rest-client"><span class="header-section-number">17.9</span> REST - Cliente</a>
+  <ul class="collapse">
+  <li><a href="#cliente-rest-con-fetch-api" id="toc-cliente-rest-con-fetch-api" class="nav-link" data-scroll-target="#cliente-rest-con-fetch-api">Cliente REST con Fetch API</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-rest-server" id="toc-sec-ex-rest-server" class="nav-link" data-scroll-target="#sec-ex-rest-server"><span class="header-section-number">17.10</span> REST - Servidor</a>
+  <ul class="collapse">
+  <li><a href="#implementar-un-servidor-rest-con-express" id="toc-implementar-un-servidor-rest-con-express" class="nav-link" data-scroll-target="#implementar-un-servidor-rest-con-express">Implementar un Servidor REST con Express</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-ws-intro" id="toc-sec-ex-ws-intro" class="nav-link" data-scroll-target="#sec-ex-ws-intro"><span class="header-section-number">17.11</span> WebSockets - Introducción</a>
+  <ul class="collapse">
+  <li><a href="#comparación-rest-vs-websockets" id="toc-comparación-rest-vs-websockets" class="nav-link" data-scroll-target="#comparación-rest-vs-websockets">Comparación REST vs WebSockets</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-ws-client" id="toc-sec-ex-ws-client" class="nav-link" data-scroll-target="#sec-ex-ws-client"><span class="header-section-number">17.12</span> WebSockets - Cliente</a>
+  <ul class="collapse">
+  <li><a href="#cliente-websocket-para-chat-de-juego" id="toc-cliente-websocket-para-chat-de-juego" class="nav-link" data-scroll-target="#cliente-websocket-para-chat-de-juego">Cliente WebSocket para Chat de Juego</a></li>
+  </ul></li>
+  <li><a href="#sec-ex-ws-server" id="toc-sec-ex-ws-server" class="nav-link" data-scroll-target="#sec-ex-ws-server"><span class="header-section-number">17.13</span> WebSockets - Servidor</a>
+  <ul class="collapse">
+  <li><a href="#servidor-websocket-para-chat-de-juego" id="toc-servidor-websocket-para-chat-de-juego" class="nav-link" data-scroll-target="#servidor-websocket-para-chat-de-juego">Servidor WebSocket para Chat de Juego</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-exercises" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Ejercicios de la asignatura</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sec-ex-network-intro" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="sec-ex-network-intro"><span class="header-section-number">17.1</span> Introducción a Redes</h2>
+<section id="investigación-del-modelo-tcpip" class="level3">
+<h3 class="anchored" data-anchor-id="investigación-del-modelo-tcpip">Investigación del Modelo TCP/IP</h3>
+<p>Investiga y compara el modelo de capas TCP/IP con tu propia experiencia navegando por Internet.</p>
+<p><strong>Tareas:</strong></p>
+<ol type="1">
+<li><strong>Traza la ruta de una petición web:</strong>
+<ul>
+<li>Ejecuta el comando <code>traceroute www.google.com</code> (Linux/Mac) o <code>tracert www.google.com</code> (Windows)</li>
+<li>Documenta cuántos saltos (hops) hay hasta llegar al destino</li>
+<li>Identifica si alguno de los routers intermedios pertenece a tu ISP</li>
+</ul></li>
+<li><strong>Análisis por capas:</strong> Para acceder a una página web (ej: https://www.google.com), describe qué ocurre en cada capa del modelo TCP/IP:
+<ul>
+<li><strong>Capa de Aplicación</strong>: ¿Qué protocolo se utiliza?</li>
+<li><strong>Capa de Transporte</strong>: ¿TCP o UDP? ¿Por qué?</li>
+<li><strong>Capa de Red</strong>: ¿Qué información contienen los paquetes IP?</li>
+<li><strong>Capa de Acceso a la Red</strong>: ¿Qué tecnología física usas (WiFi, Ethernet, 4G)?</li>
+</ul></li>
+<li><strong>Encapsulación:</strong>
+<ul>
+<li>Dibuja un diagrama mostrando cómo se encapsulan los datos en cada capa</li>
+<li>Indica qué información añade cada capa (cabeceras)</li>
+</ul></li>
+<li><strong>Reflexión:</strong>
+<ul>
+<li>¿Por qué crees que el modelo está organizado en capas?</li>
+<li>¿Qué ventajas tiene esta separación?</li>
+<li>Da un ejemplo de cómo puedes cambiar una capa sin afectar a las demás</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="sec-ex-access-layer" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="sec-ex-access-layer"><span class="header-section-number">17.2</span> Capa de Acceso</h2>
+<section id="análisis-de-direcciones-mac-y-arp" class="level3">
+<h3 class="anchored" data-anchor-id="análisis-de-direcciones-mac-y-arp">Análisis de Direcciones MAC y ARP</h3>
+<p>Investiga las direcciones MAC en tu red local y el protocolo ARP.</p>
+<p><strong>Tareas:</strong></p>
+<ol type="1">
+<li><strong>Descubre tu dirección MAC:</strong>
+<ul>
+<li>En Linux/Mac: <code>ip link show</code> o <code>ifconfig</code></li>
+<li>En Windows: <code>ipconfig /all</code></li>
+<li>Anota la dirección MAC de tu interfaz de red principal</li>
+</ul></li>
+<li><strong>Analiza la tabla ARP:</strong>
+<ul>
+<li>En Linux/Mac: <code>arp -a</code> o <code>ip neigh show</code></li>
+<li>En Windows: <code>arp -a</code></li>
+<li>Documenta:
+<ul>
+<li>¿Cuántas entradas tiene tu tabla ARP?</li>
+<li>¿Reconoces alguna de las IPs? (router, otros dispositivos)</li>
+<li>¿Hay entradas incompletas o que fallan?</li>
+</ul></li>
+</ul></li>
+<li><strong>Experimento con ARP:</strong>
+<ul>
+<li>Haz ping a tu router/gateway: <code>ping 192.168.1.1</code></li>
+<li>Vuelve a consultar la tabla ARP</li>
+<li>¿Qué ha cambiado?</li>
+</ul></li>
+<li><strong>Investigación:</strong>
+<ul>
+<li>¿Qué pasaría si dos dispositivos en la misma red tuvieran la misma dirección MAC?</li>
+<li>¿Por qué las direcciones MAC no se usan para enrutamiento en Internet?</li>
+<li>¿Cuál es la diferencia entre una dirección MAC y una dirección IP en términos de alcance?</li>
+</ul></li>
+<li><strong>Analiza la estructura de la dirección MAC:</strong>
+<ul>
+<li>Tu MAC tiene formato: <code>XX:XX:XX:YY:YY:YY</code></li>
+<li>Los primeros 3 bytes (XX:XX:XX) son el OUI (Organizationally Unique Identifier)</li>
+<li>Busca el fabricante de tu tarjeta de red en: https://maclookup.app/</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="sec-ex-network-layer" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="sec-ex-network-layer"><span class="header-section-number">17.3</span> Capa de Red</h2>
+<section id="análisis-de-direccionamiento-ip-y-subredes" class="level3">
+<h3 class="anchored" data-anchor-id="análisis-de-direccionamiento-ip-y-subredes">Análisis de Direccionamiento IP y Subredes</h3>
+<p>Dada la siguiente salida del comando <code>ip addr</code> en un sistema Linux, analiza la configuración de red y responde las preguntas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ip addr show</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">1:</span> lo: <span class="op">&lt;</span>LOOPBACK,UP,LOWER_UP<span class="op">&gt;</span> mtu 65536 qdisc noqueue state UNKNOWN</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">link/loopback</span> 00:00:00:00:00:00 brd 00:00:00:00:00:00</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">inet</span> 127.0.0.1/8 scope host lo</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>       <span class="ex">valid_lft</span> forever preferred_lft forever</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">inet6</span> ::1/128 scope host</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       <span class="ex">valid_lft</span> forever preferred_lft forever</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">2:</span> eth0: <span class="op">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="op">&gt;</span> mtu 1500 qdisc fq_codel state UP</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">link/ether</span> 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">inet</span> 192.168.1.100/24 brd 192.168.1.255 scope global eth0</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>       <span class="ex">valid_lft</span> forever preferred_lft forever</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">inet6</span> fe80::5054:ff:fe12:3456/64 scope link</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>       <span class="ex">valid_lft</span> forever preferred_lft forever</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ex">3:</span> wlan0: <span class="op">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="op">&gt;</span> mtu 1500 qdisc mq state UP</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">link/ether</span> a4:5e:60:ab:cd:ef brd ff:ff:ff:ff:ff:ff</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">inet</span> 10.0.5.42/22 brd 10.0.7.255 scope global wlan0</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>       <span class="ex">valid_lft</span> forever preferred_lft forever</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Preguntas:</strong></p>
+<ol type="1">
+<li><strong>Direcciones de red</strong>: Para cada interfaz con IPv4, calcula:
+<ul>
+<li>La dirección de red</li>
+<li>La dirección de broadcast</li>
+<li>El rango de IPs válidas para hosts</li>
+<li>El número total de hosts disponibles</li>
+</ul></li>
+<li><strong>Clasificación</strong>:
+<ul>
+<li>¿Qué interfaces tienen direcciones IP privadas? ¿Por qué?</li>
+<li>¿La dirección de loopback es pública o privada? ¿Para qué se utiliza?</li>
+</ul></li>
+<li><strong>Máscara de subred</strong>:
+<ul>
+<li>Convierte las máscaras CIDR (/8, /24, /22) a formato decimal (ej: 255.255.255.0)</li>
+<li>¿Cuál es la diferencia entre /24 y /22 en términos de número de hosts?</li>
+</ul></li>
+<li><strong>Escenario práctico</strong>:
+<ul>
+<li>Si quieres enviar un paquete desde esta máquina (192.168.1.100) a un servidor web en Internet (8.8.8.8), ¿qué interfaz se utilizaría?</li>
+<li>¿Necesitarías NAT? ¿Por qué?</li>
+</ul></li>
+<li><strong>MTU</strong>:
+<ul>
+<li>¿Qué significa MTU 1500?</li>
+<li>Si envías un datagrama IP de 2000 bytes por eth0, ¿qué ocurrirá?</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="sec-ex-transport-layer" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="sec-ex-transport-layer"><span class="header-section-number">17.4</span> Capa de Transporte</h2>
+<section id="análisis-de-conexiones-tcp-y-udp" class="level3">
+<h3 class="anchored" data-anchor-id="análisis-de-conexiones-tcp-y-udp">Análisis de Conexiones TCP y UDP</h3>
+<p>Investiga las conexiones activas en tu sistema y analiza el comportamiento de TCP y UDP.</p>
+<p><strong>Tareas:</strong></p>
+<ol type="1">
+<li><p><strong>Visualiza conexiones activas:</strong></p>
+<ul>
+<li>En Linux/Mac: <code>netstat -tunap</code> o <code>ss -tunap</code></li>
+<li>En Windows: <code>netstat -ano</code></li>
+<li>Identifica:
+<ul>
+<li>¿Cuántas conexiones TCP tienes activas?</li>
+<li>¿Hay conexiones UDP? ¿A qué puertos?</li>
+<li>¿Reconoces algún servicio por su puerto? (80=HTTP, 443=HTTPS, 53=DNS, etc.)</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Analiza estados TCP:</strong></p>
+<ul>
+<li>Busca conexiones en estado ESTABLISHED, LISTEN, TIME_WAIT</li>
+<li>¿Qué significa cada estado?</li>
+<li>¿Por qué hay puertos en estado LISTEN?</li>
+</ul></li>
+<li><p><strong>Compara TCP vs UDP:</strong> Completa la tabla:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Orientado a conexión</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Garantiza entrega</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>Garantiza orden</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Control de flujo</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>Overhead</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Velocidad</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>Ejemplo de uso</td>
+<td>?</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Investiga el handshake de TCP:</strong></p>
+<ul>
+<li>Dibuja el proceso de establecimiento de conexión (3-way handshake)</li>
+<li>¿Qué flags se utilizan? (SYN, ACK)</li>
+<li>¿Qué ocurre si se pierde uno de los paquetes?</li>
+</ul></li>
+<li><p><strong>Caso práctico:</strong> Para un videojuego multijugador, ¿usarías TCP o UDP para los siguientes casos?</p>
+<ul>
+<li>Chat de texto entre jugadores</li>
+<li>Posición de los jugadores en tiempo real</li>
+<li>Transferencia de archivos (mapas, texturas)</li>
+<li>Sistema de login/autenticación</li>
+</ul>
+<p>Justifica cada respuesta.</p></li>
+</ol>
+</section>
+</section>
+<section id="sec-ex-application-layer" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="sec-ex-application-layer"><span class="header-section-number">17.5</span> Capa de Aplicación</h2>
+<section id="análisis-de-petición-http" class="level3">
+<h3 class="anchored" data-anchor-id="análisis-de-petición-http">Análisis de Petición HTTP</h3>
+<p>Investiga cómo funciona el protocolo HTTP usando herramientas de línea de comandos.</p>
+<p><strong>Tareas:</strong></p>
+<ol type="1">
+<li><p><strong>Realiza una petición HTTP simple:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-v</span> http://example.com</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Analiza la salida</li>
+<li>Identifica las cabeceras de petición (Request headers)</li>
+<li>Identifica las cabeceras de respuesta (Response headers)</li>
+<li>¿Qué código de estado se recibe?</li>
+</ul></li>
+<li><p><strong>Compara HTTP vs HTTPS:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-v</span> http://google.com</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-v</span> https://google.com</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>¿Qué diferencias observas?</li>
+<li>¿Hay una redirección en la versión HTTP?</li>
+<li>¿Qué información adicional aparece en HTTPS?</li>
+</ul></li>
+<li><p><strong>Investiga los métodos HTTP:</strong> Para cada método, describe:</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>¿Cuándo usarías cada uno en un videojuego?</li>
+</ul></li>
+<li><p><strong>Analiza códigos de estado HTTP:</strong> Agrupa estos códigos por categoría (1xx, 2xx, 3xx, 4xx, 5xx):</p>
+<ul>
+<li>200, 201, 301, 302, 400, 401, 403, 404, 500, 502, 503</li>
+<li>¿Qué significa cada categoría?</li>
+<li>Da un ejemplo de cuándo podrías recibir cada código en un juego</li>
+</ul></li>
+<li><p><strong>Investiga DNS:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nslookup</span> google.com</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>¿Qué IP(s) se resuelven?</li>
+<li>¿Por qué hay múltiples IPs?</li>
+<li>¿Qué pasaría si el DNS no funcionara?</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="sec-ex-javascript" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="sec-ex-javascript"><span class="header-section-number">17.6</span> JavaScript</h2>
+<section id="sistema-de-inventario-de-videojuego" class="level3">
+<h3 class="anchored" data-anchor-id="sistema-de-inventario-de-videojuego">Sistema de Inventario de Videojuego</h3>
+<p>Crea un sistema de inventario para un videojuego utilizando JavaScript moderno (ES2015+). El sistema debe:</p>
+<ol type="1">
+<li>Crear una clase <code>Inventario</code> que pueda almacenar items con las siguientes propiedades:
+<ul>
+<li><code>nombre</code> (string)</li>
+<li><code>cantidad</code> (number)</li>
+<li><code>tipo</code> (string): “arma”, “consumible”, o “quest”</li>
+</ul></li>
+<li>La clase <code>Inventario</code> debe tener los siguientes métodos:
+<ul>
+<li><code>agregarItem(nombre, cantidad, tipo)</code>: Añade un item al inventario. Si el item ya existe, incrementa su cantidad.</li>
+<li><code>usarItem(nombre, cantidad)</code>: Reduce la cantidad del item especificado. Si llega a 0, elimina el item.</li>
+<li><code>obtenerItemsPorTipo(tipo)</code>: Retorna un array con todos los items de un tipo específico.</li>
+<li><code>get totalItems()</code>: Getter que retorna el número total de items diferentes en el inventario.</li>
+</ul></li>
+<li>Implementa validaciones:
+<ul>
+<li>La cantidad nunca puede ser negativa</li>
+<li>El tipo debe ser uno de los válidos (“arma”, “consumible”, “quest”)</li>
+<li>No se puede usar más cantidad de la disponible</li>
+</ul></li>
+<li>Guarda el inventario en <code>localStorage</code> cada vez que se modifique y permite cargarlo cuando se crea una nueva instancia.</li>
+</ol>
+<p><strong>Requisitos técnicos:</strong></p>
+<ul>
+<li>Utiliza la sintaxis de clases ES2015+</li>
+<li>Usa getters/setters cuando sea apropiado</li>
+<li>Emplea métodos de arrays modernos (map, filter, etc.)</li>
+<li>Implementa manejo de errores con try-catch</li>
+<li>Usa template literals para mensajes</li>
+</ul>
+<p><strong>Ejemplo de uso:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> inventario <span class="op">=</span> <span class="kw">new</span> <span class="fu">Inventario</span>()<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>inventario<span class="op">.</span><span class="fu">agregarItem</span>(<span class="st">"Espada de Fuego"</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="st">"arma"</span>)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>inventario<span class="op">.</span><span class="fu">agregarItem</span>(<span class="st">"Poción de Salud"</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="st">"consumible"</span>)<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>inventario<span class="op">.</span><span class="fu">agregarItem</span>(<span class="st">"Llave Antigua"</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="st">"quest"</span>)<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Total de items: </span><span class="sc">${</span>inventario<span class="op">.</span><span class="at">totalItems</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span> <span class="co">// 3</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>inventario<span class="op">.</span><span class="fu">usarItem</span>(<span class="st">"Poción de Salud"</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> consumibles <span class="op">=</span> inventario<span class="op">.</span><span class="fu">obtenerItemsPorTipo</span>(<span class="st">"consumible"</span>)<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(consumibles)<span class="op">;</span> <span class="co">// [{ nombre: "Poción de Salud", cantidad: 3, tipo: "consumible" }]</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="sec-ex-phaser" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="sec-ex-phaser"><span class="header-section-number">17.7</span> Phaser</h2>
+<section id="sistema-de-puntuación-persistente" class="level3">
+<h3 class="anchored" data-anchor-id="sistema-de-puntuación-persistente">Sistema de Puntuación Persistente</h3>
+<p>Crea un sistema de puntuación para un juego Phaser que:</p>
+<ol type="1">
+<li>Muestre la puntuación actual en pantalla durante el juego</li>
+<li>Guarde la puntuación más alta (high score) en <code>localStorage</code></li>
+<li>Muestre el high score en la pantalla principal</li>
+<li>Permita resetear el high score</li>
+</ol>
+<p><strong>Requisitos:</strong></p>
+<ul>
+<li>Crea una escena de Phaser con:
+<ul>
+<li>Un texto que muestre “Score: X”</li>
+<li>Un texto que muestre “High Score: Y”</li>
+<li>Un botón o tecla para incrementar la puntuación (simular evento del juego)</li>
+<li>Un botón para resetear el high score</li>
+</ul></li>
+<li>Implementa la lógica para:
+<ul>
+<li>Incrementar la puntuación cuando ocurra un evento (ej: presionar SPACE)</li>
+<li>Comparar la puntuación actual con el high score</li>
+<li>Actualizar el high score si se supera</li>
+<li>Persistir el high score en <code>localStorage</code></li>
+<li>Cargar el high score guardado al iniciar</li>
+</ul></li>
+</ul>
+<p><strong>Pista:</strong> Utiliza <code>localStorage.setItem()</code> y <code>localStorage.getItem()</code> para la persistencia.</p>
+<p><strong>Estructura sugerida:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GameScene <span class="kw">extends</span> Phaser<span class="op">.</span><span class="at">Scene</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">constructor</span>() {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span>(<span class="st">'GameScene'</span>)<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">score</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">highScore</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">create</span>() {</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Cargar high score</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Crear textos</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Configurar controles</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">update</span>() {</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Actualizar puntuación</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="sec-ex-rest-intro" class="level2" data-number="17.8">
+<h2 data-number="17.8" class="anchored" data-anchor-id="sec-ex-rest-intro"><span class="header-section-number">17.8</span> REST - Introducción</h2>
+<section id="diseño-de-api-rest-para-videojuego" class="level3">
+<h3 class="anchored" data-anchor-id="diseño-de-api-rest-para-videojuego">Diseño de API REST para Videojuego</h3>
+<p>Diseña una API RESTful para un sistema de gestión de jugadores y partidas de un videojuego.</p>
+<p><strong>Requisitos:</strong></p>
+<ol type="1">
+<li><strong>Define los recursos principales:</strong>
+<ul>
+<li>Jugadores (players)</li>
+<li>Partidas (games)</li>
+<li>Puntuaciones (scores)</li>
+</ul></li>
+<li><strong>Diseña los endpoints siguiendo principios REST:</strong> Para cada operación, especifica:
+<ul>
+<li>Método HTTP (GET, POST, PUT, DELETE)</li>
+<li>Ruta del endpoint</li>
+<li>Código de estado esperado</li>
+<li>Ejemplo de request/response</li>
+</ul>
+<strong>Operaciones requeridas:</strong>
+<ul>
+<li>Listar todos los jugadores</li>
+<li>Obtener un jugador específico</li>
+<li>Crear un nuevo jugador</li>
+<li>Actualizar información de un jugador</li>
+<li>Eliminar un jugador</li>
+<li>Obtener todas las partidas de un jugador</li>
+<li>Crear una nueva partida</li>
+<li>Obtener el top 10 de puntuaciones</li>
+</ul></li>
+<li><strong>Aplica convenciones RESTful:</strong>
+<ul>
+<li>Usa nombres en plural para recursos</li>
+<li>Usa IDs en la URL para recursos específicos</li>
+<li>Usa query parameters para filtros y paginación</li>
+<li>Diseña URLs jerárquicas para relaciones</li>
+</ul></li>
+<li><strong>Diseña las estructuras de datos:</strong> Define el formato JSON para:
+<ul>
+<li>Un jugador (Player)</li>
+<li>Una partida (Game)</li>
+<li>Una puntuación (Score)</li>
+</ul></li>
+</ol>
+<p><strong>Ejemplo de formato:</strong></p>
+<pre><code>GET /api/players/123
+Respuesta: 200 OK
+{
+  "id": 123,
+  "username": "player1",
+  ...
+}</code></pre>
+</section>
+</section>
+<section id="sec-ex-rest-client" class="level2" data-number="17.9">
+<h2 data-number="17.9" class="anchored" data-anchor-id="sec-ex-rest-client"><span class="header-section-number">17.9</span> REST - Cliente</h2>
+<section id="cliente-rest-con-fetch-api" class="level3">
+<h3 class="anchored" data-anchor-id="cliente-rest-con-fetch-api">Cliente REST con Fetch API</h3>
+<p>Implementa un cliente JavaScript que consuma la API REST de un videojuego usando Fetch API.</p>
+<p><strong>Requisitos:</strong></p>
+<ol type="1">
+<li><p><strong>Crea funciones para consumir la API:</strong> Implementa las siguientes funciones usando <code>fetch()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">getPlayers</span>() { <span class="op">...</span> }</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">getPlayer</span>(id) { <span class="op">...</span> }</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">createPlayer</span>(playerData) { <span class="op">...</span> }</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">updatePlayer</span>(id<span class="op">,</span> updates) { <span class="op">...</span> }</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">deletePlayer</span>(id) { <span class="op">...</span> }</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">getTopScores</span>(limit <span class="op">=</span> <span class="dv">10</span>) { <span class="op">...</span> }</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Manejo de errores:</strong></p>
+<ul>
+<li>Verifica el código de estado de la respuesta</li>
+<li>Lanza excepciones personalizadas para errores HTTP</li>
+<li>Maneja errores de red (ej: servidor no disponible)</li>
+</ul></li>
+<li><p><strong>Implementa una clase <code>GameAPI</code>:</strong> Encapsula todas las funciones en una clase con:</p>
+<ul>
+<li>Base URL configurable</li>
+<li>Métodos para cada operación</li>
+<li>Manejo centralizado de errores</li>
+<li>Headers comunes (Content-Type, Authorization si aplica)</li>
+</ul></li>
+<li><p><strong>Crea una interfaz de usuario simple:</strong></p>
+<ul>
+<li>Botón para obtener el top 10 de puntuaciones</li>
+<li>Mostrar los resultados en una lista HTML</li>
+<li>Indicador de carga durante la petición</li>
+<li>Mensaje de error si falla</li>
+</ul></li>
+</ol>
+<p><strong>Estructura sugerida:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GameAPI {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">constructor</span>(baseURL) {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">baseURL</span> <span class="op">=</span> baseURL<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">async</span> <span class="fu">request</span>(endpoint<span class="op">,</span> options <span class="op">=</span> {}) {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Método helper para hacer peticiones</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">async</span> <span class="fu">getPlayers</span>() { <span class="op">...</span> }</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">async</span> <span class="fu">createPlayer</span>(data) { <span class="op">...</span> }</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ... más métodos</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Uso esperado:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> api <span class="op">=</span> <span class="kw">new</span> <span class="fu">GameAPI</span>(<span class="st">'https://api.mygame.com'</span>)<span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Obtener jugador</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> player <span class="op">=</span> <span class="cf">await</span> api<span class="op">.</span><span class="fu">getPlayer</span>(<span class="dv">123</span>)<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(player<span class="op">.</span><span class="at">username</span>)<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Crear nuevo jugador</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> newPlayer <span class="op">=</span> <span class="cf">await</span> api<span class="op">.</span><span class="fu">createPlayer</span>({</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">username</span><span class="op">:</span> <span class="st">'newbie'</span><span class="op">,</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">email</span><span class="op">:</span> <span class="st">'newbie@example.com'</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="sec-ex-rest-server" class="level2" data-number="17.10">
+<h2 data-number="17.10" class="anchored" data-anchor-id="sec-ex-rest-server"><span class="header-section-number">17.10</span> REST - Servidor</h2>
+<section id="implementar-un-servidor-rest-con-express" class="level3">
+<h3 class="anchored" data-anchor-id="implementar-un-servidor-rest-con-express">Implementar un Servidor REST con Express</h3>
+<p>Crea un servidor REST básico para gestionar jugadores de un videojuego usando Node.js y Express.</p>
+<p><strong>Requisitos:</strong></p>
+<ol type="1">
+<li><p><strong>Configura un proyecto Express:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> init <span class="at">-y</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install express</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Implementa los siguientes endpoints:</strong></p>
+<ul>
+<li><code>GET /api/players</code> - Listar todos los jugadores</li>
+<li><code>GET /api/players/:id</code> - Obtener un jugador por ID</li>
+<li><code>POST /api/players</code> - Crear un nuevo jugador</li>
+<li><code>PUT /api/players/:id</code> - Actualizar un jugador</li>
+<li><code>DELETE /api/players/:id</code> - Eliminar un jugador</li>
+</ul></li>
+<li><p><strong>Almacenamiento en memoria:</strong></p>
+<ul>
+<li>Usa un array para almacenar los jugadores temporalmente</li>
+<li>Cada jugador debe tener: <code>id</code>, <code>username</code>, <code>level</code>, <code>score</code></li>
+</ul></li>
+<li><p><strong>Validaciones:</strong></p>
+<ul>
+<li>Verificar que <code>username</code> no esté vacío</li>
+<li>Verificar que <code>level</code> y <code>score</code> sean números</li>
+<li>Retornar error 400 si los datos son inválidos</li>
+<li>Retornar error 404 si el jugador no existe</li>
+</ul></li>
+<li><p><strong>Middleware:</strong></p>
+<ul>
+<li>Usa <code>express.json()</code> para parsear JSON</li>
+<li>Añade un middleware de logging que imprima cada petición</li>
+</ul></li>
+</ol>
+<p><strong>Estructura sugerida:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> express <span class="op">=</span> <span class="pp">require</span>(<span class="st">'express'</span>)<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> app <span class="op">=</span> <span class="fu">express</span>()<span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Datos en memoria</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> players <span class="op">=</span> [</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">username</span><span class="op">:</span> <span class="st">"player1"</span><span class="op">,</span> <span class="dt">level</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">score</span><span class="op">:</span> <span class="dv">1000</span> }<span class="op">,</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">username</span><span class="op">:</span> <span class="st">"player2"</span><span class="op">,</span> <span class="dt">level</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">score</span><span class="op">:</span> <span class="dv">500</span> }</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> nextId <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Middleware</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">use</span>(express<span class="op">.</span><span class="fu">json</span>())<span class="op">;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">// </span><span class="al">TODO</span><span class="co">: Implementar endpoints</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">listen</span>(<span class="dv">3000</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Server running on http://localhost:3000'</span>)<span class="op">;</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Bonus:</strong></p>
+<ul>
+<li>Añade un endpoint <code>GET /api/players?level=X</code> para filtrar por nivel</li>
+<li>Implementa paginación con <code>limit</code> y <code>offset</code></li>
+</ul>
+</section>
+</section>
+<section id="sec-ex-ws-intro" class="level2" data-number="17.11">
+<h2 data-number="17.11" class="anchored" data-anchor-id="sec-ex-ws-intro"><span class="header-section-number">17.11</span> WebSockets - Introducción</h2>
+<section id="comparación-rest-vs-websockets" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-rest-vs-websockets">Comparación REST vs WebSockets</h3>
+<p>Analiza las diferencias entre REST y WebSockets y determina cuándo usar cada uno.</p>
+<p><strong>Tareas:</strong></p>
+<ol type="1">
+<li><p><strong>Completa la tabla comparativa:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>REST (HTTP)</th>
+<th>WebSockets</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Protocolo base</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Conexión</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>Comunicación</td>
+<td>? (cliente→servidor)</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Overhead</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>Tiempo real</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Escalabilidad</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>Complejidad</td>
+<td>?</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Casos de uso - ¿REST o WebSocket?</strong> Para cada escenario de videojuego, indica si usarías REST, WebSocket o ambos, y justifica:</p>
+<ol type="a">
+<li><strong>Chat entre jugadores en tiempo real</strong></li>
+<li><strong>Cargar lista de mapas disponibles</strong></li>
+<li><strong>Sincronizar posición de jugadores en un shooter multijugador</strong></li>
+<li><strong>Subir una puntuación al leaderboard</strong></li>
+<li><strong>Notificaciones de amigos que se conectan</strong></li>
+<li><strong>Descargar un mapa de 50MB</strong></li>
+<li><strong>Partida de ajedrez online por turnos</strong></li>
+<li><strong>Sistema de login/autenticación</strong></li>
+</ol></li>
+<li><p><strong>Investigación:</strong></p>
+<ul>
+<li>¿Qué es el “handshake” de WebSocket?</li>
+<li>¿Por qué WebSocket usa HTTP inicialmente?</li>
+<li>¿Pueden atravesar WebSockets un firewall/proxy más fácilmente que un socket TCP puro?</li>
+</ul></li>
+<li><p><strong>Diseño arquitectónico:</strong> Para un juego multijugador tipo battle royale:</p>
+<ul>
+<li>¿Qué información enviarías por REST?</li>
+<li>¿Qué información enviarías por WebSocket?</li>
+<li>Dibuja un diagrama simple de la arquitectura</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="sec-ex-ws-client" class="level2" data-number="17.12">
+<h2 data-number="17.12" class="anchored" data-anchor-id="sec-ex-ws-client"><span class="header-section-number">17.12</span> WebSockets - Cliente</h2>
+<section id="cliente-websocket-para-chat-de-juego" class="level3">
+<h3 class="anchored" data-anchor-id="cliente-websocket-para-chat-de-juego">Cliente WebSocket para Chat de Juego</h3>
+<p>Implementa un cliente WebSocket simple para un sistema de chat en tiempo real de un videojuego.</p>
+<p><strong>Requisitos:</strong></p>
+<ol type="1">
+<li><p><strong>Crea una clase <code>GameChat</code>:</strong></p>
+<ul>
+<li>Constructor que reciba la URL del servidor WebSocket</li>
+<li>Método <code>connect()</code> para establecer conexión</li>
+<li>Método <code>sendMessage(message)</code> para enviar mensajes</li>
+<li>Método <code>disconnect()</code> para cerrar la conexión</li>
+<li>Callbacks para eventos: <code>onMessage</code>, <code>onConnect</code>, <code>onDisconnect</code>, <code>onError</code></li>
+</ul></li>
+<li><p><strong>Manejo de estados de conexión:</strong></p>
+<ul>
+<li>Mostrar indicador cuando se está conectando</li>
+<li>Mostrar indicador cuando está conectado</li>
+<li>Mostrar error si falla la conexión</li>
+<li>Intentar reconectar automáticamente si se pierde la conexión</li>
+</ul></li>
+<li><p><strong>Interfaz de usuario HTML:</strong></p>
+<ul>
+<li>Input para el nombre de usuario</li>
+<li>Botón para conectar</li>
+<li>Área de mensajes (mostrar historial)</li>
+<li>Input para escribir mensaje</li>
+<li>Botón para enviar mensaje</li>
+<li>Indicador de estado de conexión</li>
+</ul></li>
+<li><p><strong>Formato de mensajes JSON:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Cliente → Servidor (enviar mensaje)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">"message"</span><span class="op">,</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">username</span><span class="op">:</span> <span class="st">"player1"</span><span class="op">,</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">text</span><span class="op">:</span> <span class="st">"Hola a todos"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Servidor → Cliente (mensaje broadcast)</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">"message"</span><span class="op">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">username</span><span class="op">:</span> <span class="st">"player2"</span><span class="op">,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">text</span><span class="op">:</span> <span class="st">"Hola player1!"</span><span class="op">,</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">timestamp</span><span class="op">:</span> <span class="st">"2025-11-06T10:30:00Z"</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Servidor → Cliente (usuario conectado)</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">type</span><span class="op">:</span> <span class="st">"user_joined"</span><span class="op">,</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">username</span><span class="op">:</span> <span class="st">"player3"</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p><strong>Estructura sugerida:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GameChat {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">constructor</span>(serverURL) {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">serverURL</span> <span class="op">=</span> serverURL<span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">ws</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">username</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Callbacks</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">onMessage</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">onConnect</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">onDisconnect</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">onError</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">connect</span>(username) {</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span><span class="co">: Establecer conexión WebSocket</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sendMessage</span>(text) {</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span><span class="co">: Enviar mensaje al servidor</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">disconnect</span>() {</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span><span class="co">: Cerrar conexión</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Bonus:</strong></p>
+<ul>
+<li>Mostrar quién está escribiendo (“player2 is typing…”)</li>
+<li>Soporte para comandos especiales (“/help”, “/users”)</li>
+<li>Emoticones o formato básico de texto</li>
+</ul>
+</section>
+</section>
+<section id="sec-ex-ws-server" class="level2" data-number="17.13">
+<h2 data-number="17.13" class="anchored" data-anchor-id="sec-ex-ws-server"><span class="header-section-number">17.13</span> WebSockets - Servidor</h2>
+<section id="servidor-websocket-para-chat-de-juego" class="level3">
+<h3 class="anchored" data-anchor-id="servidor-websocket-para-chat-de-juego">Servidor WebSocket para Chat de Juego</h3>
+<p>Implementa un servidor WebSocket simple usando Node.js y la librería <code>ws</code>.</p>
+<p><strong>Requisitos:</strong></p>
+<ol type="1">
+<li><p><strong>Instala las dependencias:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> init <span class="at">-y</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install ws</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Implementa el servidor WebSocket:</strong></p>
+<ul>
+<li>Servidor escuchando en el puerto 8080</li>
+<li>Manejar conexiones de múltiples clientes simultáneamente</li>
+<li>Broadcast de mensajes a todos los clientes conectados</li>
+<li>Gestionar usuarios (username por cliente)</li>
+</ul></li>
+<li><p><strong>Tipos de mensajes:</strong></p>
+<ul>
+<li><code>register</code>: Cliente envía su username al conectar</li>
+<li><code>message</code>: Cliente envía mensaje de chat</li>
+<li><code>user_joined</code>: Servidor notifica cuando alguien se une</li>
+<li><code>user_left</code>: Servidor notifica cuando alguien se va</li>
+</ul></li>
+<li><p><strong>Funcionalidades:</strong></p>
+<ul>
+<li>Almacenar usuarios conectados con su websocket y username</li>
+<li>Broadcast a todos excepto al emisor</li>
+<li>Notificar a todos cuando un usuario se conecta/desconecta</li>
+<li>Manejo de errores y desconexiones</li>
+</ul></li>
+</ol>
+<p><strong>Estructura sugerida:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> <span class="bu">WebSocket</span> <span class="op">=</span> <span class="pp">require</span>(<span class="st">'ws'</span>)<span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> wss <span class="op">=</span> <span class="kw">new</span> <span class="bu">WebSocket</span><span class="op">.</span><span class="fu">Server</span>({ <span class="dt">port</span><span class="op">:</span> <span class="dv">8080</span> })<span class="op">;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Almacenar clientes conectados</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> clients <span class="op">=</span> <span class="kw">new</span> <span class="bu">Map</span>()<span class="op">;</span> <span class="co">// ws -&gt; {username, ws}</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>wss<span class="op">.</span><span class="fu">on</span>(<span class="st">'connection'</span><span class="op">,</span> (ws) <span class="kw">=&gt;</span> {</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'New client connected'</span>)<span class="op">;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    ws<span class="op">.</span><span class="fu">on</span>(<span class="st">'message'</span><span class="op">,</span> (message) <span class="kw">=&gt;</span> {</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span><span class="co">: Manejar mensajes</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    ws<span class="op">.</span><span class="fu">on</span>(<span class="st">'close'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span><span class="co">: Manejar desconexión</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Bonus:</strong></p>
+<ul>
+<li>Logging con timestamp de cada evento</li>
+<li>Comando “/users” para listar usuarios conectados</li>
+<li>Límite máximo de clientes simultáneos</li>
+<li>Heartbeat/ping para detectar conexiones muertas</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../ch/slides/slides.html" class="pagination-link" aria-label="Diapositivas de la asignatura">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Diapositivas de la asignatura</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../ch/code/code.html" class="pagination-link" aria-label="Software utilizado en la asignatura">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Software utilizado en la asignatura</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

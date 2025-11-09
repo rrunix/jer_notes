@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>References – Apuntes de Juegos en Red</title>
+<title>Referencias – Apuntes de Juegos en Red</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,7 +49,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ch/part_client/phaser/phaser.html" rel="prev">
+<link href="./ch/slides/slides.html" rel="next">
+<link href="./ch/part_servercoms/ws/ws_server.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -90,6 +91,7 @@ div.csl-indent {
 }</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -101,7 +103,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">Referencias</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -131,7 +133,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -145,32 +147,38 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ch/part_networks/part_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parte: Introducción a los juegos en red y a las redes de comunicaciones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
   </div>
 </li>
       </ul>
@@ -186,26 +194,117 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ch/part_client/part_intro_htmlcssjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del cliente</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ch/part_client/js/js.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">JavaScript para Desarrollo de Videojuegos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">JavaScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_client/htmlcss/htmlcss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">HTML y CSS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_client/part_intro_phaser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo de juegos con tecnología web</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_client/phaser/phaser.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introducción a Phaser 3 para Juegos en Red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Phaser 3</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Desarrollo en el servidor y comunicación</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/part_intro_rest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/rest/rest_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/rest/rest_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Cliente API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/rest/rest_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Servidor API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/part_intro_ws.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicación asíncrona cliente - servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/ws/ws_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Introducción a WebSockets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/ws/ws_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Cliente WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/ws/ws_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Servidor WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Referencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/slides/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Diapositivas de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/exercises/_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Ejercicios de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/code/code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Software utilizado en la asignatura</span></span></a>
   </div>
 </li>
     </ul>
@@ -221,7 +320,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title">Referencias</h1>
 </div>
 
 
@@ -239,6 +338,10 @@ div.csl-indent {
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-aldridge2011halo" class="csl-entry" role="listitem">
+Aldridge, David. 2011. <span>“I Shot You First: Networking the Gameplay
+of Halo: Reach.”</span> In <em>Game Developers Conference</em>.
+</div>
 <div id="ref-iotanalytics2020statista" class="csl-entry" role="listitem">
 Analytics, IoT. 2020. <span>“Internet of Things (IoT) and Non-IoT Active
 Device Connections Worldwide from 2010 to 2025 (in Billions).”</span>
@@ -247,17 +350,96 @@ Statista. <a href="https://www.statista.com/statistics/1101442/iot-number-of-con
 <div id="ref-bbc_ethernet1971" class="csl-entry" role="listitem">
 BBC Brasil. 2019. <span>“[Image from: Article Title].”</span> <a href="https://www.bbc.com/portuguese/geral-50162526">https://www.bbc.com/portuguese/geral-50162526</a>.
 </div>
+<div id="ref-bernier2001latency" class="csl-entry" role="listitem">
+Bernier, Yahn W. 2001. <span>“Latency Compensating Methods in
+Client/Server in-Game Protocol Design and Optimization.”</span> In
+<em>Game Developers Conference</em>.
+</div>
 <div id="ref-claypool2006latency" class="csl-entry" role="listitem">
 Claypool, Mark, and Kajal Claypool. 2006. <span>“Latency and Player
 Actions in Online Games.”</span> <em>Commun. ACM</em> 49 (11): 40–45. <a href="https://doi.org/10.1145/1167838.1167860">https://doi.org/10.1145/1167838.1167860</a>.
+</div>
+<div id="ref-doglio2015rest" class="csl-entry" role="listitem">
+Doglio, Fernando. 2015. <em>Pro REST API Development with Node.js</em>.
+Berkeley, CA: Apress.
+</div>
+<div id="ref-fette2011websocket" class="csl-entry" role="listitem">
+Fette, Ian, and Alexey Melnikov. 2011. <span>“The WebSocket
+Protocol.”</span> RFC 6455. Internet Engineering Task Force. <a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>.
+</div>
+<div id="ref-fiedler2024gaffer" class="csl-entry" role="listitem">
+Fiedler, Glenn. 2024. <span>“Gaffer on Games: Networking for Game
+Programmers.”</span> <a href="https://gafferongames.com/" class="uri">https://gafferongames.com/</a>.
+</div>
+<div id="ref-fielding2000architectural" class="csl-entry" role="listitem">
+Fielding, Roy Thomas. 2000. <span>“Architectural Styles and the Design
+of Network-Based Software Architectures.”</span> PhD thesis, University
+of California, Irvine.
+</div>
+<div id="ref-flanagan2020javascript" class="csl-entry" role="listitem">
+Flanagan, David. 2020. <em>JavaScript: The Definitive Guide</em>. 7th
+ed. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-gambetta2014multiplayer" class="csl-entry" role="listitem">
+Gambetta, Gabriel. 2014. <span>“Fast-Paced Multiplayer.”</span> <a href="https://www.gabrielgambetta.com/client-server-game-architecture.html" class="uri">https://www.gabrielgambetta.com/client-server-game-architecture.html</a>.
+</div>
+<div id="ref-glazer2015multiplayer" class="csl-entry" role="listitem">
+Glazer, Joshua, and Sanjay Madhav. 2015. <em>Multiplayer Game
+Programming: Architecting Networked Games</em>. Boston, MA:
+Addison-Wesley Professional.
+</div>
+<div id="ref-hahn2014express" class="csl-entry" role="listitem">
+Hahn, Evan. 2014. <em>Express in Action: Writing, Building, and Testing
+Node.js Applications</em>. Shelter Island, NY: Manning Publications.
+</div>
+<div id="ref-haverbeke2018eloquent" class="csl-entry" role="listitem">
+Haverbeke, Marijn. 2018. <em>Eloquent JavaScript: A Modern Introduction
+to Programming</em>. 3rd ed. San Francisco, CA: No Starch Press.
 </div>
 <div id="ref-kurose2017computer" class="csl-entry" role="listitem">
 Kurose, James F., and Keith W. Ross. 2017. <em>Computer Networks: A
 Top-down Approach</em>. 7th ed. Boston, MA: Pearson.
 </div>
+<div id="ref-kurose2021computer" class="csl-entry" role="listitem">
+———. 2021. <em>Computer Networks: A Top-down Approach</em>. 8th ed.
+Boston, MA: Pearson.
+</div>
+<div id="ref-masse2011rest" class="csl-entry" role="listitem">
+Masse, Mark. 2011. <em>REST API Design Rulebook</em>. Sebastopol, CA:
+O’Reilly Media.
+</div>
+<div id="ref-mdn2024javascript" class="csl-entry" role="listitem">
+Mozilla Developer Network. 2024. <span>“JavaScript Guide.”</span> <a href="https://developer.mozilla.org/" class="uri">https://developer.mozilla.org/</a>.
+</div>
+<div id="ref-photonstorm2024phaser" class="csl-entry" role="listitem">
+Photonstorm. 2024. <span>“Phaser 3 Documentation.”</span> <a href="https://phaser.io/" class="uri">https://phaser.io/</a>.
+</div>
+<div id="ref-richardson2013restful" class="csl-entry" role="listitem">
+Richardson, Leonard, and Sam Ruby. 2013. <em>RESTful Web APIs</em>.
+Sebastopol, CA: O’Reilly Media.
+</div>
 <div id="ref-ourworldindata2023internet" class="csl-entry" role="listitem">
 Ritchie, Hannah, Edouard Mathieu, Max Roser, and Esteban Ortiz-Ospina.
 2023. <span>“Internet.”</span> Our World in Data. <a href="https://ourworldindata.org/internet">https://ourworldindata.org/internet</a>.
+</div>
+<div id="ref-sturgeon2016build" class="csl-entry" role="listitem">
+Sturgeon, Phil. 2016. <em>Build APIs You Won’t Hate</em>. LeanPub.
+</div>
+<div id="ref-tanenbaum2021computer" class="csl-entry" role="listitem">
+Tanenbaum, Andrew S., and David J. Wetherall. 2021. <em>Computer
+Networks</em>. 6th ed. Harlow, England: Pearson.
+</div>
+<div id="ref-wang2013websocket" class="csl-entry" role="listitem">
+Wang, Vanessa, Frank Salim, and Peter Moskovits. 2013. <em>The
+Definitive Guide to HTML5 WebSocket</em>. Berkeley, CA: Apress.
+</div>
+<div id="ref-wilson2018nodejs" class="csl-entry" role="listitem">
+Wilson, Jim. 2018. <em>Node.js 8 the Right Way: Practical, Server-Side
+JavaScript That Scales</em>. Raleigh, NC: Pragmatic Bookshelf.
+</div>
+<div id="ref-young2017nodejs" class="csl-entry" role="listitem">
+Young, Alex, Bradley Meck, and Mike Cantelon. 2017. <em>Node.js in
+Action</em>. 2nd ed. Shelter Island, NY: Manning Publications.
 </div>
 </div>
 
@@ -666,11 +848,14 @@ Ritchie, Hannah, Edouard Mathieu, Max Roser, and Esteban Ortiz-Ospina.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ch/part_client/phaser/phaser.html" class="pagination-link" aria-label="Introducción a Phaser 3 para Juegos en Red">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introducción a Phaser 3 para Juegos en Red</span></span>
+      <a href="./ch/part_servercoms/ws/ws_server.html" class="pagination-link" aria-label="Servidor WebSockets con JavasScript">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Servidor WebSockets con JavasScript</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./ch/slides/slides.html" class="pagination-link" aria-label="Diapositivas de la asignatura">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Diapositivas de la asignatura</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

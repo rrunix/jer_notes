@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Capa de red – Apuntes de Juegos en Red</title>
+<title>4&nbsp; Capa de red – Apuntes de Juegos en Red</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,10 +70,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Buscar"
   }
 }</script>
-<meta name="mermaid-theme" content="default">
-<script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -105,6 +101,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -116,7 +113,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_layer/network_layer.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/part_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_layer/network_layer.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -146,7 +143,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -160,32 +157,38 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_networks/part_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parte: Introducción a los juegos en red y a las redes de comunicaciones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
   </div>
 </li>
       </ul>
@@ -201,26 +204,117 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/part_intro_htmlcssjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del cliente</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../ch/part_client/js/js.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">JavaScript para Desarrollo de Videojuegos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">JavaScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/htmlcss/htmlcss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">HTML y CSS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_client/part_intro_phaser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo de juegos con tecnología web</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../ch/part_client/phaser/phaser.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introducción a Phaser 3 para Juegos en Red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Phaser 3</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Desarrollo en el servidor y comunicación</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/part_intro_rest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/rest/rest_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/rest/rest_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Cliente API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/rest/rest_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Servidor API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/part_intro_ws.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicación asíncrona cliente - servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/ws/ws_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Introducción a WebSockets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/ws/ws_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Cliente WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/part_servercoms/ws/ws_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Servidor WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Referencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/slides/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Diapositivas de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/exercises/_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Ejercicios de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../ch/code/code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Software utilizado en la asignatura</span></span></a>
   </div>
 </li>
     </ul>
@@ -233,18 +327,18 @@ window.Quarto = {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#funciones-fundamentales-de-la-capa-de-red" id="toc-funciones-fundamentales-de-la-capa-de-red" class="nav-link active" data-scroll-target="#funciones-fundamentales-de-la-capa-de-red"><span class="header-section-number">3.1</span> Funciones Fundamentales de la Capa de Red</a></li>
-  <li><a href="#modelos-de-servicio" id="toc-modelos-de-servicio" class="nav-link" data-scroll-target="#modelos-de-servicio"><span class="header-section-number">3.2</span> Modelos de servicio</a></li>
-  <li><a href="#dispositivos-físicos-de-la-capa-de-red" id="toc-dispositivos-físicos-de-la-capa-de-red" class="nav-link" data-scroll-target="#dispositivos-físicos-de-la-capa-de-red"><span class="header-section-number">3.3</span> Dispositivos físicos de la Capa de Red</a>
+  <li><a href="#funciones-fundamentales-de-la-capa-de-red" id="toc-funciones-fundamentales-de-la-capa-de-red" class="nav-link active" data-scroll-target="#funciones-fundamentales-de-la-capa-de-red"><span class="header-section-number">4.1</span> Funciones Fundamentales de la Capa de Red</a></li>
+  <li><a href="#modelos-de-servicio" id="toc-modelos-de-servicio" class="nav-link" data-scroll-target="#modelos-de-servicio"><span class="header-section-number">4.2</span> Modelos de servicio</a></li>
+  <li><a href="#dispositivos-físicos-de-la-capa-de-red" id="toc-dispositivos-físicos-de-la-capa-de-red" class="nav-link" data-scroll-target="#dispositivos-físicos-de-la-capa-de-red"><span class="header-section-number">4.3</span> Dispositivos físicos de la Capa de Red</a>
   <ul class="collapse">
-  <li><a href="#routers-enrutadores" id="toc-routers-enrutadores" class="nav-link" data-scroll-target="#routers-enrutadores"><span class="header-section-number">3.3.1</span> Routers (Enrutadores)</a></li>
-  <li><a href="#switches-de-capa-3" id="toc-switches-de-capa-3" class="nav-link" data-scroll-target="#switches-de-capa-3"><span class="header-section-number">3.3.2</span> Switches de Capa 3</a></li>
+  <li><a href="#routers-enrutadores" id="toc-routers-enrutadores" class="nav-link" data-scroll-target="#routers-enrutadores">Routers (Enrutadores)</a></li>
+  <li><a href="#switches-de-capa-3" id="toc-switches-de-capa-3" class="nav-link" data-scroll-target="#switches-de-capa-3">Switches de Capa 3</a></li>
   </ul></li>
-  <li><a href="#protocolos" id="toc-protocolos" class="nav-link" data-scroll-target="#protocolos"><span class="header-section-number">3.4</span> Protocolos</a>
+  <li><a href="#protocolos" id="toc-protocolos" class="nav-link" data-scroll-target="#protocolos"><span class="header-section-number">4.4</span> Protocolos</a>
   <ul class="collapse">
-  <li><a href="#protocolo-ip" id="toc-protocolo-ip" class="nav-link" data-scroll-target="#protocolo-ip"><span class="header-section-number">3.4.1</span> Protocolo IP</a></li>
-  <li><a href="#protocolo-icmp-internet-control-message-protocol" id="toc-protocolo-icmp-internet-control-message-protocol" class="nav-link" data-scroll-target="#protocolo-icmp-internet-control-message-protocol"><span class="header-section-number">3.4.2</span> Protocolo ICMP (Internet Control Message Protocol)</a></li>
-  <li><a href="#nat-network-address-translation" id="toc-nat-network-address-translation" class="nav-link" data-scroll-target="#nat-network-address-translation"><span class="header-section-number">3.4.3</span> NAT (Network Address Translation)</a></li>
+  <li><a href="#protocolo-ip" id="toc-protocolo-ip" class="nav-link" data-scroll-target="#protocolo-ip">Protocolo IP</a></li>
+  <li><a href="#protocolo-icmp-internet-control-message-protocol" id="toc-protocolo-icmp-internet-control-message-protocol" class="nav-link" data-scroll-target="#protocolo-icmp-internet-control-message-protocol">Protocolo ICMP (Internet Control Message Protocol)</a></li>
+  <li><a href="#nat-network-address-translation" id="toc-nat-network-address-translation" class="nav-link" data-scroll-target="#nat-network-address-translation">NAT (Network Address Translation)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -252,9 +346,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_intro/network_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_layer/network_layer.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../ch/part_networks/part_intro.html">Introducción a redes</a></li><li class="breadcrumb-item"><a href="../../../ch/part_networks/network_layer/network_layer.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-network-layer" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></h1>
+<h1 class="title"><span id="sec-network-layer" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></span></h1>
 </div>
 
 
@@ -276,21 +370,21 @@ window.Quarto = {
 <div id="fig-example-network-layer-net" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-example-network-layer-net-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<pre><code>Red A (Privada)                    Internet                    Red B (Google DC)
-192.168.1.0/24                                                142.250.184.0/24
-┌────────────┐     ┌────────────────┐   ┌──────────┐   ┌─────────────────┐      ┌──────────────┐
-│   Host A   │─────│   Router-A     │───│          │───│    Router-B     │──────│ Servidor Web │
-│            │     │    (Casa)      │   │ Internet │   │   (Google DC)   │      │   (Google)   │
-│192.168.1.10│     │LAN:192.168.1.1 │   │          │   │WAN:74.125.24.1  │      │              │
-│            │     │WAN:203.0.113.2 │   └──────────┘   │LAN:142.250.184.1│      │142.250.184.3 │
-└────────────┘     └────────────────┘                  └─────────────────┘      └──────────────┘</code></pre>
+<pre><code>Red A (Privada)               Internet             Red B (Google DC)
+192.168.1.0/24                                      142.250.184.0/24
+┌────────────┐ ┌───────────────┐   ┌─────────────────┐ ┌─────────────┐
+│   Host A   │─│   Router-A    │─*─│    Router-B     │─│ Servidor Web│
+│            │ │    (Casa)     │   │   (Google DC)   │ │   (Google)  │
+│192.168.1.10│ │LAN:192.168.1.1│   │WAN:74.125.24.1  │ │             │
+│            │ │WAN:203.0.113.2│   │LAN:142.250.184.1│ │142.250.184.3│
+└────────────┘ └───────────────┘   └─────────────────┘ └─────────────┘</code></pre>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-network-layer-net-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.1: Ejemplo simplificado de la estructura de red.
+Figura&nbsp;4.1: Ejemplo simplificado de la estructura de red.
 </figcaption>
 </figure>
 </div>
-<p>Los pasos de los que constaría este ejemplo simplificado están recogidos en la <a href="#fig-example-network-layer-diagram" class="quarto-xref">Figura&nbsp;<span>3.2</span></a> y serían los siguientes:</p>
+<p>Los pasos de los que constaría este ejemplo simplificado están recogidos en la <a href="#fig-example-network-layer-diagram" class="quarto-xref">Figura&nbsp;<span>4.2</span></a> y serían los siguientes:</p>
 <ol type="1">
 <li><p>El dispositivo A (192.168.1.10) examina la IP de destino (142.250.184.3). La IP 142.250.184.3 no está en mi red 192.168.1.0/24, por lo tanto enviará el paquete al gateway (192.168.1.1), es decir, el Router-A. Para ello obtiene la MAC del Router-A y le envía la trama.</p></li>
 <li><p>El Router-A recibe la trama. Ve que la MAC de destino coincide con la suya y extrae el datagrama IP. Lee la IP de destino (142.250.184.3), y como no está en su red local, consulta su tabla de enrutamiento. Determina que debe enviar el paquete a su router del ISP (203.0.113.1). Este router del ISP tendrá en su tabla de enrutamiento una entrada que indica que para llegar a la red 142.250.184.0/24 debe enviar los paquetes al router 74.125.24.1. Router-A actualiza los campos necesarios del datagrama IP y lo encapsula en una nueva trama.</p></li>
@@ -300,53 +394,24 @@ Figura&nbsp;3.1: Ejemplo simplificado de la estructura de red.
 <div id="fig-example-network-layer-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-example-network-layer-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">sequenceDiagram
-    participant A as Dispositivo A&lt;br/&gt;(192.168.1.10)
-    participant RA as Router-A&lt;br/&gt;(Casa)&lt;br/&gt;192.168.1.1
-    participant RB as Router-B&lt;br/&gt;(Google DC)&lt;br/&gt;142.250.184.1
-    participant B as Servidor Web&lt;br/&gt;(142.250.184.3)
-
-    Note over A: 1) Analiza IP destino (142.250.184.3) &lt;br/&gt; 2) No está en mi red local &lt;br/&gt; 3) Decidir enviar al gateway (192.168.1.1)
-
-    A-&gt;&gt;RA: Trama Ethernet&lt;br/&gt;MAC: A → Router-A&lt;br/&gt;IP: 192.168.1.10 → 142.250.184.3
-
-    Note over RA: 1) Recibe trama, extrae datagrama IP. &lt;br/&gt; 2) Consulta tabla de enrutamiento. &lt;br/&gt; 3) Envía al router ISP → Router-B
-
-    RA-&gt;&gt;RB: Nueva trama Ethernet&lt;br/&gt;MAC: Router-A → Router-B&lt;br/&gt;IP: 192.168.1.10 → 142.250.184.3&lt;br/&gt;(múltiples saltos por Internet)
-
-    Note over RB: 1) Recibe trama, extrae datagrama IP. &lt;br/&gt; 2) IP 142.250.184.3 está en red local
-
-    RB-&gt;&gt;B: Trama Ethernet&lt;br/&gt;MAC: Router-B → B&lt;br/&gt;IP: 192.168.1.10 → 142.250.184.3
-
-    Note over B: 1) Recepción final comprueba IP. &lt;br/&gt; 2) Entrega datos a capa superior
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+<img src="resources/example_network_layer_diagram.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-network-layer-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.2: Ejemplo de envío de datagrama IP entre dos ordenadores en diferentes redes.
+Figura&nbsp;4.2: Ejemplo de envío de datagrama IP entre dos ordenadores en diferentes redes.
 </figcaption>
 </figure>
 </div>
 <p>Aunque este ejemplo sea una simplificación, nos ayuda a introducir la funcionalidad de la capa de red, en concreto, de los routers y del protocolo IP. Generalmente, entre el Router-A y Router-B habría múltiples routers intermedios, pero proceso seguiría siendo el mismo. En los siguientes apartados profundizaremos en las funcionalidades de la capa de red a través de los routers y el protocolo IP.</p>
-<section id="funciones-fundamentales-de-la-capa-de-red" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="funciones-fundamentales-de-la-capa-de-red"><span class="header-section-number">3.1</span> Funciones Fundamentales de la Capa de Red</h2>
+<section id="funciones-fundamentales-de-la-capa-de-red" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="funciones-fundamentales-de-la-capa-de-red"><span class="header-section-number">4.1</span> Funciones Fundamentales de la Capa de Red</h2>
 <p>La Capa de Red tiene dos funciones clave: el enrutamiento y el reenvío. El <strong>enrutamiento</strong> representa el proceso global mediante el cual la red determina las rutas óptimas que seguirán los paquetes de datos desde su origen hasta su destino final. Este proceso considera toda la topología de la red y puede tomar desde segundos hasta minutos para converger completamente. Los algoritmos de enrutamiento más comunes son RIP, OSPF y BGP.</p>
 <p>En contraste, el <strong>reenvío</strong> constituye un proceso local y extremadamente rápido que se encarga de mover los paquetes desde el puerto de entrada hasta el puerto de salida específico dentro del mismo router. Esta operación debe completarse en microsegundos para mantener el rendimiento de la red, por lo que se implementa directamente en hardware. El proceso se basa exclusivamente en la dirección IP de destino y utiliza únicamente la tabla de reenvío local del router para tomar decisiones inmediatas.</p>
 <p>La interacción entre ambos procesos forma un sistema integrado donde los algoritmos de enrutamiento como RIP, OSPF y BGP generan la tabla de enrutamiento con rutas completas, la cual se traduce en una tabla de reenvío optimizada que contiene únicamente la información del siguiente salto (next-hop). Esta tabla de reenvío es la que finalmente permite tomar las decisiones de reenvío paquete por paquete de manera eficiente, creando un flujo continuo desde la planificación estratégica de rutas hasta la ejecución táctica del movimiento de datos.</p>
 <p>Las responsabilidades de la capa de red varían según el tipo de dispositivo y su posición en el flujo de comunicación. En el host emisor, la capa de red recibe segmentos de TCP o UDP y los encapsula en datagramas IP añadiendo las cabeceras correspondientes. Durante este proceso, debe fragmentar los datagramas si exceden el MTU del enlace de salida y determinar si el destino es local (dentro de la misma red) o remoto para enviarlo. En el extremo opuesto, el host receptor debe reensamblar los fragmentos cuando sea necesario, verificar la integridad de los datos mediante el checksum de cabecera, extraer los segmentos y entregarlos a la capa de transporte apropiada, además de procesar las opciones de cabecera IP cuando estén presentes.</p>
 <p>Los routers intermedios desempeñan un papel diferente pero crucial en este ecosistema. Su función principal consiste en examinar los campos de la cabecera IP, especialmente la dirección de destino, consultar sus tablas de enrutamiento para determinar el siguiente salto apropiado, y reenviar los paquetes por la interfaz de salida correspondiente.</p>
 </section>
-<section id="modelos-de-servicio" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="modelos-de-servicio"><span class="header-section-number">3.2</span> Modelos de servicio</h2>
+<section id="modelos-de-servicio" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="modelos-de-servicio"><span class="header-section-number">4.2</span> Modelos de servicio</h2>
 <p>Existen dos paradigmas fundamentales para implementar servicios de capa de red, cada uno con filosofías y mecanismos completamente diferentes. La elección entre estos modelos determina aspectos cruciales como performance, confiabilidad, complejidad y escalabilidad de la red.</p>
 <p><strong>Las redes de circuitos virtuales (VC)</strong> emulan el comportamiento de los circuitos telefónicos tradicionales estableciendo “caminos virtuales” dedicados entre origen y destino. Su funcionamiento se desarrolla en tres fases claramente definidas: primero, el establecimiento de conexión mediante el envío de un mensaje SETUP desde el host origen, donde cada router intermedio reserva recursos como ancho de banda y buffers, crea una entrada en su tabla VC con un identificador único local, y reenvía la solicitud hasta que el host destino confirma con un mensaje ACK. Durante la fase de transferencia de datos, los paquetes solo necesitan llevar el VC ID asignado en lugar de la dirección de destino completa, permitiendo un reenvío rápido mediante consulta a la tabla VC, garantizando calidad de servicio (QoS) y manteniendo una ruta fija para todos los paquetes del flujo. Finalmente, la terminación se realiza mediante un mensaje TEARDOWN que libera los recursos previamente reservados y elimina las entradas de las tablas VC.</p>
 <p>Esta arquitectura ofrece ventajas significativas como QoS predecible con garantías de rendimiento, overhead reducido en las cabeceras al usar solo el VC ID, control de flujo extremo a extremo y orden garantizado de los paquetes. Sin embargo, presenta desventajas importantes incluyendo la complejidad en el establecimiento y mantenimiento de conexiones, la necesidad de mantener estado por cada conexión en todos los routers, rigidez ante cambios en la topología de red y overhead adicional por la señalización requerida. Tecnologías como ATM, Frame Relay, X.25 y MPLS implementan este modelo de circuitos virtuales para aplicaciones que requieren garantías específicas de rendimiento.</p>
@@ -406,11 +471,11 @@ Figura&nbsp;3.2: Ejemplo de envío de datagrama IP entre dos ordenadores en dife
 </tbody>
 </table>
 </section>
-<section id="dispositivos-físicos-de-la-capa-de-red" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="dispositivos-físicos-de-la-capa-de-red"><span class="header-section-number">3.3</span> Dispositivos físicos de la Capa de Red</h2>
+<section id="dispositivos-físicos-de-la-capa-de-red" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="dispositivos-físicos-de-la-capa-de-red"><span class="header-section-number">4.3</span> Dispositivos físicos de la Capa de Red</h2>
 <p>Los dispositivos de capa de red son los componentes hardware que hacen posible la interconexión de redes y la implementación de las funciones de enrutamiento y reenvío. Estos dispositivos varían considerablemente en complejidad, desde simples switches Layer 3 hasta routers core de alta capacidad.</p>
-<section id="routers-enrutadores" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="routers-enrutadores"><span class="header-section-number">3.3.1</span> Routers (Enrutadores)</h3>
+<section id="routers-enrutadores" class="level3">
+<h3 class="anchored" data-anchor-id="routers-enrutadores">Routers (Enrutadores)</h3>
 <p>Los routers constituyen la columna vertebral de Internet y las redes empresariales modernas. Su función principal es interconectar diferentes redes y determinar la ruta óptima para el reenvío de paquetes de datos. A diferencia de los switches que operan en la Capa de Acceso a la Red, los routers trabajan en la Capa de Red, tomando decisiones basadas en direcciones IP y manteniendo una visión global de la topología de red.</p>
 <p>La arquitectura básica consta de cuatro componentes principales:</p>
 <pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -435,8 +500,8 @@ Figura&nbsp;3.2: Ejemplo de envío de datagrama IP entre dos ordenadores en dife
 <p>Los puertos de salida gestionan el tráfico que abandona el router mediante un proceso inverso al de entrada. La bufferización y scheduling implementa sistemas de colas sofisticados que aplican políticas de calidad de servicio, decidiendo qué paquetes enviar primero según sus prioridades. El procesamiento de la capa de enlace encapsula el datagrama IP en la trama apropiada para el protocolo del enlace de salida. Finalmente, la terminación física convierte los datos digitales en señales eléctricas u ópticas para su transmisión.</p>
 <p>El procesador de enrutamiento funciona como el cerebro del sistema, ejecutando los protocolos de enrutamiento que intercambian información con otros routers para mantener actualizado el conocimiento de la topología de red. También gestiona funciones administrativas como SNMP para monitoreo remoto, procesamiento ICMP para herramientas de diagnóstico como ping y traceroute, y la computación de las tablas de reenvío optimizadas a partir de las tablas de enrutamiento.</p>
 <p>Por último, NAT es un protocolo que opera entre ambas capas (lo veremos después). Al principio operaba sólo en el plano de control, tomando un tiempo significativo. En la actualidad, opera en el plano de control para manejar las sesiones y el resto en hardware especializado en el plano de datos.</p>
-<section id="proceso-de-reenvío-de-paquetes" class="level4" data-number="3.3.1.1">
-<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="proceso-de-reenvío-de-paquetes"><span class="header-section-number">3.3.1.1</span> Proceso de Reenvío de Paquetes</h4>
+<section id="proceso-de-reenvío-de-paquetes" class="level4">
+<h4 class="anchored" data-anchor-id="proceso-de-reenvío-de-paquetes">Proceso de Reenvío de Paquetes</h4>
 <p>El proceso de reenvío sigue una secuencia precisa y optimizada que se ejecuta para cada paquete:</p>
 <ol type="1">
 <li><p><strong>Recepción y procesamiento inicial</strong>: El paquete llega al puerto de entrada desde el enlace físico, se procesa la cabecera de la capa de enlace correspondiente y se extrae el datagrama IP.</p></li>
@@ -449,8 +514,8 @@ Figura&nbsp;3.2: Ejemplo de envío de datagrama IP entre dos ordenadores en dife
 </ol>
 </section>
 </section>
-<section id="switches-de-capa-3" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="switches-de-capa-3"><span class="header-section-number">3.3.2</span> Switches de Capa 3</h3>
+<section id="switches-de-capa-3" class="level3">
+<h3 class="anchored" data-anchor-id="switches-de-capa-3">Switches de Capa 3</h3>
 <p>A medida que las redes locales crecieron en complejidad, surgió la necesidad de dispositivos que combinaran la velocidad del switching con las capacidades del routing. Los switches Layer 3 llenan este nicho específico. La principal diferencia es la implementación a nivel de hardware del procesamiento, haciéndolo mucho más rápido. A modo de comparativa tenéis la siguiente tabla:</p>
 <table class="caption-top table">
 <thead>
@@ -490,10 +555,10 @@ Figura&nbsp;3.2: Ejemplo de envío de datagrama IP entre dos ordenadores en dife
 </table>
 </section>
 </section>
-<section id="protocolos" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="protocolos"><span class="header-section-number">3.4</span> Protocolos</h2>
-<section id="protocolo-ip" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="protocolo-ip"><span class="header-section-number">3.4.1</span> Protocolo IP</h3>
+<section id="protocolos" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="protocolos"><span class="header-section-number">4.4</span> Protocolos</h2>
+<section id="protocolo-ip" class="level3">
+<h3 class="anchored" data-anchor-id="protocolo-ip">Protocolo IP</h3>
 <p>IP es el protocolo principal de la capa de red en la arquitectura TCP/IP. Define la estructura de datagramas, direccionamiento y mecanismos básicos de entrega. Las características principales de IP son:</p>
 <ul>
 <li><strong>Sin conexión</strong>: No requiere establecimiento previo.</li>
@@ -505,94 +570,23 @@ Figura&nbsp;3.2: Ejemplo de envío de datagrama IP entre dos ordenadores en dife
 <div id="fig-packet-ipv4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-packet-ipv4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell" data-fig-width="4s" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">---
-config:
-  packet:
-    showBits: true
----
-packet-beta
-
-title IPv4 Header Format
-0-3: "Version (4)"
-4-7: "IHL (4)"
-8-15: "Type of Service (8)"
-16-31: "Total Length (16)"
-32-47: "Identification (16)"
-48-50: "Flags (3)"
-51-63: "Fragment Offset (13)"
-64-71: "Time to Live (8)"
-72-79: "Protocol (8)"
-80-95: "Header Checksum (16)"
-96-127: "Source Address (32)"
-128-159: "Destination Address (32)"
-160-191: "Options (variable)"
-192-223: "Padding"
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+<img src="resources/packet_ipv4.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-packet-ipv4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.3: Formato de cabeceras de IPv4.
+Figura&nbsp;4.3: Formato de cabeceras de IPv4.
 </figcaption>
 </figure>
 </div>
-<p>El datagrama IPv4 es la unidad básica de información que viaja por Internet (Ver estructura en <a href="#fig-packet-ipv4" class="quarto-xref">Figura&nbsp;<span>3.3</span></a>). Utiliza una cabecera de longitud variable (mínimo 20 bytes) que contiene la información esencial para el enrutamiento y entrega de paquetes a través de Internet. Los campos más críticos incluyen las direcciones IP de origen y destino que determinan los puntos de comunicación, el campo TTL que previene loops infinitos al decrementarse en cada router, el campo Protocol que identifica el protocolo de capa superior (TCP, UDP, ICMP), y los campos de fragmentación (Identification, Flags, Fragment Offset) que permiten dividir y reensamblar datagramas que exceden el MTU del enlace. El checksum protege únicamente la cabecera, delegando la protección de los datos a las capas superiores, mientras que el campo Total Length especifica el tamaño completo del datagrama para su procesamiento correcto.</p>
+<p>El datagrama IPv4 es la unidad básica de información que viaja por Internet (Ver estructura en <a href="#fig-packet-ipv4" class="quarto-xref">Figura&nbsp;<span>4.3</span></a>). Utiliza una cabecera de longitud variable (mínimo 20 bytes) que contiene la información esencial para el enrutamiento y entrega de paquetes a través de Internet. Los campos más críticos incluyen las direcciones IP de origen y destino que determinan los puntos de comunicación, el campo TTL que previene loops infinitos al decrementarse en cada router, el campo Protocol que identifica el protocolo de capa superior (TCP, UDP, ICMP), y los campos de fragmentación (Identification, Flags, Fragment Offset) que permiten dividir y reensamblar datagramas que exceden el MTU del enlace. El checksum protege únicamente la cabecera, delegando la protección de los datos a las capas superiores, mientras que el campo Total Length especifica el tamaño completo del datagrama para su procesamiento correcto.</p>
 <p>El sistema de direccionamiento IPv4, llamadas IP, es un identificador único de un dispositivo dentro de una red. En IPv4 tienen un formato de 32 bits que se organiza en 4 octetos separados por puntos. Por ejemplo, 192.168.1.1 o 10.0.1.50. Debido a la longitud de 32 bits, el número de direcciones IP posibles son <span class="math inline">\(2^{32}\)</span>, aproximadamente 4.3 miles de millones. Estas direcciones se organizan en dos partes, la parte de red y la parte de host, además tenemos la máscara de red que nos ayuda a distinguir ambas partes. Por ejemplo, <span style="color:blue">192.168.1.</span><span style="color:red">1</span> con máscara de red 255.255.255.0 o <span style="color:blue">10.0.</span><span style="color:red">1.50</span> con máscara de red 255.255.0.0, siendo la parte azul la parte de red y la roja la parte del host. Para obtener la dirección de red utilizamos el operador binario AND: 192.168.1.1 &amp; 255.255.255.0 = 192.168.1.0. En CIDR, que veremos más adelante, esta máscara 255.255.255.0 se representa como /24.</p>
-<p>Esta división entre parte de red y parte de host permite representar jerárquicamente la estructura de direccionamiento, como se muestra en la <a href="#fig-example-network" class="quarto-xref">Figura&nbsp;<span>3.4</span></a>. Los routers pueden tomar decisiones de reenvío basándose únicamente en la parte de red de la dirección destino, consultando sus tablas locales para determinar la interfaz de salida. Gracias a esta organización, es posible la agregación de rutas, donde varias redes pequeñas se resumen en una sola entrada de mayor alcance. Por ejemplo, dos subredes /28 contiguas (192.168.1.0/28 y 192.168.1.16/28) pueden representarse como un único bloque /27 (192.168.1.0/27), reduciendo de dos entradas a una. Este mecanismo permite que los routers mantengan información consolidada sobre redes remotas sin necesidad de conocer cada host o subred en detalle, lo que disminuye drásticamente el tamaño de las tablas de reenvío y hace escalable la infraestructura global de Internet.</p>
+<p>Esta división entre parte de red y parte de host permite representar jerárquicamente la estructura de direccionamiento, como se muestra en la <a href="#fig-example-network" class="quarto-xref">Figura&nbsp;<span>4.4</span></a>. Los routers pueden tomar decisiones de reenvío basándose únicamente en la parte de red de la dirección destino, consultando sus tablas locales para determinar la interfaz de salida. Gracias a esta organización, es posible la agregación de rutas, donde varias redes pequeñas se resumen en una sola entrada de mayor alcance. Por ejemplo, dos subredes /28 contiguas (192.168.1.0/28 y 192.168.1.16/28) pueden representarse como un único bloque /27 (192.168.1.0/27), reduciendo de dos entradas a una. Este mecanismo permite que los routers mantengan información consolidada sobre redes remotas sin necesidad de conocer cada host o subred en detalle, lo que disminuye drásticamente el tamaño de las tablas de reenvío y hace escalable la infraestructura global de Internet.</p>
 <div id="fig-example-network" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-example-network-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell" data-fig-width="7s" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph TD
-    A[Internet Global] --&gt; B[Red 192.168.0.0/16]
-    A --&gt; C[Red 10.0.0.0/8]
-    A --&gt; D[Red 172.16.0.0/12]
-    
-    B --&gt; B1[Subred 192.168.1.0/24]
-    B --&gt; B2[Subred 192.168.2.0/24]
-    B --&gt; B3[Subred 192.168.3.0/24]
-    
-    C --&gt; C1[Subred 10.0.1.0/24]
-    C --&gt; C2[Subred 10.0.2.0/24]
-    
-    B1 --&gt; B1A[Host 192.168.1.1]
-    B1 --&gt; B1B[Host 192.168.1.2]
-    B1 --&gt; B1C[Host 192.168.1.10]
-    
-    B2 --&gt; B2A[Host 192.168.2.5]
-    B2 --&gt; B2B[Host 192.168.2.100]
-    
-    C1 --&gt; C1A[Host 10.0.1.50]
-    C1 --&gt; C1B[Host 10.0.1.75]
-
-    classDef network fill:#e1f5fe
-    classDef subnet fill:#f3e5f5
-    classDef host fill:#fff3e0
-    
-    class A,B,C,D network
-    class B1,B2,B3,C1,C2 subnet
-    class B1A,B1B,B1C,B2A,B2B,C1B,C1A host
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+<img src="resources/example_network.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-network-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.4: Ejemplo de estructuras de subredes.
+Figura&nbsp;4.4: Ejemplo de estructuras de subredes.
 </figcaption>
 </figure>
 </div>
@@ -667,51 +661,24 @@ Figura&nbsp;3.4: Ejemplo de estructuras de subredes.
 <p>En el sistema de clases, las direcciones de red y broadcast seguían patrones fijos según la clase, pero con CIDR se adaptan dinámicamente a la máscara de subred específica utilizada.</p>
 <p>Ambos sistemas establecen una serie de rangos, determinadas privadas, que son exclusivas para redes internas. Estas direcciones no son enrutables en Internet público, ya que los routers globales están configurados para descartarlas, evitando conflictos de direccionamiento. La principal ventaja radica en que múltiples organizaciones pueden reutilizar los mismos rangos internamente sin interferir entre sí, conservando el escaso espacio IPv4 público. Para acceder a Internet, estas redes requieren NAT, que traduce direcciones privadas a públicas. Los rangos delimitados son: 10.0.0.0/8 (16.7 millones de hosts, para grandes organizaciones), 172.16.0.0/12 (1 millón de hosts, para empresas medianas) y 192.168.0.0/16 (65,000 hosts, para hogares y oficinas pequeñas).</p>
 <p>Por último, en el protocolo IP hay una tamaño máximo para el datagrama. Este tamaño se conoce como MTU (del inglés, Maximum Transmission Unit), y puede variar dependiendo de la tecnología subyacente, por ejemplo, en Ethernet es 1500 bytes y en Token Ring es 4464 bytes. Cuando el tamaño del datagrama es superior al MTU, el datagrama se fragmenta en trozos más pequeños y se desfragmentará posteriormente en el destino. Una consideración importante es que el protocolo IP sí mantiene el orden de la información del datagrama. Es decir, si yo envío un datagrama que se tiene que fragmentar, IP garantiza que al desfragmentarlo la integridad de los datos estará preservada. Cuando decimos que no garantiza el orden es que si primero envío el datagrama A y después otro datagrama B (independientes), puede que la aplicación reciba primero el datagrama B y después el A, y no tendré forma de saber si uno va antes que el otro.</p>
-<section id="ipv6" class="level4" data-number="3.4.1.1">
-<h4 data-number="3.4.1.1" class="anchored" data-anchor-id="ipv6"><span class="header-section-number">3.4.1.1</span> IPv6</h4>
+<section id="ipv6" class="level4">
+<h4 class="anchored" data-anchor-id="ipv6">IPv6</h4>
 <p>IPv6 surge como respuesta a las limitaciones críticas de IPv4, principalmente el agotamiento de su espacio de direcciones de 32 bits que solo proporciona 4.3 × 10^{9} direcciones únicas. Además, IPv4 presenta problemas de fragmentación ineficiente que requiere procesamiento en routers intermedios, configuración manual compleja sin capacidades de autoconfiguración, implementación de seguridad como complemento opcional (IPSec), y limitaciones en calidad de servicio con campos TOS poco efectivos. Estos desafíos hacen insostenible IPv4 para el crecimiento exponencial de dispositivos conectados a Internet.</p>
-<p>IPv6 revoluciona el protocolo con un espacio de direcciones masivo de 128 bits que proporciona 2^{128} = 3.4 × 10^{38} direcciones, utilizando notación hexadecimal con reglas de compresión para simplificar su representación. La cabecera, ver <a href="#fig-headers-ipv6" class="quarto-xref">Figura&nbsp;<span>3.5</span></a>, se simplifica a un formato fijo de 40 bytes eliminando el checksum para reducir el procesamiento en routers, e integra características avanzadas como autoconfiguración SLAAC, seguridad IPSec obligatoria, y mejor calidad de servicio mediante campos Traffic Class y Flow Label. Debido a la cantidad de dispositivos en la red, la migración de IPv4 a IPv6 se realiza de forma gradual mediante estrategias que permiten la interoperabilidad entre ambos protocolos.</p>
+<p>IPv6 revoluciona el protocolo con un espacio de direcciones masivo de 128 bits que proporciona 2^{128} = 3.4 × 10^{38} direcciones, utilizando notación hexadecimal con reglas de compresión para simplificar su representación. La cabecera, ver <a href="#fig-headers-ipv6" class="quarto-xref">Figura&nbsp;<span>4.5</span></a>, se simplifica a un formato fijo de 40 bytes eliminando el checksum para reducir el procesamiento en routers, e integra características avanzadas como autoconfiguración SLAAC, seguridad IPSec obligatoria, y mejor calidad de servicio mediante campos Traffic Class y Flow Label. Debido a la cantidad de dispositivos en la red, la migración de IPv4 a IPv6 se realiza de forma gradual mediante estrategias que permiten la interoperabilidad entre ambos protocolos.</p>
 <div id="fig-headers-ipv6" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-headers-ipv6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell" data-fig-width="7s" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">---
-config:
-  packet:
-    showBits: true
----
-packet-beta
-
-0-3: "Version (4)"
-4-11: "Traffic Class (8)"
-12-31: "Flow Label (20)"
-32-47: "Payload Length (16)"
-48-55: "Next Header (8)"
-56-63: "Hop Limit (8)"
-64-127: "Source Address (64 bits - first half)"
-128-191: "Source Address (64 bits - second half)"
-192-255: "Destination Address (64 bits - first half)"
-256-319: "Destination Address (64 bits - second half)"
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+<img src="resources/headers_ipv6.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-headers-ipv6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.5: Formato de cabeceras de IPv6.
+Figura&nbsp;4.5: Formato de cabeceras de IPv6.
 </figcaption>
 </figure>
 </div>
 </section>
 </section>
-<section id="protocolo-icmp-internet-control-message-protocol" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="protocolo-icmp-internet-control-message-protocol"><span class="header-section-number">3.4.2</span> Protocolo ICMP (Internet Control Message Protocol)</h3>
+<section id="protocolo-icmp-internet-control-message-protocol" class="level3">
+<h3 class="anchored" data-anchor-id="protocolo-icmp-internet-control-message-protocol">Protocolo ICMP (Internet Control Message Protocol)</h3>
 <p>ICMP es un protocolo complementario a IP que proporciona mecanismos de control, diagnóstico y reporte de errores en redes. Utiliza IP para su transporte (protocolo número 1) pero opera como herramienta de gestión de red. Es no orientado a conexión, no garantiza entrega, y está implementado obligatoriamente en todos los dispositivos IP. Su formato básico incluye campos Type, Code, Checksum y datos adicionales según el tipo de mensaje.</p>
 <p>Los mensajes ICMP se clasifican en dos categorías principales: mensajes de error y mensajes de consulta. Los mensajes de error incluyen “Destination Unreachable” (Type 3) que indica problemas de alcance como red, host o puerto inaccesible; “Time Exceeded” (Type 11) usado cuando el TTL expira en tránsito; “Parameter Problem” (Type 12) para errores de configuración; o “Packet Too Big” en el mecanismo de MTU Discovery de IPv6. Los mensajes de consulta incluyen “Echo Request/Reply” (Type 8/0) utilizados por ping para verificar conectividad y medir latencia, y “Timestamp Request/Reply” (Type 13/14) para sincronización temporal.</p>
 <p><strong>Ping - Verificación de conectividad:</strong></p>
@@ -737,11 +704,11 @@ PING 8.8.8.8 (8.8.8.8): 56 data bytes
  9  mad41s11-in-f14.1e100.net (142.250.185.14)  4.722 ms  6.253 ms  4.893 ms</code></pre>
 <p>Este ejemplo revela la ruta completa hacia google.com incrementando TTL progresivamente. Cada router responde “Time Exceeded” (Type 11, Code 0) mostrando su IP. El salto 5 muestra timeouts (*), el salto 6 y 8 muestra balanceadores de carga, y finalmente alcanza el servidor de Google en el salto 9.</p>
 </section>
-<section id="nat-network-address-translation" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="nat-network-address-translation"><span class="header-section-number">3.4.3</span> NAT (Network Address Translation)</h3>
+<section id="nat-network-address-translation" class="level3">
+<h3 class="anchored" data-anchor-id="nat-network-address-translation">NAT (Network Address Translation)</h3>
 <p>NAT surgió como una solución al problema del agotamiento de direcciones IPv4, permitiendo que múltiples dispositivos en una red privada compartan una sola dirección IP pública. Esta técnica se basa en el uso de direcciones privadas que pueden reutilizarse sin conflictos. El dispositivo NAT, típicamente integrado en routers de acceso doméstico o empresarial, actúa como intermediario entre la red interna y externa, traduciendo direcciones y puertos en tiempo real.</p>
 <p>El funcionamiento de NAT se basa en mantener una tabla de traducción que mapea combinaciones de dirección IP privada y puerto interno con la dirección IP pública y un puerto externo único. Cuando un dispositivo interno inicia una conexión hacia Internet, el router NAT reemplaza la dirección IP de origen privada y el puerto por su dirección IP pública y un puerto disponible de su pool, registrando esta asociación en su tabla. Cuando llega la respuesta desde Internet, el router consulta su tabla de traducción para determinar a qué dispositivo interno debe entregar el paquete, revirtiendo la traducción antes de reenviarlo a la red local.</p>
-<p>En la <a href="#fig-nat" class="quarto-xref">Figura&nbsp;<span>3.6</span></a> podemos ver dos ejemplos de NAT. El Host A envía un paquete desde 192.168.1.10:12345 hacia 8.8.8.8:80. El router NAT lo intercepta, reemplaza el origen por 203.0.113.100:5001 y crea una entrada en su tabla: 192.168.1.10:12345 ↔︎ 5001. Cuando el servidor responde a 203.0.113.100:5001, el router consulta su tabla NAT, encuentra la correspondencia y reenvía el paquete a 192.168.1.10:12345. El proceso en el Host B sería idéntico, y gracias a NAT habríamos podido comunicarnos con dos dispositivos a través de una única IP.</p>
+<p>En la <a href="#fig-nat" class="quarto-xref">Figura&nbsp;<span>4.6</span></a> podemos ver dos ejemplos de NAT. El Host A envía un paquete desde 192.168.1.10:12345 hacia 8.8.8.8:80. El router NAT lo intercepta, reemplaza el origen por 203.0.113.100:5001 y crea una entrada en su tabla: 192.168.1.10:12345 ↔︎ 5001. Cuando el servidor responde a 203.0.113.100:5001, el router consulta su tabla NAT, encuentra la correspondencia y reenvía el paquete a 192.168.1.10:12345. El proceso en el Host B sería idéntico, y gracias a NAT habríamos podido comunicarnos con dos dispositivos a través de una única IP.</p>
 <div id="fig-nat" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-nat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -766,7 +733,7 @@ PING 8.8.8.8 (8.8.8.8): 56 data bytes
     192.168.1.20:54321 → 203.0.113.100:5002    203.0.113.100:5002 → 192.168.1.20:54321</code></pre>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.6: Ejemplo de NAT con dos Host que se comunican con un servidor web utilizándo una única IP pública.
+Figura&nbsp;4.6: Ejemplo de NAT con dos Host que se comunican con un servidor web utilizándo una única IP pública.
 </figcaption>
 </figure>
 </div>
@@ -1193,12 +1160,12 @@ Figura&nbsp;3.6: Ejemplo de NAT con dos Host que se comunican con un servidor we
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../../ch/part_networks/access_layer/access_layer.html" class="pagination-link" aria-label="Capa de Acceso a la Red">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../../ch/part_networks/transport_layer/transport_layer.html" class="pagination-link" aria-label="Capa de transporte">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

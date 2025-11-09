@@ -6,7 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Rubén Rodríguez Fernández (@rrunix)">
+<meta name="author" content="Ruben Rodríguez">
+<meta name="author" content="Natalia Madrueño">
 
 <title>Apuntes de Juegos en Red</title>
 <style>
@@ -21,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -31,7 +52,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ch/part_networks/network_intro/network_intro.html" rel="next">
+<link href="./ch/part_networks/part_intro.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -72,6 +93,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -83,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -113,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -127,32 +149,38 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ch/part_networks/part_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parte: Introducción a los juegos en red y a las redes de comunicaciones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/network_intro/network_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/access_layer/access_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de Acceso a la Red</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/network_layer/network_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de red</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/transport_layer/transport_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de transporte</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_networks/application_layer/application_layer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Capa de aplicación</span></span></a>
   </div>
 </li>
       </ul>
@@ -168,26 +196,117 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ch/part_client/part_intro_htmlcssjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del cliente</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ch/part_client/js/js.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">JavaScript para Desarrollo de Videojuegos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">JavaScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_client/htmlcss/htmlcss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">HTML y CSS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_client/part_intro_phaser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo de juegos con tecnología web</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch/part_client/phaser/phaser.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introducción a Phaser 3 para Juegos en Red</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Phaser 3</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Desarrollo en el servidor y comunicación</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Desarrollo en el servidor y comunicación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/part_intro_rest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Desarrollo en el lado del servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/rest/rest_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/rest/rest_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Cliente API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/rest/rest_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Servidor API REST con Javascript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/part_intro_ws.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicación asíncrona cliente - servidor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/ws/ws_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Introducción a WebSockets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/ws/ws_client.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Cliente WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/part_servercoms/ws/ws_server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Servidor WebSockets con JavasScript</span></span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Referencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/slides/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Diapositivas de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/exercises/_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Ejercicios de la asignatura</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch/code/code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Software utilizado en la asignatura</span></span></a>
   </div>
 </li>
     </ul>
@@ -200,7 +319,42 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#guía-de-estudio" id="toc-guía-de-estudio" class="nav-link active" data-scroll-target="#guía-de-estudio">Guía de estudio</a>
+  <ul class="collapse">
+  <li><a href="#objetivos-de-la-asignatura" id="toc-objetivos-de-la-asignatura" class="nav-link" data-scroll-target="#objetivos-de-la-asignatura">Objetivos de la asignatura</a></li>
+  <li><a href="#temario-de-la-asignatura" id="toc-temario-de-la-asignatura" class="nav-link" data-scroll-target="#temario-de-la-asignatura">Temario de la asignatura</a>
+  <ul class="collapse">
+  <li><a href="#parte-1-introducción-a-los-juegos-en-red-y-a-las-redes-de-comunicaciones" id="toc-parte-1-introducción-a-los-juegos-en-red-y-a-las-redes-de-comunicaciones" class="nav-link" data-scroll-target="#parte-1-introducción-a-los-juegos-en-red-y-a-las-redes-de-comunicaciones">Parte 1: Introducción a los juegos en red y a las redes de comunicaciones</a></li>
+  <li><a href="#parte-2-desarrollo-en-el-lado-del-cliente" id="toc-parte-2-desarrollo-en-el-lado-del-cliente" class="nav-link" data-scroll-target="#parte-2-desarrollo-en-el-lado-del-cliente">Parte 2: Desarrollo en el lado del cliente</a></li>
+  <li><a href="#parte-3-desarrollo-de-juegos-con-tecnología-web" id="toc-parte-3-desarrollo-de-juegos-con-tecnología-web" class="nav-link" data-scroll-target="#parte-3-desarrollo-de-juegos-con-tecnología-web">Parte 3: Desarrollo de juegos con tecnología web</a></li>
+  <li><a href="#parte-4-desarrollo-en-el-lado-del-servidor" id="toc-parte-4-desarrollo-en-el-lado-del-servidor" class="nav-link" data-scroll-target="#parte-4-desarrollo-en-el-lado-del-servidor">Parte 4: Desarrollo en el lado del servidor</a></li>
+  <li><a href="#parte-5-comunicación-asíncrona-cliente---servidor" id="toc-parte-5-comunicación-asíncrona-cliente---servidor" class="nav-link" data-scroll-target="#parte-5-comunicación-asíncrona-cliente---servidor">Parte 5: Comunicación asíncrona cliente - servidor</a></li>
+  </ul></li>
+  <li><a href="#desarrollo-de-la-asignatura" id="toc-desarrollo-de-la-asignatura" class="nav-link" data-scroll-target="#desarrollo-de-la-asignatura">Desarrollo de la asignatura</a>
+  <ul class="collapse">
+  <li><a href="#calendario-de-clases" id="toc-calendario-de-clases" class="nav-link" data-scroll-target="#calendario-de-clases">Calendario de clases</a></li>
+  <li><a href="#clase-1-presentación-a-asignatura-e-itroducción-a-las-redes-de-ordenadores" id="toc-clase-1-presentación-a-asignatura-e-itroducción-a-las-redes-de-ordenadores" class="nav-link" data-scroll-target="#clase-1-presentación-a-asignatura-e-itroducción-a-las-redes-de-ordenadores">Clase 1: Presentación a asignatura e itroducción a las Redes de Ordenadores</a></li>
+  <li><a href="#clase-2-capa-de-acceso-a-la-red" id="toc-clase-2-capa-de-acceso-a-la-red" class="nav-link" data-scroll-target="#clase-2-capa-de-acceso-a-la-red">Clase 2: Capa de Acceso a la Red</a></li>
+  <li><a href="#clase-3-capa-de-red" id="toc-clase-3-capa-de-red" class="nav-link" data-scroll-target="#clase-3-capa-de-red">Clase 3: Capa de Red</a></li>
+  <li><a href="#clase-4-capa-de-transporte" id="toc-clase-4-capa-de-transporte" class="nav-link" data-scroll-target="#clase-4-capa-de-transporte">Clase 4: Capa de Transporte</a></li>
+  <li><a href="#clase-5-capa-de-aplicación" id="toc-clase-5-capa-de-aplicación" class="nav-link" data-scroll-target="#clase-5-capa-de-aplicación">Clase 5: Capa de Aplicación</a></li>
+  <li><a href="#clase-6-7-repaso-y-prácticas-de-redes" id="toc-clase-6-7-repaso-y-prácticas-de-redes" class="nav-link" data-scroll-target="#clase-6-7-repaso-y-prácticas-de-redes">Clase 6-7: Repaso y Prácticas de Redes</a></li>
+  <li><a href="#clase-8-presentación-e-introducción-a-javascript" id="toc-clase-8-presentación-e-introducción-a-javascript" class="nav-link" data-scroll-target="#clase-8-presentación-e-introducción-a-javascript">Clase 8: Presentación e Introducción a JavaScript</a></li>
+  <li><a href="#clase-9-examen-parcial" id="toc-clase-9-examen-parcial" class="nav-link" data-scroll-target="#clase-9-examen-parcial">Clase 9: Examen Parcial</a></li>
+  <li><a href="#clase-10-javascript-orientado-a-objetos" id="toc-clase-10-javascript-orientado-a-objetos" class="nav-link" data-scroll-target="#clase-10-javascript-orientado-a-objetos">Clase 10: JavaScript Orientado a Objetos</a></li>
+  <li><a href="#clase-11-15-introducción-a-phaser" id="toc-clase-11-15-introducción-a-phaser" class="nav-link" data-scroll-target="#clase-11-15-introducción-a-phaser">Clase 11-15: Introducción a Phaser</a></li>
+  <li><a href="#clase-16-17-apis-rest---introducción-y-cliente" id="toc-clase-16-17-apis-rest---introducción-y-cliente" class="nav-link" data-scroll-target="#clase-16-17-apis-rest---introducción-y-cliente">Clase 16-17: APIs REST - Introducción y Cliente</a></li>
+  <li><a href="#clase-18-presentación-prácticas" id="toc-clase-18-presentación-prácticas" class="nav-link" data-scroll-target="#clase-18-presentación-prácticas">Clase 18: Presentación prácticas</a></li>
+  <li><a href="#clase-19-examen" id="toc-clase-19-examen" class="nav-link" data-scroll-target="#clase-19-examen">Clase 19: Examen</a></li>
+  <li><a href="#clase-20-23-apis-rest---servidor" id="toc-clase-20-23-apis-rest---servidor" class="nav-link" data-scroll-target="#clase-20-23-apis-rest---servidor">Clase 20-23: APIs REST - Servidor</a></li>
+  <li><a href="#clase-24-28-websockets---cliente-y-servidor" id="toc-clase-24-28-websockets---cliente-y-servidor" class="nav-link" data-scroll-target="#clase-24-28-websockets---cliente-y-servidor">Clase 24-28: WebSockets - Cliente y Servidor</a></li>
+  <li><a href="#clase-29-examen" id="toc-clase-29-examen" class="nav-link" data-scroll-target="#clase-29-examen">Clase 29: Examen</a></li>
+  <li><a href="#clase-30-presentación-prácticas" id="toc-clase-30-presentación-prácticas" class="nav-link" data-scroll-target="#clase-30-presentación-prácticas">Clase 30: Presentación prácticas</a></li>
+  <li><a href="#examen-de-la-evaluación-ordinaria-proyecto-final" id="toc-examen-de-la-evaluación-ordinaria-proyecto-final" class="nav-link" data-scroll-target="#examen-de-la-evaluación-ordinaria-proyecto-final">Examen de la evaluación ordinaria (Proyecto final)</a></li>
+  </ul></li>
+  <li><a href="#recursos-adicionales" id="toc-recursos-adicionales" class="nav-link" data-scroll-target="#recursos-adicionales">Recursos adicionales</a></li>
+  <li><a href="#bibliografía-recomendada" id="toc-bibliografía-recomendada" class="nav-link" data-scroll-target="#bibliografía-recomendada">Bibliografía recomendada</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -213,20 +367,35 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Autores/as</div>
+  <div class="quarto-title-meta-heading">Afiliación</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Ruben Rodríguez <a href="mailto:ruben.rodriguez@urjc.es" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            URJC
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Natalia Madrueño <a href="mailto:natalia.madrueno@urjc.es" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            URJC
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Autor/a</div>
-    <div class="quarto-title-meta-contents">
-             <p>Rubén Rodríguez Fernández (@rrunix) </p>
-          </div>
-  </div>
-    
+      
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">9 de diciembre de 2025</p>
+      <p class="date">9 de septiembre de 2025</p>
     </div>
   </div>
   
@@ -238,30 +407,762 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>Apuntes de la asignatura Juegos en Red. Se organizan en 4 partes:</p>
-<ul>
-<li><p>Introducción a las redes de computadores. Ofrece una visión general de cómo funcionan las redes de computadores, tanto la parte hardware como software, utilizando la categorización de la pila de protocolos TCP/IP. Esta parte además tendrá una serie de visualizaciones y “Juegos” que podréis encontrar en <a href="https://jergames.dslabapps.es">jergames.dslabapps.es</a></p></li>
-<li><p>Breve introducción a HTML, CSS, JS y Phaser con el que crearemos un juego web que al que se le añadirán funcionalidades de red en los próximas partes.</p></li>
-<li><p>Comunicación entre clientes y servidores a través de APIs REST.</p></li>
-<li><p>Comunicación asíncrona entre clientes y servidores.</p></li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="guía-de-estudio" class="level1 unnumbered">
+<h1 class="unnumbered">Guía de estudio</h1>
+<p>Los videojuegos en red representan uno de los sectores más dinámicos y desafiantes de la industria del software, donde la capacidad de diseñar e implementar sistemas de comunicación eficientes y robustos es fundamental. En este contexto, comprender las arquitecturas de red, los protocolos de comunicación y las técnicas de programación tanto del lado del cliente como del servidor se ha convertido en una habilidad esencial para cualquier desarrollador de juegos modernos. Este libro está diseñado para proporcionar una comprensión profunda y práctica de estas tecnologías, basándose en el contenido de la asignatura <strong>Juegos en Red</strong>.</p>
+<p>El desarrollo de juegos en red tiene múltiples facetas que exploraremos en profundidad: desde los <strong>fundamentos de las redes de comunicación</strong> hasta la <strong>programación en el cliente</strong> con JavaScript y Phaser, y finalmente la <strong>comunicación cliente-servidor</strong> mediante APIs REST y WebSockets. Entender esta progresión es clave para desarrollar juegos multijugador escalables y eficientes.</p>
+<p>Comenzaremos sentando las bases de las redes de ordenadores, explorando las diferentes capas del modelo TCP/IP. A partir de ahí, aprenderemos a desarrollar aplicaciones web interactivas usando JavaScript y el motor de juegos Phaser. Finalmente, dominaremos las técnicas de comunicación cliente-servidor mediante APIs REST para operaciones síncronas y WebSockets para comunicación en tiempo real.</p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Importante
+Nota
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>En la parte de redes de computadores, muchos conceptos debido a la naturaleza introductoria de este curso. Esta simplificación se ve realizada por omisión, por ejemplo, se cuentan las variantes antiguas pero no las más nuevas que son más complejas, o por incompletitud, ignorando alguna parte de tecnologías o protocolos que dificultarían su explicación.</p>
+<p>La primera parte de este libro sobre redes de ordenadores está basada en los conceptos presentados en <em>Computer Networks: A Top-Down Approach</em> <span class="citation" data-cites="kurose2021computer">(<a href="references.html#ref-kurose2021computer" role="doc-biblioref">Kurose y Ross 2021</a>)</span>, adaptados al contexto específico del desarrollo de videojuegos en red.</p>
 </div>
 </div>
+<section id="objetivos-de-la-asignatura" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="objetivos-de-la-asignatura">Objetivos de la asignatura</h2>
+<ul>
+<li>Comprender los fundamentos de las redes de ordenadores y los protocolos de comunicación del modelo TCP/IP.</li>
+<li>Dominar el lenguaje JavaScript para el desarrollo de aplicaciones web interactivas.</li>
+<li>Aprender a utilizar el motor de juegos Phaser para crear juegos 2D en el navegador.</li>
+<li>Diseñar e implementar APIs REST para la comunicación cliente-servidor.</li>
+<li>Desarrollar sistemas de comunicación en tiempo real utilizando WebSockets.</li>
+<li>Integrar todas estas tecnologías para crear juegos multijugador funcionales.</li>
+</ul>
+</section>
+<section id="temario-de-la-asignatura" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="temario-de-la-asignatura">Temario de la asignatura</h2>
+<p>La asignatura está dividida en 5 partes, que se corresponden con la categorización de la guia docente. Además, cada uno de estas partes está dividida en diferentes capítulos, con el fin de facilitar su lectura.</p>
+<section id="parte-1-introducción-a-los-juegos-en-red-y-a-las-redes-de-comunicaciones" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="parte-1-introducción-a-los-juegos-en-red-y-a-las-redes-de-comunicaciones">Parte 1: Introducción a los juegos en red y a las redes de comunicaciones</h3>
+<ul>
+<li><strong>Capítulo 1:</strong> Introducción a las Redes de Ordenadores</li>
+<li><strong>Capítulo 2:</strong> Capa de Acceso a la Red</li>
+<li><strong>Capítulo 3:</strong> Capa de Red</li>
+<li><strong>Capítulo 4:</strong> Capa de Transporte</li>
+<li><strong>Capítulo 5:</strong> Capa de Aplicación</li>
+</ul>
+</section>
+<section id="parte-2-desarrollo-en-el-lado-del-cliente" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="parte-2-desarrollo-en-el-lado-del-cliente">Parte 2: Desarrollo en el lado del cliente</h3>
+<ul>
+<li><strong>Capítulo 6:</strong> JavaScript</li>
+<li><strong>Capítulo 7:</strong> HTML y CSS</li>
+</ul>
+</section>
+<section id="parte-3-desarrollo-de-juegos-con-tecnología-web" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="parte-3-desarrollo-de-juegos-con-tecnología-web">Parte 3: Desarrollo de juegos con tecnología web</h3>
+<ul>
+<li><strong>Capítulo 8:</strong> Phaser - Motor de Juegos 2D</li>
+</ul>
+</section>
+<section id="parte-4-desarrollo-en-el-lado-del-servidor" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="parte-4-desarrollo-en-el-lado-del-servidor">Parte 4: Desarrollo en el lado del servidor</h3>
+<ul>
+<li><strong>Capítulo 9:</strong> APIs REST - Introducción, Cliente y Servidor</li>
+</ul>
+</section>
+<section id="parte-5-comunicación-asíncrona-cliente---servidor" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="parte-5-comunicación-asíncrona-cliente---servidor">Parte 5: Comunicación asíncrona cliente - servidor</h3>
+<ul>
+<li><strong>Capítulo 10:</strong> WebSockets - Introducción, Cliente y Servidor</li>
+</ul>
+</section>
+</section>
+<section id="desarrollo-de-la-asignatura" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="desarrollo-de-la-asignatura">Desarrollo de la asignatura</h2>
+<p>El curso se desarrolla a lo largo de 15 semanas, con dos sesiones semanales. La metodología busca integrar la teoría y la práctica de forma fluida: los conceptos teóricos se presentarán junto con su implementación práctica, fomentando un aprendizaje aplicado en cada clase.</p>
+<section id="calendario-de-clases" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="calendario-de-clases">Calendario de clases</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 30%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Semana</th>
+<th>Dia 1</th>
+<th>Dia 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Clase 1: Introducción a asignatura y a las Redes de Ordenadores</td>
+<td>Clase 2: Capa de Acceso a la Red</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Clase 3: Capa de Red</td>
+<td>Clase 4: Capa de Transporte</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Clase 5: Capa de Aplicación</td>
+<td>Clase 6: Repaso y Prácticas de Redes</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Clase 7: Repaso y Prácticas de Redes</td>
+<td>Clase 8: Presentación e Introducción a JavaScript</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Clase 9: Examen Parcial</td>
+<td>Clase 10: JavaScript Orientado a Objetos</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Clase 11: Introducción a Phaser</td>
+<td>Clase 12: Phaser (continuación)</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Clase 13: Phaser (continuación)</td>
+<td>Clase 14: Phaser (continuación)</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Clase 15: Phaser (continuación)</td>
+<td>Clase 16: APIs REST - Introducción y Cliente</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Clase 17: APIs REST - Cliente (continuación)</td>
+<td>Clase 18: Presentación prácticas</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Clase 19: Examen</td>
+<td>Clase 20: APIs REST - Servidor</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Clase 21: APIs REST - Servidor (continuación)</td>
+<td>Clase 22: APIs REST - Servidor (continuación)</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Clase 23: APIs REST - Servidor (continuación)</td>
+<td>Clase 24: WebSockets - Cliente y Servidor</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Clase 25: WebSockets (continuación)</td>
+<td>Clase 26: WebSockets (continuación)</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Clase 27: WebSockets (continuación)</td>
+<td>Clase 28: WebSockets (continuación)</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Clase 29: Examen</td>
+<td>Clase 30: Presentación prácticas</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clase-1-presentación-a-asignatura-e-itroducción-a-las-redes-de-ordenadores" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-1-presentación-a-asignatura-e-itroducción-a-las-redes-de-ordenadores">Clase 1: Presentación a asignatura e itroducción a las Redes de Ordenadores</h3>
+<ul>
+<li><strong>Contenidos:</strong> Presentación de la asignatura, guía docente y sistema de evaluación.Introducción de los conceptos fundamentales de redes de ordenadores. Arquitectura de red por capas. Modelo TCP/IP. Protocolos y estándares. Historia y evolución de Internet.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender la arquitectura en capas de las redes de ordenadores.</li>
+<li>Identificar los componentes fundamentales de Internet.</li>
+<li>Entender el papel de los protocolos en la comunicación de red.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_networks/network_intro/network_intro.html" class="quarto-xref"><span>2&nbsp; Introducción a las Redes de Ordenadores</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-subject-intro" class="quarto-xref"><span>Introducción a la asignatura</span></a> <a href="ch/slides/slides.html#sec-slides-network-intro" class="quarto-xref"><span>Introducción a las Redes de Ordenadores</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-network-intro" class="quarto-xref"><span>Introducción a Redes</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Discusión sobre la importancia de las redes en los videojuegos.</li>
+<li>Análisis de la arquitectura de red de juegos multijugador populares.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura completa de los apuntes de introducción a redes.</li>
+<li>Realización del ejercicio práctico de trazado de rutas.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-2-capa-de-acceso-a-la-red" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-2-capa-de-acceso-a-la-red">Clase 2: Capa de Acceso a la Red</h3>
+<ul>
+<li><strong>Contenidos:</strong> Funciones de la capa de acceso. Tecnologías de acceso físico. Ethernet. WiFi. Direccionamiento MAC. Conmutación y dominios de colisión.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender las funciones de la capa de acceso a la red.</li>
+<li>Identificar las diferencias entre distintas tecnologías de acceso.</li>
+<li>Entender el funcionamiento de las direcciones MAC.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_networks/access_layer/access_layer.html" class="quarto-xref"><span>3&nbsp; Capa de Acceso a la Red</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-access-layer" class="quarto-xref"><span>Capa de Acceso</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-access-layer" class="quarto-xref"><span>Capa de Acceso</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Análisis de tramas Ethernet.</li>
+<li>Configuración de redes locales.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de los apuntes sobre la capa de acceso.</li>
+<li>Realización del ejercicio práctico.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-3-capa-de-red" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-3-capa-de-red">Clase 3: Capa de Red</h3>
+<ul>
+<li><strong>Contenidos:</strong> Protocolo IP. Direccionamiento IPv4 e IPv6. Subredes y máscaras. Enrutamiento. Protocolo ARP. ICMP y herramientas de diagnóstico (ping, traceroute).</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender el funcionamiento del protocolo IP.</li>
+<li>Dominar el direccionamiento IP y el concepto de subredes.</li>
+<li>Utilizar herramientas de diagnóstico de red.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_networks/network_layer/network_layer.html" class="quarto-xref"><span>4&nbsp; Capa de red</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-network-layer" class="quarto-xref"><span>Capa de Red</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-network-layer" class="quarto-xref"><span>Capa de Red</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Prácticas con herramientas de diagnóstico (ping, traceroute).</li>
+<li>Análisis de tablas de enrutamiento.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de los apuntes sobre la capa de red.</li>
+<li>Realización del ejercicio de direccionamiento IP.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-4-capa-de-transporte" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-4-capa-de-transporte">Clase 4: Capa de Transporte</h3>
+<ul>
+<li><strong>Contenidos:</strong> Protocolo TCP. Protocolo UDP. Control de flujo y congestión. Establecimiento y cierre de conexiones. Puertos y sockets. Comparación TCP vs UDP para videojuegos.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender las diferencias entre TCP y UDP.</li>
+<li>Entender cuándo utilizar cada protocolo en el desarrollo de juegos.</li>
+<li>Dominar el concepto de puertos y sockets.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_networks/transport_layer/transport_layer.html" class="quarto-xref"><span>5&nbsp; Capa de transporte</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-transport-layer" class="quarto-xref"><span>Capa de Transporte</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-transport-layer" class="quarto-xref"><span>Capa de Transporte</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Análisis del tráfico TCP y UDP.</li>
+<li>Discusión sobre las necesidades de latencia en juegos multijugador.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de los apuntes sobre la capa de transporte.</li>
+<li>Realización del ejercicio práctico.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-5-capa-de-aplicación" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-5-capa-de-aplicación">Clase 5: Capa de Aplicación</h3>
+<ul>
+<li><strong>Contenidos:</strong> Protocolos de aplicación. HTTP y HTTPS. DNS. Arquitecturas cliente-servidor y peer-to-peer. APIs web. Introducción a los servicios web.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender los protocolos de la capa de aplicación.</li>
+<li>Entender el funcionamiento de HTTP/HTTPS.</li>
+<li>Conocer diferentes arquitecturas de aplicación en red.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_networks/application_layer/application_layer.html" class="quarto-xref"><span>6&nbsp; Capa de aplicación</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-application-layer" class="quarto-xref"><span>Capa de Aplicación</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-application-layer" class="quarto-xref"><span>Capa de Aplicación</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Análisis de peticiones HTTP.</li>
+<li>Exploración de APIs públicas.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de los apuntes sobre la capa de aplicación.</li>
+<li>Realización del ejercicio de análisis de tráfico HTTP.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-6-7-repaso-y-prácticas-de-redes" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-6-7-repaso-y-prácticas-de-redes">Clase 6-7: Repaso y Prácticas de Redes</h3>
+<ul>
+<li><strong>Contenidos:</strong> Repaso integral de los conceptos de redes de ordenadores. Resolución de ejercicios prácticos. Preparación para la siguiente fase del curso.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Consolidar los conocimientos de todas las capas del modelo TCP/IP.</li>
+<li>Integrar los conceptos en casos prácticos.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Todos los materiales de las semanas 1-5.</li>
+<li>Ejercicios de repaso.</li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Sesión de resolución de dudas.</li>
+<li>Prácticas guiadas de configuración y análisis de redes.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Repaso de todos los capítulos de redes.</li>
+<li>Preparación del entorno de desarrollo para JavaScript.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-8-presentación-e-introducción-a-javascript" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-8-presentación-e-introducción-a-javascript">Clase 8: Presentación e Introducción a JavaScript</h3>
+<ul>
+<li><strong>Contenidos:</strong> Presentación de la segunda parte del curso. Fundamentos de JavaScript: variables, tipos de datos, operadores, estructuras de control. Funciones y ámbito.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender la sintaxis básica de JavaScript.</li>
+<li>Dominar las estructuras de control de flujo.</li>
+<li>Crear y utilizar funciones en JavaScript.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_client/js/js.html" class="quarto-xref"><span>7&nbsp; JavaScript</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-javascript" class="quarto-xref"><span>JavaScript</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-javascript" class="quarto-xref"><span>JavaScript</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Configuración del entorno de desarrollo.</li>
+<li>Primeros programas en JavaScript.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de las secciones introductorias de JavaScript.</li>
+<li>Práctica con ejercicios básicos de programación.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-9-examen-parcial" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-9-examen-parcial">Clase 9: Examen Parcial</h3>
+<ul>
+<li><strong>Contenidos:</strong> Evaluación de los contenidos de redes de ordenadores (Clases 1-7).</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Demostrar comprensión de los fundamentos de redes.</li>
+<li>Aplicar los conocimientos a problemas prácticos.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Todos los materiales de las clases 1-7.</li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Examen parcial teórico-práctico.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Continuar con el aprendizaje de JavaScript.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-10-javascript-orientado-a-objetos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-10-javascript-orientado-a-objetos">Clase 10: JavaScript Orientado a Objetos</h3>
+<ul>
+<li><strong>Contenidos:</strong> Objetos y arrays. Programación orientada a objetos en JavaScript. Clases y prototipos. Manipulación del DOM. Eventos.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Dominar el trabajo con objetos y arrays.</li>
+<li>Comprender la programación orientada a objetos en JavaScript.</li>
+<li>Manipular el DOM y gestionar eventos.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_client/js/js.html" class="quarto-xref"><span>7&nbsp; JavaScript</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-javascript-oop" class="quarto-xref"><span>JavaScript OOP</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-javascript" class="quarto-xref"><span>JavaScript</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Creación de aplicaciones interactivas simples.</li>
+<li>Prácticas con eventos del navegador.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de las secciones avanzadas de JavaScript.</li>
+<li>Desarrollo de pequeños proyectos personales.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-11-15-introducción-a-phaser" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-11-15-introducción-a-phaser">Clase 11-15: Introducción a Phaser</h3>
+<ul>
+<li><strong>Contenidos:</strong> Introducción al motor de juegos Phaser. Escenas y ciclo de vida. Sprites y texturas. Sistema de físicas. Gestión de entrada (teclado, ratón, táctil).</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender la arquitectura de Phaser.</li>
+<li>Crear escenas y gestionar el ciclo de vida del juego.</li>
+<li>Implementar físicas básicas y controles.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_client/phaser/phaser.html" class="quarto-xref"><span>9&nbsp; Phaser 3</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-phaser" class="quarto-xref"><span>Phaser</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-phaser" class="quarto-xref"><span>Phaser</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Desarrollo de un proyecto de juego completo.</li>
+<li>Sesión de depuración y optimización.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Finalización del proyecto de juego.</li>
+<li>Lectura de <a href="ch/part_client/htmlcss/htmlcss.html" class="quarto-xref"><span>8&nbsp; HTML y CSS</span></a> para crear la base web del juego.</li>
+<li>Preparación para la integración con servicios de red.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-16-17-apis-rest---introducción-y-cliente" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-16-17-apis-rest---introducción-y-cliente">Clase 16-17: APIs REST - Introducción y Cliente</h3>
+<ul>
+<li><strong>Contenidos:</strong> Arquitectura REST. Métodos HTTP (GET, POST, PUT, DELETE). Formato JSON. Consumo de APIs REST desde JavaScript. Fetch API. Manejo de promesas y async/await.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender los principios de la arquitectura REST.</li>
+<li>Consumir APIs REST desde el cliente.</li>
+<li>Manejar operaciones asíncronas en JavaScript.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_servercoms/rest/rest_intro.html" class="quarto-xref"><span>10&nbsp; API REST</span></a>, <a href="ch/part_servercoms/rest/rest_client.html" class="quarto-xref"><span>11&nbsp; Cliente API REST con Javascript</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-rest" class="quarto-xref"><span>APIs REST</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-rest-intro" class="quarto-xref"><span>REST - Introducción</span></a>, <a href="ch/exercises/_exercises.html#sec-ex-rest-client" class="quarto-xref"><span>REST - Cliente</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Consumo de APIs públicas.</li>
+<li>Integración de datos externos en aplicaciones.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de los apuntes sobre REST.</li>
+<li>Realización de los ejercicios de consumo de APIs.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-18-presentación-prácticas" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-18-presentación-prácticas">Clase 18: Presentación prácticas</h3>
+<ul>
+<li><strong>Contenidos:</strong> Presentación del proyecto de juego desarrollado con Phaser. Demostración de funcionalidades implementadas. Revisión del código y arquitectura del juego.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Presentar de forma efectiva un proyecto de desarrollo de juegos.</li>
+<li>Explicar las decisiones de diseño y arquitectura del juego.</li>
+<li>Demostrar dominio de JavaScript y Phaser.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Proyecto personal de juego con Phaser.</li>
+<li>Código fuente del proyecto.</li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Presentaciones de los proyectos de juego.</li>
+<li>Sesión de preguntas y respuestas sobre las implementaciones.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Preparación de la presentación del proyecto.</li>
+<li>Revisión y refinamiento del código del juego.</li>
+<li>Estudio para el examen de JavaScript y Phaser.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-19-examen" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-19-examen">Clase 19: Examen</h3>
+<ul>
+<li><strong>Contenidos:</strong> Evaluación de los contenidos de JavaScript y Phaser (Clases 8-15).</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Demostrar dominio de JavaScript y programación orientada a objetos.</li>
+<li>Aplicar los conocimientos de Phaser en problemas prácticos.</li>
+<li>Resolver ejercicios de desarrollo de juegos.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Todos los materiales de las clases 8-17.</li>
+<li>Apuntes de JavaScript y Phaser.</li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Examen teórico-práctico de JavaScript y Phaser.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Continuar con el aprendizaje de APIs REST.</li>
+<li>Lectura de los apuntes sobre desarrollo de servidores.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-20-23-apis-rest---servidor" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-20-23-apis-rest---servidor">Clase 20-23: APIs REST - Servidor</h3>
+<ul>
+<li><strong>Contenidos:</strong> Desarrollo de APIs REST con Node.js y Express. Diseño de endpoints. Middleware. Gestión de errores. Validación de datos. Persistencia de datos.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Diseñar e implementar una API REST.</li>
+<li>Gestionar peticiones y respuestas HTTP.</li>
+<li>Implementar la lógica de negocio del servidor.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_servercoms/rest/rest_server.html" class="quarto-xref"><span>12&nbsp; Servidor API REST con Javascript</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-rest" class="quarto-xref"><span>APIs REST</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-rest-server" class="quarto-xref"><span>REST - Servidor</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Desarrollo de una API REST completa.</li>
+<li>Pruebas de endpoints con herramientas como Postman.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de los apuntes sobre desarrollo de servidores REST.</li>
+<li>Implementación de la API del proyecto final.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-24-28-websockets---cliente-y-servidor" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-24-28-websockets---cliente-y-servidor">Clase 24-28: WebSockets - Cliente y Servidor</h3>
+<ul>
+<li><strong>Contenidos:</strong> Introducción a WebSockets. Comunicación bidireccional en tiempo real. Socket.IO. Gestión de conexiones. Salas y broadcast. Sincronización de estado en juegos multijugador.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Comprender las ventajas de WebSockets sobre HTTP.</li>
+<li>Implementar comunicación en tiempo real.</li>
+<li>Sincronizar el estado del juego entre múltiples clientes.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Apuntes: <a href="ch/part_servercoms/ws/ws_intro.html" class="quarto-xref"><span>13&nbsp; Introducción a WebSockets</span></a>, <a href="ch/part_servercoms/ws/ws_client.html" class="quarto-xref"><span>14&nbsp; Cliente WebSockets con JavasScript</span></a>, <a href="ch/part_servercoms/ws/ws_server.html" class="quarto-xref"><span>15&nbsp; Servidor WebSockets con JavasScript</span></a></li>
+<li>Diapositivas: <a href="ch/slides/slides.html#sec-slides-websockets" class="quarto-xref"><span>WebSockets</span></a></li>
+<li>Ejercicios: <a href="ch/exercises/_exercises.html#sec-ex-ws-intro" class="quarto-xref"><span>WebSockets - Introducción</span></a>, <a href="ch/exercises/_exercises.html#sec-ex-ws-client" class="quarto-xref"><span>WebSockets - Cliente</span></a>, <a href="ch/exercises/_exercises.html#sec-ex-ws-server" class="quarto-xref"><span>WebSockets - Servidor</span></a></li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Implementación de chat en tiempo real.</li>
+<li>Desarrollo de la comunicación multijugador para el proyecto final.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Lectura de todos los apuntes sobre WebSockets.</li>
+<li>Integración de WebSockets en el proyecto final.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-29-examen" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-29-examen">Clase 29: Examen</h3>
+<ul>
+<li><strong>Contenidos:</strong> Evaluación de los contenidos de APIs REST y WebSockets (Clases 16-17, 20-28).</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Demostrar comprensión de la arquitectura REST y WebSockets.</li>
+<li>Aplicar los conocimientos de comunicación cliente-servidor.</li>
+<li>Implementar soluciones de comunicación en tiempo real.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Todos los materiales de las clases 16-17 y 20-28.</li>
+<li>Apuntes de REST y WebSockets.</li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Examen teórico-práctico de REST y WebSockets.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Finalización del proyecto final con comunicación en tiempo real.</li>
+<li>Preparación de la presentación final del proyecto.</li>
+</ul></li>
+</ul>
+</section>
+<section id="clase-30-presentación-prácticas" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clase-30-presentación-prácticas">Clase 30: Presentación prácticas</h3>
+<ul>
+<li><strong>Contenidos:</strong> Presentación del proyecto de juego multijugador con API REST. Demostración de la integración cliente-servidor. Arquitectura del sistema completo.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Presentar un proyecto completo de juego en red con API REST.</li>
+<li>Explicar la arquitectura cliente-servidor implementada.</li>
+<li>Demostrar dominio de todas las tecnologías del curso.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Proyecto final de juego multijugador.</li>
+<li>Código fuente del cliente y servidor.</li>
+<li>Documentación de la API REST implementada.</li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Presentaciones de los proyectos finales.</li>
+<li>Demostración en vivo de las funcionalidades multijugador.</li>
+<li>Sesión de retroalimentación y evaluación.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Preparación exhaustiva de la presentación final.</li>
+<li>Documentación completa del proyecto.</li>
+<li>Estudio para el examen de la evaluación ordinaria.</li>
+</ul></li>
+</ul>
+</section>
+<section id="examen-de-la-evaluación-ordinaria-proyecto-final" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="examen-de-la-evaluación-ordinaria-proyecto-final">Examen de la evaluación ordinaria (Proyecto final)</h3>
+<ul>
+<li><strong>Contenidos:</strong> Desarrollo de un juego multijugador completo con WebSockets.</li>
+<li><strong>Objetivos de Aprendizaje:</strong>
+<ul>
+<li>Demostrar comprensión integral de redes de ordenadores, JavaScript, Phaser, APIs REST y WebSockets.</li>
+<li>Implementar un juego multijugador funcional con comunicación en tiempo real.</li>
+<li>Aplicar todos los conocimientos adquiridos durante el curso.</li>
+</ul></li>
+<li><strong>Materiales Utilizados:</strong>
+<ul>
+<li>Todos los materiales del curso (Clases 1-30).</li>
+<li>Apuntes completos de redes, JavaScript, Phaser, REST y WebSockets.</li>
+<li>Documentación de todas las tecnologías utilizadas.</li>
+</ul></li>
+<li><strong>Actividades Planificadas:</strong>
+<ul>
+<li>Desarrollo y presentación final de un juego multijugador con WebSockets.</li>
+</ul></li>
+<li><strong>Trabajo Personal Recomendado:</strong>
+<ul>
+<li>Repaso exhaustivo de todos los contenidos de la asignatura.</li>
+<li>Práctica con proyectos personales integrando todas las tecnologías.</li>
+<li>Revisión de todos los ejercicios y proyectos del curso.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="recursos-adicionales" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="recursos-adicionales">Recursos adicionales</h2>
+<p>Los siguientes recursos complementarios pueden ser útiles durante el curso:</p>
+<ul>
+<li>Documentación oficial de JavaScript <span class="citation" data-cites="mdn2024javascript">(<a href="references.html#ref-mdn2024javascript" role="doc-biblioref">Mozilla Developer Network 2024</a>)</span>: <a href="https://developer.mozilla.org/">MDN Web Docs</a></li>
+<li>Documentación oficial de Phaser <span class="citation" data-cites="photonstorm2024phaser">(<a href="references.html#ref-photonstorm2024phaser" role="doc-biblioref">Photonstorm 2024</a>)</span>: <a href="https://phaser.io/">Phaser.io</a></li>
+<li>Documentación de Node.js: <a href="https://nodejs.org/">Node.js Docs</a></li>
+<li>Documentación de Socket.IO: <a href="https://socket.io/">Socket.IO</a></li>
+<li>Plataforma con visualizaciones: <a href="https://jergames.dslabapps.es">JER Games</a> (Para información sobre el código fuente ver <a href="ch/code/code.html" class="quarto-xref"><span>18&nbsp; Software utilizado en la asignatura</span></a>)</li>
+</ul>
+</section>
+<section id="bibliografía-recomendada" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="bibliografía-recomendada">Bibliografía recomendada</h2>
+<p>Para profundizar en los conceptos del curso, se recomienda consultar:</p>
+<ul>
+<li><strong>Redes de ordenadores</strong>: Los fundamentos de redes están basados en <span class="citation" data-cites="kurose2021computer">(<a href="references.html#ref-kurose2021computer" role="doc-biblioref">Kurose y Ross 2021</a>)</span>. También es recomendable <span class="citation" data-cites="tanenbaum2021computer">(<a href="references.html#ref-tanenbaum2021computer" role="doc-biblioref">Tanenbaum y Wetherall 2021</a>)</span>.</li>
+<li><strong>JavaScript</strong>: Para dominar el lenguaje, consultar <span class="citation" data-cites="flanagan2020javascript">(<a href="references.html#ref-flanagan2020javascript" role="doc-biblioref">Flanagan 2020</a>)</span> y <span class="citation" data-cites="haverbeke2018eloquent">(<a href="references.html#ref-haverbeke2018eloquent" role="doc-biblioref">Haverbeke 2018</a>)</span>.</li>
+<li><strong>Desarrollo de juegos en red</strong>: Recursos esenciales incluyen <span class="citation" data-cites="gambetta2014multiplayer">(<a href="references.html#ref-gambetta2014multiplayer" role="doc-biblioref">Gambetta 2014</a>)</span>, <span class="citation" data-cites="fiedler2024gaffer">(<a href="references.html#ref-fiedler2024gaffer" role="doc-biblioref">Fiedler 2024</a>)</span>, <span class="citation" data-cites="claypool2006latency">(<a href="references.html#ref-claypool2006latency" role="doc-biblioref">Claypool y Claypool 2006</a>)</span>, <span class="citation" data-cites="bernier2001latency">(<a href="references.html#ref-bernier2001latency" role="doc-biblioref">Bernier 2001</a>)</span>, <span class="citation" data-cites="aldridge2011halo">(<a href="references.html#ref-aldridge2011halo" role="doc-biblioref">Aldridge 2011</a>)</span>, y <span class="citation" data-cites="glazer2015multiplayer">(<a href="references.html#ref-glazer2015multiplayer" role="doc-biblioref">Glazer y Madhav 2015</a>)</span>.</li>
+<li><strong>APIs REST</strong>: La arquitectura REST está definida en <span class="citation" data-cites="fielding2000architectural">(<a href="references.html#ref-fielding2000architectural" role="doc-biblioref">Fielding 2000</a>)</span>. Guías prácticas incluyen <span class="citation" data-cites="masse2011rest">(<a href="references.html#ref-masse2011rest" role="doc-biblioref">Masse 2011</a>)</span>, <span class="citation" data-cites="richardson2013restful">(<a href="references.html#ref-richardson2013restful" role="doc-biblioref">Richardson y Ruby 2013</a>)</span>, y <span class="citation" data-cites="sturgeon2016build">(<a href="references.html#ref-sturgeon2016build" role="doc-biblioref">Sturgeon 2016</a>)</span>.</li>
+<li><strong>WebSockets</strong>: El protocolo está especificado en <span class="citation" data-cites="fette2011websocket">(<a href="references.html#ref-fette2011websocket" role="doc-biblioref">Fette y Melnikov 2011</a>)</span>. Para implementación práctica, ver <span class="citation" data-cites="wang2013websocket">(<a href="references.html#ref-wang2013websocket" role="doc-biblioref">Wang, Salim, y Moskovits 2013</a>)</span> y <span class="citation" data-cites="doglio2015rest">(<a href="references.html#ref-doglio2015rest" role="doc-biblioref">Doglio 2015</a>)</span>.</li>
+<li><strong>Node.js y Express</strong>: Referencias recomendadas incluyen <span class="citation" data-cites="wilson2018nodejs">(<a href="references.html#ref-wilson2018nodejs" role="doc-biblioref">Wilson 2018</a>)</span>, <span class="citation" data-cites="hahn2014express">(<a href="references.html#ref-hahn2014express" role="doc-biblioref">Hahn 2014</a>)</span>, y <span class="citation" data-cites="young2017nodejs">(<a href="references.html#ref-young2017nodejs" role="doc-biblioref">Young, Meck, y Cantelon 2017</a>)</span>.</li>
+</ul>
+<p>Todas las referencias completas se encuentran en la sección de referencias del libro.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-aldridge2011halo" class="csl-entry" role="listitem">
+Aldridge, David. 2011. <span>«I Shot You First: Networking the Gameplay of Halo: Reach»</span>. En <em>Game Developers Conference</em>.
+</div>
+<div id="ref-bernier2001latency" class="csl-entry" role="listitem">
+Bernier, Yahn W. 2001. <span>«Latency compensating methods in client/server in-game protocol design and optimization»</span>. En <em>Game Developers Conference</em>.
+</div>
+<div id="ref-claypool2006latency" class="csl-entry" role="listitem">
+Claypool, Mark, y Kajal Claypool. 2006. <span>«Latency and player actions in online games»</span>. <em>Commun. ACM</em> 49 (11): 40-45. <a href="https://doi.org/10.1145/1167838.1167860">https://doi.org/10.1145/1167838.1167860</a>.
+</div>
+<div id="ref-doglio2015rest" class="csl-entry" role="listitem">
+Doglio, Fernando. 2015. <em>Pro REST API Development with Node.js</em>. Berkeley, CA: Apress.
+</div>
+<div id="ref-fette2011websocket" class="csl-entry" role="listitem">
+Fette, Ian, y Alexey Melnikov. 2011. <span>«The WebSocket Protocol»</span>. RFC 6455. Internet Engineering Task Force. <a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>.
+</div>
+<div id="ref-fiedler2024gaffer" class="csl-entry" role="listitem">
+Fiedler, Glenn. 2024. <span>«Gaffer on Games: Networking for Game Programmers»</span>. <a href="https://gafferongames.com/" class="uri">https://gafferongames.com/</a>.
+</div>
+<div id="ref-fielding2000architectural" class="csl-entry" role="listitem">
+Fielding, Roy Thomas. 2000. <span>«Architectural Styles and the Design of Network-based Software Architectures»</span>. Tesis doctoral, University of California, Irvine.
+</div>
+<div id="ref-flanagan2020javascript" class="csl-entry" role="listitem">
+Flanagan, David. 2020. <em>JavaScript: The Definitive Guide</em>. 7.ª ed. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-gambetta2014multiplayer" class="csl-entry" role="listitem">
+Gambetta, Gabriel. 2014. <span>«Fast-Paced Multiplayer»</span>. <a href="https://www.gabrielgambetta.com/client-server-game-architecture.html" class="uri">https://www.gabrielgambetta.com/client-server-game-architecture.html</a>.
+</div>
+<div id="ref-glazer2015multiplayer" class="csl-entry" role="listitem">
+Glazer, Joshua, y Sanjay Madhav. 2015. <em>Multiplayer Game Programming: Architecting Networked Games</em>. Boston, MA: Addison-Wesley Professional.
+</div>
+<div id="ref-hahn2014express" class="csl-entry" role="listitem">
+Hahn, Evan. 2014. <em>Express in Action: Writing, building, and testing Node.js applications</em>. Shelter Island, NY: Manning Publications.
+</div>
+<div id="ref-haverbeke2018eloquent" class="csl-entry" role="listitem">
+Haverbeke, Marijn. 2018. <em>Eloquent JavaScript: A Modern Introduction to Programming</em>. 3.ª ed. San Francisco, CA: No Starch Press.
+</div>
+<div id="ref-kurose2021computer" class="csl-entry" role="listitem">
+Kurose, James F., y Keith W. Ross. 2021. <em>Computer Networks: A Top-Down Approach</em>. 8.ª ed. Boston, MA: Pearson.
+</div>
+<div id="ref-masse2011rest" class="csl-entry" role="listitem">
+Masse, Mark. 2011. <em>REST API Design Rulebook</em>. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-mdn2024javascript" class="csl-entry" role="listitem">
+Mozilla Developer Network. 2024. <span>«JavaScript Guide»</span>. <a href="https://developer.mozilla.org/" class="uri">https://developer.mozilla.org/</a>.
+</div>
+<div id="ref-photonstorm2024phaser" class="csl-entry" role="listitem">
+Photonstorm. 2024. <span>«Phaser 3 Documentation»</span>. <a href="https://phaser.io/" class="uri">https://phaser.io/</a>.
+</div>
+<div id="ref-richardson2013restful" class="csl-entry" role="listitem">
+Richardson, Leonard, y Sam Ruby. 2013. <em>RESTful Web APIs</em>. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-sturgeon2016build" class="csl-entry" role="listitem">
+Sturgeon, Phil. 2016. <em>Build APIs You Won’t Hate</em>. LeanPub.
+</div>
+<div id="ref-tanenbaum2021computer" class="csl-entry" role="listitem">
+Tanenbaum, Andrew S., y David J. Wetherall. 2021. <em>Computer Networks</em>. 6.ª ed. Harlow, England: Pearson.
+</div>
+<div id="ref-wang2013websocket" class="csl-entry" role="listitem">
+Wang, Vanessa, Frank Salim, y Peter Moskovits. 2013. <em>The Definitive Guide to HTML5 WebSocket</em>. Berkeley, CA: Apress.
+</div>
+<div id="ref-wilson2018nodejs" class="csl-entry" role="listitem">
+Wilson, Jim. 2018. <em>Node.js 8 the Right Way: Practical, Server-Side JavaScript That Scales</em>. Raleigh, NC: Pragmatic Bookshelf.
+</div>
+<div id="ref-young2017nodejs" class="csl-entry" role="listitem">
+Young, Alex, Bradley Meck, y Mike Cantelon. 2017. <em>Node.js in Action</em>. 2.ª ed. Shelter Island, NY: Manning Publications.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -669,8 +1570,8 @@ Importante
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch/part_networks/network_intro/network_intro.html" class="pagination-link" aria-label="Introducción a las Redes de Ordenadores">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a las Redes de Ordenadores</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch/part_networks/part_intro.html" class="pagination-link" aria-label="Parte: Introducción a los juegos en red y a las redes de comunicaciones">
+        <span class="nav-page-text">Parte: Introducción a los juegos en red y a las redes de comunicaciones</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
