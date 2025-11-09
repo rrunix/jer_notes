@@ -76,7 +76,7 @@ El curso se desarrolla a lo largo de 15 semanas, con dos sesiones semanales. La 
     - Entender el papel de los protocolos en la comunicación de red.
 - **Materiales Utilizados:**
     - Apuntes: @sec-network-intro
-    - Diapositivas: @sec-slides-subject-intro @sec-slides-network-intro
+    - Diapositivas: @sec-slides-subject-intro, @sec-slides-network-intro
     - Ejercicios: @sec-ex-network-intro
 - **Actividades Planificadas:**
     - Discusión sobre la importancia de las redes en los videojuegos.

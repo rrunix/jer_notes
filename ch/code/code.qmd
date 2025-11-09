@@ -20,3 +20,26 @@ anchor=swh:1:rev:3f99cd855ca1298ff61620308ba51d1dd37b7a41
 ```
 
 **Enlace permanente**: [Software Heritage Archive](https://archive.softwareheritage.org/swh:1:dir:e759621272f530009eb589570687a2d56d0d4bcd;origin=https://github.com/rrunix/jer-visualizations;visit=swh:1:snp:486873193776051caea0e315d0a88a076d0ce242;anchor=swh:1:rev:3f99cd855ca1298ff61620308ba51d1dd37b7a41)
+
+## Libro
+
+**Ubicación**: [GitHub Repository](https://github.com/rrunix/jer-notes)
+
+**Descripción**: Repositorio completo del proyecto de la asignatura que incluye:
+
+- Código fuente de las notas de clase (Quarto) + ejemplos. 
+- Transparencias del curso (PDF)
+- Ejercicios prácticos (Quarto + código)
+- Soluciones a los ejercicios (Quarto + código)
+- Código de apoyo y ejemplos complementarios
+
+**Identificador SWH**:
+
+```
+swh:1:dir:5ccb83b3d60a4bb18a782b0c2c8193f36fadef50;
+origin=https://github.com/rrunix/jer-notes;
+visit=swh:1:snp:46902d508a6a5ee2716c8e606f75a6fef55c26b4;
+anchor=swh:1:rev:7910dedb71c0f8d0866dd0c19e772283fca44c8e
+```
+
+**Enlace permanente**: [Software Heritage Archive](https://archive.softwareheritage.org/swh:1:dir:5ccb83b3d60a4bb18a782b0c2c8193f36fadef50;origin=https://github.com/rrunix/jer-notes;visit=swh:1:snp:46902d508a6a5ee2716c8e606f75a6fef55c26b4;anchor=swh:1:rev:7910dedb71c0f8d0866dd0c19e772283fca44c8e)

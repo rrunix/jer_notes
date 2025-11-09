@@ -11,7 +11,8 @@ def include_slides(path):
         print(f"![]({img})\n\n")
 ```
 
-## Introducción a la asignatura {#sec-slides-subject-intro}
+## Introducción a la asignatura {#sec-slides-subject-intro}
+
 ```{python}
 #| echo: false
 #| output: asis
