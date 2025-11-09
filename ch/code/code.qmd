@@ -23,7 +23,7 @@ anchor=swh:1:rev:3f99cd855ca1298ff61620308ba51d1dd37b7a41
 
 ## Libro
 
-**Ubicación**: [GitHub Repository](https://github.com/rrunix/jer-notes)
+**Ubicación**: [GitHub Repository](https://github.com/rrunix/jer-material-abierto)
 
 **Descripción**: Repositorio completo del proyecto de la asignatura que incluye:
 
@@ -36,10 +36,10 @@ anchor=swh:1:rev:3f99cd855ca1298ff61620308ba51d1dd37b7a41
 **Identificador SWH**:
 
 ```
-swh:1:dir:5ccb83b3d60a4bb18a782b0c2c8193f36fadef50;
-origin=https://github.com/rrunix/jer-notes;
-visit=swh:1:snp:46902d508a6a5ee2716c8e606f75a6fef55c26b4;
-anchor=swh:1:rev:7910dedb71c0f8d0866dd0c19e772283fca44c8e
+swh:1:dir:33cb3e030de44f6876bdd6abb3f24dd937d25606;
+origin=https://github.com/rrunix/jer-material-abierto;
+visit=swh:1:snp:317a2a13c60f4703d57f45bd494d65b6a44cd3ed;
+anchor=swh:1:rev:2e7a212b30adaebaa8a1c6a2f0655a1ddc74c496
 ```
 
-**Enlace permanente**: [Software Heritage Archive](https://archive.softwareheritage.org/swh:1:dir:5ccb83b3d60a4bb18a782b0c2c8193f36fadef50;origin=https://github.com/rrunix/jer-notes;visit=swh:1:snp:46902d508a6a5ee2716c8e606f75a6fef55c26b4;anchor=swh:1:rev:7910dedb71c0f8d0866dd0c19e772283fca44c8e)
+**Enlace permanente**: [Software Heritage Archive](https://archive.softwareheritage.org/swh:1:dir:33cb3e030de44f6876bdd6abb3f24dd937d25606;origin=https://github.com/rrunix/jer-material-abierto;visit=swh:1:snp:317a2a13c60f4703d57f45bd494d65b6a44cd3ed;anchor=swh:1:rev:2e7a212b30adaebaa8a1c6a2f0655a1ddc74c496)
