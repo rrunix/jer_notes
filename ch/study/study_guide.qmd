@@ -59,7 +59,7 @@ El curso se desarrolla a lo largo de 15 semanas, con dos sesiones semanales. La 
 | 6 | Clase 11: Introducción a Phaser | Clase 12: Phaser (continuación) |
 | 7 | Clase 13: Phaser (continuación) | Clase 14: Phaser (continuación) |
 | 8 | Clase 15: Phaser (continuación) | Clase 16: APIs REST - Introducción y Cliente |
-| 9 | Clase 17: APIs REST - Cliente (continuación) | Clase 18: Presentación prácticas |
+| 9  | Clase 17: APIs REST - Cliente (continuación) | Clase 18: Presentación prácticas |
 | 10 | Clase 19: Examen | Clase 20: APIs REST - Servidor |
 | 11 | Clase 21: APIs REST - Servidor (continuación) | Clase 22: APIs REST - Servidor (continuación) |
 | 12 | Clase 23: APIs REST - Servidor (continuación) | Clase 24: WebSockets - Cliente y Servidor |
@@ -67,7 +67,7 @@ El curso se desarrolla a lo largo de 15 semanas, con dos sesiones semanales. La 
 | 14 | Clase 27: WebSockets (continuación) | Clase 28: WebSockets (continuación) |
 | 15 | Clase 29: Examen | Clase 30: Presentación prácticas |
 
-### Clase 1: Presentación a asignatura e itroducción a las Redes de Ordenadores {.unnumbered}
+### Clase 1: Presentación a asignatura e introducción a las Redes de Ordenadores {.unnumbered}
 
 - **Contenidos:** Presentación de la asignatura, guía docente y sistema de evaluación.Introducción de los conceptos fundamentales de redes de ordenadores. Arquitectura de red por capas. Modelo TCP/IP. Protocolos y estándares. Historia y evolución de Internet.
 - **Objetivos de Aprendizaje:**

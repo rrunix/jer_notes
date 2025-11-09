@@ -7,7 +7,7 @@ Material en abierto de la asignatura "Juegos en Red" del Grado en Desarrollo de 
 Este repositorio contiene todo el material en abierto de la asignatura "Juegos en Red", desarrollado con Quarto como un libro interactivo. El material incluye:
 
 - **Guía de estudio**: Planificación y objetivos del curso
-- **Notas de la asignatura**: Apuntes completos de todos los temas
+- **Apuntes de la asignatura**: Apuntes completos de todos los temas
 - **Diapositivas**: Presentaciones utilizadas en clase (incluídas en formato PDF)
 - **Ejercicios**: Problemas y prácticas para consolidar conocimientos
 - **Ejemplos de código**: Referencias a los repositorios.

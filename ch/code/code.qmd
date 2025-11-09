@@ -27,7 +27,7 @@ anchor=swh:1:rev:3f99cd855ca1298ff61620308ba51d1dd37b7a41
 
 **Descripción**: Repositorio completo del proyecto de la asignatura que incluye:
 
-- Código fuente de las notas de clase (Quarto) + ejemplos. 
+- Código fuente de los apuntes de clase (Quarto) + ejemplos. 
 - Transparencias del curso (PDF)
 - Ejercicios prácticos (Quarto + código)
 - Soluciones a los ejercicios (Quarto + código)
