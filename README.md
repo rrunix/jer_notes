@@ -1,8 +1,17 @@
-# Apuntes de Juegos en Red
+# Material docente en abierto de la asignatura Juegos en Red del Grado en Diseño y Desarrollo de Videojuegos
 
-Material en abierto de la asignatura "Juegos en Red" del Grado en Desarrollo de Videojuegos de la Universidad Rey Juan Carlos (URJC).
+Material docente en abierto de la asignatura "Juegos en Red" del Grado en Diseño y Desarrollo de Videojuegos de la Universidad Rey Juan Carlos (URJC). Impartida en dos sedes, campus de Quintana y Móstoles. Depositado en el BURJC Digital.
 
-## Sobre Este Proyecto
+**Autores**: 
+
+- Rubén Rodríguez (ruben.rodriguez@urjc.es) - URJC
+- Natalia Madrueño (natalia.madrueno@urjc.es) - URJC
+
+**Fecha**: 10/11/2025.
+
+**Licencia**: Este trabajo está licenciado bajo [Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## Sobre Este Repositorio
 
 Este repositorio contiene todo el material en abierto de la asignatura "Juegos en Red", desarrollado con Quarto como un libro interactivo. El material incluye:
 
@@ -168,15 +177,6 @@ Al añadir nuevo contenido:
 3. Añade cualquier imagen al directorio `images/`
 4. Actualiza las entradas de bibliografía en `references.bib` según sea necesario
 5. Sigue el formato Quarto markdown existente y las convenciones de estilo
-
-## Autores
-
-- Rubén Rodríguez (ruben.rodriguez@urjc.es) - URJC
-- Natalia Madrueño (natalia.madrueno@urjc.es) - URJC
-
-## Licencia
-
-Este trabajo está licenciado bajo [Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/).
 
 ## Soporte
 
