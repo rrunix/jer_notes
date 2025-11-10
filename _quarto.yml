@@ -16,38 +16,38 @@ book:
 
   chapters:
     - index.qmd
-    - part: "Introducción a redes"
-      chapters:
-      - ch/part_networks/part_intro.qmd
-      - ch/part_networks/network_intro/network_intro.qmd
-      - ch/part_networks/access_layer/access_layer.qmd
-      - ch/part_networks/network_layer/network_layer.qmd
-      - ch/part_networks/transport_layer/transport_layer.qmd
-      - ch/part_networks/application_layer/application_layer.qmd
+    # - part: "Introducción a redes"
+    #   chapters:
+    #   - ch/part_networks/part_intro.qmd
+    #   - ch/part_networks/network_intro/network_intro.qmd
+    #   - ch/part_networks/access_layer/access_layer.qmd
+    #   - ch/part_networks/network_layer/network_layer.qmd
+    #   - ch/part_networks/transport_layer/transport_layer.qmd
+    #   - ch/part_networks/application_layer/application_layer.qmd
 
-    - part: "Desarrollo en el cliente"
-      chapters:
-      - ch/part_client/part_intro_htmlcssjs.qmd
-      - ch/part_client/js/js.qmd
-      - ch/part_client/htmlcss/htmlcss.qmd
-      - ch/part_client/part_intro_phaser.qmd
-      - ch/part_client/phaser/phaser.qmd
+    # - part: "Desarrollo en el cliente"
+    #   chapters:
+    #   - ch/part_client/part_intro_htmlcssjs.qmd
+    #   - ch/part_client/js/js.qmd
+    #   - ch/part_client/htmlcss/htmlcss.qmd
+    #   - ch/part_client/part_intro_phaser.qmd
+    #   - ch/part_client/phaser/phaser.qmd
 
-    - part: "Desarrollo en el servidor y comunicación"
-      chapters:
-      - ch/part_servercoms/part_intro_rest.qmd
-      - ch/part_servercoms/rest/rest_intro.qmd
-      - ch/part_servercoms/rest/rest_client.qmd
-      - ch/part_servercoms/rest/rest_server.qmd
-      - ch/part_servercoms/part_intro_ws.qmd
-      - ch/part_servercoms/ws/ws_intro.qmd
-      - ch/part_servercoms/ws/ws_client.qmd
-      - ch/part_servercoms/ws/ws_server.qmd
+    # - part: "Desarrollo en el servidor y comunicación"
+    #   chapters:
+    #   - ch/part_servercoms/part_intro_rest.qmd
+    #   - ch/part_servercoms/rest/rest_intro.qmd
+    #   - ch/part_servercoms/rest/rest_client.qmd
+    #   - ch/part_servercoms/rest/rest_server.qmd
+    #   - ch/part_servercoms/part_intro_ws.qmd
+    #   - ch/part_servercoms/ws/ws_intro.qmd
+    #   - ch/part_servercoms/ws/ws_client.qmd
+    #   - ch/part_servercoms/ws/ws_server.qmd
 
-    - references.qmd
-    - ch/slides/slides.qmd
-    - ch/exercises/_exercises.qmd
-    - ch/code/code.qmd
+    # - references.qmd
+    # - ch/slides/slides.qmd
+    # - ch/exercises/_exercises.qmd
+    # - ch/code/code.qmd
     
 
 bibliography: references.bib
